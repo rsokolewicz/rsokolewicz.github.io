@@ -1,5 +1,5 @@
 # Dimension
-
+ 
 A hugo port of HTML5UP's responsive and minimal dimension theme. With native support for Netlify's headless CMS.
 
 ![Dimension](https://github.com/your-identity/hugo-theme-dimension/blob/master/images/screenshot.png?raw=1)
