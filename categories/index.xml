@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Categories on My New Hugo Site</title>
-    <link>https://rsokolewicz.github.io/categories/</link>
-    <description>Recent content in Categories on My New Hugo Site</description>
+    <title>Categories on Robert Sokolewicz</title>
+    <link>https://www.robert-sokolewicz.nl/categories/</link>
+    <description>Recent content in Categories on Robert Sokolewicz</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="https://rsokolewicz.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language><atom:link href="https://www.robert-sokolewicz.nl/categories/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>
