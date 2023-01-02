@@ -1,0 +1,151 @@
+[
+  {
+    "URL": "https://journals.aps.org/prb/abstract/10.1103/PhysRevB.101.104403",
+    "author": [
+      {
+        "family": "Baglai",
+        "given": "Mikhail"
+      },
+      {
+        "family": "Sokolewicz",
+        "given": "RJ"
+      },
+      {
+        "family": "Pervishko",
+        "given": "A"
+      },
+      {
+        "family": "Katsnelson",
+        "given": "MI"
+      },
+      {
+        "family": "Eriksson",
+        "given": "Olle"
+      },
+      {
+        "family": "Yudin",
+        "given": "Dmitry"
+      },
+      {
+        "family": "Titov",
+        "given": "M"
+      }
+    ],
+    "container-title": "Physical Review B",
+    "id": "baglai2020giant",
+    "issue": "10",
+    "issued": {
+      "date-parts": [
+        [
+          2020
+        ]
+      ]
+    },
+    "page": "104403",
+    "publisher": "APS",
+    "title": "Giant anisotropy of gilbert damping in a rashba honeycomb antiferromagnet",
+    "type": "article-journal",
+    "volume": "101"
+  },
+  {
+    "URL": "https://journals.aps.org/prb/abstract/10.1103/PhysRevB.100.214403",
+    "author": [
+      {
+        "family": "Sokolewicz",
+        "given": "Robert"
+      },
+      {
+        "family": "Ghosh",
+        "given": "Sumit"
+      },
+      {
+        "family": "Yudin",
+        "given": "Dmitry"
+      },
+      {
+        "family": "Manchon",
+        "given": "Aurélien"
+      },
+      {
+        "family": "Titov",
+        "given": "Mikhail"
+      }
+    ],
+    "container-title": "Physical Review B",
+    "id": "sokolewicz2019spin",
+    "issue": "21",
+    "issued": {
+      "date-parts": [
+        [
+          2019
+        ]
+      ]
+    },
+    "page": "214403",
+    "publisher": "APS",
+    "title": "Spin-orbit torques in a rashba honeycomb antiferromagnet",
+    "type": "article-journal",
+    "volume": "100"
+  },
+  {
+    "URL": "https://journals.aps.org/prb/abstract/10.1103/PhysRevB.99.214444",
+    "author": [
+      {
+        "family": "Sokolewicz",
+        "given": "RJ"
+      },
+      {
+        "family": "Ado",
+        "given": "IA"
+      },
+      {
+        "family": "Katsnelson",
+        "given": "MI"
+      },
+      {
+        "family": "Ostrovsky",
+        "given": "PM"
+      },
+      {
+        "family": "Titov",
+        "given": "M"
+      }
+    ],
+    "container-title": "Physical Review B",
+    "id": "sokolewicz2019spin",
+    "issue": "21",
+    "issued": {
+      "date-parts": [
+        [
+          2019
+        ]
+      ]
+    },
+    "page": "214444",
+    "publisher": "APS",
+    "title": "Spin-torque resonance due to diffusive dynamics at the surface of a topological insulator",
+    "type": "article-journal",
+    "volume": "99"
+  },
+  {
+    "URL": "https://repository.ubn.ru.nl/bitstream/handle/2066/225934/225934.pdf",
+    "author": [
+      {
+        "family": "Sokolewicz",
+        "given": "RJ"
+      }
+    ],
+    "genre": "PhD thesis",
+    "id": "sokolewicz2020spintronics",
+    "issued": {
+      "date-parts": [
+        [
+          2020
+        ]
+      ]
+    },
+    "publisher": "[Sl: sn]",
+    "title": "Spintronics in two-dimensional conducting dirac ferro-and antiferromagnets",
+    "type": "thesis"
+  }
+]
