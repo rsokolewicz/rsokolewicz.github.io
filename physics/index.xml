@@ -14,10 +14,8 @@
       
       <guid>https://rsokolewicz.github.io/physics/4_kubo/</guid>
       <description>The linear response formula we used to compute the spin-density of conducting electrons can be obtained in a Keldysh-framework. We start by introducing the Green function $\mathcal{G}$ in rotated Keldysh space [see e.g. (Citation: Rammer &amp;amp; al.,&amp;#32;1986Rammer,&amp;#32; J.&amp;#32;&amp;amp;&amp;#32;Smith,&amp;#32; H. &amp;#32; (1986). &amp;#32;Quantum field-theoretical methods in transport theory of metals. Rev. Mod. Phys.,&amp;#32;58(2).&amp;#32;323–359. https://doi.org/10.1103/revmodphys.58.323 )]
-$$\mathcal{G}=\begin{pmatrix}G^\text{R} &amp;amp; G^\text{K}\\
-0 &amp;amp; G^\text{A}\end{pmatrix}$$
-where R, A and K denote retarded, advanced and Keldysh Green functions respectively.</description>
-      <content>&lt;p&gt;The linear response formula we used to compute the spin-density of conducting electrons can be obtained in a Keldysh-framework. We start by introducing the Green function $\mathcal{G}$ in rotated Keldysh space [see e.g. 
+$$\mathcal{G}=\begin{pmatrix}G^\text{R} &amp; G^\text{K}\\ 0 &amp; G^\text{A}\end{pmatrix}$$ where R, A and K denote retarded, advanced and Keldysh Green functions respectively.</description>
+      <content>&lt;p&gt;The linear response formula we used to compute the spin-density of conducting electrons can be obtained in a Keldysh-framework. We start by introducing the Green function &lt;code&gt;$\mathcal{G}$&lt;/code&gt; in rotated Keldysh space [see e.g. 
 
 
 
@@ -56,36 +54,34 @@ where R, A and K denote retarded, advanced and Keldysh Green functions respectiv
 
 
 &lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;]&lt;/p&gt;
-&lt;p&gt;$$\mathcal{G}=\begin{pmatrix}G^\text{R} &amp;amp; G^\text{K}\\&lt;br&gt;
-0 &amp;amp; G^\text{A}\end{pmatrix}$$&lt;/p&gt;
-&lt;p&gt;where R, A and K denote retarded, advanced and Keldysh Green functions respectively. In this notation a perturbation to a classical field $V(\bb{x},t)$ is given by
-$$\begin{multline}
-\delta\mathcal{G}(\bb{x}_1,t_1;\bb{x}_2,t_2)=\int\!d\bb{x}_3\int\!dt_3\, \mathcal{G}^{(0)}(\bb{x}_1,t_1;\bb{x}_3,t_3)\&lt;br&gt;
-\hat{V}(\bb{x}_3,t_3)\mathcal{G}^{(0)}(\bb{x}_3,t_3;\bb{x}_2,t_2)+\mathcal{O}(V^2)
-\label{chap1:eq:s2}
-\end{multline}$$&lt;/p&gt;
-&lt;p&gt;with $\mathcal{G}^{(0)}$ equilibrium Green functions. The Wigner-transform of a function $F(\bb{x}_1,t_1;\bb{x}_2,t_2)$ is given by&lt;/p&gt;
-&lt;p&gt;$$\begin{multline}
-F(\bb{x}_1,t_1;\bb{x}_2,t_2)=\int\frac{d^2\bb{p}}{(2\pi\hslash)^2}\int \frac{d\varepsilon}{2\pi\hslash}\,e^{-i\varepsilon(t_1-t_2)/\hslash}e^{i\bb{p}\cdot(\bb{x}_1-\bb{x}_2)/\hslash}F(\varepsilon,\bb{p},R,T)
-\end{multline}$$&lt;/p&gt;
-&lt;p&gt;with energy $\varepsilon$, momentum $\bb{p}$, time $T=\frac{t_1+t_2}{2}$ and position $\bb{R}=\frac{\bb{x}_1+\bb{x}_2}{2}$. In equilibrium the Green functions $\mathcal{G}^{(0)}$ do not depend on $\bb{R}$ and $T$, so that the momentum-frequency representation of Eq.(\ref{chap1:eq:s2}) becomes&lt;/p&gt;
-&lt;p&gt;$$\delta\mathcal{G}(\varepsilon,\omega,\bb{p},\bb{q})= \mathcal{G}^{(0)}_{\varepsilon_+,\bb{p}_+} V_{\omega,\bb{q}}\mathcal{G}^{{(0)}}_{\varepsilon_-,\bb{q}_-},$$&lt;/p&gt;
-&lt;p&gt;with subscripts $\varepsilon_\pm=\varepsilon\pm\hslash\omega/2$ and $\bb{p}_\pm=\bb{p}\pm\hslash\bb{q}/2$ and $V_{\omega,\bb{q}}$ the Fourier transform of $V(\bb{R},T)$.&lt;/p&gt;
-&lt;p&gt;The spin density $\bb{s}_{\omega,\bb{q}}$ is given by&lt;/p&gt;
-&lt;p&gt;$$\bb{s}_{\omega,\bb{q}} = {i\hslash} \int\!\frac{d\varepsilon}{2\pi\hslash}\int\!\frac{d^2\bb{p}}{(2\pi\hslash)^2}\tr \left[\delta G^&amp;lt;({\varepsilon,\omega,\bb{p},\bb{q}},T) \bb{\sigma}\right],
-$$&lt;/p&gt;
+&lt;div&gt;$$\mathcal{G}=\begin{pmatrix}G^\text{R} &amp; G^\text{K}\\
+0 &amp; G^\text{A}\end{pmatrix}$$&lt;/div&gt;
+&lt;p&gt;where R, A and K denote retarded, advanced and Keldysh Green functions respectively. In this notation a perturbation to a classical field &lt;code&gt;$V(\bb{x},t)$&lt;/code&gt; is given by&lt;/p&gt;
+&lt;div&gt;$$\begin{multline}
+    \delta\mathcal{G}(\bb{x}_1,t_1;\bb{x}_2,t_2)=\int\!d\bb{x}_3\int\!dt_3\, \mathcal{G}^{(0)}(\bb{x}_1,t_1;\bb{x}_3,t_3)\
+    \hat{V}(\bb{x}_3,t_3)\mathcal{G}^{(0)}(\bb{x}_3,t_3;\bb{x}_2,t_2)+\mathcal{O}(V^2)
+    \label{chap1:eq:s2}
+\end{multline}$$&lt;/div&gt;
+&lt;p&gt;with &lt;code&gt;$\mathcal{G}^{(0)}$&lt;/code&gt; equilibrium Green functions. The Wigner-transform of a function &lt;code&gt;$F(\bb{x}_1,t_1;\bb{x}_2,t_2)$&lt;/code&gt; is given by&lt;/p&gt;
+&lt;div&gt;$$\begin{multline}
+    F(\bb{x}_1,t_1;\bb{x}_2,t_2)=\int\frac{d^2\bb{p}}{(2\pi\hslash)^2}\int \frac{d\varepsilon}{2\pi\hslash}\,e^{-i\varepsilon(t_1-t_2)/\hslash}e^{i\bb{p}\cdot(\bb{x}_1-\bb{x}_2)/\hslash}F(\varepsilon,\bb{p},R,T)
+   \end{multline}$$&lt;/div&gt;
+&lt;p&gt;with energy &lt;code&gt;$\varepsilon$&lt;/code&gt;, momentum &lt;code&gt;$\bb{p}$&lt;/code&gt;, time &lt;code&gt;$T=\frac{t_1+t_2}{2}$&lt;/code&gt; and position &lt;code&gt;$\bb{R}=\frac{\bb{x}_1+\bb{x}_2}{2}$&lt;/code&gt;. In equilibrium the Green functions &lt;code&gt;$\mathcal{G}^{(0)}$&lt;/code&gt; do not depend on &lt;code&gt;$\bb{R}$&lt;/code&gt; and &lt;code&gt;$T$&lt;/code&gt;, so that the momentum-frequency representation of Eq.(\ref{chap1:eq:s2}) becomes&lt;/p&gt;
+&lt;div&gt;$$\delta\mathcal{G}(\varepsilon,\omega,\bb{p},\bb{q})= \mathcal{G}^{(0)}_{\varepsilon_+,\bb{p}_+} V_{\omega,\bb{q}}\mathcal{G}^{{(0)}}_{\varepsilon_-,\bb{q}_-},$$&lt;/div&gt;
+&lt;p&gt;with subscripts &lt;code&gt;$\varepsilon_\pm=\varepsilon\pm\hslash\omega/2$&lt;/code&gt; and &lt;code&gt;$\bb{p}_\pm=\bb{p}\pm\hslash\bb{q}/2$&lt;/code&gt; and &lt;code&gt;$V_{\omega,\bb{q}}$&lt;/code&gt; the Fourier transform of &lt;code&gt;$V(\bb{R},T)$&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;The spin density &lt;code&gt;$\bb{s}_{\omega,\bb{q}}$&lt;/code&gt; is given by&lt;/p&gt;
+&lt;div&gt;$$\bb{s}_{\omega,\bb{q}} = {i\hslash} \int\!\frac{d\varepsilon}{2\pi\hslash}\int\!\frac{d^2\bb{p}}{(2\pi\hslash)^2}\tr \left[\delta G^&lt;({\varepsilon,\omega,\bb{p},\bb{q}},T) \bb{\sigma}\right],$$&lt;/div&gt;
 &lt;p&gt;where,&lt;/p&gt;
-&lt;p&gt;$$\delta G^&amp;lt;(\varepsilon,\omega,\bb{p},\bb{q}) = 1/2 \big(\delta G^\text{K}(\varepsilon,\omega,\bb{p},\bb{q})-
-\delta G^\text{R}(\varepsilon,\omega,\bb{p},\bb{q})+\delta G^\text{A}(\varepsilon,\omega,\bb{p},\bb{q})\big),&lt;br&gt;
-$$&lt;/p&gt;
-&lt;p&gt;and $\bb{\sigma}$ is a vector of spin operators. For a ferromagnet $\sigma$ are the usual Pauli-matrices acting on spin-degree of freedom, whereas for the antiferromagnet we use $\bb{\sigma},\Sigma_{0,z}\Lambda_{0,z}$ for the (non)-staggered spin-densities $\bb{s}^\pm$. Here $\Sigma$ and $\Lambda$ are the usual Pauli-matrices acting on sublattice and valley space degree of freedom respectively.&lt;/p&gt;
-&lt;p&gt;In equilibrium we have the fluctuation-dissipation theorem $G^\text{K}_{\varepsilon_\pm,\bb{p}_\pm} = (1-2f_{\varepsilon_\pm})(G^\text{R}_{\varepsilon_\pm,\bb{p}_\pm}-G^\text{A}_{\varepsilon_\pm,\bb{p}_\pm}) $ with $f_{\varepsilon_\pm}$ the Fermi distribution, so that the spin density now becomes&lt;/p&gt;
-&lt;p&gt;$$\begin{multline}
-\bb{s}_{\omega,\bb{q}} =   {i\hslash} \int\!\frac{d\varepsilon}{2\pi\hslash}\int\!\frac{d^2\bb{p}}{(2\pi\hslash)^2}\tr\langle
--(f_{\varepsilon_+}-f_{\varepsilon_-})\bb{\sigma}G^\text{R}_{\varepsilon_+,\bb{p}_+} V_{\omega,\bb{q}}G^\text{A}_{\varepsilon_-,\bb{p}_-}\\&lt;br&gt;
--f_{\varepsilon_+}\bb{\sigma}G^\text{R}_{\varepsilon_+,\bb{p}_+} V_{\omega,\bb{q}}G^\text{R}_{\varepsilon_-,\bb{p}_-}
-+f_{\varepsilon_-}\bb{\sigma}G^\text{A}_{\varepsilon_+,\bb{p}_+} V_{\omega,\bb{q}}G^\text{A}_{\varepsilon_-,\bb{p}_-}\rangle,
-\end{multline}$$&lt;/p&gt;
+&lt;div&gt;$$\delta G^&lt;(\varepsilon,\omega,\bb{p},\bb{q}) = 1/2 \big(\delta G^\text{K}(\varepsilon,\omega,\bb{p},\bb{q})-
+    \delta G^\text{R}(\varepsilon,\omega,\bb{p},\bb{q})+\delta G^\text{A}(\varepsilon,\omega,\bb{p},\bb{q})\big),$$&lt;/div&gt;
+&lt;p&gt;and &lt;code&gt;$\bb{\sigma}$&lt;/code&gt; is a vector of spin operators. For a ferromagnet &lt;code&gt;$\sigma$&lt;/code&gt; are the usual Pauli-matrices acting on spin-degree of freedom, whereas for the antiferromagnet we use &lt;code&gt;$\bb{\sigma}\,\Sigma_{0,z}\Lambda_{0,z}$&lt;/code&gt; for the (non)-staggered spin-densities &lt;code&gt;$\bb{s}^\pm$&lt;/code&gt;. Here &lt;code&gt;$\Sigma$&lt;/code&gt; and &lt;code&gt;$\Lambda$&lt;/code&gt; are the usual Pauli-matrices acting on sublattice and valley space degree of freedom respectively.&lt;/p&gt;
+&lt;p&gt;In equilibrium we have the fluctuation-dissipation theorem &lt;code&gt;$G^\text{K}_{\varepsilon_\pm,\bb{p}_\pm} = (1-2f_{\varepsilon_\pm})(G^\text{R}_{\varepsilon_\pm,\bb{p}_\pm}-G^\text{A}_{\varepsilon_\pm,\bb{p}_\pm}) $&lt;/code&gt; with &lt;code&gt;$f_{\varepsilon_\pm}$&lt;/code&gt; the Fermi distribution, so that the spin density now becomes&lt;/p&gt;
+&lt;div&gt;$$\begin{multline}
+    \bb{s}_{\omega,\bb{q}} =   {i\hslash} \int\!\frac{d\varepsilon}{2\pi\hslash}\int\!\frac{d^2\bb{p}}{(2\pi\hslash)^2}\tr\langle
+     -(f_{\varepsilon_+}-f_{\varepsilon_-})\bb{\sigma}G^\text{R}_{\varepsilon_+,\bb{p}_+} V_{\omega,\bb{q}}G^\text{A}_{\varepsilon_-,\bb{p}_-}\\
+     -f_{\varepsilon_+}\bb{\sigma}G^\text{R}_{\varepsilon_+,\bb{p}_+} V_{\omega,\bb{q}}G^\text{R}_{\varepsilon_-,\bb{p}_-}
+    +f_{\varepsilon_-}\bb{\sigma}G^\text{A}_{\varepsilon_+,\bb{p}_+} V_{\omega,\bb{q}}G^\text{A}_{\varepsilon_-,\bb{p}_-}\rangle,
+\end{multline}$$&lt;/div&gt;
 &lt;p&gt;where the angular brackets stands for impurity averaging. The latter amounts to the replacement of the Green&amp;rsquo;s functions with the corresponding impurity averaged Greens functions (in Born approximation) and to the replacement of one of the spin operators with the corresponding vertex corrected operator (in the non-crossing approximation). The corrections beyond the non-crossing approximation are important for those tensor components that lack leading-order contribution 
 
 
@@ -131,28 +127,28 @@ $$&lt;/p&gt;
 
 
 &lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;. To keep our notations more compact we ignore here the fact that the Green&amp;rsquo;s functions before disorder averaging lack translational invariance, i.e. depend on both Wigner coordinates: momentum and coordinate.&lt;/p&gt;
-&lt;p&gt;In the limit of small frequency, i.e. $\hslash\omega\ll\varepsilon$, we obtain $s_\alpha = s^\text{I}_\alpha+s^\text{II}_\alpha$,
-$$\begin{align}
-s^\text{I}_\alpha &amp;amp; =\frac{i\omega}{2\hslash}\int\frac{d\varepsilon}{2\pi}\int \frac{d^2\bb{p}}{(2\pi)^2}\Big(-\frac{\partial f}{\partial \varepsilon}\Big)\tr\big\langle
-2\sigma_\alpha G^\text{R}_{\varepsilon_+,\bb{p}_+} V_{\omega,\bb{q}} G^\text{A}_{\varepsilon_-,\bb{p}_-}
-\nonumber\\&lt;br&gt;
-&amp;amp; \hspace{3cm}-\sigma_\alpha G^\text{A}_{\varepsilon_+,\bb{p}_+} V_{\omega,\bb{q}} G^\text{A}_{\varepsilon_-,\bb{p}_-} -\sigma_\alpha G^\text{R}_{\varepsilon_+,\bb{p}_+} V_{\omega,\bb{q}} G^\text{R}_{\varepsilon_-,\bb{p}_-}\big\rangle,\\&lt;br&gt;
-s^\text{II}_\alpha &amp;amp; =\frac{i}{\hslash}\int\frac{d\varepsilon}{2\pi}\int \frac{d^2\bb{p}}{(2\pi)^2} f_\varepsilon \tr \big\langle\sigma_\alpha
-G^\text{A}_{\varepsilon_+,\bb{p}_+} V_{\omega,\bb{q}} G^\text{A}_{\varepsilon_-,\bb{p}_-}-
-\sigma_\alpha G^\text{R}_{\varepsilon_+,\bb{p}_+} V_{\omega,\bb{q}} G^\text{R}_{\varepsilon_-,\bb{p}_-}\big\rangle,
-\end{align}$$&lt;/p&gt;
-&lt;p&gt;where $s^{\text{I}}$ and $s^\text{II}$ are the Kubo and Středa contributions respectively. The Středa contribution is sub-leading in the powers of weak disorder strength $\alpha\ll 1$ as long as the Fermi energy lies outside the gap. Similarly, the AA and RR bubbles in the expression of $s_\alpha^\text{I}$ are sub-leading and may be neglected. Furthermore, we work in the zero temperature limit.&lt;/p&gt;
+&lt;p&gt;In the limit of small frequency, i.e. &lt;code&gt;$\hslash\omega\ll\varepsilon$&lt;/code&gt;, we obtain &lt;code&gt;$s_\alpha = s^\text{I}_\alpha+s^\text{II}_\alpha$&lt;/code&gt;,&lt;/p&gt;
+&lt;div&gt;$$\begin{align}
+    s^\text{I}_\alpha &amp; =\frac{i\omega}{2\hslash}\int\frac{d\varepsilon}{2\pi}\int \frac{d^2\bb{p}}{(2\pi)^2}\Big(-\frac{\partial f}{\partial \varepsilon}\Big)\tr\big\langle
+    2\sigma_\alpha G^\text{R}_{\varepsilon_+,\bb{p}_+} V_{\omega,\bb{q}} G^\text{A}_{\varepsilon_-,\bb{p}_-}
+    \nonumber\\
+     &amp; \hspace{3cm}-\sigma_\alpha G^\text{A}_{\varepsilon_+,\bb{p}_+} V_{\omega,\bb{q}} G^\text{A}_{\varepsilon_-,\bb{p}_-} -\sigma_\alpha G^\text{R}_{\varepsilon_+,\bb{p}_+} V_{\omega,\bb{q}} G^\text{R}_{\varepsilon_-,\bb{p}_-}\big\rangle,\\
+    s^\text{II}_\alpha &amp; =\frac{i}{\hslash}\int\frac{d\varepsilon}{2\pi}\int \frac{d^2\bb{p}}{(2\pi)^2} f_\varepsilon \tr \big\langle\sigma_\alpha
+    G^\text{A}_{\varepsilon_+,\bb{p}_+} V_{\omega,\bb{q}} G^\text{A}_{\varepsilon_-,\bb{p}_-}-
+    \sigma_\alpha G^\text{R}_{\varepsilon_+,\bb{p}_+} V_{\omega,\bb{q}} G^\text{R}_{\varepsilon_-,\bb{p}_-}\big\rangle,
+\end{align}$$&lt;/div&gt;
+&lt;p&gt;where &lt;code&gt;$s^{\text{I}}$&lt;/code&gt; and &lt;code&gt;$s^\text{II}$&lt;/code&gt; are the Kubo and Středa contributions respectively. The Středa contribution is sub-leading in the powers of weak disorder strength &lt;code&gt;$\alpha\ll 1$&lt;/code&gt; as long as the Fermi energy lies outside the gap. Similarly, the AA and RR bubbles in the expression of &lt;code&gt;$s_\alpha^\text{I}$&lt;/code&gt; are sub-leading and may be neglected. Furthermore, we work in the zero temperature limit.&lt;/p&gt;
 &lt;p&gt;The linear response to electric field and time derivative of magnetization corresponds to $V_{\bb{q},\omega} = -\hat{\bb{j}}
 \cdot\bb{A}-\Delta_\text{sd} \bb{m}\cdot\bb{\sigma}$, so that we obtain&lt;/p&gt;
-&lt;p&gt;$$\begin{equation}
-\bb{s}_{\bb{q},\omega}=\frac{1}{v^2h}\hat{K}(\bb{q},\omega)[ev(\bb{E}_{\bb{q},\omega}\times\hat{\bb{z}})-i\omega\Delta_{\text{sd}}\bb{m}_{\omega}],
-\label{chap1:eq:skubo}
-\end{equation}$$&lt;/p&gt;
-&lt;p&gt;where the components of the tensor $\hat{K}$ are given by&lt;/p&gt;
-&lt;p&gt;$$\begin{equation}
+&lt;div&gt;$$\begin{equation}
+  \bb{s}_{\bb{q},\omega}=\frac{1}{v^2h}\hat{K}(\bb{q},\omega)[ev(\bb{E}_{\bb{q},\omega}\times\hat{\bb{z}})-i\omega\Delta_{\text{sd}}\bb{m}_{\omega}],
+  \label{chap1:eq:skubo}
+\end{equation}$$&lt;/div&gt;
+&lt;p&gt;where the components of the tensor &lt;code&gt;$\hat{K}$&lt;/code&gt; are given by&lt;/p&gt;
+&lt;div&gt;$$\begin{equation}
 \hat{K}_{\alpha\beta}(\bb{q},\omega)={v^2}\int\!\frac{d^2\bb{p}}{(2\pi)^2}\tr \langle \sigma_\alpha G^\text{R}_{\bb{p}+ \hslash q,\varepsilon+\hslash\omega}\sigma_\beta G^\text{A}_{\bb{p},\varepsilon}\rangle.
 \label{chap1:eq:skuboB}
-\end{equation}$$&lt;/p&gt;
+\end{equation}$$&lt;/div&gt;
 </content>
     </item>
     
@@ -164,9 +160,9 @@ G^\text{A}_{\varepsilon_+,\bb{p}_+} V_{\omega,\bb{q}} G^\text{A}_{\varepsilon_-,
       <guid>https://rsokolewicz.github.io/physics/3_sd_model/</guid>
       <description>The spin-density of conducting electrons in a magnetic medium can be obtained from the the $s$&amp;ndash;$d$ model. Using the spin-density of these electrons we obtain equations describing the motion and relaxation of magnetic moments.
 Our model consists of two parts. The first part are the conducting electrons whose Hamiltonian is given by a tight-binding model. These conducting electrons can scatter of impurities in the material leading to having a finite momentum life-time.</description>
-      <content>&lt;p&gt;The spin-density of conducting electrons in a magnetic medium can be obtained from the the $s$&amp;ndash;$d$ model. Using the spin-density of these electrons we obtain equations describing the motion and relaxation of magnetic moments.&lt;/p&gt;
+      <content>&lt;p&gt;The spin-density of conducting electrons in a magnetic medium can be obtained from the the &lt;code&gt;$s$&lt;/code&gt;&amp;ndash;&lt;code&gt;$d$&lt;/code&gt; model. Using the spin-density of these electrons we obtain equations describing the motion and relaxation of magnetic moments.&lt;/p&gt;
 &lt;p&gt;Our model consists of two parts. The first part are the conducting electrons whose Hamiltonian is given by a tight-binding model. These conducting electrons can scatter of impurities in the material leading to having a finite momentum life-time. At the same time the spin of the electrons are coupled to its momentum through spin-orbit interactions, making it possible to transfer this angular momentum to the crystal lattice. The second part is the (anti)ferromagnet which we describe using a Heisenberg model in a classical limit, meaning we replace the spin-operators with vectors. In order to transfer angular momentum between localized and conduction electrons, we therefore need to introduce a parameter that couples the spin and magnetic moment locally. This allows us to directly relate the relaxation of the momentum of conduction electrons to the relaxation of angular momentum of the localized electrons. This momentum relaxation is at the heart of quantum transport theory.&lt;/p&gt;
-&lt;p&gt;Our model has much in comparison with the $s$&amp;ndash;$d$ model 
+&lt;p&gt;Our model has much in comparison with the &lt;code&gt;$s$&lt;/code&gt;&amp;ndash;&lt;code&gt;$d$&lt;/code&gt; model 
 
 
 
@@ -342,7 +338,7 @@ Our model consists of two parts. The first part are the conducting electrons who
 
 
 
-&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;, where localized $d$ electrons are coupled to conduction $s$ electrons through exchange interaction. In the literature therefore our model is often called $s$&amp;ndash;$d$, or $s$&amp;ndash;$d$-like, and the parameter that couples the spins of localized and itinerant electrons is called an $s$&amp;ndash;$d$-like exchange interaction. A related model that is called the $t$&amp;ndash;$J$ model is used in the context of high-temperature superconductivity 
+&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;, where localized &lt;code&gt;$d$&lt;/code&gt; electrons are coupled to conduction &lt;code&gt;$s$&lt;/code&gt; electrons through exchange interaction. In the literature therefore our model is often called &lt;code&gt;$s$&lt;/code&gt;&amp;ndash;&lt;code&gt;$d$&lt;/code&gt;, or &lt;code&gt;$s$&lt;/code&gt;&amp;ndash;&lt;code&gt;$d$&lt;/code&gt;-like, and the parameter that couples the spins of localized and itinerant electrons is called an &lt;code&gt;$s$&lt;/code&gt;&amp;ndash;&lt;code&gt;$d$&lt;/code&gt;-like exchange interaction. A related model that is called the &lt;code&gt;$t$&lt;/code&gt;&amp;ndash;&lt;code&gt;$J$&lt;/code&gt; model is used in the context of high-temperature superconductivity 
 
 
 
@@ -412,13 +408,13 @@ Our model consists of two parts. The first part are the conducting electrons who
 &lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;.&lt;/p&gt;
 &lt;h2 id=&#34;classical-equations-of-motion-on-magnetization&#34;&gt;Classical equations of motion on magnetization&lt;/h2&gt;
 &lt;p&gt;The Hamiltonian describing the localized and conduction electrons is given by&lt;/p&gt;
-&lt;p&gt;$$\begin{multline}
-\hat{H}
-= \sum_{\{i,j\}\in\text{n.n.}},\Big(\frac{J_{\text{ex}}}{n}\hat{\bb{S}}_i\cdot\hat{\bb{S}}_j - \frac{K}{2n}\left(\hat{{S}}_{z,i}\right)^2%\cdot\hat{\bb{S}}_{z,j}%-t_h \hat{c}_i^\dagger\hat{c}_j
-\Big)-\sum_i \big(\gamma\hbar\bb{H}_\text{ext}\cdot\hat{\bb{S}}_i-J_\text{sd}\hat{\bb{S}}_i\cdot\hat{c}_i^\dagger\bb{\sigma}\hat{c}_i\big)+H_\text{tb},
-\label{intro:eq:Hm}%-\lambda i c_i^\dagger \bb{u}_{ij}\cdot\bb{\sigma}\hat{c}_j
-\end{multline}$$&lt;/p&gt;
-&lt;p&gt;with the Heisenberg exchange energy $J_{\text{ex}}$, magnetocrystalline anisotropy constant $K$, $s$&amp;ndash;$d$-like exchange energy $J_{\text{sd}}$, creation operators for conduction electrons $\hat{c}^\dagger_l$, spin operators for localized spins $\hat{\bb{S}}_i = (\hat{{S}}_{x,i}, \hat{{S}}_{y,i}, \hat{{S}}_{z,i})$, Pauli-matrices $\bb{\sigma}=(\sigma_x,\sigma_y,\sigma_z)$, external magnetic field $\bb{H}_\text{ext}$ and a tight-binding Hamiltonian for conducting electrons $H_\text{tb}$. The first sum is taken over nearest neighbor sites. The gyromagnetic ratio $\gamma$ of the localized electrons is defined as $\gamma=\mu_s/(\hbar S)$, with magnetic moment $\mu_s$. Note that the constant $K$ is inserted in the equation above phenomenologically, but can be computed as done in 
+&lt;div&gt;$$\begin{equation}
+    \hat{H}
+        = \sum_{\{i,j\}\in\text{n.n.}}\,\Big(\frac{J_{\text{ex}}}{n}\hat{\bb{S}}_i\cdot\hat{\bb{S}}_j - \frac{K}{2n}\left(\hat{{S}}_{z,i}\right)^2
+        \Big)-\sum_i \big(\gamma\hbar\bb{H}_\text{ext}\cdot\hat{\bb{S}}_i-J_\text{sd}\hat{\bb{S}}_i\cdot\hat{c}_i^\dagger\bb{\sigma}\hat{c}_i\big)+H_\text{tb},
+    \label{intro:eq:Hm}
+\end{equation}$$&lt;/div&gt;
+&lt;p&gt;with the Heisenberg exchange energy &lt;code&gt;$J_{\text{ex}}$&lt;/code&gt;, magnetocrystalline anisotropy constant &lt;code&gt;$K$&lt;/code&gt;, &lt;code&gt;$s$&lt;/code&gt;&amp;ndash;&lt;code&gt;$d$&lt;/code&gt;-like exchange energy &lt;code&gt;$J_{\text{sd}}$&lt;/code&gt;, creation operators for conduction electrons &lt;code&gt;$\hat{c}^\dagger_l$&lt;/code&gt;, spin operators for localized spins &lt;code&gt;$\hat{\bb{S}}_i = (\hat{{S}}_{x,i}, \hat{{S}}_{y,i}, \hat{{S}}_{z,i})$&lt;/code&gt;, Pauli-matrices &lt;code&gt;$\bb{\sigma}=(\sigma_x,\sigma_y,\sigma_z)$&lt;/code&gt;, external magnetic field &lt;code&gt;$\bb{H}_\text{ext}$&lt;/code&gt; and a tight-binding Hamiltonian for conducting electrons &lt;code&gt;$H_\text{tb}$&lt;/code&gt;. The first sum is taken over nearest neighbor sites. The gyromagnetic ratio &lt;code&gt;$\gamma$&lt;/code&gt; of the localized electrons is defined as &lt;code&gt;$\gamma=\mu_s/(\hbar S)$&lt;/code&gt;, with magnetic moment &lt;code&gt;$\mu_s$&lt;/code&gt;. Note that the constant &lt;code&gt;$K$&lt;/code&gt; is inserted in the equation above phenomenologically, but can be computed as done in 
 
 
 
@@ -460,63 +456,63 @@ Our model consists of two parts. The first part are the conducting electrons who
 
 &lt;/span&gt;&lt;/span&gt;)&lt;/span&gt; for a honeycomb antiferromagnet.&lt;/p&gt;
 &lt;p&gt;To describe the full dynamics of the system we assume that the expectation value of of the localized electrons&amp;rsquo; spins move on a much larger time-scale than the spin-polarization of the conducting electrons. This allows us to decouple the system in two parts. We first derive equations of motion for the localized spins in a classical, mean-field approach by using only the expectation value of conducting electrons spin-polarization. Second, the spin-polarization of the conducting electrons is computed microscopically using linear response theory in response to electric currents and time-derivative of magnetizations, where the localized spins enter as classical fields.&lt;/p&gt;
-&lt;p&gt;We can obtain a mean-field form of the Hamiltonian Eq.(\ref{intro:eq:Hm}) by making the replacement
-$$\begin{equation}
-\sum_{\{ij\}\in\text{n.n.}} \hat{\bb{S}}_i\cdot\hat{\bb{S}}_j\rightarrow n\langle\bb{S}_j\rangle\cdot\sum_i \bb{S}_i
-\label{eq:meanfield}
-\end{equation}$$
-with $n \langle \bb{S}_j\rangle$ the effective field produced by the $n$ nearest neighbors felt by $\bb{S}_i$, where $\bb{S}_i$ is the classical expectation value of $\hat{\bb{S}}_i$.  When $J_\text{ex}&amp;lt;0$, the spins favor parallel alignment and the energy can be written as
-$$\begin{equation}
-E = \sum_{i} \Big(\hbar\gamma \hat{\bb{S}}_i\cdot \bb{H}_{\text{ext}}
-- \frac{K}{2}(\hat{S}_{z,i})^2
--J_{\text{sd}}\mathcal{A}\big(\bb{S}_i\cdot\bb{s}\big)
-\Big)
-\label{intro:eq:E1}
-\end{equation}$$
-where we made the replacement
-$$\begin{align}
-\hat{\bb{S}}_i\cdot\hat{c}_i^\dagger\bb{\sigma}\hat{c}_i \rightarrow \bb{S}_i\cdot\bb{s}, \quad \bb{s} = \mathcal{A}^{-1}\langle \hat{c}^\dagger \bb{\sigma}\hat{c}\rangle,
-\end{align}$$
-with spin-density polarization $\bb{s}$ and unit cell area $\mathcal{A}$. This replacement follows from the assumption that the dynamics of $\bb{S}$ is much slower than $\bb{s}$. With this assumption we are allowed to take the statistical average of $\hat{c}_i^\dagger\bb{\sigma}\hat{c}_i$, while $\bb{S}_i$ is taken as a constant.&lt;/p&gt;
-&lt;p&gt;In the case when $J_\text{ex}&amp;gt;0$ the spins favor antiparallel alignment and the energy can be written as
-$$\begin{equation}
-E = \sum_{i} \Big(J_{\text{ex}}\bb{S}^\text{A}_i\cdot\bb{S}^\text{B}_i
-- \frac{K}{2}((\hat{S}_{z,i}^\text{A})^2+(\hat{S}_{z,i}^\text{B})^2)
--J_{\text{sd}}\mathcal{A}\big(\bb{S}^\text{A}_i\cdot\bb{s}^\text{A}+\bb{S}^\text{B}_i\cdot\bb{s}^\text{B}\big)
-\Big)
-\label{intro:eq:E2}
-\end{equation}$$
-where we introduced the spin polarization density $\bb{s}^\text{A(B)} = \mathcal{A}^{-1}\langle \hat{c}^\dagger \bb{\sigma}\hat{c}\rangle$ (with unit cell area $\mathcal{A}$).&lt;/p&gt;
-&lt;p&gt;The equations of motion is given by $\partial_t \bb{S}_i = \{E,\bb{S}_i\}_p$, where $\{\cdots\}_p$ is the Poisson bracket. For angular momenta we simply have $\{\hbar \bb{S}_i,\hbar \bb{S}_j\}_p=\hbar \bb{S}_i\times\bb{S}_j$.&lt;/p&gt;
-&lt;p&gt;As is common practice, the magnetization in the ferromagnet is expressed in terms of a unit vector $\bb{m} = -\bb{S}/|\bb{S}|$ and for an antiferromagnet we introduce the magnetization $\bb{m}$ and staggered magnetization (also called the Néel vector) $\bb{n}$ as&lt;/p&gt;
-&lt;p&gt;$$\begin{align}
-\bb{m} &amp;amp; =-1/2(\bb{S}^\text{A}+\bb{S}^\text{B})/|\bb{S}|\\&lt;br&gt;
-\bb{n} &amp;amp; =-1/2(\bb{S}^\text{A}-\bb{S}^\text{B})/|\bb{S}|.
-\end{align}$$&lt;/p&gt;
+&lt;p&gt;We can obtain a mean-field form of the Hamiltonian Eq.(\ref{intro:eq:Hm}) by making the replacement&lt;/p&gt;
+&lt;div&gt;$$\begin{equation}
+    \sum_{\{ij\}\in\text{n.n.}} \hat{\bb{S}}_i\cdot\hat{\bb{S}}_j\rightarrow n\langle\bb{S}_j\rangle\cdot\sum_i \bb{S}_i
+    \label{eq:meanfield}
+\end{equation}$$&lt;/div&gt;
+&lt;p&gt;with &lt;code&gt;$n \langle \bb{S}_j\rangle$&lt;/code&gt; the effective field produced by the &lt;code&gt;$n$&lt;/code&gt; nearest neighbors felt by &lt;code&gt;$\bb{S}_i$&lt;/code&gt;, where &lt;code&gt;$\bb{S}_i$&lt;/code&gt; is the classical expectation value of &lt;code&gt;$\hat{\bb{S}}_i$&lt;/code&gt;.  When &lt;code&gt;$J_\text{ex}&amp;lt;0$&lt;/code&gt;, the spins favor parallel alignment and the energy can be written as&lt;/p&gt;
+&lt;div&gt;$$\begin{equation}
+    E = \sum_{i} \Big(\hbar\gamma \hat{\bb{S}}_i\cdot \bb{H}_{\text{ext}}
+    - \frac{K}{2}(\hat{S}_{z,i})^2
+    -J_{\text{sd}}\mathcal{A}\big(\bb{S}_i\cdot\bb{s}\big)
+        \Big)
+        \label{intro:eq:E1}
+\end{equation}$$&lt;/div&gt;
+&lt;p&gt;where we made the replacement&lt;/p&gt;
+&lt;div&gt;$$\begin{align}
+    \hat{\bb{S}}_i\cdot\hat{c}_i^\dagger\bb{\sigma}\hat{c}_i \rightarrow \bb{S}_i\cdot\bb{s}, \quad \bb{s} = \mathcal{A}^{-1}\langle \hat{c}^\dagger \bb{\sigma}\hat{c}\rangle,
+\end{align}$$&lt;/div&gt;
+&lt;p&gt;with spin-density polarization &lt;code&gt;$\bb{s}$&lt;/code&gt; and unit cell area &lt;code&gt;$\mathcal{A}$&lt;/code&gt;. This replacement follows from the assumption that the dynamics of &lt;code&gt;$\bb{S}$&lt;/code&gt; is much slower than &lt;code&gt;$\bb{s}$&lt;/code&gt;. With this assumption we are allowed to take the statistical average of &lt;code&gt;$\hat{c}_i^\dagger\bb{\sigma}\hat{c}_i$&lt;/code&gt;, while &lt;code&gt;$\bb{S}_i$&lt;/code&gt; is taken as a constant.&lt;/p&gt;
+&lt;p&gt;In the case when &lt;code&gt;$J_\text{ex}&amp;gt;0$&lt;/code&gt; the spins favor antiparallel alignment and the energy can be written as&lt;/p&gt;
+&lt;div&gt;$$\begin{equation}
+    E = \sum_{i} \Big(J_{\text{ex}}\bb{S}^\text{A}_i\cdot\bb{S}^\text{B}_i 
+    - \frac{K}{2}((\hat{S}_{z,i}^\text{A})^2+(\hat{S}_{z,i}^\text{B})^2)
+    -J_{\text{sd}}\mathcal{A}\big(\bb{S}^\text{A}_i\cdot\bb{s}^\text{A}+\bb{S}^\text{B}_i\cdot\bb{s}^\text{B}\big)
+        \Big)
+        \label{intro:eq:E2}
+\end{equation}$$&lt;/div&gt;
+&lt;p&gt;where we introduced the spin polarization density &lt;code&gt;$\bb{s}^\text{A(B)} = \mathcal{A}^{-1}\langle \hat{c}^\dagger \bb{\sigma}\hat{c}\rangle$&lt;/code&gt; (with unit cell area &lt;code&gt;$\mathcal{A}$&lt;/code&gt;).&lt;/p&gt;
+&lt;p&gt;The equations of motion is given by &lt;code&gt;$\partial_t \bb{S}_i = \{E,\bb{S}_i\}_p$&lt;/code&gt;, where &lt;code&gt;$\{\cdots\}_p$&lt;/code&gt; is the Poisson bracket. For angular momenta we simply have &lt;code&gt;$\{\hbar \bb{S}_i,\hbar \bb{S}_j\}_p=\hbar \bb{S}_i\times\bb{S}_j$&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;As is common practice, the magnetization in the ferromagnet is expressed in terms of a unit vector &lt;code&gt;$\bb{m} = -\bb{S}/|\bb{S}|$&lt;/code&gt; and for an antiferromagnet we introduce the magnetization &lt;code&gt;$\bb{m}$&lt;/code&gt; and staggered magnetization (also called the Néel vector) &lt;code&gt;$\bb{n}$&lt;/code&gt; as&lt;/p&gt;
+&lt;div&gt;$$\begin{align}
+ 	\bb{m} &amp; =-1/2(\bb{S}^\text{A}+\bb{S}^\text{B})/|\bb{S}|\\
+    \bb{n} &amp; =-1/2(\bb{S}^\text{A}-\bb{S}^\text{B})/|\bb{S}|.
+\end{align}$$&lt;/div&gt;
 &lt;p&gt;With these considerations we find the following equations of motion of magnetization for a ferromagnet&lt;/p&gt;
-&lt;p&gt;$$\begin{equation}
-\hbar \partial_t \bb{m} = \bb{m}\times\big(-\gamma\,\bb{H}_\text{ext}+KS \,\bb{m_z} + \Delta_{\text{sd}}\,\bb{s}\big)
-\end{equation}$$&lt;/p&gt;
-&lt;p&gt;and the following for an antiferromagnet
-$$\begin{align}
-\hbar \partial_t \bb{n} = &amp;amp;  -2SJ_\text{ex}\, \bb{n}\!\times\!\bb{m} \notag\\&lt;br&gt;
-&amp;amp;  + KS \big(\bb{m}\!\times\!\bb{n}_\perp+\bb{n}\times\bb{m}_\perp\big)
-+ \Delta_\text{sd} \big(\bb{m}\times\bb{s}^-+\bb{n}\times\bb{s}^+) -\gamma\bb{n}\times\bb{H}_\text{ext},\label{eq:sd:mag}\\&lt;br&gt;
-\hbar \partial_t \bb{m} = &amp;amp; KS  \big(\bb{n}\!\times\!\bb{n}_\perp+\bb{m}\times\bb{m}_\perp\big)
-+ \Delta_\text{sd} \big(\bb{m}\times\bb{s}^++\bb{n}\times\bb{s}^-)-\gamma \bb{m}\times\bb{H}_\text{ext}.
-\label{eq:sd:neel}
-\end{align}$$&lt;/p&gt;
-&lt;p&gt;Here we introduced the notation $\Delta_\text{sd} = J_\text{sd}\mathcal{A}$.&lt;/p&gt;
-&lt;p&gt;Note that the mean-field approximation in Eq.(\ref{eq:meanfield}) is not necessary to obtain Eqs.(\ref{eq:sd:mag}, \ref{eq:sd:neel}). The same equations of motion can be obtained by first using Heisenberg&amp;rsquo;s equations of motion $i \hbar\partial_t \hat{S}_\alpha = [H,\hat{S}_\alpha]$ (where $\alpha=x,y,z$) and the commutation relations for spin-operators $[\hat{S}_x, \hat{S}_y]=i\hat{S}_z$ on Eq.(\ref{intro:eq:Hm}), and then taking the classical limit $\hat{\bb{S}}\rightarrow \bb{S}$.&lt;/p&gt;
-&lt;p&gt;Note that the minus in front of the definitions of $\bb{n}$ and $\bb{m}$ are there because the magnetic moment of electrons are directed in opposite direction of their spin angular moment. Furthermore, although we use the same notation $\bb{m}$ for the magnetization in a ferro and anti-ferromagnet, it is only a unit-vector in the former case and not the latter.&lt;/p&gt;
+&lt;div&gt;$$\begin{equation}
+	\hbar \partial_t \bb{m} = \bb{m}\times\big(-\gamma\,\bb{H}_\text{ext}+KS \,\bb{m_z} + \Delta_{\text{sd}}\,\bb{s}\big)
+\end{equation}$$&lt;/div&gt;
+&lt;p&gt;and the following for an antiferromagnet&lt;/p&gt;
+&lt;div&gt;$$\begin{align}
+\hbar \partial_t \bb{n} = &amp;  -2SJ_\text{ex}\, \bb{n}\!\times\!\bb{m} \notag\\
+     &amp;  + KS \big(\bb{m}\!\times\!\bb{n}_\perp+\bb{n}\times\bb{m}_\perp\big) 
+	+ \Delta_\text{sd} \big(\bb{m}\times\bb{s}^-+\bb{n}\times\bb{s}^+) -\gamma\bb{n}\times\bb{H}_\text{ext},\label{eq:sd:mag}\\
+\hbar \partial_t \bb{m} = &amp; KS  \big(\bb{n}\!\times\!\bb{n}_\perp+\bb{m}\times\bb{m}_\perp\big) 
+	+ \Delta_\text{sd} \big(\bb{m}\times\bb{s}^++\bb{n}\times\bb{s}^-)-\gamma \bb{m}\times\bb{H}_\text{ext}.
+	\label{eq:sd:neel}
+\end{align}$$&lt;/div&gt;
+&lt;p&gt;Here we introduced the notation &lt;code&gt;$\Delta_\text{sd} = J_\text{sd}\mathcal{A}$&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Note that the mean-field approximation in Eq.(\ref{eq:meanfield}) is not necessary to obtain Eqs.(\ref{eq:sd:mag}, \ref{eq:sd:neel}). The same equations of motion can be obtained by first using Heisenberg&amp;rsquo;s equations of motion &lt;code&gt;$i \hbar\partial_t \hat{S}_\alpha = [H,\hat{S}_\alpha]$&lt;/code&gt; (where &lt;code&gt;$\alpha=x,y,z$&lt;/code&gt;) and the commutation relations for spin-operators &lt;code&gt;$[\hat{S}_x, \hat{S}_y]=i\hat{S}_z$&lt;/code&gt; on Eq.(\ref{intro:eq:Hm}), and then taking the classical limit &lt;code&gt;$\hat{\bb{S}}\rightarrow \bb{S}$&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Note that the minus in front of the definitions of &lt;code&gt;$\bb{n}$&lt;/code&gt; and &lt;code&gt;$\bb{m}$&lt;/code&gt; are there because the magnetic moment of electrons are directed in opposite direction of their spin angular moment. Furthermore, although we use the same notation &lt;code&gt;$\bb{m}$&lt;/code&gt; for the magnetization in a ferro and anti-ferromagnet, it is only a unit-vector in the former case and not the latter.&lt;/p&gt;
 &lt;h2 id=&#34;spin-torques-in-ferro--and-antiferromagnets&#34;&gt;Spin-torques in ferro- and antiferromagnets&lt;/h2&gt;
 &lt;p&gt;The dynamics of the magnetization vector in ferromagnets and antiferromagnets are determined by spin-torques. In order to compute a spin-torque, all we need to do is compute the spin-density of the conducting electrons, which is done using linear response theory (see the next section).&lt;/p&gt;
-&lt;p&gt;These torques can be divided into two groups: field-like and damping-like. For antiferromagnets each group can be further subdivided into two: staggered and non-staggered. In a two-dimensional ferromagnet with spin-orbit of Rashba type, the equations of motion are often written phenomenologically as
-$$\begin{equation}
-\partial_t \bb{m} = c_1 \bb{m}\times (\hat{\bb{z}}\times\bb{j}) + c_2 \bb{m}\times\big(\bb{m}\times (\hat{\bb{z}}\times{j})\big) + \alpha \bb{m}\times \partial_t \bb{m},
-\label{eq:sd:ferro}
-\end{equation}$$
-where the terms proportional to $c_1$ and $c_2$ are torques that are induced by injecting an electric current $\bb{j}$ and the term proportional to $\alpha$ describes the rate of dissipation of angular momentum and is called Gilbert damping. Gilbert damping is discussed in more detail in the next Section. The field-like and damping-like torques can be identified as those that are respectively even and odd under time-reversal (i.e. changing the signs of $\bb{m}$, $\bb{j}$ and $t$). Note that the spin of the conducting electrons must be odd in time-reversal, so that applying time-reversal on both the magnetic subsystem and the tight-binding model, one will find that the coefficients $c_1$ and $c_3$ are even, while $c_2$ must be odd under total time-reversal. Note that by symmetry we must have that $c_1$ and $\alpha$ are even in scattering time, while $c_2$ is odd in scattering time. In the literature dealing with microscopic theory there is a substantial lack of damping-like torques. The reason is that is it not easy to make $c_2$ odd in scattering time. Since the current density $\bb{j}$ is already linear in scattering time, one either needs to go beyond linear response or find less trivial mechanisms for the relaxation of angular momentum. For example in 
+&lt;p&gt;These torques can be divided into two groups: field-like and damping-like. For antiferromagnets each group can be further subdivided into two: staggered and non-staggered. In a two-dimensional ferromagnet with spin-orbit of Rashba type, the equations of motion are often written phenomenologically as&lt;/p&gt;
+&lt;div&gt;$$\begin{equation}
+    \partial_t \bb{m} = c_1 \bb{m}\times (\hat{\bb{z}}\times\bb{j}) + c_2 \bb{m}\times\big(\bb{m}\times (\hat{\bb{z}}\times{j})\big) + \alpha \bb{m}\times \partial_t \bb{m},
+    \label{eq:sd:ferro}
+\end{equation}$$&lt;/div&gt;
+&lt;p&gt;where the terms proportional to &lt;code&gt;$c_1$&lt;/code&gt; and &lt;code&gt;$c_2$&lt;/code&gt; are torques that are induced by injecting an electric current &lt;code&gt;$\bb{j}$&lt;/code&gt; and the term proportional to &lt;code&gt;$\alpha$&lt;/code&gt; describes the rate of dissipation of angular momentum and is called Gilbert damping. Gilbert damping is discussed in more detail in the next Section. The field-like and damping-like torques can be identified as those that are respectively even and odd under time-reversal (i.e. changing the signs of &lt;code&gt;$\bb{m}$&lt;/code&gt;, &lt;code&gt;$\bb{j}$&lt;/code&gt; and &lt;code&gt;$t$&lt;/code&gt;). Note that the spin of the conducting electrons must be odd in time-reversal, so that applying time-reversal on both the magnetic subsystem and the tight-binding model, one will find that the coefficients &lt;code&gt;$c_1$&lt;/code&gt; and &lt;code&gt;$c_3$&lt;/code&gt; are even, while &lt;code&gt;$c_2$&lt;/code&gt; must be odd under total time-reversal. Note that by symmetry we must have that &lt;code&gt;$c_1$&lt;/code&gt; and &lt;code&gt;$\alpha$&lt;/code&gt; are even in scattering time, while &lt;code&gt;$c_2$&lt;/code&gt; is odd in scattering time. In the literature dealing with microscopic theory there is a substantial lack of damping-like torques. The reason is that is it not easy to make &lt;code&gt;$c_2$&lt;/code&gt; odd in scattering time. Since the current density &lt;code&gt;$\bb{j}$&lt;/code&gt; is already linear in scattering time, one either needs to go beyond linear response or find less trivial mechanisms for the relaxation of angular momentum. For example in 
 
 
 
@@ -564,8 +560,8 @@ where the terms proportional to $c_1$ and $c_2$ are torques that are induced by 
 
 
 &lt;/span&gt;&lt;/span&gt;)&lt;/span&gt; we show that a damping-like torque appears when the Fermi surface becomes anisotropic.&lt;/p&gt;
-&lt;p&gt;Distinguishing between field-like and damping-like torques helps us understand more the dynamics of $\bb{n}$. For example, if the damping-like torques are absent one will only observe a simple precession of the magnetization vector around $\hat{\bb{z}}\times\bb{j}$. Damping-like torques allow for the dissipation of angular momentum so that over time the magnetization vector will be parallel to $\hat{\bb{z}}\times\bb{j}$. The dynamics induced by both field-like and damping-like torques are illustrated in &lt;a href=&#34;#fig1&#34;&gt;Figure 1&lt;/a&gt;. Note that we can change the sign of the damping-like torque by changing the direction of the electric current. If this current-induced damping-like torque overcomes the Gilbert damping one can even reverse the magnetization direction. In such a way one can construct a magnetic memory that stores a &amp;ldquo;0&amp;rdquo; or a &amp;ldquo;1&amp;rdquo; corresponding to two magnetization directions. This type of switching is illustrated in &lt;a href=&#34;#fig2&#34;&gt;Figure 2&lt;/a&gt;. The switching rate is determined by the strength of the damping-like torque which is proportional to Rashba spin-orbit coupling and by the strength of magneto-crystalline anisotropy. It is then no surprise that putting a magnetic layer on top of a heavy metal will enhance its magnetic switching abilities.&lt;/p&gt;
-&lt;p&gt;In an antiferromagnet we are more interested in the dynamics of the staggered magnetization $\bb{n}$. A phenomenological equation such as Eq.(\ref{eq:sd:ferro}) can quickly contain ten terms for a antiferromagnet and the dynamics therefore is far more complicated. However, few points can still be made. As can be seen in Eq.(\ref{eq:sd:neel}), in the absence of conducting electrons and external field, a finite magnetization $\bb{m}$ is enough to induce a precession of $\bb{n}$, typically already in the THz regime (as opposed to the much slower GHz dynamics found in ferromagnets), as the dynamics is driven by the exchange interaction $J_\text{ex}$. In order to produce a switching of the Néel vector direction one can use both a field-like torque produced by a staggered spin-polarization and an anti-damping torque produced by a staggered spin-polarization 
+&lt;p&gt;Distinguishing between field-like and damping-like torques helps us understand more the dynamics of &lt;code&gt;$\bb{n}$&lt;/code&gt;. For example, if the damping-like torques are absent one will only observe a simple precession of the magnetization vector around &lt;code&gt;$\hat{\bb{z}}\times\bb{j}$&lt;/code&gt;. Damping-like torques allow for the dissipation of angular momentum so that over time the magnetization vector will be parallel to &lt;code&gt;$\hat{\bb{z}}\times\bb{j}$&lt;/code&gt;. The dynamics induced by both field-like and damping-like torques are illustrated in &lt;a href=&#34;#fig1&#34;&gt;Figure 1&lt;/a&gt;. Note that we can change the sign of the damping-like torque by changing the direction of the electric current. If this current-induced damping-like torque overcomes the Gilbert damping one can even reverse the magnetization direction. In such a way one can construct a magnetic memory that stores a &amp;ldquo;0&amp;rdquo; or a &amp;ldquo;1&amp;rdquo; corresponding to two magnetization directions. This type of switching is illustrated in &lt;a href=&#34;#fig2&#34;&gt;Figure 2&lt;/a&gt;. The switching rate is determined by the strength of the damping-like torque which is proportional to Rashba spin-orbit coupling and by the strength of magneto-crystalline anisotropy. It is then no surprise that putting a magnetic layer on top of a heavy metal will enhance its magnetic switching abilities.&lt;/p&gt;
+&lt;p&gt;In an antiferromagnet we are more interested in the dynamics of the staggered magnetization &lt;code&gt;$\bb{n}$&lt;/code&gt;. A phenomenological equation such as Eq.(\ref{eq:sd:ferro}) can quickly contain ten terms for a antiferromagnet and the dynamics therefore is far more complicated. However, few points can still be made. As can be seen in Eq.(\ref{eq:sd:neel}), in the absence of conducting electrons and external field, a finite magnetization &lt;code&gt;$\bb{m}$&lt;/code&gt; is enough to induce a precession of &lt;code&gt;$\bb{n}$&lt;/code&gt;, typically already in the THz regime (as opposed to the much slower GHz dynamics found in ferromagnets), as the dynamics is driven by the exchange interaction &lt;code&gt;$J_\text{ex}$&lt;/code&gt;. In order to produce a switching of the Néel vector direction one can use both a field-like torque produced by a staggered spin-polarization and an anti-damping torque produced by a staggered spin-polarization 
 
 
 
@@ -698,29 +694,33 @@ where the terms proportional to $c_1$ and $c_2$ are torques that are induced by 
   &lt;figure class=&#34;center&#34; &gt;
     &lt;img src=&#34;../images/switch_ferro%20%282%29.svg&#34;   /&gt;
     
-      &lt;figcaption class=&#34;center&#34; &gt;Figure 2. Switching behavior for a Rashba ferromagnet, subject to alternating current pulses. Gray areas correspond to a constant current flowing in the direction of $\pm\hat{x}$, where the sign alternates between each successive box. In the white area the current is switched off. The graph corresponds to numerically solving Eq.(\ref{eq:sd:ferro}) with values $c_1=0.2$, $j=|\bb{j}|=1$ and $\alpha=0.1$. In the top panel we choose a value of $c_2=0.25$ corresponding to a current overcoming the Gilbert damping making switching possible. In the bottom panel we choose a value of $c_2=0.05$ which corresponds to the opposite case: an insufficiently strong current and therefore no switching. A magneto-crystalline anisotropy term $-K \bb{n}\times\bb{n_y}$ with $K=1$ was included in Eq.(\ref{eq:sd:ferro}).&lt;/figcaption&gt;
+      &lt;figcaption class=&#34;center&#34; &gt;Figure 2. Switching behavior for a Rashba ferromagnet, subject to alternating current pulses. Gray areas correspond to a constant current flowing in the direction of `$\pm\hat{x}$`, where the sign alternates between each successive box. In the white area the current is switched off. The graph corresponds to numerically solving Eq.(\ref{eq:sd:ferro}) with values `$c_1=0.2$`, `$j=|\bb{j}|=1$` and `$\alpha=0.1$`. In the top panel we choose a value of `$c_2=0.25$` corresponding to a current overcoming the Gilbert damping making switching possible. In the bottom panel we choose a value of `$c_2=0.05$` which corresponds to the opposite case: an insufficiently strong current and therefore no switching. A magneto-crystalline anisotropy term `$-K \bb{n}\times\bb{n_y}$` with `$K=1$` was included in Eq.(\ref{eq:sd:ferro}).&lt;/figcaption&gt;
     
   &lt;/figure&gt;
 
 
-&lt;!-- raw HTML omitted --&gt;
-&lt;!-- raw HTML omitted --&gt;
+&lt;!-- \begin{figure}
+    \centering
+    \includegraphics[width=0.95\textwidth]{gfx/switch_ferro}
+    \caption{Switching behavior for a Rashba ferromagnet, subject to alternating current pulses. Gray areas correspond to a constant current flowing in the direction of `$\pm\hat{x}$`, where the sign alternates between each successive box. In the white area the current is switched off. The graph corresponds to numerically solving Eq.(\ref{eq:sd:ferro}) with values `$c_1=0.2$`, `$j=|\bb{j}|=1$` and `$\alpha=0.1$`. In the top panel we choose a value of `$c_2=0.25$` corresponding to a current overcoming the Gilbert damping making switching possible. In the bottom panel we choose a value of `$c_2=0.05$` which corresponds to the opposite case: an insufficiently strong current and therefore no switching. A magneto-crystalline anisotropy term `$-K \bb{n}\times\bb{n_y}$` with `$K=1$` was included in Eq.(\ref{eq:sd:ferro}).} 
+    \label{fig:switching_ferro}
+\end{figure} --&gt;
 &lt;h2 id=&#34;the-relation-between-gilbert-damping-and-spin-life-time-of-conducting-spins&#34;&gt;The relation between Gilbert Damping and spin-life time of conducting spins&lt;/h2&gt;
-&lt;p&gt;Gilbert damping describes the relaxation of localized-spins. In the $s$&amp;ndash;$d$ model this angular momentum is transferred to the lattice through conducting electrons. We make therefore two statements. (i) Gilbert damping should be proportional to the ratio of spin-lifetime and momentum-lifetime of the conducting electrons. And (ii) Gilbert damping should be proportional to the electric conductivity (at least for low temperatures). With these two statements in mind, we find the following proportionality for Gilbert damping
-$$\begin{equation}
-\alpha \propto \sigma \times \Delta_{\text{sd}} \frac{\tau_s}{\tau} \propto \Delta_{\text{sd}}\tau_s,
-\end{equation}$$
-with conductivity $\sigma$, and spin and momentum lifetime of conducting electrons $\tau_s$ and $\tau$ respectively. On the right-hand side of above equation we used that the conductivity is proportional to the metal parameter $\varepsilon\tau$.&lt;/p&gt;
+&lt;p&gt;Gilbert damping describes the relaxation of localized-spins. In the &lt;code&gt;$s$&lt;/code&gt;&amp;ndash;&lt;code&gt;$d$&lt;/code&gt; model this angular momentum is transferred to the lattice through conducting electrons. We make therefore two statements. (i) Gilbert damping should be proportional to the ratio of spin-lifetime and momentum-lifetime of the conducting electrons. And (ii) Gilbert damping should be proportional to the electric conductivity (at least for low temperatures). With these two statements in mind, we find the following proportionality for Gilbert damping&lt;/p&gt;
+&lt;div&gt;$$\begin{equation}
+	\alpha \propto \sigma \times \Delta_{\text{sd}} \frac{\tau_s}{\tau} \propto \Delta_{\text{sd}}\tau_s,
+\end{equation}$$&lt;/div&gt;
+&lt;p&gt;with conductivity &lt;code&gt;$\sigma$&lt;/code&gt;, and spin and momentum lifetime of conducting electrons &lt;code&gt;$\tau_s$&lt;/code&gt; and &lt;code&gt;$\tau$&lt;/code&gt; respectively. On the right-hand side of above equation we used that the conductivity is proportional to the metal parameter &lt;code&gt;$\varepsilon\tau$&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;The relaxation of the spin of the conducting electrons can be phenomenologically described by the effect of a randomly fluctuating field that the electrons experience. When electrons move through an asymmetric potential, they experience a momentum-dependent magnetic field that leads to the spin-splitting of the conduction band. In a disordered system, every time the electron scatters it changes its direction and consequently the magnetic field they experience changes its direction as well.&lt;/p&gt;
-&lt;p&gt;In the presence of the spin-orbit field, the spin of the electron will precess around the direction of that field with a certain frequency $\Omega_s$. We can then distinguish two cases: (i) $\Omega_s \tau &amp;lt; 1$ where between each scattering event the spin does not have enough time to deviate from its initial spin direction in a significant manner, and (ii) $\Omega_s\tau&amp;gt;1$ where the electron spin can precess freely between each collision. We will soon see that both cases lead to a different spin-relaxation
-$$\begin{equation}
-1/\tau_s \sim \begin{cases}
-\langle \Omega^2_s\tau\rangle &amp;amp; \quad\text{for  } \Omega_s\tau &amp;lt; 1\\&lt;br&gt;
-1/\tau  &amp;amp;\quad \text{for  }  \Omega_s\tau&amp;gt;1,
-\end{cases}
-\end{equation}$$
-where $\langle\cdots\rangle$ denotes momentum averaging.&lt;/p&gt;
-&lt;p&gt;Both cases can be understood as follows. In a time-scale set by $\Omega_s$ we find that in the first case the electron experiences many scattering events. Due to the random motion involved, the electrons experience as if moving through a randomly changing magnetic field and as such lose their spin-orientation in a diffusive manner. Each scattering event gives a contribution of $(\Omega_s\tau)^2$ to the total mean squared precession deviation, and the spin-life time may be defined as the time needed for the squared precession deviation to be of the order of unity, i.e. $1\tau_s\sim \Omega_s^2\tau$ 
+&lt;p&gt;In the presence of the spin-orbit field, the spin of the electron will precess around the direction of that field with a certain frequency &lt;code&gt;$\Omega_s$&lt;/code&gt;. We can then distinguish two cases: (i) &lt;code&gt;$\Omega_s \tau &amp;lt; 1$&lt;/code&gt; where between each scattering event the spin does not have enough time to deviate from its initial spin direction in a significant manner, and (ii) &lt;code&gt;$\Omega_s\tau&amp;gt;1$&lt;/code&gt; where the electron spin can precess freely between each collision. We will soon see that both cases lead to a different spin-relaxation&lt;/p&gt;
+&lt;div&gt;$$\begin{equation}
+	1/\tau_s \sim \begin{cases}
+    	\langle \Omega^2_s\tau\rangle &amp; \quad\text{for  } \Omega_s\tau &lt; 1\\
+        1/\tau  &amp;\quad \text{for  }  \Omega_s\tau&gt;1,
+    \end{cases}
+\end{equation}$$&lt;/div&gt;
+&lt;p&gt;where &lt;code&gt;$\langle\cdots\rangle$&lt;/code&gt; denotes momentum averaging.&lt;/p&gt;
+&lt;p&gt;Both cases can be understood as follows. In a time-scale set by &lt;code&gt;$\Omega_s$&lt;/code&gt; we find that in the first case the electron experiences many scattering events. Due to the random motion involved, the electrons experience as if moving through a randomly changing magnetic field and as such lose their spin-orientation in a diffusive manner. Each scattering event gives a contribution of &lt;code&gt;$(\Omega_s\tau)^2$&lt;/code&gt; to the total mean squared precession deviation, and the spin-life time may be defined as the time needed for the squared precession deviation to be of the order of unity, i.e. &lt;code&gt;$1\tau_s\sim \Omega_s^2\tau$&lt;/code&gt; 
 
 
 
@@ -797,7 +797,7 @@ where $\langle\cdots\rangle$ denotes momentum averaging.&lt;/p&gt;
 &lt;span class=&#34;hugo-cite-intext&#34;
         itemprop=&#34;citation&#34;&gt;(&lt;span class=&#34;hugo-cite-group&#34;&gt;
 
-          &lt;a href=&#34;#dyakonov1986&#34;&gt;&lt;span class=&#34;visually-hidden&#34;&gt;Citation: &lt;/span&gt;&lt;span itemprop=&#34;author&#34; itemscope itemtype=&#34;https://schema.org/Person&#34;&gt;&lt;meta itemprop=&#34;givenName&#34; content=&#34;V. Yu&#34;&gt;&lt;span itemprop=&#34;familyName&#34;&gt;D’Yakonov&lt;/span&gt;&lt;/span&gt;,&amp;#32;&lt;span itemprop=&#34;datePublished&#34;&gt;1986&lt;/span&gt;&lt;/a&gt;&lt;span class=&#34;hugo-cite-citation&#34;&gt; 
+          &lt;a href=&#34;#dyakonov1986&#34;&gt;&lt;span class=&#34;visually-hidden&#34;&gt;Citation: &lt;/span&gt;&lt;span itemprop=&#34;author&#34; itemscope itemtype=&#34;https://schema.org/Person&#34;&gt;&lt;meta itemprop=&#34;givenName&#34; content=&#34;V. Yu&#34;&gt;&lt;span itemprop=&#34;familyName&#34;&gt;Dyakonov&lt;/span&gt;&lt;/span&gt;,&amp;#32;&lt;span itemprop=&#34;datePublished&#34;&gt;1986&lt;/span&gt;&lt;/a&gt;&lt;span class=&#34;hugo-cite-citation&#34;&gt; 
 
 
 
@@ -810,7 +810,7 @@ where $\langle\cdots\rangle$ denotes momentum averaging.&lt;/p&gt;
 
 &lt;span itemscope
       itemtype=&#34;https://schema.org/Article&#34;
-      data-type=&#34;article&#34;&gt;&lt;span itemprop=&#34;author&#34; itemscope itemtype=&#34;https://schema.org/Person&#34;&gt;&lt;span itemprop=&#34;familyName&#34;&gt;D’Yakonov&lt;/span&gt;,&amp;#32;
+      data-type=&#34;article&#34;&gt;&lt;span itemprop=&#34;author&#34; itemscope itemtype=&#34;https://schema.org/Person&#34;&gt;&lt;span itemprop=&#34;familyName&#34;&gt;Dyakonov&lt;/span&gt;,&amp;#32;
     &lt;meta itemprop=&#34;givenName&#34; content=&#34;V. Yu&#34; /&gt;
     V.&lt;/span&gt;
   &amp;#32;
@@ -962,8 +962,8 @@ where $\langle\cdots\rangle$ denotes momentum averaging.&lt;/p&gt;
 
 
 
-&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt; as well).  The reason is that the perpendicular-to-the-plane component is influenced by two components of the randomly changing magnetic field, i.e. $x$ and $y$, whereas the parallel-to-the-plane components only by one component, i.e. $x$ is influenced by $y$ and vice-versa.&lt;/p&gt;
-&lt;p&gt;In the second case on the other hand, the spin can freely rotate around the magnetic field between each collision and this orientation is only lost on the same time scale as momentum is lost, i.e. on the time scale of $\tau$ 
+&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt; as well).  The reason is that the perpendicular-to-the-plane component is influenced by two components of the randomly changing magnetic field, i.e. &lt;code&gt;$x$&lt;/code&gt; and &lt;code&gt;$y$&lt;/code&gt;, whereas the parallel-to-the-plane components only by one component, i.e. &lt;code&gt;$x$&lt;/code&gt; is influenced by &lt;code&gt;$y$&lt;/code&gt; and vice-versa.&lt;/p&gt;
+&lt;p&gt;In the second case on the other hand, the spin can freely rotate around the magnetic field between each collision and this orientation is only lost on the same time scale as momentum is lost, i.e. on the time scale of &lt;code&gt;$\tau$&lt;/code&gt; 
 
 
 
@@ -1030,7 +1030,7 @@ where $\langle\cdots\rangle$ denotes momentum averaging.&lt;/p&gt;
 
 
 
-&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;, leading to $1/\tau_s \sim 1/\tau$.&lt;/p&gt;
+&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;, leading to &lt;code&gt;$1/\tau_s \sim 1/\tau$&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;In general when the change in spin-direction is modelled as arising \emph{between} collisions it is referred to as Dyakonov-Perel-relaxation 
 
 
@@ -1068,7 +1068,7 @@ where $\langle\cdots\rangle$ denotes momentum averaging.&lt;/p&gt;
 
 &lt;/span&gt;&lt;/span&gt;;&amp;#32;&lt;span class=&#34;hugo-cite-group&#34;&gt;
 
-          &lt;a href=&#34;#dyakonov1986&#34;&gt;&lt;span class=&#34;visually-hidden&#34;&gt;Citation: &lt;/span&gt;&lt;span itemprop=&#34;author&#34; itemscope itemtype=&#34;https://schema.org/Person&#34;&gt;&lt;meta itemprop=&#34;givenName&#34; content=&#34;V. Yu&#34;&gt;&lt;span itemprop=&#34;familyName&#34;&gt;D’Yakonov&lt;/span&gt;&lt;/span&gt;,&amp;#32;&lt;span itemprop=&#34;datePublished&#34;&gt;1986&lt;/span&gt;&lt;/a&gt;&lt;span class=&#34;hugo-cite-citation&#34;&gt; 
+          &lt;a href=&#34;#dyakonov1986&#34;&gt;&lt;span class=&#34;visually-hidden&#34;&gt;Citation: &lt;/span&gt;&lt;span itemprop=&#34;author&#34; itemscope itemtype=&#34;https://schema.org/Person&#34;&gt;&lt;meta itemprop=&#34;givenName&#34; content=&#34;V. Yu&#34;&gt;&lt;span itemprop=&#34;familyName&#34;&gt;Dyakonov&lt;/span&gt;&lt;/span&gt;,&amp;#32;&lt;span itemprop=&#34;datePublished&#34;&gt;1986&lt;/span&gt;&lt;/a&gt;&lt;span class=&#34;hugo-cite-citation&#34;&gt; 
 
 
 
@@ -1081,7 +1081,7 @@ where $\langle\cdots\rangle$ denotes momentum averaging.&lt;/p&gt;
 
 &lt;span itemscope
       itemtype=&#34;https://schema.org/Article&#34;
-      data-type=&#34;article&#34;&gt;&lt;span itemprop=&#34;author&#34; itemscope itemtype=&#34;https://schema.org/Person&#34;&gt;&lt;span itemprop=&#34;familyName&#34;&gt;D’Yakonov&lt;/span&gt;,&amp;#32;
+      data-type=&#34;article&#34;&gt;&lt;span itemprop=&#34;author&#34; itemscope itemtype=&#34;https://schema.org/Person&#34;&gt;&lt;span itemprop=&#34;familyName&#34;&gt;Dyakonov&lt;/span&gt;,&amp;#32;
     &lt;meta itemprop=&#34;givenName&#34; content=&#34;V. Yu&#34; /&gt;
     V.&lt;/span&gt;
   &amp;#32;
@@ -1165,13 +1165,13 @@ where $\langle\cdots\rangle$ denotes momentum averaging.&lt;/p&gt;
 
 
 
-&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;. It should be noted that Elliot-Yafet generally leads to a spin-relaxation of the form $1/\tau_s\sim1/\tau$ just as the Dyakonov-Perel case for $\Omega_s\tau&amp;gt;1$.&lt;/p&gt;
+&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;. It should be noted that Elliot-Yafet generally leads to a spin-relaxation of the form &lt;code&gt;$1/\tau_s\sim1/\tau$&lt;/code&gt; just as the Dyakonov-Perel case for &lt;code&gt;$\Omega_s\tau&amp;gt;1$&lt;/code&gt;.&lt;/p&gt;
 &lt;h2 id=&#34;antiferromagnetic-resonance&#34;&gt;Antiferromagnetic resonance&lt;/h2&gt;
-&lt;p&gt;One of the characteristics of an antiferromagnet is that its antiferromagnetic resonance frequency (i.e. when subjected to an oscillating external magnetic field) is proportional to $\sqrt{K}$, as given by the formula:
-$$\begin{equation}
-\omega = \gamma_0 H_\text{ext} \pm \sqrt{K(J_\text{ex}+K)}
-\end{equation}$$
-as first derived by Kittel 
+&lt;p&gt;One of the characteristics of an antiferromagnet is that its antiferromagnetic resonance frequency (i.e. when subjected to an oscillating external magnetic field) is proportional to &lt;code&gt;$\sqrt{K}$&lt;/code&gt;, as given by the formula:&lt;/p&gt;
+&lt;div&gt;$$\begin{equation}
+    \omega = \gamma_0 H_\text{ext} \pm \sqrt{K(J_\text{ex}+K)}
+\end{equation}$$&lt;/div&gt;
+&lt;p&gt;as first derived by Kittel 
 
 
 
@@ -1238,47 +1238,47 @@ as first derived by Kittel
 
 
 
-&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;. The original derivation made use of quadruple contributions to $H_\text{M}$, but for two dimensional systems, a Hamiltonian such as in Eq.(\ref{intro:eq:Hm}) is sufficient as we will demonstrate. In this section we do not consider $\Delta_\text{sd}$. In order to find the resonant frequencies in the system that is subjected to an oscillating field in the $z$ direction: $\bb{H}_\text{ext} = H_0 \cos \omega t\,\hat{\bb{z}}$, we first linearize the equations of motion by expanding $\bb{n}$ close to $\hat{\bb{z}}$ and assume $\bb{m}$ to be small. To be more explicit
-$$\begin{equation}
-\bb{n} \rightarrow \hat{\bb{z}} + \delta \bb{n}_\parallel,\quad \bb{m} \rightarrow \delta \bb{m}_\parallel.
-\end{equation}$$
-Note that to first order the staggered and non-staggered magnetizations are still orthogonal to each-other: $\bb{n}\cdot\bb{m}=1+\mathcal{O}(\delta n^2+\delta m^2)$. Components such as $\delta n_x \delta m_y$ can be then disregarded and we assume $\bb{n}$ and $\bb{m}$ to be proportional to $\exp i \omega t$. A nice basis to work in is $\{{n}_+,{m}_+,{n}_-,{m}_- \}$, (where ${n}_\pm = \delta n_x\pm i \delta n_y$ and ${m}_\pm = \delta m_x\pm i \delta m_y$) so that one finds the following matrix equation:
-$$\begin{equation}
-\begin{pmatrix}
-\omega_0  &amp;amp;  -(J_\text{ex}+K)  &amp;amp;  0  &amp;amp;  0 \\&lt;br&gt;
--K  &amp;amp;  \omega_0  &amp;amp;  0  &amp;amp;  0 \\&lt;br&gt;
-0  &amp;amp;  0  &amp;amp;  -\omega_0  &amp;amp;  J_\text{ex}+K \\&lt;br&gt;
-0  &amp;amp;  0  &amp;amp;  K  &amp;amp;  -\omega_0
-\end{pmatrix}
-\begin{pmatrix}
-\delta l_{+}\\&lt;br&gt;
-\delta m_{+}\\&lt;br&gt;
-\delta l_{+}\\&lt;br&gt;
-\delta m_{-}
-\end{pmatrix}
-=\omega
-\begin{pmatrix}
-\delta l_{+}\\&lt;br&gt;
-\delta m_{+}\\&lt;br&gt;
-\delta l_{+}\\&lt;br&gt;
-\delta m_{-}
-\end{pmatrix}
-\end{equation}$$
-and four corresponding frequencies $\omega_{\eta&amp;rsquo;,\eta&amp;rsquo;&#39;}$&lt;br&gt;
-$$\begin{align}
-\omega_{\eta&amp;rsquo;,\eta{&#39;&#39;}} = \eta&amp;rsquo; \gamma_0 H_\text{ext} +\eta&amp;rsquo;&amp;rsquo; \sqrt{K(J_\text{ex}+K)}, \quad \eta&amp;rsquo;,\eta{&#39;&#39;}=\pm1
-\end{align}$$
-which remarkably exists even in absence of an external magnetic field. The constant $K$ can be derived directly for a particular model from the Grand potential describing the conducting electrons. The Grand potential is given by
-$$\begin{equation}
-\Omega = - \sum_{\varsigma}\frac{1}{\beta} \int \mathrm{d}\varepsilon\,g(\varepsilon) \nu_\varsigma(\varepsilon),
-\label{b1}
-\end{equation}$$
-where the density of states $\nu_\varsigma$ and the function $g(\varepsilon)$ are given by&lt;/p&gt;
-&lt;p&gt;$$\begin{align}
-\nu_\varsigma(\varepsilon) =  &amp;amp;  \frac{1}{\pi} \tr \int \frac{\mathrm{d}^2p}{(2\pi\hbar)^2}\,\im G^\text{R}_{\varsigma,\bb{p}}\\&lt;br&gt;
-g(\varepsilon) =  &amp;amp;  \log \big(1+\exp[\beta(\mu-\varepsilon)]\big).
-\end{align}$$&lt;/p&gt;
-&lt;p&gt;Here $\beta$ is the inverse temperature, $\mu$ is the chemical potential, and $\varsigma$ denotes the band index. By evaluating the integral and expanding around the energy minimum in powers of magnetization, one can obtain the anisotropy constant $K$. An example of how this is done can be found in 
+&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;. The original derivation made use of quadruple contributions to &lt;code&gt;$H_\text{M}$&lt;/code&gt;, but for two dimensional systems, a Hamiltonian such as in Eq.(\ref{intro:eq:Hm}) is sufficient as we will demonstrate. In this section we do not consider &lt;code&gt;$\Delta_\text{sd}$&lt;/code&gt;. In order to find the resonant frequencies in the system that is subjected to an oscillating field in the &lt;code&gt;$z$&lt;/code&gt; direction: &lt;code&gt;$\bb{H}_\text{ext} = H_0 \cos \omega t\,\hat{\bb{z}}$&lt;/code&gt;, we first linearize the equations of motion by expanding &lt;code&gt;$\bb{n}$&lt;/code&gt; close to &lt;code&gt;$\hat{\bb{z}}$&lt;/code&gt; and assume &lt;code&gt;$\bb{m}$&lt;/code&gt; to be small. To be more explicit&lt;/p&gt;
+&lt;div&gt;$$\begin{equation}
+	\bb{n} \rightarrow \hat{\bb{z}} + \delta \bb{n}_\parallel,\quad \bb{m} \rightarrow \delta \bb{m}_\parallel.
+\end{equation}$$&lt;/div&gt;
+&lt;p&gt;Note that to first order the staggered and non-staggered magnetizations are still orthogonal to each-other: &lt;code&gt;$\bb{n}\cdot\bb{m}=1+\mathcal{O}(\delta n^2+\delta m^2)$&lt;/code&gt;. Components such as &lt;code&gt;$\delta n_x \delta m_y$&lt;/code&gt; can be then disregarded and we assume &lt;code&gt;$\bb{n}$&lt;/code&gt; and &lt;code&gt;$\bb{m}$&lt;/code&gt; to be proportional to &lt;code&gt;$\exp i \omega t$&lt;/code&gt;. A nice basis to work in is &lt;code&gt;$\{{n}_+,{m}_+,{n}_-,{m}_- \}$&lt;/code&gt;, (where &lt;code&gt;${n}_\pm = \delta n_x\pm i \delta n_y$&lt;/code&gt; and &lt;code&gt;${m}_\pm = \delta m_x\pm i \delta m_y$&lt;/code&gt;) so that one finds the following matrix equation:&lt;/p&gt;
+&lt;div&gt;$$\begin{equation}
+    \begin{pmatrix}
+    \omega_0  &amp;  -(J_\text{ex}+K)  &amp;  0  &amp;  0 \\
+    -K  &amp;  \omega_0  &amp;  0  &amp;  0 \\
+    0  &amp;  0  &amp;  -\omega_0  &amp;  J_\text{ex}+K \\
+    0  &amp;  0  &amp;  K  &amp;  -\omega_0
+    \end{pmatrix}
+    \begin{pmatrix}
+    \delta l_{+}\\
+    \delta m_{+}\\
+    \delta l_{+}\\
+    \delta m_{-}
+    \end{pmatrix}
+    =\omega 
+    \begin{pmatrix}
+    \delta l_{+}\\
+    \delta m_{+}\\
+    \delta l_{+}\\
+    \delta m_{-}
+    \end{pmatrix}
+\end{equation}$$&lt;/div&gt;
+&lt;p&gt;and four corresponding frequencies &lt;code&gt;$\omega_{\eta&#39;,\eta&#39;&#39;}$&lt;/code&gt;&lt;/p&gt;
+&lt;div&gt;$$\begin{align}
+    \omega_{\eta&#39;,\eta{&#39;&#39;}} = \eta&#39; \gamma_0 H_\text{ext} +\eta&#39;&#39; \sqrt{K(J_\text{ex}+K)}, \quad \eta&#39;,\eta{&#39;&#39;}=\pm1
+\end{align}$$&lt;/div&gt;
+&lt;p&gt;which remarkably exists even in absence of an external magnetic field. The constant &lt;code&gt;$K$&lt;/code&gt; can be derived directly for a particular model from the Grand potential describing the conducting electrons. The Grand potential is given by&lt;/p&gt;
+&lt;div&gt;$$\begin{equation}
+    \Omega = - \sum_{\varsigma}\frac{1}{\beta} \int \mathrm{d}\varepsilon\,g(\varepsilon) \nu_\varsigma(\varepsilon),
+    \label{b1}
+\end{equation}$$&lt;/div&gt;
+&lt;p&gt;where the density of states &lt;code&gt;$\nu_\varsigma$&lt;/code&gt; and the function &lt;code&gt;$g(\varepsilon)$&lt;/code&gt; are given by&lt;/p&gt;
+&lt;div&gt;$$\begin{align}
+    \nu_\varsigma(\varepsilon) =  &amp;  \frac{1}{\pi} \tr \int \frac{\mathrm{d}^2p}{(2\pi\hbar)^2}\,\im G^\text{R}_{\varsigma,\bb{p}}\\
+    g(\varepsilon) =  &amp;  \log \big(1+\exp[\beta(\mu-\varepsilon)]\big).
+\end{align}$$&lt;/div&gt;
+&lt;p&gt;Here &lt;code&gt;$\beta$&lt;/code&gt; is the inverse temperature, &lt;code&gt;$\mu$&lt;/code&gt; is the chemical potential, and &lt;code&gt;$\varsigma$&lt;/code&gt; denotes the band index. By evaluating the integral and expanding around the energy minimum in powers of magnetization, one can obtain the anisotropy constant &lt;code&gt;$K$&lt;/code&gt;. An example of how this is done can be found in 
 
 
 
@@ -1321,12 +1321,12 @@ g(\varepsilon) =  &amp;amp;  \log \big(1+\exp[\beta(\mu-\varepsilon)]\big).
 &lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;.&lt;/p&gt;
 &lt;h2 id=&#34;obtaining-out-of-equilibrium-spin-polarizations&#34;&gt;Obtaining out-of-equilibrium spin-polarizations&lt;/h2&gt;
 &lt;p&gt;The spin-polarizations of the conducting electrons that appear in the equations of motion for the ferromagnet Eq.(\ref{eq:sd:mag}) and for the antiferromagnet Eqs.(\ref{eq:sd:neel}) are obtained in linear response to current and time-derivatives of magnetizations.&lt;/p&gt;
-&lt;p&gt;We can write the linear response of a spin-polarization $s_\alpha$ to a perturbation $H&#39;$ as
-$$\begin{equation}
-s_\alpha = v^2\mathcal{A}\int\!\frac{d^2\bb{p}}{(2\pi\hbar)^2}\tr \langle \hat{s}_\alpha G^\text{R}_{\bb{p}} \frac{\partial H&amp;rsquo;}{\partial t} G^\text{A}_{\bb{p}}\rangle,
+&lt;p&gt;We can write the linear response of a spin-polarization &lt;code&gt;$s_\alpha$&lt;/code&gt; to a perturbation &lt;code&gt;$H&#39;$&lt;/code&gt; as&lt;/p&gt;
+&lt;div&gt;$$\begin{equation}
+	s_\alpha = v^2\mathcal{A}\int\!\frac{d^2\bb{p}}{(2\pi\hbar)^2}\tr \langle \hat{s}_\alpha G^\text{R}_{\bb{p}} \frac{\partial H&#39;}{\partial t} G^\text{A}_{\bb{p}}\rangle,
 \label{sd:eq:kubo2}
-\end{equation}$$
-with momentum $\bb{p}$, Fermi-velocity $v$, unit cell area $\mathcal{A}$, retarded (advanced) Green&amp;rsquo;s functions $G^\text{R(A)}_{\bb{p}}$ and operator trace $\tr$. The angular brackets $\langle\dots\rangle$ denote averaging over disorder samples. Eq.(\ref{sd:eq:kubo2}) is called the Kubo formula that we derive from a Keldysh framework in &lt;a href = https://rsokolewicz.github.io/physics/4_kubo/&gt;A derivation of the Kubo formula&lt;/a&gt; and is often at the basis of linear response theory. It is in fact one expression of the more general fluctuation-dissipation theorem 
+\end{equation}$$&lt;/div&gt;
+&lt;p&gt;with momentum &lt;code&gt;$\bb{p}$&lt;/code&gt;, Fermi-velocity &lt;code&gt;$v$&lt;/code&gt;, unit cell area &lt;code&gt;$\mathcal{A}$&lt;/code&gt;, retarded (advanced) Green&amp;rsquo;s functions &lt;code&gt;$G^\text{R(A)}_{\bb{p}}$&lt;/code&gt; and operator trace &lt;code&gt;$\tr$&lt;/code&gt;. The angular brackets &lt;code&gt;$\langle\dots\rangle$&lt;/code&gt; denote averaging over disorder samples. Eq.(\ref{sd:eq:kubo2}) is called the Kubo formula that we derive from a Keldysh framework in &lt;a href = https://rsokolewicz.github.io/physics/4_kubo/&gt;A derivation of the Kubo formula&lt;/a&gt; and is often at the basis of linear response theory. It is in fact one expression of the more general fluctuation-dissipation theorem 
 
 
 
@@ -1363,31 +1363,31 @@ with momentum $\bb{p}$, Fermi-velocity $v$, unit cell area $\mathcal{A}$, retard
 
 &lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;. This theorem equates the response of a system to an external force or perturbation to the fluctuations of the system in absence of that force or perturbation. In other words, the left hand side of Eq.(\ref{sd:eq:kubo2}) denotes an out-of-equilibrium quantity which is related to a correlator on the right hand side that is evaluated in equilibrium.&lt;/p&gt;
 &lt;p&gt;The perturbations, or forces, that we consider are (i) electric fields that drive electrons and (ii) changes in magnetization direction. By expressing the electric field in terms of current through the conductivity tensor (which is again obtained through a Kubo formula), we obtain the out-of-equilibrium spin-polarization produced by an electric current. This in turn defines the current-induced spin-orbit torque. The second response, describes how the electrons&amp;rsquo; spin respond to a change in the electronic spectrum (by varying the magnetization direction) and gives rise to spin-renormalizations and Gilbert damping.&lt;/p&gt;
-&lt;p&gt;As mentioned before we model the relaxation of both spin and orbital angular momentum of conduction electrons through the scattering of impurities. For convenience we choose a white-noise Gaussian disorder potential
-$$\begin{equation}
-\label{disorder}
+&lt;p&gt;As mentioned before we model the relaxation of both spin and orbital angular momentum of conduction electrons through the scattering of impurities. For convenience we choose a white-noise Gaussian disorder potential&lt;/p&gt;
+&lt;div&gt;$$\begin{equation}
+    \label{disorder}
 \langle V(\bb{r})\rangle =0,\quad \langle V(\bb{r}) V(\bb{r}&#39;) \rangle = \frac{\hbar}{\pi\nu\tau}\,\delta(\bb{r}-\bb{r}&#39;),
-\end{equation}$$
-where the angular brackets $\langle\cdots\rangle$ stand for the averaging over an ensemble of disordered systems, $\nu$ stands for the total density of states at the Fermi level and $\tau$ is the mean scattering time of the conducting electrons. In this Thesis we use a dimensionless parameter $\alpha$
-$$\begin{equation}
-2 \pi\alpha (\hbar v)^2 = \frac{\hbar}{\pi\nu\tau}
-\end{equation}$$
-that parametrizes the amount of disorder in the system. In low concentration of impurities, which we refer to as the clean metal limit, we have $\alpha\rightarrow0$.&lt;/p&gt;
+\end{equation}$$&lt;/div&gt;
+&lt;p&gt;where the angular brackets &lt;code&gt;$\langle\cdots\rangle$&lt;/code&gt; stand for the averaging over an ensemble of disordered systems, &lt;code&gt;$\nu$&lt;/code&gt; stands for the total density of states at the Fermi level and &lt;code&gt;$\tau$&lt;/code&gt; is the mean scattering time of the conducting electrons. In this Thesis we use a dimensionless parameter &lt;code&gt;$\alpha$&lt;/code&gt;&lt;/p&gt;
+&lt;div&gt;$$\begin{equation}
+     2 \pi\alpha (\hbar v)^2 = \frac{\hbar}{\pi\nu\tau}
+\end{equation}$$&lt;/div&gt;
+&lt;p&gt;that parametrizes the amount of disorder in the system. In low concentration of impurities, which we refer to as the clean metal limit, we have &lt;code&gt;$\alpha\rightarrow0$&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;In order to incorporate the effect of disorder, two important steps must be performed. Firstly, we replace the clean Green functions in the linear response formula, with disordered ones. Secondly we replace one of the vertices with one that is corrected with disorder-averaging.&lt;/p&gt;
-&lt;p&gt;In order to replace the bare Green function with a disordered one, one needs to include a self-energy. This self-energy gives rise to the finite momentum-life-time of the electron and restores translational invariance.  In low concentration of impurities (i.e. $\alpha\rightarrow0$) and neglecting contributions from rare-scattering events (such as multiple scattering off the same impurity), one can use the Born approximation&lt;/p&gt;
-&lt;p&gt;$$\begin{equation}
-\im \Sigma^\text{R(A)} = 2\pi\alpha \im \int \frac{\mathrm{d}\bb{p}}{(2\pi\hbar)^2}\,G^\text{0 R(A)}_{\vec{p},\varepsilon}.
-\label{sd:eq:sigma}
-\end{equation}$$&lt;/p&gt;
+&lt;p&gt;In order to replace the bare Green function with a disordered one, one needs to include a self-energy. This self-energy gives rise to the finite momentum-life-time of the electron and restores translational invariance.  In low concentration of impurities (i.e. &lt;code&gt;$\alpha\rightarrow0$&lt;/code&gt;) and neglecting contributions from rare-scattering events (such as multiple scattering off the same impurity), one can use the Born approximation&lt;/p&gt;
+&lt;div&gt;$$\begin{equation}
+    \im \Sigma^\text{R(A)} = 2\pi\alpha \im \int \frac{\mathrm{d}\bb{p}}{(2\pi\hbar)^2}\,G^\text{0 R(A)}_{\vec{p},\varepsilon}.
+    \label{sd:eq:sigma}
+\end{equation}$$&lt;/div&gt;
 &lt;p&gt;By inserting the self energy into a bare Green function we get the disorder-averaged Green&amp;rsquo;s function&lt;/p&gt;
-&lt;p&gt;$$\begin{equation}
-G^\text{R(A)}_{\bb{p}} = \frac{1}{\varepsilon-H_{\bb{p}}-\Sigma^\text{R(A)}}.
-\end{equation}$$&lt;/p&gt;
-&lt;p&gt;The self-energy determines the poles of the Green&amp;rsquo;s function in the complex energy plane and are equal to the roots of $\det[\varepsilon-H-\Sigma^\text{R(A)}]$. For a given momentum the real part of each pole correspond to a point on a different Fermi surface, while the imaginary part defines the decay of the momentum eigenstates. In other words, the imaginary part gives rise to a finite momentum lifetime. This can be seen by taking the Fourier-transform from energy domain to the time domain where the imaginary part of the pole leads to an exponential decay in time for the Retarded Green&amp;rsquo;s function. To give an explicit example, take the Fourier transform with respect to energy of a Green&amp;rsquo;s function belonging to a single particle and single orbital&lt;/p&gt;
-&lt;p&gt;$$\begin{equation}
-G^\text{R}(t) = \int\!\frac{\mathrm{d}\varepsilon}{2\pi\hbar} \exp(-i \varepsilon t)\times\underbrace{\frac{1}{\varepsilon-\varepsilon_1+i\varepsilon_2}}_{G^\text{R}(\varepsilon)} = -i\Theta(t)\exp(-i\varepsilon_1t)\exp(-\varepsilon_2 t),
-\end{equation}$$&lt;/p&gt;
-&lt;p&gt;where $\Theta$ is the Heaviside step function and $\varepsilon_{1,2}$ are the real and imaginary parts of the the complex energy pole. The temporal Green function decays in time one a time scale set by $\varepsilon_2$. The momentum life-time is defined as $\tau = 1/2\varepsilon_2$ and is equal to the transport time in the Born approximation for isotropic scattering that we consider 
+&lt;div&gt;$$\begin{equation}
+	G^\text{R(A)}_{\bb{p}} = \frac{1}{\varepsilon-H_{\bb{p}}-\Sigma^\text{R(A)}}.
+\end{equation}$$&lt;/div&gt;
+&lt;p&gt;The self-energy determines the poles of the Green&amp;rsquo;s function in the complex energy plane and are equal to the roots of &lt;code&gt;$\det[\varepsilon-H-\Sigma^\text{R(A)}]$&lt;/code&gt;. For a given momentum the real part of each pole correspond to a point on a different Fermi surface, while the imaginary part defines the decay of the momentum eigenstates. In other words, the imaginary part gives rise to a finite momentum lifetime. This can be seen by taking the Fourier-transform from energy domain to the time domain where the imaginary part of the pole leads to an exponential decay in time for the Retarded Green&amp;rsquo;s function. To give an explicit example, take the Fourier transform with respect to energy of a Green&amp;rsquo;s function belonging to a single particle and single orbital&lt;/p&gt;
+&lt;div&gt;$$\begin{equation}
+	G^\text{R}(t) = \int\\!\frac{\mathrm{d}\varepsilon}{2\pi\hbar} \exp(-i \varepsilon t)\times\underbrace{\frac{1}{\varepsilon-\varepsilon_1+i\varepsilon_2}}_{G^\text{R}(\varepsilon)} = -i\Theta(t)\exp(-i\varepsilon_1t)\exp(-\varepsilon_2 t), 
+\end{equation}$$&lt;/div&gt;
+&lt;p&gt;where &lt;code&gt;$\Theta$&lt;/code&gt; is the Heaviside step function and &lt;code&gt;$\varepsilon_{1,2}$&lt;/code&gt; are the real and imaginary parts of the the complex energy pole. The temporal Green function decays in time one a time scale set by &lt;code&gt;$\varepsilon_2$&lt;/code&gt;. The momentum life-time is defined as &lt;code&gt;$\tau = 1/2\varepsilon_2$&lt;/code&gt; and is equal to the transport time in the Born approximation for isotropic scattering that we consider 
 
 
 
@@ -1425,20 +1425,20 @@ G^\text{R}(t) = \int\!\frac{\mathrm{d}\varepsilon}{2\pi\hbar} \exp(-i \varepsilo
 
 
 
-&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;. The transport-time reflects the time needed to randomize the direction of an electron due to impurity scatterings. Note that in Eq.(\ref{sd:eq:sigma}) we generally do not explicitly consider the real part of the self-energy as the shift in spectrum can be absorbed into the definition of model parameters. For brevity, we use the same symbols for terms such as Fermi energy and $s$&amp;ndash;$d$ energy before and after the Born approximation, but one needs to keep in mind that in the latter case they correspond to renormalized quantities.&lt;/p&gt;
+&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;. The transport-time reflects the time needed to randomize the direction of an electron due to impurity scatterings. Note that in Eq.(\ref{sd:eq:sigma}) we generally do not explicitly consider the real part of the self-energy as the shift in spectrum can be absorbed into the definition of model parameters. For brevity, we use the same symbols for terms such as Fermi energy and &lt;code&gt;$s$&lt;/code&gt;&amp;ndash;&lt;code&gt;$d$&lt;/code&gt; energy before and after the Born approximation, but one needs to keep in mind that in the latter case they correspond to renormalized quantities.&lt;/p&gt;
 &lt;p&gt;For the second step in disorder averaging, we need to replace one of the vertex functions with one that is corrected for disorder in the ladder approximation (as illustrated in &lt;a href=&#34;#fig3&#34;&gt;Figure 3b&lt;/a&gt;. We call this new vertex function the vertex-corrected function.
-By denoting $\hat{s}^{\text{vc}}$ as the vertex-corrected function of $\hat{s}$ and $\hat{s}^{(i)}$ as the function containing $i$ disorder-lines, the ladder approximation is given by:
-$$\begin{align}
-\hat{s}^\text{vc}
-&amp;amp; =        &lt;br&gt;
-\hat{s}+\hat{s}^{(1)}+\hat{s}^{(2)}+\cdots,
-\label{sd:eq:ladder}
-\end{align}$$
-where $\hat{s}^{(i)}$ is given by:
-$$\begin{align}
-\hat{\chi}^\text{i} = 2\pi\alpha\int\frac{\mathrm{d}^2\bb{p}}{(2\pi\hbar)^2} G_{\bb{p}}^\text{R}\hat{s}^{(i-1)}G_{\bb{p}}^\text{A}
-\label{eq:onedisorderline}
-\end{align}$$&lt;/p&gt;
+By denoting &lt;code&gt;$\hat{s}^{\text{vc}}$&lt;/code&gt; as the vertex-corrected function of &lt;code&gt;$\hat{s}$&lt;/code&gt; and &lt;code&gt;$\hat{s}^{(i)}$&lt;/code&gt; as the function containing &lt;code&gt;$i$&lt;/code&gt; disorder-lines, the ladder approximation is given by:&lt;/p&gt;
+&lt;div&gt;$$\begin{align}
+    \hat{s}^\text{vc}
+       &amp; =           
+        \hat{s}+\hat{s}^{(1)}+\hat{s}^{(2)}+\cdots,
+        \label{sd:eq:ladder}
+\end{align}$$&lt;/div&gt;
+&lt;p&gt;where &lt;code&gt;$\hat{s}^{(i)}$&lt;/code&gt; is given by:&lt;/p&gt;
+&lt;div&gt;$$\begin{align}
+    \hat{\chi}^\text{i} = 2\pi\alpha\int\frac{\mathrm{d}^2\bb{p}}{(2\pi\hbar)^2} G_{\bb{p}}^\text{R}\hat{s}^{(i-1)}G_{\bb{p}}^\text{A}
+    \label{eq:onedisorderline}
+\end{align}$$&lt;/div&gt;
 &lt;h3 id=&#34;fig3&#34;&gt;&lt;/h3&gt;
 
   &lt;figure class=&#34;center&#34; &gt;
@@ -1449,8 +1449,12 @@ $$\begin{align}
   &lt;/figure&gt;
 
 
-&lt;!-- raw HTML omitted --&gt;
-&lt;!-- raw HTML omitted --&gt;
+&lt;!-- \begin{figure}
+    \centering
+    \includegraphics{gfx/bubble1.pdf}
+    \caption{Diagrammatic illustration. a) Disorder-averaged polarization bubble. b) Ladder-approximation. }
+    \label{sd:fig:diagrams}
+\end{figure} --&gt;
 &lt;p&gt;This vertex-correction is important as a single scattering event already modifies the spin-polarization. For example in 
 
 
@@ -1552,24 +1556,24 @@ $$\begin{align}
 
 
 &lt;/span&gt;&lt;/span&gt;)&lt;/span&gt; where disorder averaging can lead to an increase in Gilbert Damping by many orders of magnitude.&lt;/p&gt;
-&lt;p&gt;The infinite sum of Eq.(\ref{sd:eq:ladder}) can actually be recast into a geometrical sum involving matrices. By choosing an appropriate operator basis, $\{\hat{B}_i\}$, where $i=1,2,\dots,n^2$ with $n\times n$ the dimension of the operator space, the vector of vertex corrected basis elements $\bb{B}^\text{vc}\equiv(\hat{B}_1^\text{vc},\dots,\hat{B}_{{n^2}}^\text{vc})$ can written as&lt;/p&gt;
-&lt;p&gt;$$\begin{equation}
-\bb{B}^\text{vc} = \bb{B}+\mathcal{F}\bb{B}+\mathcal{F}^2\bb{B}+\mathcal{F}^3+\cdots = \frac{1}{1-\mathcal{F}}\bb{B}.
-\end{equation}$$&lt;/p&gt;
-&lt;p&gt;By choosing a basis that satisfies the normalization condition $\tr\bb{B}_i\bb{B}_j=n\delta_{ij}$ we find that the response matrix $\mathcal{F}$ has the following form&lt;/p&gt;
-&lt;p&gt;$$\begin{equation}
-\mathcal{F}_{ij} = \frac{2\pi\alpha}{n} \int\!\frac{d^2\bb{p}}{(2\pi\hbar)^2}\tr \hat{B}_i G^\text{R}_{\bb{p}} \hat{B}_j G^\text{A}_{\bb{p}}.
-\end{equation}$$&lt;/p&gt;
-&lt;p&gt;For a Dirac ferromagnet, the operators that we consider only depend on spin-degrees of freedom and therefore the response-matrix has dimension $(2\times2)^2=4\times4$. The Dirac antiferromagnets, however have spin, sublattice and valley degrees of freedom, leading to response-matrices of dimension $(2^3\times2^3)^2=64\times64$. Inverting such a matrix analytically can be a daunting task, but can be simplified dramatically by choosing an appropriate basis and working in certain limits.&lt;/p&gt;
-&lt;p&gt;Note that the inversion of $1-\mathcal{F}$ can only be performed if none of the eigenvalues of $\mathcal{F}$ is equal to $1$. It appears however that this is never the case, as the self energy expressed in the basis $\{\hat{B}_i\}$ is an eigen function of $\mathcal{F}$ with eigenvalue $1$&lt;/p&gt;
-&lt;p&gt;$$\begin{equation}
-2\pi\alpha\int\!\frac{\mathrm{d}\bb{p}}{(2\pi\hbar)^2} G^\text{R}_{\bb{p}}\Sigma^\text{R(A)}G^\text{A}_{\bb{p}} = \Sigma^\text{R(A)}.
-\end{equation}$$&lt;/p&gt;
-&lt;p&gt;By computing the response tensor at finite frequency $\omega$ and momentum $\bb{q}$, we find that each singularity found in $(1-\mathcal{F})^{-1}$ is proportional to the Diffuson $D_0(\omega,\bb{q})$ given by
-$$\begin{equation}
-D_0(\omega,\bb{q}) = \frac{1}{-i\omega+D q^2},
-\end{equation}$$
-that has a diffusion pole at $\omega = -i D q^2$, where $D$ is the diffusion constant. Note that the Diffuson in general appears in the density-density response function and describes diffusion, i.e. Brownian motion 
+&lt;p&gt;The infinite sum of Eq.(\ref{sd:eq:ladder}) can actually be recast into a geometrical sum involving matrices. By choosing an appropriate operator basis, &lt;code&gt;$\{\hat{B}_i\}$&lt;/code&gt;, where &lt;code&gt;$i=1,2,\dots,n^2$&lt;/code&gt; with &lt;code&gt;$n\times n$&lt;/code&gt; the dimension of the operator space, the vector of vertex corrected basis elements &lt;code&gt;$\bb{B}^\text{vc}\equiv(\hat{B}_1^\text{vc},\dots,\hat{B}_{{n^2}}^\text{vc})$&lt;/code&gt; can written as&lt;/p&gt;
+&lt;div&gt;$$\begin{equation}
+	\bb{B}^\text{vc} = \bb{B}+\mathcal{F}\bb{B}+\mathcal{F}^2\bb{B}+\mathcal{F}^3+\cdots = \frac{1}{1-\mathcal{F}}\bb{B}.
+\end{equation}$$&lt;/div&gt;
+&lt;p&gt;By choosing a basis that satisfies the normalization condition &lt;code&gt;$\tr\bb{B}_i\bb{B}_j=n\delta_{ij}$&lt;/code&gt; we find that the response matrix &lt;code&gt;$\mathcal{F}$&lt;/code&gt; has the following form&lt;/p&gt;
+&lt;div&gt;$$\begin{equation}
+	\mathcal{F}_{ij} = \frac{2\pi\alpha}{n} \int\!\frac{d^2\bb{p}}{(2\pi\hbar)^2}\tr \hat{B}_i G^\text{R}_{\bb{p}} \hat{B}_j G^\text{A}_{\bb{p}}.
+\end{equation}$$&lt;/div&gt;
+&lt;p&gt;For a Dirac ferromagnet, the operators that we consider only depend on spin-degrees of freedom and therefore the response-matrix has dimension &lt;code&gt;$(2\times2)^2=4\times4$&lt;/code&gt;. The Dirac antiferromagnets, however have spin, sublattice and valley degrees of freedom, leading to response-matrices of dimension &lt;code&gt;$(2^3\times2^3)^2=64\times64$&lt;/code&gt;. Inverting such a matrix analytically can be a daunting task, but can be simplified dramatically by choosing an appropriate basis and working in certain limits.&lt;/p&gt;
+&lt;p&gt;Note that the inversion of &lt;code&gt;$1-\mathcal{F}$&lt;/code&gt; can only be performed if none of the eigenvalues of &lt;code&gt;$\mathcal{F}$&lt;/code&gt; is equal to &lt;code&gt;$1$&lt;/code&gt;. It appears however that this is never the case, as the self energy expressed in the basis &lt;code&gt;$\{\hat{B}_i\}$&lt;/code&gt; is an eigen function of &lt;code&gt;$\mathcal{F}$&lt;/code&gt; with eigenvalue &lt;code&gt;$1$&lt;/code&gt;&lt;/p&gt;
+&lt;div&gt;$$\begin{equation}
+	2\pi\alpha\int\!\frac{\mathrm{d}\bb{p}}{(2\pi\hbar)^2} G^\text{R}_{\bb{p}}\Sigma^\text{R(A)}G^\text{A}_{\bb{p}} = \Sigma^\text{R(A)}.
+\end{equation}$$&lt;/div&gt;
+&lt;p&gt;By computing the response tensor at finite frequency &lt;code&gt;$\omega$&lt;/code&gt; and momentum &lt;code&gt;$\bb{q}$&lt;/code&gt;, we find that each singularity found in &lt;code&gt;$(1-\mathcal{F})^{-1}$&lt;/code&gt; is proportional to the Diffuson &lt;code&gt;$D_0(\omega,\bb{q})$&lt;/code&gt; given by&lt;/p&gt;
+&lt;div&gt;$$\begin{equation}
+    D_0(\omega,\bb{q}) = \frac{1}{-i\omega+D q^2},
+\end{equation}$$&lt;/div&gt;
+&lt;p&gt;that has a diffusion pole at &lt;code&gt;$\omega = -i D q^2$&lt;/code&gt;, where &lt;code&gt;$D$&lt;/code&gt; is the diffusion constant. Note that the Diffuson in general appears in the density-density response function and describes diffusion, i.e. Brownian motion 
 
 
 
@@ -1607,7 +1611,7 @@ that has a diffusion pole at $\omega = -i D q^2$, where $D$ is the diffusion con
 
 
 
-&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;. The singularity that appears when the limits $\omega\rightarrow0$ and $\bb{q}\rightarrow\bb{0}$ are taken, however, plays no role in the dynamics of magnetizations in most cases. For a Rashba ferromagnet 
+&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;. The singularity that appears when the limits &lt;code&gt;$\omega\rightarrow0$&lt;/code&gt; and &lt;code&gt;$\bb{q}\rightarrow\bb{0}$&lt;/code&gt; are taken, however, plays no role in the dynamics of magnetizations in most cases. For a Rashba ferromagnet 
 
 
 
@@ -1648,7 +1652,7 @@ that has a diffusion pole at $\omega = -i D q^2$, where $D$ is the diffusion con
 
 
 
-&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt; for example, the singularity appears in the spin-density only in the direction of the magnetization and due to the vector product involved, does not contribute to any spin torque. In other words, none of the spin-torques have a singular dependency on $\omega$ and $\bb{q}$. However, in 
+&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt; for example, the singularity appears in the spin-density only in the direction of the magnetization and due to the vector product involved, does not contribute to any spin torque. In other words, none of the spin-torques have a singular dependency on &lt;code&gt;$\omega$&lt;/code&gt; and &lt;code&gt;$\bb{q}$&lt;/code&gt;. However, in 
 
 
 
@@ -1695,7 +1699,7 @@ that has a diffusion pole at $\omega = -i D q^2$, where $D$ is the diffusion con
 
 
 
-&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt; we show that for a Dirac ferromagnet, spin-torques do contains a diffusion pole and are therefore singular in the limits $\omega\rightarrow0$ and $\bb{q}\rightarrow\bb{0}$.&lt;/p&gt;
+&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt; we show that for a Dirac ferromagnet, spin-torques do contains a diffusion pole and are therefore singular in the limits &lt;code&gt;$\omega\rightarrow0$&lt;/code&gt; and &lt;code&gt;$\bb{q}\rightarrow\bb{0}$&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;For the Dirac antiferromagnet that is discussed in 
 
 
@@ -1749,7 +1753,7 @@ that has a diffusion pole at $\omega = -i D q^2$, where $D$ is the diffusion con
 
 
 
-&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;, we again find that the spin-densities contain diffusion poles, but they do not play a role on the equations of motion of the average and staggered magnetizations $\bb{m}$ and $\bb{n}$. It remains an open question what systems, apart from the Dirac ferromagnet, diffusion poles could play an important role.&lt;/p&gt;
+&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;, we again find that the spin-densities contain diffusion poles, but they do not play a role on the equations of motion of the average and staggered magnetizations &lt;code&gt;$\bb{m}$&lt;/code&gt; and &lt;code&gt;$\bb{n}$&lt;/code&gt;. It remains an open question what systems, apart from the Dirac ferromagnet, diffusion poles could play an important role.&lt;/p&gt;
 &lt;h2 id=&#34;bibliography&#34;&gt;Bibliography&lt;/h2&gt;
 
   
@@ -1810,7 +1814,7 @@ that has a diffusion pole at $\omega = -i D q^2$, where $D$ is the diffusion con
 
       &lt;div id=&#34;dyakonov1986&#34;&gt;
         &lt;dt&gt;
-          D’Yakonov
+          Dyakonov
 
           
           (1986)&lt;/dt&gt;
@@ -1829,7 +1833,7 @@ that has a diffusion pole at $\omega = -i D q^2$, where $D$ is the diffusion con
 
 &lt;span itemscope
       itemtype=&#34;https://schema.org/Article&#34;
-      data-type=&#34;article&#34;&gt;&lt;span itemprop=&#34;author&#34; itemscope itemtype=&#34;https://schema.org/Person&#34;&gt;&lt;span itemprop=&#34;familyName&#34;&gt;D’Yakonov&lt;/span&gt;,&amp;#32;
+      data-type=&#34;article&#34;&gt;&lt;span itemprop=&#34;author&#34; itemscope itemtype=&#34;https://schema.org/Person&#34;&gt;&lt;span itemprop=&#34;familyName&#34;&gt;Dyakonov&lt;/span&gt;,&amp;#32;
     &lt;meta itemprop=&#34;givenName&#34; content=&#34;V. Yu&#34; /&gt;
     V.&lt;/span&gt;
   &amp;#32;
@@ -4764,7 +4768,7 @@ that has a diffusion pole at $\omega = -i D q^2$, where $D$ is the diffusion con
 
 
 
-&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;. The group of 2D chalcogenides consists of crystals containing at least one chalgenide atom (e.g. S, Se, Te). A commonly studied subgroup are the transition metal dichalcogenides (TMDs), whose crystal formula is given by MX$_2$. Here M is a transition metal (e.g. Mo, W) and X is a chalcogenide. The third group, 2D halides, contain crystals following a similar formula as the TMDs, e.g. MX$_2$ and MX$_3$, but with X being a halogen (e.g. Cl, Br, I). The magnetic moments in most of these crystals are strongly located on the metal atoms in a honeycomb array 
+&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;. The group of 2D chalcogenides consists of crystals containing at least one chalgenide atom (e.g. S, Se, Te). A commonly studied subgroup are the transition metal dichalcogenides (TMDs), whose crystal formula is given by MX&lt;code&gt;$_2$&lt;/code&gt;. Here M is a transition metal (e.g. Mo, W) and X is a chalcogenide. The third group, 2D halides, contain crystals following a similar formula as the TMDs, e.g. MX&lt;code&gt;$_2$&lt;/code&gt; and MX&lt;code&gt;$_3$&lt;/code&gt;, but with X being a halogen (e.g. Cl, Br, I). The magnetic moments in most of these crystals are strongly located on the metal atoms in a honeycomb array 
 
 
 
@@ -4814,7 +4818,7 @@ that has a diffusion pole at $\omega = -i D q^2$, where $D$ is the diffusion con
 
 
 
-&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;. The last group of 2D oxides ranges from simple crystals (e.g. ZnO) to more complex (e.g. Na$_2$Co$_2$TeO$_6$). Some examples of crystals in the last three groups are presented in &lt;a href=&#34;#table1&#34;&gt;Table 1&lt;/a&gt;.&lt;/p&gt;
+&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;. The last group of 2D oxides ranges from simple crystals (e.g. ZnO) to more complex (e.g. Na&lt;code&gt;$_2$&lt;/code&gt;Co&lt;code&gt;$_2$&lt;/code&gt;TeO&lt;code&gt;$_6$&lt;/code&gt;). Some examples of crystals in the last three groups are presented in &lt;a href=&#34;#table1&#34;&gt;Table 1&lt;/a&gt;.&lt;/p&gt;
 &lt;h1 id=&#34;table1&#34;&gt;&lt;/h1&gt;
 &lt;table&gt;
 &lt;thead&gt;
@@ -4827,18 +4831,18 @@ that has a diffusion pole at $\omega = -i D q^2$, where $D$ is the diffusion con
 &lt;tbody&gt;
 &lt;tr&gt;
 &lt;td&gt;(ii) &lt;em&gt;2D chalgenides&lt;/em&gt;&lt;/td&gt;
-&lt;td&gt;MoS$_2$, MoSe$_2$, VSe$_2$, MnSe$_2$, Fe$_3$GeTe$_2$, Cr$_2$Ge$_2$Te$_2$, Cr$_2$Si$_2$Te$_6$,CrGeTe$_3$&lt;/td&gt;
-&lt;td&gt;FePS$_3$, FePSe$_3$, MnPS$_3$,  MnPSe$_3$, NiPS$_3$, NiPSe$_3$, AgVP$_2$S$_6$, AgVP$_2$Se$_6$,  CrSe$_2$, CrTe$_3$, CrSiTe$_3$&lt;/td&gt;
+&lt;td&gt;MoS&lt;code&gt;$_2$&lt;/code&gt;, MoSe&lt;code&gt;$_2$&lt;/code&gt;, VSe&lt;code&gt;$_2$&lt;/code&gt;, MnSe&lt;code&gt;$_2$&lt;/code&gt;, Fe&lt;code&gt;$_3$&lt;/code&gt;GeTe&lt;code&gt;$_2$&lt;/code&gt;, Cr&lt;code&gt;$_2$&lt;/code&gt;Ge&lt;code&gt;$_2$&lt;/code&gt;Te&lt;code&gt;$_2$&lt;/code&gt;, Cr&lt;code&gt;$_2$&lt;/code&gt;Si&lt;code&gt;$_2$&lt;/code&gt;Te&lt;code&gt;$_6$&lt;/code&gt;,CrGeTe&lt;code&gt;$_3$&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;FePS&lt;code&gt;$_3$&lt;/code&gt;, FePSe&lt;code&gt;$_3$&lt;/code&gt;, MnPS&lt;code&gt;$_3$&lt;/code&gt;,  MnPSe&lt;code&gt;$_3$&lt;/code&gt;, NiPS&lt;code&gt;$_3$&lt;/code&gt;, NiPSe&lt;code&gt;$_3$&lt;/code&gt;, AgVP&lt;code&gt;$_2$&lt;/code&gt;S&lt;code&gt;$_6$&lt;/code&gt;, AgVP&lt;code&gt;$_2$&lt;/code&gt;Se&lt;code&gt;$_6$&lt;/code&gt;,  CrSe&lt;code&gt;$_2$&lt;/code&gt;, CrTe&lt;code&gt;$_3$&lt;/code&gt;, CrSiTe&lt;code&gt;$_3$&lt;/code&gt;&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;(iii) &lt;em&gt;2D halides&lt;/em&gt;&lt;/td&gt;
-&lt;td&gt;CrI$_3$ (single layer), CrBr$_3$, CoBr$_3$ GdI$_2$, K$_2$CuF$_4$&lt;/td&gt;
-&lt;td&gt;CrI$_3$ (bi-layer), FeCl$_2$, CoCl$_2$,  NiCl$_2$, VCl$_2$, CrCl$_3$, FeCl$_3$,  FeBr$_2$,   MnBr$_2$, CoBr$_2$, VBr$_2$,  FeBr$_3$, FeI$_2$, VI$_2$, CrOCl,  CrOBr, CrSBr&lt;/td&gt;
+&lt;td&gt;CrI&lt;code&gt;$_3$&lt;/code&gt; (single layer), CrBr&lt;code&gt;$_3$&lt;/code&gt;, CoBr&lt;code&gt;$_3$&lt;/code&gt; GdI&lt;code&gt;$_2$&lt;/code&gt;, K&lt;code&gt;$_2$&lt;/code&gt;CuF&lt;code&gt;$_4$&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;CrI&lt;code&gt;$_3$&lt;/code&gt; (bi-layer), FeCl&lt;code&gt;$_2$&lt;/code&gt;, CoCl&lt;code&gt;$_2$&lt;/code&gt;,  NiCl&lt;code&gt;$_2$&lt;/code&gt;, VCl&lt;code&gt;$_2$&lt;/code&gt;, CrCl&lt;code&gt;$_3$&lt;/code&gt;, FeCl&lt;code&gt;$_3$&lt;/code&gt;,  FeBr&lt;code&gt;$_2$&lt;/code&gt;,   MnBr&lt;code&gt;$_2$&lt;/code&gt;, CoBr&lt;code&gt;$_2$&lt;/code&gt;, VBr&lt;code&gt;$_2$&lt;/code&gt;,  FeBr&lt;code&gt;$_3$&lt;/code&gt;, FeI&lt;code&gt;$_2$&lt;/code&gt;, VI&lt;code&gt;$_2$&lt;/code&gt;, CrOCl,  CrOBr, CrSBr&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;(iv) &lt;em&gt;2D oxides&lt;/em&gt;&lt;/td&gt;
-&lt;td&gt;ZnO, MnO$_2$, $\delta$-FeOOH&lt;/td&gt;
-&lt;td&gt;Na$_2$Co$_2$TeO$_6$, Ni(OH)$_2$&lt;/td&gt;
+&lt;td&gt;ZnO, MnO&lt;code&gt;$_2$&lt;/code&gt;, &lt;code&gt;$\delta$&lt;/code&gt;-FeOOH&lt;/td&gt;
+&lt;td&gt;Na&lt;code&gt;$_2$&lt;/code&gt;Co&lt;code&gt;$_2$&lt;/code&gt;TeO&lt;code&gt;$_6$&lt;/code&gt;, Ni(OH)&lt;code&gt;$_2$&lt;/code&gt;&lt;/td&gt;
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
@@ -5536,7 +5540,7 @@ Table 1. Brief overview of various experimentally realized (anti)ferromagnetic v
 
 &lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;.&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;The first is by chemically doping the crystal with $d$ or $f$ elements (e.g. Mn, Eu, Cr) or by introducing defects. For example, by doping GaAs with Mn atoms, exchange is introduced between local and delocalized spins giving rise to ferromagnetism 
+&lt;p&gt;The first is by chemically doping the crystal with &lt;code&gt;$d$&lt;/code&gt; or &lt;code&gt;$f$&lt;/code&gt; elements (e.g. Mn, Eu, Cr) or by introducing defects. For example, by doping GaAs with Mn atoms, exchange is introduced between local and delocalized spins giving rise to ferromagnetism 
 
 
 
@@ -5723,7 +5727,7 @@ Table 1. Brief overview of various experimentally realized (anti)ferromagnetic v
 
 
 
-&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;. The third approach makes use of the fact that electronic properties change by means of strain. A compressive strain of $\sim1\%$ in FeSiS$_3$ is predicted 
+&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;. The third approach makes use of the fact that electronic properties change by means of strain. A compressive strain of &lt;code&gt;$\sim1\\%$&lt;/code&gt; in FeSiS&lt;code&gt;$_3$&lt;/code&gt; is predicted 
 
 
 
@@ -6045,7 +6049,7 @@ Table 1. Brief overview of various experimentally realized (anti)ferromagnetic v
 
 
 
-&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;. As an example, recently strong current induced spin-orbit torques were measured in a bilayer consisting of Fe$_3$GeTe$_2$ and Pt 
+&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;. As an example, recently strong current induced spin-orbit torques were measured in a bilayer consisting of Fe&lt;code&gt;$_3$&lt;/code&gt;GeTe&lt;code&gt;$_2$&lt;/code&gt; and Pt 
 
 
 
@@ -6489,7 +6493,7 @@ Table 1. Brief overview of various experimentally realized (anti)ferromagnetic v
 
 
 
-&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt; is inspired by a bilayer consisting of a topological insulator and a ferromagnetic insulator. The model can be directly used to describe for example a bilayer consisting of Bi$_2$Te$_3$ or Bi$_2$Se$_3$ and YIG or EuS.&lt;/p&gt;
+&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt; is inspired by a bilayer consisting of a topological insulator and a ferromagnetic insulator. The model can be directly used to describe for example a bilayer consisting of Bi&lt;code&gt;$_2$&lt;/code&gt;Te&lt;code&gt;$_3$&lt;/code&gt; or Bi&lt;code&gt;$_2$&lt;/code&gt;Se&lt;code&gt;$_3$&lt;/code&gt; and YIG or EuS.&lt;/p&gt;
 &lt;p&gt;In my PhD work a particular antiferromagnet is studied on a honeycomb lattice. Although most of the antiferromagnets presented in &lt;a href=&#34;#table1&#34;&gt;Table 1&lt;/a&gt; have a honeycomb lattice, the majority are unfortunately non-metallic, or are not in the Néel antiferromagnetic phase (illustrated in &lt;a href=&#34;#magnetic_phases&#34;&gt;Figure 1b&lt;/a&gt;). Recent DFT calculations 
 
 
@@ -6540,7 +6544,7 @@ Table 1. Brief overview of various experimentally realized (anti)ferromagnetic v
 
 
 
-&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt; predict however a metallic Néel antiferromagnetic phase for the following monolayer transition metal trichalgenides: FeSiSe$_3$, FeSiTe$_3$, VGeTe$_3$, MnGeS$_3$, FeGeSe$_3$, FeGeTe$_3$, NiGeSe$_3$, MnSnS$_3$, MnSnS$_3$, MnSnSe$_3$, FeSnSe$_3$, NiSnS$_3$. Experimental realizations of one of these materials could serve as a testing place for our model.&lt;/p&gt;
+&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt; predict however a metallic Néel antiferromagnetic phase for the following monolayer transition metal trichalgenides: FeSiSe&lt;code&gt;$_3$&lt;/code&gt;, FeSiTe&lt;code&gt;$_3$&lt;/code&gt;, VGeTe&lt;code&gt;$_3$&lt;/code&gt;, MnGeS&lt;code&gt;$_3$&lt;/code&gt;, FeGeSe&lt;code&gt;$_3$&lt;/code&gt;, FeGeTe&lt;code&gt;$_3$&lt;/code&gt;, NiGeSe&lt;code&gt;$_3$&lt;/code&gt;, MnSnS&lt;code&gt;$_3$&lt;/code&gt;, MnSnS&lt;code&gt;$_3$&lt;/code&gt;, MnSnSe&lt;code&gt;$_3$&lt;/code&gt;, FeSnSe&lt;code&gt;$_3$&lt;/code&gt;, NiSnS&lt;code&gt;$_3$&lt;/code&gt;. Experimental realizations of one of these materials could serve as a testing place for our model.&lt;/p&gt;
 &lt;p&gt;Furthermore, not every hexagonal metallic Néel antiferromagnet can accurately be described with a simple Dirac Hamiltonian. The closest experimentally realized material would be CuMnAs that has a square lattice, but can host Dirac electrons. The results from my PhD work 
 
 
@@ -6670,7 +6674,7 @@ Table 1. Brief overview of various experimentally realized (anti)ferromagnetic v
 
 
 &lt;/span&gt;&lt;/span&gt;)&lt;/span&gt; can at least qualitatively describe the current induced phenomena found in CuMnAs.&lt;/p&gt;
-&lt;p&gt;Other Dirac antiferromagnets exist as well (e.g. TaCoTe$_2$ 
+&lt;p&gt;Other Dirac antiferromagnets exist as well (e.g. TaCoTe&lt;code&gt;$_2$&lt;/code&gt; 
 
 
 
@@ -6705,7 +6709,7 @@ Table 1. Brief overview of various experimentally realized (anti)ferromagnetic v
 
 
 
-&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;, Zr$_2$Si 
+&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;, Zr&lt;code&gt;$_2$&lt;/code&gt;Si 
 
 
 
@@ -6753,7 +6757,7 @@ Table 1. Brief overview of various experimentally realized (anti)ferromagnetic v
 
 
 &lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;
-, BaFe$_2$As$_2$ and SrFe$_2$As$_2$ 
+, BaFe&lt;code&gt;$_2$&lt;/code&gt;As&lt;code&gt;$_2$&lt;/code&gt; and SrFe&lt;code&gt;$_2$&lt;/code&gt;As&lt;code&gt;$_2$&lt;/code&gt; 
 
 
 
@@ -6815,7 +6819,7 @@ Table 1. Brief overview of various experimentally realized (anti)ferromagnetic v
 
 
 
-&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;, EuCd$_2$As$_2$ 
+&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;, EuCd&lt;code&gt;$_2$&lt;/code&gt;As&lt;code&gt;$_2$&lt;/code&gt; 
 
 
 
@@ -6907,7 +6911,7 @@ Table 1. Brief overview of various experimentally realized (anti)ferromagnetic v
 
 
 
-&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;, MnBi$_2$Te$_4$ 
+&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;, MnBi&lt;code&gt;$_2$&lt;/code&gt;Te&lt;code&gt;$_4$&lt;/code&gt; 
 
 
 
@@ -6961,7 +6965,7 @@ Table 1. Brief overview of various experimentally realized (anti)ferromagnetic v
 
 
 &lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;), but they suffer from symmetry protected gapless states and low exchange energies between localized and conducting electrons. As such, they are unideal when it comes to manipulating the antiferromagnetic order.&lt;/p&gt;
-&lt;p&gt;The ideal Dirac antiferromagnet would be an antiferromagnetic version of graphene. Though currently non-existent, it has recently been predicted that antiferromagnetism can be induced in graphene by bringing it in proximity with MnPSe$_3$ 
+&lt;p&gt;The ideal Dirac antiferromagnet would be an antiferromagnetic version of graphene. Though currently non-existent, it has recently been predicted that antiferromagnetism can be induced in graphene by bringing it in proximity with MnPSe&lt;code&gt;$_3$&lt;/code&gt; 
 
 
 
@@ -7011,7 +7015,7 @@ Table 1. Brief overview of various experimentally realized (anti)ferromagnetic v
 
 
 
-&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt; or by bringing it in double proximity between a layer of Cr$_2$Ge$_2$Te$_6$ and WS$_2$ 
+&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt; or by bringing it in double proximity between a layer of Cr&lt;code&gt;$_2$&lt;/code&gt;Ge&lt;code&gt;$_2$&lt;/code&gt;Te&lt;code&gt;$_6$&lt;/code&gt; and WS&lt;code&gt;$_2$&lt;/code&gt; 
 
 
 
