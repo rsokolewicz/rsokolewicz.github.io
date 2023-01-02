@@ -103,6 +103,17 @@
 <script type="text/javascript" id="MathJax-script" async
     src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        // Fix <code> tags after MathJax finishes running. This is a
+        // hack to overcome a shortcoming of Markdown. Discussion at
+        // https://github.com/mojombo/jekyll/issues/199
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i = 0; i &lt; all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+    </script>
 
 
 </head>
@@ -229,7 +240,7 @@
       
         <div class="post-content">
           
-            The spin-density of conducting electrons in a magnetic medium can be obtained from the the $s$&ndash;$d$ model. Using the spin-density of these electrons we obtain equations describing the motion and relaxation of magnetic moments.
+            The spin-density of conducting electrons in a magnetic medium can be obtained from the the <code>$s$</code>&ndash;<code>$d$</code> model. Using the spin-density of these electrons we obtain equations describing the motion and relaxation of magnetic moments.
           
         </div>
 

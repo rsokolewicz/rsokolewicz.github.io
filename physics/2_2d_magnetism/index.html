@@ -103,6 +103,17 @@
 <script type="text/javascript" id="MathJax-script" async
     src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        // Fix <code> tags after MathJax finishes running. This is a
+        // hack to overcome a shortcoming of Markdown. Discussion at
+        // https://github.com/mojombo/jekyll/issues/199
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i = 0; i &lt; all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+    </script>
 
 
 </head>
@@ -1938,7 +1949,7 @@
 
 
 
-</span></span>)</span>. The group of 2D chalcogenides consists of crystals containing at least one chalgenide atom (e.g. S, Se, Te). A commonly studied subgroup are the transition metal dichalcogenides (TMDs), whose crystal formula is given by MX$_2$. Here M is a transition metal (e.g. Mo, W) and X is a chalcogenide. The third group, 2D halides, contain crystals following a similar formula as the TMDs, e.g. MX$_2$ and MX$_3$, but with X being a halogen (e.g. Cl, Br, I). The magnetic moments in most of these crystals are strongly located on the metal atoms in a honeycomb array 
+</span></span>)</span>. The group of 2D chalcogenides consists of crystals containing at least one chalgenide atom (e.g. S, Se, Te). A commonly studied subgroup are the transition metal dichalcogenides (TMDs), whose crystal formula is given by MX<code>$_2$</code>. Here M is a transition metal (e.g. Mo, W) and X is a chalcogenide. The third group, 2D halides, contain crystals following a similar formula as the TMDs, e.g. MX<code>$_2$</code> and MX<code>$_3$</code>, but with X being a halogen (e.g. Cl, Br, I). The magnetic moments in most of these crystals are strongly located on the metal atoms in a honeycomb array 
 
 
 
@@ -1988,7 +1999,7 @@
 
 
 
-</span></span>)</span>. The last group of 2D oxides ranges from simple crystals (e.g. ZnO) to more complex (e.g. Na$_2$Co$_2$TeO$_6$). Some examples of crystals in the last three groups are presented in <a href="#table1">Table 1</a>.</p>
+</span></span>)</span>. The last group of 2D oxides ranges from simple crystals (e.g. ZnO) to more complex (e.g. Na<code>$_2$</code>Co<code>$_2$</code>TeO<code>$_6$</code>). Some examples of crystals in the last three groups are presented in <a href="#table1">Table 1</a>.</p>
 <h1 id="table1"><a href="#table1" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
 <table>
 <thead>
@@ -2001,18 +2012,18 @@
 <tbody>
 <tr>
 <td>(ii) <em>2D chalgenides</em></td>
-<td>MoS$_2$, MoSe$_2$, VSe$_2$, MnSe$_2$, Fe$_3$GeTe$_2$, Cr$_2$Ge$_2$Te$_2$, Cr$_2$Si$_2$Te$_6$,CrGeTe$_3$</td>
-<td>FePS$_3$, FePSe$_3$, MnPS$_3$,  MnPSe$_3$, NiPS$_3$, NiPSe$_3$, AgVP$_2$S$_6$, AgVP$_2$Se$_6$,  CrSe$_2$, CrTe$_3$, CrSiTe$_3$</td>
+<td>MoS<code>$_2$</code>, MoSe<code>$_2$</code>, VSe<code>$_2$</code>, MnSe<code>$_2$</code>, Fe<code>$_3$</code>GeTe<code>$_2$</code>, Cr<code>$_2$</code>Ge<code>$_2$</code>Te<code>$_2$</code>, Cr<code>$_2$</code>Si<code>$_2$</code>Te<code>$_6$</code>,CrGeTe<code>$_3$</code></td>
+<td>FePS<code>$_3$</code>, FePSe<code>$_3$</code>, MnPS<code>$_3$</code>,  MnPSe<code>$_3$</code>, NiPS<code>$_3$</code>, NiPSe<code>$_3$</code>, AgVP<code>$_2$</code>S<code>$_6$</code>, AgVP<code>$_2$</code>Se<code>$_6$</code>,  CrSe<code>$_2$</code>, CrTe<code>$_3$</code>, CrSiTe<code>$_3$</code></td>
 </tr>
 <tr>
 <td>(iii) <em>2D halides</em></td>
-<td>CrI$_3$ (single layer), CrBr$_3$, CoBr$_3$ GdI$_2$, K$_2$CuF$_4$</td>
-<td>CrI$_3$ (bi-layer), FeCl$_2$, CoCl$_2$,  NiCl$_2$, VCl$_2$, CrCl$_3$, FeCl$_3$,  FeBr$_2$,   MnBr$_2$, CoBr$_2$, VBr$_2$,  FeBr$_3$, FeI$_2$, VI$_2$, CrOCl,  CrOBr, CrSBr</td>
+<td>CrI<code>$_3$</code> (single layer), CrBr<code>$_3$</code>, CoBr<code>$_3$</code> GdI<code>$_2$</code>, K<code>$_2$</code>CuF<code>$_4$</code></td>
+<td>CrI<code>$_3$</code> (bi-layer), FeCl<code>$_2$</code>, CoCl<code>$_2$</code>,  NiCl<code>$_2$</code>, VCl<code>$_2$</code>, CrCl<code>$_3$</code>, FeCl<code>$_3$</code>,  FeBr<code>$_2$</code>,   MnBr<code>$_2$</code>, CoBr<code>$_2$</code>, VBr<code>$_2$</code>,  FeBr<code>$_3$</code>, FeI<code>$_2$</code>, VI<code>$_2$</code>, CrOCl,  CrOBr, CrSBr</td>
 </tr>
 <tr>
 <td>(iv) <em>2D oxides</em></td>
-<td>ZnO, MnO$_2$, $\delta$-FeOOH</td>
-<td>Na$_2$Co$_2$TeO$_6$, Ni(OH)$_2$</td>
+<td>ZnO, MnO<code>$_2$</code>, <code>$\delta$</code>-FeOOH</td>
+<td>Na<code>$_2$</code>Co<code>$_2$</code>TeO<code>$_6$</code>, Ni(OH)<code>$_2$</code></td>
 </tr>
 </tbody>
 </table>
@@ -2710,7 +2721,7 @@ Table 1. Brief overview of various experimentally realized (anti)ferromagnetic v
 
 </span></span>)</span>.</li>
 </ol>
-<p>The first is by chemically doping the crystal with $d$ or $f$ elements (e.g. Mn, Eu, Cr) or by introducing defects. For example, by doping GaAs with Mn atoms, exchange is introduced between local and delocalized spins giving rise to ferromagnetism 
+<p>The first is by chemically doping the crystal with <code>$d$</code> or <code>$f$</code> elements (e.g. Mn, Eu, Cr) or by introducing defects. For example, by doping GaAs with Mn atoms, exchange is introduced between local and delocalized spins giving rise to ferromagnetism 
 
 
 
@@ -2897,7 +2908,7 @@ Table 1. Brief overview of various experimentally realized (anti)ferromagnetic v
 
 
 
-</span></span>)</span>. The third approach makes use of the fact that electronic properties change by means of strain. A compressive strain of $\sim1\%$ in FeSiS$_3$ is predicted 
+</span></span>)</span>. The third approach makes use of the fact that electronic properties change by means of strain. A compressive strain of <code>$\sim1\\%$</code> in FeSiS<code>$_3$</code> is predicted 
 
 
 
@@ -3219,7 +3230,7 @@ Table 1. Brief overview of various experimentally realized (anti)ferromagnetic v
 
 
 
-</span></span>)</span>. As an example, recently strong current induced spin-orbit torques were measured in a bilayer consisting of Fe$_3$GeTe$_2$ and Pt 
+</span></span>)</span>. As an example, recently strong current induced spin-orbit torques were measured in a bilayer consisting of Fe<code>$_3$</code>GeTe<code>$_2$</code> and Pt 
 
 
 
@@ -3663,7 +3674,7 @@ Table 1. Brief overview of various experimentally realized (anti)ferromagnetic v
 
 
 
-</span></span>)</span> is inspired by a bilayer consisting of a topological insulator and a ferromagnetic insulator. The model can be directly used to describe for example a bilayer consisting of Bi$_2$Te$_3$ or Bi$_2$Se$_3$ and YIG or EuS.</p>
+</span></span>)</span> is inspired by a bilayer consisting of a topological insulator and a ferromagnetic insulator. The model can be directly used to describe for example a bilayer consisting of Bi<code>$_2$</code>Te<code>$_3$</code> or Bi<code>$_2$</code>Se<code>$_3$</code> and YIG or EuS.</p>
 <p>In my PhD work a particular antiferromagnet is studied on a honeycomb lattice. Although most of the antiferromagnets presented in <a href="#table1">Table 1</a> have a honeycomb lattice, the majority are unfortunately non-metallic, or are not in the Néel antiferromagnetic phase (illustrated in <a href="#magnetic_phases">Figure 1b</a>). Recent DFT calculations 
 
 
@@ -3714,7 +3725,7 @@ Table 1. Brief overview of various experimentally realized (anti)ferromagnetic v
 
 
 
-</span></span>)</span> predict however a metallic Néel antiferromagnetic phase for the following monolayer transition metal trichalgenides: FeSiSe$_3$, FeSiTe$_3$, VGeTe$_3$, MnGeS$_3$, FeGeSe$_3$, FeGeTe$_3$, NiGeSe$_3$, MnSnS$_3$, MnSnS$_3$, MnSnSe$_3$, FeSnSe$_3$, NiSnS$_3$. Experimental realizations of one of these materials could serve as a testing place for our model.</p>
+</span></span>)</span> predict however a metallic Néel antiferromagnetic phase for the following monolayer transition metal trichalgenides: FeSiSe<code>$_3$</code>, FeSiTe<code>$_3$</code>, VGeTe<code>$_3$</code>, MnGeS<code>$_3$</code>, FeGeSe<code>$_3$</code>, FeGeTe<code>$_3$</code>, NiGeSe<code>$_3$</code>, MnSnS<code>$_3$</code>, MnSnS<code>$_3$</code>, MnSnSe<code>$_3$</code>, FeSnSe<code>$_3$</code>, NiSnS<code>$_3$</code>. Experimental realizations of one of these materials could serve as a testing place for our model.</p>
 <p>Furthermore, not every hexagonal metallic Néel antiferromagnet can accurately be described with a simple Dirac Hamiltonian. The closest experimentally realized material would be CuMnAs that has a square lattice, but can host Dirac electrons. The results from my PhD work 
 
 
@@ -3844,7 +3855,7 @@ Table 1. Brief overview of various experimentally realized (anti)ferromagnetic v
 
 
 </span></span>)</span> can at least qualitatively describe the current induced phenomena found in CuMnAs.</p>
-<p>Other Dirac antiferromagnets exist as well (e.g. TaCoTe$_2$ 
+<p>Other Dirac antiferromagnets exist as well (e.g. TaCoTe<code>$_2$</code> 
 
 
 
@@ -3879,7 +3890,7 @@ Table 1. Brief overview of various experimentally realized (anti)ferromagnetic v
 
 
 
-</span></span>)</span>, Zr$_2$Si 
+</span></span>)</span>, Zr<code>$_2$</code>Si 
 
 
 
@@ -3927,7 +3938,7 @@ Table 1. Brief overview of various experimentally realized (anti)ferromagnetic v
 
 
 </span></span>)</span>
-, BaFe$_2$As$_2$ and SrFe$_2$As$_2$ 
+, BaFe<code>$_2$</code>As<code>$_2$</code> and SrFe<code>$_2$</code>As<code>$_2$</code> 
 
 
 
@@ -3989,7 +4000,7 @@ Table 1. Brief overview of various experimentally realized (anti)ferromagnetic v
 
 
 
-</span></span>)</span>, EuCd$_2$As$_2$ 
+</span></span>)</span>, EuCd<code>$_2$</code>As<code>$_2$</code> 
 
 
 
@@ -4081,7 +4092,7 @@ Table 1. Brief overview of various experimentally realized (anti)ferromagnetic v
 
 
 
-</span></span>)</span>, MnBi$_2$Te$_4$ 
+</span></span>)</span>, MnBi<code>$_2$</code>Te<code>$_4$</code> 
 
 
 
@@ -4135,7 +4146,7 @@ Table 1. Brief overview of various experimentally realized (anti)ferromagnetic v
 
 
 </span></span>)</span>), but they suffer from symmetry protected gapless states and low exchange energies between localized and conducting electrons. As such, they are unideal when it comes to manipulating the antiferromagnetic order.</p>
-<p>The ideal Dirac antiferromagnet would be an antiferromagnetic version of graphene. Though currently non-existent, it has recently been predicted that antiferromagnetism can be induced in graphene by bringing it in proximity with MnPSe$_3$ 
+<p>The ideal Dirac antiferromagnet would be an antiferromagnetic version of graphene. Though currently non-existent, it has recently been predicted that antiferromagnetism can be induced in graphene by bringing it in proximity with MnPSe<code>$_3$</code> 
 
 
 
@@ -4185,7 +4196,7 @@ Table 1. Brief overview of various experimentally realized (anti)ferromagnetic v
 
 
 
-</span></span>)</span> or by bringing it in double proximity between a layer of Cr$_2$Ge$_2$Te$_6$ and WS$_2$ 
+</span></span>)</span> or by bringing it in double proximity between a layer of Cr<code>$_2$</code>Ge<code>$_2$</code>Te<code>$_6$</code> and WS<code>$_2$</code> 
 
 
 
