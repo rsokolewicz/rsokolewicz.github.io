@@ -1,0 +1,53 @@
+<script>
+    MathJax = {
+        tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']],
+            macros: {
+                bb: ["{\\boldsymbol{#1}}", 1],
+                tr: "{\\DeclareMathOperator{\\tr}{Tr}}",
+                im: "{\\DeclareMathOperator{\\im}{Im}}",
+                re: "{\\DeclareMathOperator{\\re}{Re}}",
+
+                // \DeclareMathOperator{\var}{var}
+                // \DeclareMathOperator{\tr}{Tr}
+                // \DeclareMathOperator{\diag}{diag}
+                // \DeclareMathOperator{\im}{Im}
+                // \DeclareMathOperator{\re}{Re}
+                // \DeclareMathOperator{\ctg}{cotan}
+                // \DeclareMathOperator{\arcsh}{arcsinh}
+                // \DeclareMathOperator{\rot}{rot}
+                // \DeclareMathOperator{\sign}{sign}
+                // \DeclareMathOperator{\dv}{div}
+            },
+            processEscapes: true,
+            processEnvironments: true,
+            tags: "ams"
+        },
+        options: {
+            skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+        }
+    };
+
+    window.addEventListener('load', (event) => {
+        document.querySelectorAll("mjx-container").forEach(function (x) {
+            x.parentElement.classList += 'has-jax'
+        })
+    });
+
+</script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" id="MathJax-script" async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        // Fix <code> tags after MathJax finishes running. This is a
+        // hack to overcome a shortcoming of Markdown. Discussion at
+        // https://github.com/mojombo/jekyll/issues/199
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i = 0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+    </script>

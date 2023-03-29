@@ -45,5 +45,10 @@ paginate = 5
         identifier = "physics"
         name = "Physics"
         url = "/physics"
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
       
         
