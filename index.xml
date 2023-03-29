@@ -8,6 +8,63 @@
     <language>en-us</language>
     <lastBuildDate>Fri, 22 Apr 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://rsokolewicz.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>[7/10] Pete Wu&#39;s De bananengeneratie</title>
+      <link>https://rsokolewicz.github.io/books/2_bananengeneratie/</link>
+      <pubDate>Sat, 18 Mar 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://rsokolewicz.github.io/books/2_bananengeneratie/</guid>
+      <description>Pete Wu&amp;rsquo;s book &amp;ldquo;De Bananengeneratie&amp;rdquo; takes readers on a journey through his personal experiences growing up as a Chinese-Dutch in the Netherlands. Pete was born and raised in the Netherlands, but his Chinese heritage often made him feel like an outsider. He struggled to find his identity as someone who was &amp;ldquo;Chinese on the outside, white on the inside&amp;rdquo;, i.e. like a &amp;ldquo;banana&amp;rdquo;.
+Growing up, Pete felt resentment towards his Chineseness, and he struggled to reconcile his dual identity.</description>
+      <content>&lt;p&gt;Pete Wu&amp;rsquo;s book &amp;ldquo;De Bananengeneratie&amp;rdquo; takes readers on a journey through his
+personal experiences growing up as a Chinese-Dutch in the Netherlands. Pete was
+born and raised in the Netherlands, but his Chinese heritage often made him feel
+like an outsider. He struggled to find his identity as someone who was &amp;ldquo;Chinese
+on the outside, white on the inside&amp;rdquo;, i.e. like a &amp;ldquo;banana&amp;rdquo;.&lt;/p&gt;
+&lt;p&gt;Growing up, Pete felt resentment towards his Chineseness, and he struggled to
+reconcile his dual identity. Through his book, Pete seeks to answer the question
+of what it means to grow up as a Chinese-Dutch. He shares the details of his
+childhood and interviews many others who grew up with Chinese parents.&lt;/p&gt;
+&lt;p&gt;One aspect that Pete discusses in his book is the emotional distance he felt
+from his parents. The lack of a &amp;ldquo;talking&amp;rdquo; culture in China, combined with his
+parents&amp;rsquo; long working hours and the language barrier, made it difficult for him
+to connect with them. He felt like he couldn&amp;rsquo;t fully express himself, and this
+led to a sense of distance in their relationship. This is a common experience
+for many children of immigrant parents, as cultural differences and language
+barriers can create challenges in communication and understanding.&lt;/p&gt;
+&lt;p&gt;One of the stories Pete shares in his book is about his father. He recalls his
+dad telling him, &amp;ldquo;I never say that I&amp;rsquo;m proud of you because I&amp;rsquo;m afraid that by
+doing so you will work less hard.&amp;rdquo; This statement highlights the cultural
+differences between Chinese and Dutch parenting, where the former tends to be
+more reserved in expressing emotions and praise.&lt;/p&gt;
+&lt;p&gt;Pete also discusses the cultural differences he experienced. In Chinese culture,
+you don&amp;rsquo;t open up in general, which made it challenging for him to express his
+feelings. Furthermore, he was constantly reminded that he was not considered
+Dutch enough. People would often ask him where he learned Dutch or if he knew
+kung fu, which were micro-aggressions that made him feel excluded.&lt;/p&gt;
+&lt;p&gt;Another thing that struck Pete while writing the book was realizing how much his
+parents had given up by coming to the Netherlands. They left behind their home
+and family in China to give their children a better life. This realization made
+him appreciate his heritage and identity more.&lt;/p&gt;
+&lt;p&gt;Throughout the book, Pete also discusses the representation of Chinese people on
+Dutch TV, which was often limited to stereotypical roles. He hopes that his book
+will help break down these stereotypes and encourage people to embrace their
+differences.&lt;/p&gt;
+&lt;p&gt;It&amp;rsquo;s quite an interesting read. As the son of Polish parents, I noticed some
+familiarities with Pete&amp;rsquo;s story, but my experience was completely different. My
+friends would sometimes joke about being Polish, but growing up I never felt
+treated differently (looking and sounding Dutch helps of course).&lt;/p&gt;
+&lt;p&gt;People often ask me if I feel more Polish or more Dutch, to which I usually
+answer that I feel neither. I wonder how Pete would feel if he grew up in an
+environment where looking Asian doesn&amp;rsquo;t receive special treatment. Growing up as
+a kid, it is important to belong to and feel accepted by your group. This I
+imagine is one of the root causes of his desire to be more Dutch and less
+Chinese. And now that he reconciled with his past, it seemed that he accepted
+being Chinese on the outside and Dutch on the inside, just like a banana. But
+does this mean he feels being Dutch, Chinese or both, Chinese-Dutch?&lt;/p&gt;
+</content>
+    </item>
+    
+    <item>
       <title>A derivation of the Kubo formula</title>
       <link>https://rsokolewicz.github.io/physics/4_kubo/</link>
       <pubDate>Sun, 01 Jan 2023 00:00:00 +0000</pubDate>
@@ -18866,6 +18923,114 @@ reading and writing, and, in addition to low energy consumption, make the antife
 
 
 
+</content>
+    </item>
+    
+    <item>
+      <title>Managing git ssh-keys for multiple accounts on GitLab and GitHub</title>
+      <link>https://rsokolewicz.github.io/posts/4_git_ssh/</link>
+      <pubDate>Sun, 04 Dec 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://rsokolewicz.github.io/posts/4_git_ssh/</guid>
+      <description>If you only have one account for every git repository provider, for example, one for www.github.com and one for www.gitlab.com, you will need to add the following to your ssh-config file, ~/.ssh/config
+host github.com HostName github.com IdentityFile ~/.ssh/github User git host gitlab.com HostName gitlab.com IdentityFile ~/.ssh/gitlab User git where the identity files contain your private key for each account. These can be generated by running
+ssh-keygen which will prompt you to specify a location and a passphrase:</description>
+      <content>&lt;h1 id=&#34;heading&#34;&gt;&lt;/h1&gt;
+&lt;p&gt;If you only have one account for every git repository provider, for example, one
+for &lt;code&gt;www.github.com&lt;/code&gt; and one for &lt;code&gt;www.gitlab.com&lt;/code&gt;, you will need to add the
+following to your ssh-config file, &lt;code&gt;~/.ssh/config&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;host github.com
+  HostName github.com
+  IdentityFile ~/.ssh/github
+  User git
+
+host gitlab.com
+  HostName gitlab.com
+  IdentityFile ~/.ssh/gitlab
+  User git
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;where the identity files contain your private key for each account. These can be
+generated by running&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;ssh-keygen
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;which will prompt you to specify a location and a passphrase:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Generating public/private rsa key pair.
+Enter file in which to save the key (/home/rsoko/.ssh/id_rsa): 
+Enter passphrase (empty for no passphrase): 
+Enter same passphrase again: 
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;these are all optional, but to work with the above config we need to generate
+two keys, one located at &lt;code&gt;~/.ssh/gitlab&lt;/code&gt; and one at &lt;code&gt;~/.ssh/github&lt;/code&gt;. As for the
+passphrase, this can be left empty if you don&amp;rsquo;t want to enter a password every
+time you create an ssh connection (for example when pushing code to the remote
+repository).&lt;/p&gt;
+&lt;p&gt;check if everything works:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;ssh -T git@gitlab.com
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;which gives me&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Welcome to GitLab, @rsokolewicz!
+&lt;/code&gt;&lt;/pre&gt;&lt;h1 id=&#34;multiple-accounts-per-provider&#34;&gt;multiple accounts per provider&lt;/h1&gt;
+&lt;p&gt;If you have multiple accounts on for example gitlab.com (e.g. one personal and one work),
+you can configure the ssh-config as follows&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;host gitlab-private
+  HostName gitlab.com
+  IdentityFile ~/.ssh/gitlab_private
+  User git
+
+host gitlab-work
+  HostName gitlab.com
+  IdentityFile ~/.ssh/gitlab_work
+  User git
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;and follow the steps as before to generate &lt;code&gt;gitlab_private&lt;/code&gt; and &lt;code&gt;gitlab_work&lt;/code&gt;.
+The crucial step now is when setting up the &lt;code&gt;remote-url&lt;/code&gt; of a git repository to
+map it to the correct entry in the above ssh configuration:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;git remote set-url origin git@gitlab-private:repo.git
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;code&gt;git@gitlab-private:repo.git&lt;/code&gt; has two important parts: &lt;code&gt;git@...:&lt;/code&gt; and
+&lt;code&gt;:....git&lt;/code&gt;. The first part that&amp;rsquo;s between &lt;code&gt;git@...:&lt;/code&gt; corresponds to the name of
+the host that is specified in the ssh configuration. In the above case &lt;code&gt;host gitlab-private&lt;/code&gt;. The name can be anything and is there just to map the correct ssh key to the corresponding repo. The second part &lt;code&gt;:...git&lt;/code&gt; is the git-url to the repo.&lt;/p&gt;
+</content>
+    </item>
+    
+    <item>
+      <title>Some tips for using VS code for python development</title>
+      <link>https://rsokolewicz.github.io/posts/3_vs_code_tips/</link>
+      <pubDate>Sun, 04 Dec 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://rsokolewicz.github.io/posts/3_vs_code_tips/</guid>
+      <description>Useful shortcuts Moving lines up/down shortcut: alt + up-arrow/down-arrow
+Add cursors to end of lines of selected code shortcut: alt + shift + i
+Add cursor directly up or down shortcut: ctrl + alt + up-arrow/down-arrow
+Useful packages Error Lens Adds a nice inline description when something is wrong with your code.
+Black formatter Adds black as one of the code formatters in VS Code. A nice tip: turn on the setting format on save.</description>
+      <content>&lt;h1 id=&#34;useful-shortcuts&#34;&gt;Useful shortcuts&lt;/h1&gt;
+&lt;h2 id=&#34;moving-lines-updown&#34;&gt;Moving lines up/down&lt;/h2&gt;
+&lt;p&gt;shortcut: &lt;code&gt;alt + up-arrow/down-arrow&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id=&#34;add-cursors-to-end-of-lines-of-selected-code&#34;&gt;Add cursors to end of lines of selected code&lt;/h2&gt;
+&lt;p&gt;shortcut: &lt;code&gt;alt + shift + i&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id=&#34;add-cursor-directly-up-or-down&#34;&gt;Add cursor directly up or down&lt;/h2&gt;
+&lt;p&gt;shortcut: &lt;code&gt;ctrl + alt + up-arrow/down-arrow&lt;/code&gt;&lt;/p&gt;
+&lt;h1 id=&#34;useful-packages&#34;&gt;Useful packages&lt;/h1&gt;
+&lt;h2 id=&#34;error-lens&#34;&gt;Error Lens&lt;/h2&gt;
+&lt;p&gt;Adds a nice inline description when something is wrong with your code.&lt;/p&gt;
+&lt;h2 id=&#34;black-formatter&#34;&gt;Black formatter&lt;/h2&gt;
+&lt;p&gt;Adds black as one of the code formatters in VS Code. A nice tip: turn on the setting &lt;code&gt;format on save&lt;/code&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;code-spell-checker&#34;&gt;Code Spell Checker&lt;/h2&gt;
+&lt;p&gt;A neat plug-in that checks the spelling of words in comments and doc-strings, but also checks the spelling of variable names.&lt;/p&gt;
+&lt;h2 id=&#34;gitlens&#34;&gt;GitLens&lt;/h2&gt;
+&lt;p&gt;Adds git-blame annotation, shows authors above each class definition and much more git goodness.&lt;/p&gt;
+&lt;h2 id=&#34;rainbow-csv&#34;&gt;Rainbow CSV&lt;/h2&gt;
+&lt;p&gt;A cool plug-in that highlights different columns in a &lt;code&gt;.csv&lt;/code&gt; file.&lt;/p&gt;
+&lt;h2 id=&#34;rewrap&#34;&gt;Rewrap&lt;/h2&gt;
+&lt;p&gt;Wrapping comments, docstrings and text to 90 character width by just pressing &lt;code&gt;alt+Q&lt;/code&gt;. Ideal when working with ruff and/or black.&lt;/p&gt;
+&lt;h2 id=&#34;ruff&#34;&gt;Ruff&lt;/h2&gt;
+&lt;p&gt;The official Ruff plugin for VS-Code. Ruff is a collection of python linters that works extremely fast.&lt;/p&gt;
+&lt;h2 id=&#34;gitlab-workflow&#34;&gt;GitLab Workflow&lt;/h2&gt;
+&lt;p&gt;When reviewing other&amp;rsquo;s open merge requests, this plugin lets you explore the merge request from within VS code in a much nicer way than the web browser editor on gitlab.com. It allows you to read the description and comments as well. Placing comments is a bit of a hassle, as it doesn&amp;rsquo;t support &amp;ldquo;reviews&amp;rdquo; where you can submit all comments at once. It also doesn&amp;rsquo;t support code suggestions.&lt;/p&gt;
+&lt;h2 id=&#34;grammarly&#34;&gt;Grammarly&lt;/h2&gt;
+&lt;h1 id=&#34;other&#34;&gt;Other&lt;/h1&gt;
+&lt;h2 id=&#34;editable-installs&#34;&gt;Editable installs&lt;/h2&gt;
+&lt;p&gt;Sometimes VS Code has problems with autocompletion and finding definitions of imported symbols, when they come from a package that is installed in editable mode, e.g. via &lt;code&gt;pip install -e .&lt;/code&gt;. With recent versions of &lt;code&gt;setuptools&lt;/code&gt; (&amp;gt;=0.64.0), editable installs behave a bit differently that cause issues. There are three solutions to this:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Downgrade &lt;code&gt;setuptools&lt;/code&gt; (i.e. &lt;code&gt;pip install setuptools&amp;lt;0.64&lt;/code&gt;)&lt;/li&gt;
+&lt;li&gt;Instruct pip to use a legacy mode: &lt;code&gt;pip install -e . --config-settings editable_mode=compat&lt;/code&gt;. The developers at &lt;code&gt;setuptools&lt;/code&gt; do &lt;a href=&#34;https://setuptools.pypa.io/en/latest/userguide/development_mode.html#legacy-behavior&#34;&gt;warn&lt;/a&gt; however that this is only a temporary solution and will likely to be changed and later removed entirely in future versions of &lt;code&gt;setuptools&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Add the project to the python path. When testing out new features inside a jupyter notebook it is sufficient to add the line &lt;code&gt;sys.path.insert(1, &amp;quot;path-to-package&amp;quot;)&lt;/code&gt; in the top cell. &lt;code&gt;&amp;quot;path-to-package&amp;quot;&lt;/code&gt; can be either an absolute path (e.g. &lt;code&gt;&amp;quot;/users/rsoko/dev/my-package&amp;quot;&lt;/code&gt;) or a relative path (&lt;code&gt;&amp;quot;my-package&amp;quot;&lt;/code&gt;, &lt;code&gt;&amp;quot;./my-package&amp;quot;&lt;/code&gt; or even &lt;code&gt;&amp;quot;../my-package&amp;quot;&lt;/code&gt;).&lt;/li&gt;
+&lt;/ol&gt;
 </content>
     </item>
     
