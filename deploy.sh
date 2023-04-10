@@ -1,9 +1,13 @@
 #!/bin/sh
+msg="rebuilding site $(date)"
+if [ -n "$*" ]; then
+	msg="$*"
+fi
 
 git pull
 git add .
 git reset -- public/*
-git commit -m "rebuilding site $(date)"
+git commit -m "$msg"
 git push origin main
 
 printf "\033[0;32mDeploying updates to GitHub...\033[0m\n"
