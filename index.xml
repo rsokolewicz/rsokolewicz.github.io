@@ -80,7 +80,64 @@ Once you have configured the cURL command, you can execute it in your terminal t
 &lt;li>&lt;code>response.content&lt;/code> returns a &lt;em>byte stream&lt;/em> that contains the content of the &lt;code>.csv&lt;/code> file that we requested. This can be passed directly to &lt;code>pandas.read_csv&lt;/code> using &lt;code>io.BytesIO&lt;/code>, so no need to save the file to disk first.&lt;/li>
 &lt;li>we pass the argument &lt;code>skiprows=60&lt;/code> to &lt;code>.read_csv(...)&lt;/code> because the KNMI data contains 60 rows of comments with explanations of what each data field means. The actual data that we are interested in starts from line &lt;code>61&lt;/code>.&lt;/li>
 &lt;/ul>
-&lt;p>That&amp;rsquo;s it! We have now successfully downloaded data from a website using REST API by inspecting the web page, identifying the REST API endpoint, and downloading the REST API request as cURL. Remember to always review and follow the terms of use and policies of the website and REST API you are accessing, and be respectful of any usage limits or restrictions. Frequent and bulky downloads are not always appreciated and you might get a temporary IP ban if you overuse the API endpoint.&lt;/p></content></item><item><title>[7/10] Pete Wu's De bananengeneratie</title><link>https://rsokolewicz.github.io/books/2_bananengeneratie/</link><pubDate>Sat, 18 Mar 2023 00:00:00 +0000</pubDate><guid>https://rsokolewicz.github.io/books/2_bananengeneratie/</guid><description>Pete Wu&amp;rsquo;s book &amp;ldquo;De Bananengeneratie&amp;rdquo; takes readers on a journey through his personal experiences growing up as a Chinese-Dutch in the Netherlands. Pete was born and raised in the Netherlands, but his Chinese heritage often made him feel like an outsider. He struggled to find his identity as someone who was &amp;ldquo;Chinese on the outside, white on the inside&amp;rdquo;, i.e. like a &amp;ldquo;banana&amp;rdquo;.
+&lt;p>That&amp;rsquo;s it! We have now successfully downloaded data from a website using REST API by inspecting the web page, identifying the REST API endpoint, and downloading the REST API request as cURL. Remember to always review and follow the terms of use and policies of the website and REST API you are accessing, and be respectful of any usage limits or restrictions. Frequent and bulky downloads are not always appreciated and you might get a temporary IP ban if you overuse the API endpoint.&lt;/p></content></item><item><title>Some tips for using VS code for python development</title><link>https://rsokolewicz.github.io/posts/3_vs_code_tips/</link><pubDate>Mon, 10 Apr 2023 00:00:00 +0000</pubDate><guid>https://rsokolewicz.github.io/posts/3_vs_code_tips/</guid><description>Useful Shortcuts Moving lines up/down shortcut: alt + up-arrow/down-arrow
+Add cursors to the end of lines of selected code shortcut: alt + shift + i
+Add cursor directly up or down shortcut: ctrl + alt + up-arrow/down-arrow
+Useful packages Error Lens Adds a nice inline description when something is wrong with your code.
+Black formatter Adds black as one of the code formatters in VS Code. A nice tip: turn on the setting format on save.</description><content>&lt;h1 id="useful-shortcuts">Useful Shortcuts&lt;/h1>
+&lt;h2 id="moving-lines-updown">Moving lines up/down&lt;/h2>
+&lt;p>shortcut: &lt;code>alt + up-arrow/down-arrow&lt;/code>&lt;/p>
+&lt;h2 id="add-cursors-to-the-end-of-lines-of-selected-code">Add cursors to the end of lines of selected code&lt;/h2>
+&lt;p>shortcut: &lt;code>alt + shift + i&lt;/code>&lt;/p>
+&lt;h2 id="add-cursor-directly-up-or-down">Add cursor directly up or down&lt;/h2>
+&lt;p>shortcut: &lt;code>ctrl + alt + up-arrow/down-arrow&lt;/code>&lt;/p>
+&lt;h1 id="useful-packages">Useful packages&lt;/h1>
+&lt;h2 id="error-lens">Error Lens&lt;/h2>
+&lt;p>Adds a nice inline description when something is wrong with your code.&lt;/p>
+&lt;h2 id="black-formatter">Black formatter&lt;/h2>
+&lt;p>Adds black as one of the code formatters in VS Code. A nice tip: turn on the setting &lt;code>format on save&lt;/code>.&lt;/p>
+&lt;h2 id="code-spell-checker">Code Spell Checker&lt;/h2>
+&lt;p>A neat plug-in that checks the spelling of words in comments and doc-strings, but also checks the spelling of variable names.&lt;/p>
+&lt;h2 id="gitlens">GitLens&lt;/h2>
+&lt;p>Adds git-blame annotation, shows authors above each class definition and much more git goodness.&lt;/p>
+&lt;h2 id="rainbow-csv">Rainbow CSV&lt;/h2>
+&lt;p>A cool plug-in that highlights different columns in a &lt;code>.csv&lt;/code> file.&lt;/p>
+&lt;h2 id="rewrap">Rewrap&lt;/h2>
+&lt;p>Wrapping comments, docstrings and text to 90 character width by just pressing &lt;code>alt+Q&lt;/code>. Ideal when working with ruff and/or black.&lt;/p>
+&lt;h2 id="ruff">Ruff&lt;/h2>
+&lt;p>The official Ruff plugin for VS-Code. Ruff is a collection of python linters that works extremely fast.&lt;/p>
+&lt;h2 id="gitlab-workflow">GitLab Workflow&lt;/h2>
+&lt;p>When reviewing other&amp;rsquo;s open merge requests, this plugin lets you explore the merge request from within VS code in a much nicer way than the web browser editor on gitlab.com. It allows you to read the description and comments as well. Placing comments is a bit of a hassle, as it doesn&amp;rsquo;t support &amp;ldquo;reviews&amp;rdquo; where you can submit all comments at once. It also doesn&amp;rsquo;t support code suggestions.&lt;/p>
+&lt;h2 id="grammarly">Grammarly&lt;/h2>
+&lt;p>Spell and grammar checker for &lt;code>.md&lt;/code> and &lt;code>.txt&lt;/code> files. To check &lt;code>.md&lt;/code> files, you will have to add the following to your Visual Studio Code settings:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-json" data-lang="json">&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e6db74">&amp;#34;grammarly.files.include&amp;#34;&lt;/span>&lt;span style="color:#960050;background-color:#1e0010">:&lt;/span> [
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e6db74">&amp;#34;**/*.txt&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e6db74">&amp;#34;**/*.md&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ]&lt;span style="color:#960050;background-color:#1e0010">,&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>or via the interface:&lt;/p>
+&lt;p>&lt;img src="images/image-2.png" alt="image-2">&lt;/p>
+&lt;h1 id="other">Other&lt;/h1>
+&lt;h2 id="useful-settings">Useful settings&lt;/h2>
+&lt;h3 id="copy-paste-images-into-markdown-files">Copy-paste images into markdown files&lt;/h3>
+&lt;p>Add these two lines to your Visual Studio Code settings&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-json" data-lang="json">&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e6db74">&amp;#34;editor.experimental.pasteActions.enabled&amp;#34;&lt;/span>&lt;span style="color:#960050;background-color:#1e0010">:&lt;/span> &lt;span style="color:#66d9ef">true&lt;/span>&lt;span style="color:#960050;background-color:#1e0010">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e6db74">&amp;#34;markdown.experimental.copyFiles.destination&amp;#34;&lt;/span>&lt;span style="color:#960050;background-color:#1e0010">:&lt;/span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;#34;**/*&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;images/&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }&lt;span style="color:#960050;background-color:#1e0010">,&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>or via the interface:&lt;/p>
+&lt;p>&lt;img src="images/image-3.png" alt="image">&lt;/p>
+&lt;p>and&lt;/p>
+&lt;p>&lt;img src="images/image-1.png" alt="image-1">&lt;/p>
+&lt;p>This allows you to paste an image directly into a markdown file with &lt;code>ctrl+v / cmd+v&lt;/code>. This inserts the line&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-rst" data-lang="rst">&lt;span style="display:flex;">&lt;span>![image](images/image.png)&lt;span style="color:#960050;background-color:#1e0010">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>into your document and creates a copy of the image in &lt;code>images/image.png&lt;/code>, where &lt;code>images&lt;/code> is the name of the folder relative to your file. This can be changed in the settings above. If you include multiple images, each image name will be appended by a number, i.e. &lt;code>image-1.png&lt;/code>, &lt;code>image-2.png&lt;/code>, etc.&lt;/p>
+&lt;h2 id="editable-installs">Editable installs&lt;/h2>
+&lt;p>Sometimes VS Code has problems with auto-completion and finding the definitions of imported symbols when they come from a package that is installed in editable mode, e.g. via &lt;code>pip install -e .&lt;/code>. With recent versions of &lt;code>setuptools&lt;/code> (&amp;gt;=0.64.0), editable installs behave a bit differently and these cause issues. There are three solutions to this:&lt;/p>
+&lt;ol>
+&lt;li>Downgrade &lt;code>setuptools&lt;/code> (i.e. &lt;code>pip install setuptools&amp;lt;0.64&lt;/code>)&lt;/li>
+&lt;li>Instruct pip to use a legacy mode: &lt;code>pip install -e . --config-settings editable_mode=compat&lt;/code>. The developers at &lt;code>setuptools&lt;/code> do &lt;a href="https://setuptools.pypa.io/en/latest/userguide/development_mode.html#legacy-behavior">warn&lt;/a> however that this is only a temporary solution and will likely to be changed and later removed entirely in future versions of &lt;code>setuptools&lt;/code>.&lt;/li>
+&lt;li>Add the project to the python path. When testing out new features inside a jupyter notebook it is sufficient to add the line &lt;code>sys.path.insert(1, &amp;quot;path-to-package&amp;quot;)&lt;/code> in the top cell. &lt;code>&amp;quot;path-to-package&amp;quot;&lt;/code> can be either an absolute path (e.g. &lt;code>&amp;quot;/users/rsoko/dev/my-package&amp;quot;&lt;/code>) or a relative path (&lt;code>&amp;quot;my-package&amp;quot;&lt;/code>, &lt;code>&amp;quot;./my-package&amp;quot;&lt;/code> or even &lt;code>&amp;quot;../my-package&amp;quot;&lt;/code>).&lt;/li>
+&lt;/ol></content></item><item><title>[7/10] Pete Wu's De bananengeneratie</title><link>https://rsokolewicz.github.io/books/2_bananengeneratie/</link><pubDate>Sat, 18 Mar 2023 00:00:00 +0000</pubDate><guid>https://rsokolewicz.github.io/books/2_bananengeneratie/</guid><description>Pete Wu&amp;rsquo;s book &amp;ldquo;De Bananengeneratie&amp;rdquo; takes readers on a journey through his personal experiences growing up as a Chinese-Dutch in the Netherlands. Pete was born and raised in the Netherlands, but his Chinese heritage often made him feel like an outsider. He struggled to find his identity as someone who was &amp;ldquo;Chinese on the outside, white on the inside&amp;rdquo;, i.e. like a &amp;ldquo;banana&amp;rdquo;.
 Growing up, Pete felt resentment towards his Chineseness, and he struggled to reconcile his dual identity.</description><content>&lt;p>Pete Wu&amp;rsquo;s book &amp;ldquo;De Bananengeneratie&amp;rdquo; takes readers on a journey through his
 personal experiences growing up as a Chinese-Dutch in the Netherlands. Pete was
 born and raised in the Netherlands, but his Chinese heritage often made him feel
@@ -12248,43 +12305,7 @@ map it to the correct entry in the above ssh configuration:&lt;/p>
 &lt;pre tabindex="0">&lt;code>git remote set-url origin git@gitlab-private:repo.git
 &lt;/code>&lt;/pre>&lt;p>&lt;code>git@gitlab-private:repo.git&lt;/code> has two important parts: &lt;code>git@...:&lt;/code> and
 &lt;code>:....git&lt;/code>. The first part that&amp;rsquo;s between &lt;code>git@...:&lt;/code> corresponds to the name of
-the host that is specified in the ssh configuration. In the above case &lt;code>host gitlab-private&lt;/code>. The name can be anything and is there just to map the correct ssh key to the corresponding repo. The second part &lt;code>:...git&lt;/code> is the git-url to the repo.&lt;/p></content></item><item><title>Some tips for using VS code for python development</title><link>https://rsokolewicz.github.io/posts/3_vs_code_tips/</link><pubDate>Sun, 04 Dec 2022 00:00:00 +0000</pubDate><guid>https://rsokolewicz.github.io/posts/3_vs_code_tips/</guid><description>Useful shortcuts Moving lines up/down shortcut: alt + up-arrow/down-arrow
-Add cursors to end of lines of selected code shortcut: alt + shift + i
-Add cursor directly up or down shortcut: ctrl + alt + up-arrow/down-arrow
-Useful packages Error Lens Adds a nice inline description when something is wrong with your code.
-Black formatter Adds black as one of the code formatters in VS Code. A nice tip: turn on the setting format on save.</description><content>&lt;h1 id="useful-shortcuts">Useful shortcuts&lt;/h1>
-&lt;h2 id="moving-lines-updown">Moving lines up/down&lt;/h2>
-&lt;p>shortcut: &lt;code>alt + up-arrow/down-arrow&lt;/code>&lt;/p>
-&lt;h2 id="add-cursors-to-end-of-lines-of-selected-code">Add cursors to end of lines of selected code&lt;/h2>
-&lt;p>shortcut: &lt;code>alt + shift + i&lt;/code>&lt;/p>
-&lt;h2 id="add-cursor-directly-up-or-down">Add cursor directly up or down&lt;/h2>
-&lt;p>shortcut: &lt;code>ctrl + alt + up-arrow/down-arrow&lt;/code>&lt;/p>
-&lt;h1 id="useful-packages">Useful packages&lt;/h1>
-&lt;h2 id="error-lens">Error Lens&lt;/h2>
-&lt;p>Adds a nice inline description when something is wrong with your code.&lt;/p>
-&lt;h2 id="black-formatter">Black formatter&lt;/h2>
-&lt;p>Adds black as one of the code formatters in VS Code. A nice tip: turn on the setting &lt;code>format on save&lt;/code>.&lt;/p>
-&lt;h2 id="code-spell-checker">Code Spell Checker&lt;/h2>
-&lt;p>A neat plug-in that checks the spelling of words in comments and doc-strings, but also checks the spelling of variable names.&lt;/p>
-&lt;h2 id="gitlens">GitLens&lt;/h2>
-&lt;p>Adds git-blame annotation, shows authors above each class definition and much more git goodness.&lt;/p>
-&lt;h2 id="rainbow-csv">Rainbow CSV&lt;/h2>
-&lt;p>A cool plug-in that highlights different columns in a &lt;code>.csv&lt;/code> file.&lt;/p>
-&lt;h2 id="rewrap">Rewrap&lt;/h2>
-&lt;p>Wrapping comments, docstrings and text to 90 character width by just pressing &lt;code>alt+Q&lt;/code>. Ideal when working with ruff and/or black.&lt;/p>
-&lt;h2 id="ruff">Ruff&lt;/h2>
-&lt;p>The official Ruff plugin for VS-Code. Ruff is a collection of python linters that works extremely fast.&lt;/p>
-&lt;h2 id="gitlab-workflow">GitLab Workflow&lt;/h2>
-&lt;p>When reviewing other&amp;rsquo;s open merge requests, this plugin lets you explore the merge request from within VS code in a much nicer way than the web browser editor on gitlab.com. It allows you to read the description and comments as well. Placing comments is a bit of a hassle, as it doesn&amp;rsquo;t support &amp;ldquo;reviews&amp;rdquo; where you can submit all comments at once. It also doesn&amp;rsquo;t support code suggestions.&lt;/p>
-&lt;h2 id="grammarly">Grammarly&lt;/h2>
-&lt;h1 id="other">Other&lt;/h1>
-&lt;h2 id="editable-installs">Editable installs&lt;/h2>
-&lt;p>Sometimes VS Code has problems with autocompletion and finding definitions of imported symbols, when they come from a package that is installed in editable mode, e.g. via &lt;code>pip install -e .&lt;/code>. With recent versions of &lt;code>setuptools&lt;/code> (&amp;gt;=0.64.0), editable installs behave a bit differently that cause issues. There are three solutions to this:&lt;/p>
-&lt;ol>
-&lt;li>Downgrade &lt;code>setuptools&lt;/code> (i.e. &lt;code>pip install setuptools&amp;lt;0.64&lt;/code>)&lt;/li>
-&lt;li>Instruct pip to use a legacy mode: &lt;code>pip install -e . --config-settings editable_mode=compat&lt;/code>. The developers at &lt;code>setuptools&lt;/code> do &lt;a href="https://setuptools.pypa.io/en/latest/userguide/development_mode.html#legacy-behavior">warn&lt;/a> however that this is only a temporary solution and will likely to be changed and later removed entirely in future versions of &lt;code>setuptools&lt;/code>.&lt;/li>
-&lt;li>Add the project to the python path. When testing out new features inside a jupyter notebook it is sufficient to add the line &lt;code>sys.path.insert(1, &amp;quot;path-to-package&amp;quot;)&lt;/code> in the top cell. &lt;code>&amp;quot;path-to-package&amp;quot;&lt;/code> can be either an absolute path (e.g. &lt;code>&amp;quot;/users/rsoko/dev/my-package&amp;quot;&lt;/code>) or a relative path (&lt;code>&amp;quot;my-package&amp;quot;&lt;/code>, &lt;code>&amp;quot;./my-package&amp;quot;&lt;/code> or even &lt;code>&amp;quot;../my-package&amp;quot;&lt;/code>).&lt;/li>
-&lt;/ol></content></item><item><title>About</title><link>https://rsokolewicz.github.io/about/</link><pubDate>Fri, 22 Apr 2022 00:00:00 +0000</pubDate><guid>https://rsokolewicz.github.io/about/</guid><description>Experienced software developer, data scientist, &amp;amp; researcher who is excellent in analytical and numerical modeling, programming and data analysis, and is initiative-taking and self-managed. In my spare time I enjoy watching mathematics lectures on YouTube, building an android app to classify mushrooms, designing quantum circuits/algorithms, web-scraping, competing on Kaggle.com, skateboarding, bouldering and brewing beer.</description><content>&lt;p>Experienced software developer, data scientist, &amp;amp; researcher who is excellent in analytical and numerical modeling, programming and data analysis, and is initiative-taking and self-managed. In my spare time I enjoy watching mathematics lectures on YouTube, building an android app to classify mushrooms, designing quantum circuits/algorithms, web-scraping, competing on Kaggle.com, skateboarding, bouldering and brewing beer.&lt;/p></content></item><item><title>CV</title><link>https://rsokolewicz.github.io/cv/</link><pubDate>Fri, 22 Apr 2022 00:00:00 +0000</pubDate><guid>https://rsokolewicz.github.io/cv/</guid><description>Experienced software developer, data scientist, &amp;amp; researcher who is excellent in analytical and numerical modeling, programming and data analysis, and is initiative-taking and self-managed. In my spare time I enjoy watching mathematics lectures on YouTube, building an android app to classify mushrooms, designing quantum circuits/algorithms, web-scraping, competing on Kaggle.com, skateboarding, bouldering and brewing beer.
+the host that is specified in the ssh configuration. In the above case &lt;code>host gitlab-private&lt;/code>. The name can be anything and is there just to map the correct ssh key to the corresponding repo. The second part &lt;code>:...git&lt;/code> is the git-url to the repo.&lt;/p></content></item><item><title>About</title><link>https://rsokolewicz.github.io/about/</link><pubDate>Fri, 22 Apr 2022 00:00:00 +0000</pubDate><guid>https://rsokolewicz.github.io/about/</guid><description>Experienced software developer, data scientist, &amp;amp; researcher who is excellent in analytical and numerical modeling, programming and data analysis, and is initiative-taking and self-managed. In my spare time I enjoy watching mathematics lectures on YouTube, building an android app to classify mushrooms, designing quantum circuits/algorithms, web-scraping, competing on Kaggle.com, skateboarding, bouldering and brewing beer.</description><content>&lt;p>Experienced software developer, data scientist, &amp;amp; researcher who is excellent in analytical and numerical modeling, programming and data analysis, and is initiative-taking and self-managed. In my spare time I enjoy watching mathematics lectures on YouTube, building an android app to classify mushrooms, designing quantum circuits/algorithms, web-scraping, competing on Kaggle.com, skateboarding, bouldering and brewing beer.&lt;/p></content></item><item><title>CV</title><link>https://rsokolewicz.github.io/cv/</link><pubDate>Fri, 22 Apr 2022 00:00:00 +0000</pubDate><guid>https://rsokolewicz.github.io/cv/</guid><description>Experienced software developer, data scientist, &amp;amp; researcher who is excellent in analytical and numerical modeling, programming and data analysis, and is initiative-taking and self-managed. In my spare time I enjoy watching mathematics lectures on YouTube, building an android app to classify mushrooms, designing quantum circuits/algorithms, web-scraping, competing on Kaggle.com, skateboarding, bouldering and brewing beer.
 Work Experience Python developer, Qblox, june 2022 - present Qblox delivers control hardware that is used to control and readout qubits in quantum computers.</description><content>&lt;p>Experienced software developer, data scientist, &amp;amp; researcher who is excellent in analytical and numerical modeling, programming and data analysis, and is initiative-taking and self-managed. In my spare time I enjoy watching mathematics lectures on YouTube, building an android app to classify mushrooms, designing quantum circuits/algorithms, web-scraping, competing on Kaggle.com, skateboarding, bouldering and brewing beer.&lt;/p>
 &lt;h1 id="work-experience">Work Experience&lt;/h1>
 &lt;h2 id="python-developer-qblox-june-2022---present">Python developer, Qblox, june 2022 - present&lt;/h2>
