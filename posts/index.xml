@@ -6,7 +6,100 @@
     <description>Recent content in Posts on Roberts blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 04 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://rsokolewicz.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 10 Apr 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://rsokolewicz.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Easy data-scraping using REST API and request package</title>
+      <link>https://rsokolewicz.github.io/posts/6_rest_api/</link>
+      <pubDate>Mon, 10 Apr 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://rsokolewicz.github.io/posts/6_rest_api/</guid>
+      <description>Often when webpages provide a friendly interface to download data, the data itself is fetched using a REST API. Most web browsers can easily intercept the request, which you can modify and edit. This is convenient if you want to use Python to download a lot of data, or if you want to set up an automated data download pipeline.
+Here&amp;rsquo;s a quick step-by-step guide on how to do so.</description>
+      <content>&lt;p&gt;Often when webpages provide a friendly interface to download data, the data itself is fetched using a REST API. Most web browsers can easily intercept the request, which you can modify and edit. This is convenient if you want to use Python to download a lot of data, or if you want to set up an automated data download pipeline.&lt;/p&gt;
+&lt;p&gt;Here&amp;rsquo;s a quick step-by-step guide on how to do so.&lt;/p&gt;
+&lt;h2 id=&#34;step-1-inspect-the-web-page&#34;&gt;Step 1: Inspect the Web Page&lt;/h2&gt;
+&lt;p&gt;Open your web browser and navigate to the website from which you want to download data. For this example, I use &lt;a href=&#34;https://daggegevens.knmi.nl/klimatologie/daggegevens&#34;&gt;weather data&lt;/a&gt; from the Dutch Royal Weather Institute (KNMI).
+Right-click on the web page and select &amp;ldquo;Inspect&amp;rdquo; or &amp;ldquo;Inspect Element&amp;rdquo; from the context menu. This will open the browser&amp;rsquo;s developer tools.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;images/image-4.png&#34; alt=&#34;image-4&#34;&gt;&lt;/p&gt;
+&lt;p&gt;In the developer tools, go to the &amp;ldquo;Network&amp;rdquo; tab. This tab allows you to monitor the network activity of the web page, including the REST API requests and responses.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;images/image-5.png&#34; alt=&#34;image-5&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;step-2-identify-the-rest-api-endpoint&#34;&gt;Step 2: Identify the REST API Endpoint&lt;/h2&gt;
+&lt;p&gt;Interact with the web page to trigger the REST API request that fetches the data you want to download. In the KNMI data example, we can enter:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Period: 20230101 - 20230410&lt;/li&gt;
+&lt;li&gt;Fields: TG (daily mean temperature)&lt;/li&gt;
+&lt;li&gt;Weather stations: 260 de Bilt&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;and press &amp;ldquo;Bestand downloaden&amp;rdquo;. Most webpages should have either a similar download button or a search query.&lt;/p&gt;
+&lt;p&gt;In the &amp;ldquo;Network&amp;rdquo; tab, you should see a list of network requests made by the web page. Look for the REST API request that corresponds to the data you want to download. The REST API request will usually have a URL, method (e.g., GET, POST), and request/response headers. In this example, we look at &amp;ldquo;daggegevens&amp;rdquo;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;images/image-6.png&#34; alt=&#34;image-6&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;step-3-download-the-rest-api-request-as-curl&#34;&gt;Step 3: Download the REST API Request as cURL&lt;/h2&gt;
+&lt;p&gt;Right-click the REST API request that you want to download and select &amp;ldquo;Copy&amp;rdquo; &amp;gt; &amp;ldquo;Copy all as cURL&amp;rdquo; from the context menu. This will copy the cURL command that represents the REST API request to your clipboard.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;images/image-7.png&#34; alt=&#34;image-7&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Open a text editor or a terminal window, and paste the copied cURL command.
+Modify the cURL command as needed, such as replacing placeholders with actual values. For example, you may need to update query parameters, request headers, or authentication tokens.
+Once you have configured the cURL command, you can execute it in your terminal to download the data from the REST API endpoint. The downloaded data will typically be saved as a response body in the format specified by the REST API (e.g., JSON, XML, CSV).&lt;/p&gt;
+&lt;h2 id=&#34;step-4-write-a-python-script-for-automated-download&#34;&gt;Step 4: Write a Python script for automated download&lt;/h2&gt;
+&lt;p&gt;Instead of manually modifying the cURL command and running it from the terminal, it is convenient to do this in Python. This will allow us to automatically sweep through parameters and download everything that we need.&lt;/p&gt;
+&lt;p&gt;We first convert the cURL request that is sitting in our clipboard, to a Python script that will use the requests package. A convenient webpage is &lt;a href=&#34;https://curlconverter.com/python/&#34;&gt;curlconverter.com/python/&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;images/image-8.png&#34; alt=&#34;image-8&#34;&gt;&lt;/p&gt;
+&lt;p&gt;You should have a script that is similar to&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; requests
+
+cookies &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; {
+    &lt;span style=&#34;color:#f92672&#34;&gt;...&lt;/span&gt;
+}
+
+headers &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; {
+    &lt;span style=&#34;color:#f92672&#34;&gt;...&lt;/span&gt;
+}
+
+data &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;...&amp;#39;&lt;/span&gt;
+
+response &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; requests&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;post(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;...&amp;#39;&lt;/span&gt;, cookies&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;cookies, headers&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;headers, data&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;data)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;In the example of the KNMI weather data, a single download is limited to about 2 years of data. If we want to build a dataset that contains full historical data, we can loop over all the years that we are interested in, where we iteratively run &lt;code&gt;requests.post(...)&lt;/code&gt; but for the correct years and append it to a larger Pandas &lt;code&gt;DataFrame&lt;/code&gt;. Inside the large data string we find &lt;code&gt;name=&amp;quot;start&amp;quot;\r\n\r\n20230101\r\n&lt;/code&gt; and &lt;code&gt;name=&amp;quot;end&amp;quot;\r\n\r\n20230410\r\n&lt;/code&gt;, so we insert variables here over which we can loop:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;data &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; f&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;... name=&amp;#34;start&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\r\n\r\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{year}0101&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\r\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt; ... name=&amp;#34;end&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\r\n\r\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{year+2}1231&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\r\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt; ...&amp;#39;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;and the looping script will look as:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; pandas &lt;span style=&#34;color:#f92672&#34;&gt;as&lt;/span&gt; pd
+&lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; tqdm &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; tqdm
+&lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; io &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; BytesIO
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;get_data&lt;/span&gt;(year):
+    data &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; f&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;... name=&amp;#34;start&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\r\n\r\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{year}0101&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\r\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt; ... name=&amp;#34;end&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\r\n\r\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{year+2}1231&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\r\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt; ...&amp;#39;&lt;/span&gt;
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; data
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;get_chunked_df&lt;/span&gt;(year):
+    data &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; get_data(year)
+
+    response &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; requests&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;post(
+        &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;https://daggegevens.knmi.nl/klimatologie/daggegevens&amp;#34;&lt;/span&gt;,
+        cookies&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;cookies,
+        headers&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;headers,
+        data&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;data,
+    )
+
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; response&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;status_code &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;200&lt;/span&gt;:
+        content &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; response&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;content
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; pd&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;read_csv(BytesIO(content), skiprows&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;60&lt;/span&gt;)
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt;:
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; None
+
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; year &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; tqdm(range(&lt;span style=&#34;color:#ae81ff&#34;&gt;1900&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2022&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;)):
+    df_chunk &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; get_chunked_df(year)
+    df &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; pd&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;concat([df, df_chunk])
+
+df&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;to_csv(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;data/weather.csv&amp;#34;&lt;/span&gt;, index&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;False)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;some notes about this code:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;an HTTP request always returns a &lt;code&gt;status_code&lt;/code&gt;. &lt;code&gt;200&lt;/code&gt; means you made a successful request and any other code indicates that something went wrong (e.g. &lt;code&gt;403&lt;/code&gt; - access denied).&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;response.content&lt;/code&gt; returns a &lt;em&gt;byte stream&lt;/em&gt; that contains the content of the &lt;code&gt;.csv&lt;/code&gt; file that we requested. This can be passed directly to &lt;code&gt;pandas.read_csv&lt;/code&gt; using &lt;code&gt;io.BytesIO&lt;/code&gt;, so no need to save the file to disk first.&lt;/li&gt;
+&lt;li&gt;we pass the argument &lt;code&gt;skiprows=60&lt;/code&gt; to &lt;code&gt;.read_csv(...)&lt;/code&gt; because the KNMI data contains 60 rows of comments with explanations of what each data field means. The actual data that we are interested in starts from line &lt;code&gt;61&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;That&amp;rsquo;s it! We have now successfully downloaded data from a website using REST API by inspecting the web page, identifying the REST API endpoint, and downloading the REST API request as cURL. Remember to always review and follow the terms of use and policies of the website and REST API you are accessing, and be respectful of any usage limits or restrictions. Frequent and bulky downloads are not always appreciated and you might get a temporary IP ban if you overuse the API endpoint.&lt;/p&gt;
+</content>
+    </item>
+    
     <item>
       <title>Managing git ssh-keys for multiple accounts on GitLab and GitHub</title>
       <link>https://rsokolewicz.github.io/posts/4_git_ssh/</link>

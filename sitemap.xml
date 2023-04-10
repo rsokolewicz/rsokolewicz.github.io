@@ -3,6 +3,16 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://rsokolewicz.github.io/posts/6_rest_api/</loc>
+    <lastmod>2023-04-10T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://rsokolewicz.github.io/posts/</loc>
+    <lastmod>2023-04-10T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://rsokolewicz.github.io/books/2_bananengeneratie/</loc>
     <lastmod>2023-03-18T00:00:00+00:00</lastmod>
   </url>
@@ -40,11 +50,6 @@
   
   <url>
     <loc>https://rsokolewicz.github.io/posts/4_git_ssh/</loc>
-    <lastmod>2022-12-04T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://rsokolewicz.github.io/posts/</loc>
     <lastmod>2022-12-04T00:00:00+00:00</lastmod>
   </url>
   
