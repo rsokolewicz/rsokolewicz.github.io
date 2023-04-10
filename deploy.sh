@@ -1,6 +1,10 @@
 #!/bin/sh
 
 git pull
+git add .
+git reset -- public/*
+git commit -m "rebuilding site $(date)"
+git push origin main
 
 printf "\033[0;32mDeploying updates to GitHub...\033[0m\n"
 
@@ -9,6 +13,8 @@ hugo -t hugo-theme-terminal # if using a theme, replace with `hugo -t <YOURTHEME
 
 # Go To Public folder
 cd public
+
+git pull
 
 # Add changes to git.
 git add .
