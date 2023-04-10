@@ -5,7 +5,7 @@ author= "Robert"
 cover = ""
 description = "A small (but growing) list of useful tips when developing python in VS code."
 mathjax = false
-draft = true
+draft = false
 +++
 
 
@@ -26,9 +26,6 @@ shortcut: `ctrl + alt + up-arrow/down-arrow`
 
 # Useful packages
 
-## IntelliCode
-Smart autocomplete. 
-
 ## Error Lens
 Adds a nice inline description when something is wrong with your code.
 
@@ -41,16 +38,26 @@ A neat plug-in that checks the spelling of words in comments and doc-strings, bu
 ## GitLens
 Adds git-blame annotation, shows authors above each class definition and much more git goodness. 
 
-## Pytest IntelliSense
-Adds autocomplete for pytest fixtures.
 
 ## Rainbow CSV
 A cool plug-in that highlights different columns in a `.csv` file. 
 
+## Rewrap
+Wrapping comments, docstrings and text to 90 character width by just pressing `alt+Q`. Ideal when working with ruff and/or black.
+
+## Ruff
+The official Ruff plugin for VS-Code. Ruff is a collection of python linters that works extremely fast. 
+
+## GitLab Workflow
+When reviewing other's open merge requests, this plugin lets you explore the merge request from within VS code in a much nicer way than the web browser editor on gitlab.com. It allows you to read the description and comments as well. Placing comments is a bit of a hassle, as it doesn't support "reviews" where you can submit all comments at once. It also doesn't support code suggestions. 
+
+## Grammarly
+
+
 # Other
 
 ## Editable installs
-Sometimes VS Code has problems with autocompletion and finding definitions of imported symbols, when they come from a package that is installed in editable mode, e.g. via `pip install -e .`. With recent versions of `setuptools` (>=0.64.0), editable installs behave a bit differently that can cause issues. There are three solutions to this:
+Sometimes VS Code has problems with autocompletion and finding definitions of imported symbols, when they come from a package that is installed in editable mode, e.g. via `pip install -e .`. With recent versions of `setuptools` (>=0.64.0), editable installs behave a bit differently that cause issues. There are three solutions to this:
 
 1. Downgrade `setuptools` (i.e. `pip install setuptools<0.64`)
 2. Instruct pip to use a legacy mode: `pip install -e . --config-settings editable_mode=compat`. The developers at `setuptools` do [warn](https://setuptools.pypa.io/en/latest/userguide/development_mode.html#legacy-behavior) however that this is only a temporary solution and will likely to be changed and later removed entirely in future versions of `setuptools`. 

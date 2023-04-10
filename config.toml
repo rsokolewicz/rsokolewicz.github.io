@@ -45,6 +45,10 @@ paginate = 5
         identifier = "physics"
         name = "Physics"
         url = "/physics"
+      [[languages.en.menu.main]]
+        identifier = "Books"
+        name = "Book Reviews"
+        url = "/books"
 
 [markup]
   [markup.goldmark]
