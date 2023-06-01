@@ -1,4 +1,59 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Roberts blog</title><link>https://rsokolewicz.github.io/posts/</link><description>Recent content in Posts on Roberts blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Mon, 10 Apr 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://rsokolewicz.github.io/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Easy data-scraping using REST API and request package</title><link>https://rsokolewicz.github.io/posts/6_rest_api/</link><pubDate>Mon, 10 Apr 2023 00:00:00 +0000</pubDate><guid>https://rsokolewicz.github.io/posts/6_rest_api/</guid><description>Often when webpages provide a friendly interface to download data, the data itself is fetched using a REST API. Most web browsers can easily intercept the request, which you can modify and edit. This is convenient if you want to use Python to download a lot of data, or if you want to set up an automated data download pipeline.
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Roberts blog</title><link>https://rsokolewicz.github.io/posts/</link><description>Recent content in Posts on Roberts blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Thu, 01 Jun 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://rsokolewicz.github.io/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Mocking context managers with pytest</title><link>https://rsokolewicz.github.io/posts/7_mock_context_manager/</link><pubDate>Thu, 01 Jun 2023 00:00:00 +0000</pubDate><guid>https://rsokolewicz.github.io/posts/7_mock_context_manager/</guid><description>In software testing, it is often necessary to mock external dependencies, such as API calls, to isolate the code under test and simulate specific behaviors. pytest, a popular testing framework in Python, provides powerful mocking capabilities through its pytest-mock plugin. Mocking functions and methods is not so hard, but mocking context managers can be tricky, as sometimes you will need to mock the __enter__() as well.
+Example 1 Suppose we have</description><content>&lt;p>In software testing, it is often necessary to mock external dependencies, such as API calls, to isolate the code under test and simulate specific behaviors. &lt;code>pytest&lt;/code>, a popular testing framework in Python, provides powerful mocking capabilities through its &lt;code>pytest-mock&lt;/code> plugin. Mocking functions and methods is not so hard, but mocking context managers can be tricky, as sometimes you will need to mock the &lt;code>__enter__()&lt;/code> as well.&lt;/p>
+&lt;h1 id="example-1">Example 1&lt;/h1>
+&lt;p>Suppose we have&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">fetch_data&lt;/span>():
+response &lt;span style="color:#f92672">=&lt;/span> requests&lt;span style="color:#f92672">.&lt;/span>get(&lt;span style="color:#e6db74">&amp;#34;https://api.example.com/data&amp;#34;&lt;/span>)
+&lt;span style="color:#66d9ef">return&lt;/span> response&lt;span style="color:#f92672">.&lt;/span>json()
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>which issues an HTTP GET request to &lt;a href="https://api.example.com/data">https://api.example.com/data&lt;/a> and returns whatever the response is in a json format.&lt;/p>
+&lt;p>A unit test for this function could look like&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">test_fetch_data&lt;/span>():
+&lt;span style="color:#66d9ef">with&lt;/span> mock&lt;span style="color:#f92672">.&lt;/span>patch(&lt;span style="color:#e6db74">&amp;#34;requests.get&amp;#34;&lt;/span>) &lt;span style="color:#66d9ef">as&lt;/span> mock_get:
+&lt;span style="color:#75715e"># Set up the desired behavior for the mocked function&lt;/span>
+mock_get&lt;span style="color:#f92672">.&lt;/span>return_value&lt;span style="color:#f92672">.&lt;/span>json&lt;span style="color:#f92672">.&lt;/span>return_value &lt;span style="color:#f92672">=&lt;/span> {&lt;span style="color:#e6db74">&amp;#34;message&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;Mocked data&amp;#34;&lt;/span>}
+&lt;span style="color:#75715e"># Call the function under test&lt;/span>
+result &lt;span style="color:#f92672">=&lt;/span> fetch_data()
+&lt;span style="color:#75715e"># Assert the expected behavior&lt;/span>
+&lt;span style="color:#66d9ef">assert&lt;/span> result &lt;span style="color:#f92672">==&lt;/span> {&lt;span style="color:#e6db74">&amp;#34;message&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;Mocked data&amp;#34;&lt;/span>}
+mock_get&lt;span style="color:#f92672">.&lt;/span>assert_called_once_with(&lt;span style="color:#e6db74">&amp;#34;https://api.example.com/data&amp;#34;&lt;/span>)
+mock_get&lt;span style="color:#f92672">.&lt;/span>return_value&lt;span style="color:#f92672">.&lt;/span>json&lt;span style="color:#f92672">.&lt;/span>assert_called_once()
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>where we mock the &lt;code>requests.get&lt;/code> function directly. In the &lt;code>fetch_data&lt;/code> function we are returning &lt;code>response.json()&lt;/code> that we would also like to mock with some dummy return data. By chaining &lt;code>mock_get.return_value&lt;/code> together with &lt;code>json.return_value&lt;/code> we can assign the return value of &lt;code>response.json()&lt;/code>.&lt;/p>
+&lt;p>One benefit of mockers is that is easy to assert how a method was called, and even how often it was called. In this case, we used&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#75715e"># Assert the expected behavior&lt;/span>
+&lt;span style="color:#66d9ef">assert&lt;/span> result &lt;span style="color:#f92672">==&lt;/span> {&lt;span style="color:#e6db74">&amp;#34;message&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;Mocked data&amp;#34;&lt;/span>}
+mock_get&lt;span style="color:#f92672">.&lt;/span>assert_called_once_with(&lt;span style="color:#e6db74">&amp;#34;https://api.example.com/data&amp;#34;&lt;/span>)
+mock_get&lt;span style="color:#f92672">.&lt;/span>return_value&lt;span style="color:#f92672">.&lt;/span>json&lt;span style="color:#f92672">.&lt;/span>assert_called_once()
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Things become a little tricky in the next example&lt;/p>
+&lt;h1 id="example-2">Example 2&lt;/h1>
+&lt;p>&lt;code>requests.get()&lt;/code> returns a &lt;code>Request&lt;/code> object that is a context manager. So often in code we will see the following example instead.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">fetch_data&lt;/span>():
+&lt;span style="color:#66d9ef">with&lt;/span> requests&lt;span style="color:#f92672">.&lt;/span>get(&lt;span style="color:#e6db74">&amp;#34;https://api.example.com/data&amp;#34;&lt;/span>) &lt;span style="color:#66d9ef">as&lt;/span> response:
+&lt;span style="color:#66d9ef">return&lt;/span> response&lt;span style="color:#f92672">.&lt;/span>json()
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>and running the above test on this function instead, will give us a nice warning:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python"> &lt;span style="color:#75715e"># Assert the expected behavior&lt;/span>
+&lt;span style="color:#f92672">&amp;gt;&lt;/span> &lt;span style="color:#66d9ef">assert&lt;/span> result &lt;span style="color:#f92672">==&lt;/span> {&lt;span style="color:#e6db74">&amp;#34;message&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;Mocked data&amp;#34;&lt;/span>}
+E &lt;span style="color:#a6e22e">AssertionError&lt;/span>: &lt;span style="color:#66d9ef">assert&lt;/span> &lt;span style="color:#f92672">&amp;lt;&lt;/span>MagicMock name&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;get().__enter__().json()&amp;#39;&lt;/span> id&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;140616315269184&amp;#39;&lt;/span>&lt;span style="color:#f92672">&amp;gt;&lt;/span> &lt;span style="color:#f92672">==&lt;/span> {&lt;span style="color:#e6db74">&amp;#39;message&amp;#39;&lt;/span>: &lt;span style="color:#e6db74">&amp;#39;Mocked data&amp;#39;&lt;/span>}
+E Full diff:
+E &lt;span style="color:#f92672">-&lt;/span> {&lt;span style="color:#e6db74">&amp;#39;message&amp;#39;&lt;/span>: &lt;span style="color:#e6db74">&amp;#39;Mocked data&amp;#39;&lt;/span>}
+E &lt;span style="color:#f92672">+&lt;/span> &lt;span style="color:#f92672">&amp;lt;&lt;/span>MagicMock name&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;get().__enter__().json()&amp;#39;&lt;/span> id&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;140616315269184&amp;#39;&lt;/span>&lt;span style="color:#f92672">&amp;gt;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>The error already gives us a hint that we need to mock &lt;code>__enter__&lt;/code> as well. Whereas before &lt;code>response&lt;/code> was the actual &lt;code>Response&lt;/code> object, now it corresponds to whatever &lt;code>Response.__enter__&lt;/code> returns.&lt;/p>
+&lt;p>and so, the modified test will look like&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">test_fetch_data&lt;/span>():
+&lt;span style="color:#66d9ef">with&lt;/span> mock&lt;span style="color:#f92672">.&lt;/span>patch(&lt;span style="color:#e6db74">&amp;#34;requests.get&amp;#34;&lt;/span>) &lt;span style="color:#66d9ef">as&lt;/span> mock_get:
+mock_response &lt;span style="color:#f92672">=&lt;/span> mock&lt;span style="color:#f92672">.&lt;/span>Mock()
+mock_response&lt;span style="color:#f92672">.&lt;/span>json&lt;span style="color:#f92672">.&lt;/span>return_value &lt;span style="color:#f92672">=&lt;/span> {&lt;span style="color:#e6db74">&amp;#34;message&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;Mocked data&amp;#34;&lt;/span>}
+mock_get&lt;span style="color:#f92672">.&lt;/span>return_value&lt;span style="color:#f92672">.&lt;/span>__enter__&lt;span style="color:#f92672">.&lt;/span>return_value &lt;span style="color:#f92672">=&lt;/span> mock_response
+&lt;span style="color:#75715e"># Call the function under test&lt;/span>
+result &lt;span style="color:#f92672">=&lt;/span> fetch_data()
+&lt;span style="color:#75715e"># Assert the expected behavior&lt;/span>
+&lt;span style="color:#66d9ef">assert&lt;/span> result &lt;span style="color:#f92672">==&lt;/span> {&lt;span style="color:#e6db74">&amp;#34;message&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;Mocked data&amp;#34;&lt;/span>}
+mock_get&lt;span style="color:#f92672">.&lt;/span>assert_called_once_with(&lt;span style="color:#e6db74">&amp;#34;https://api.example.com/data&amp;#34;&lt;/span>)
+mock_response&lt;span style="color:#f92672">.&lt;/span>json&lt;span style="color:#f92672">.&lt;/span>assert_called_once()
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>with two small modifications:&lt;/p>
+&lt;ul>
+&lt;li>We also create a mock response object &lt;code>mock_response&lt;/code> using &lt;code>mock.Mock()&lt;/code> to simulate the behavior of the response.&lt;/li>
+&lt;li>We then set up the desired behavior of the context manager by assigning mock_response to &lt;code>mock_get.return_value.__enter__.return_value&lt;/code>. This ensures that when the context manager is entered, our &lt;code>mock_response&lt;/code> object is used.&lt;/li>
+&lt;/ul></content></item><item><title>Easy data-scraping using REST API and request package</title><link>https://rsokolewicz.github.io/posts/6_rest_api/</link><pubDate>Mon, 10 Apr 2023 00:00:00 +0000</pubDate><guid>https://rsokolewicz.github.io/posts/6_rest_api/</guid><description>Often when webpages provide a friendly interface to download data, the data itself is fetched using a REST API. Most web browsers can easily intercept the request, which you can modify and edit. This is convenient if you want to use Python to download a lot of data, or if you want to set up an automated data download pipeline.
 Here&amp;rsquo;s a quick step-by-step guide on how to do so.</description><content>&lt;p>Often when webpages provide a friendly interface to download data, the data itself is fetched using a REST API. Most web browsers can easily intercept the request, which you can modify and edit. This is convenient if you want to use Python to download a lot of data, or if you want to set up an automated data download pipeline.&lt;/p>
 &lt;p>Here&amp;rsquo;s a quick step-by-step guide on how to do so.&lt;/p>
 &lt;h2 id="step-1-inspect-the-web-page">Step 1: Inspect the Web Page&lt;/h2>
@@ -28,53 +83,42 @@ Once you have configured the cURL command, you can execute it in your terminal t
 &lt;p>We first convert the cURL request that is sitting in our clipboard, to a Python script that will use the requests package. A convenient webpage is &lt;a href="https://curlconverter.com/python/">curlconverter.com/python/&lt;/a>.&lt;/p>
 &lt;p>&lt;img src="images/image-8.png" alt="image-8">&lt;/p>
 &lt;p>You should have a script that is similar to&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-python" data-lang="python">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">import&lt;/span> requests
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>cookies &lt;span style="color:#f92672">=&lt;/span> {
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">...&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>headers &lt;span style="color:#f92672">=&lt;/span> {
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">...&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>data &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;...&amp;#39;&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>response &lt;span style="color:#f92672">=&lt;/span> requests&lt;span style="color:#f92672">.&lt;/span>post(&lt;span style="color:#e6db74">&amp;#39;...&amp;#39;&lt;/span>, cookies&lt;span style="color:#f92672">=&lt;/span>cookies, headers&lt;span style="color:#f92672">=&lt;/span>headers, data&lt;span style="color:#f92672">=&lt;/span>data)
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>In the example of the KNMI weather data, a single download is limited to about 2 years of data. If we want to build a dataset that contains full historical data, we can loop over all the years that we are interested in, where we iteratively run &lt;code>requests.post(...)&lt;/code> but for the correct years and append it to a larger Pandas &lt;code>DataFrame&lt;/code>. Inside the large data string we find &lt;code>name=&amp;quot;start&amp;quot;\r\n\r\n20230101\r\n&lt;/code> and &lt;code>name=&amp;quot;end&amp;quot;\r\n\r\n20230410\r\n&lt;/code>, so we insert variables here over which we can loop:&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-python" data-lang="python">&lt;span style="display:flex;">&lt;span>data &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">f&lt;/span>&lt;span style="color:#e6db74">&amp;#39;... name=&amp;#34;start&amp;#34;&lt;/span>&lt;span style="color:#ae81ff">\r\n\r\n&lt;/span>&lt;span style="color:#e6db74">{&lt;/span>year&lt;span style="color:#e6db74">}&lt;/span>&lt;span style="color:#e6db74">0101&lt;/span>&lt;span style="color:#ae81ff">\r\n&lt;/span>&lt;span style="color:#e6db74"> ... name=&amp;#34;end&amp;#34;&lt;/span>&lt;span style="color:#ae81ff">\r\n\r\n&lt;/span>&lt;span style="color:#e6db74">{&lt;/span>year&lt;span style="color:#f92672">+&lt;/span>&lt;span style="color:#ae81ff">2&lt;/span>&lt;span style="color:#e6db74">}&lt;/span>&lt;span style="color:#e6db74">1231&lt;/span>&lt;span style="color:#ae81ff">\r\n&lt;/span>&lt;span style="color:#e6db74"> ...&amp;#39;&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>and the looping script will look as:&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-python" data-lang="python">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">import&lt;/span> pandas &lt;span style="color:#66d9ef">as&lt;/span> pd
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">from&lt;/span> tqdm &lt;span style="color:#f92672">import&lt;/span> tqdm
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">from&lt;/span> io &lt;span style="color:#f92672">import&lt;/span> BytesIO
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">get_data&lt;/span>(year):
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> data &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">f&lt;/span>&lt;span style="color:#e6db74">&amp;#39;... name=&amp;#34;start&amp;#34;&lt;/span>&lt;span style="color:#ae81ff">\r\n\r\n&lt;/span>&lt;span style="color:#e6db74">{&lt;/span>year&lt;span style="color:#e6db74">}&lt;/span>&lt;span style="color:#e6db74">0101&lt;/span>&lt;span style="color:#ae81ff">\r\n&lt;/span>&lt;span style="color:#e6db74"> ... name=&amp;#34;end&amp;#34;&lt;/span>&lt;span style="color:#ae81ff">\r\n\r\n&lt;/span>&lt;span style="color:#e6db74">{&lt;/span>year&lt;span style="color:#f92672">+&lt;/span>&lt;span style="color:#ae81ff">2&lt;/span>&lt;span style="color:#e6db74">}&lt;/span>&lt;span style="color:#e6db74">1231&lt;/span>&lt;span style="color:#ae81ff">\r\n&lt;/span>&lt;span style="color:#e6db74"> ...&amp;#39;&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">return&lt;/span> data
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">get_chunked_df&lt;/span>(year):
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> data &lt;span style="color:#f92672">=&lt;/span> get_data(year)
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> response &lt;span style="color:#f92672">=&lt;/span> requests&lt;span style="color:#f92672">.&lt;/span>post(
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e6db74">&amp;#34;https://daggegevens.knmi.nl/klimatologie/daggegevens&amp;#34;&lt;/span>,
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> cookies&lt;span style="color:#f92672">=&lt;/span>cookies,
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> headers&lt;span style="color:#f92672">=&lt;/span>headers,
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> data&lt;span style="color:#f92672">=&lt;/span>data,
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> )
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">if&lt;/span> response&lt;span style="color:#f92672">.&lt;/span>status_code &lt;span style="color:#f92672">==&lt;/span> &lt;span style="color:#ae81ff">200&lt;/span>:
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> content &lt;span style="color:#f92672">=&lt;/span> response&lt;span style="color:#f92672">.&lt;/span>content
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">return&lt;/span> pd&lt;span style="color:#f92672">.&lt;/span>read_csv(BytesIO(content), skiprows&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#ae81ff">60&lt;/span>)
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">else&lt;/span>:
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#66d9ef">None&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">for&lt;/span> year &lt;span style="color:#f92672">in&lt;/span> tqdm(range(&lt;span style="color:#ae81ff">1900&lt;/span>, &lt;span style="color:#ae81ff">2022&lt;/span>, &lt;span style="color:#ae81ff">2&lt;/span>)):
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> df_chunk &lt;span style="color:#f92672">=&lt;/span> get_chunked_df(year)
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> df &lt;span style="color:#f92672">=&lt;/span> pd&lt;span style="color:#f92672">.&lt;/span>concat([df, df_chunk])
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>df&lt;span style="color:#f92672">.&lt;/span>to_csv(&lt;span style="color:#e6db74">&amp;#34;data/weather.csv&amp;#34;&lt;/span>, index&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#66d9ef">False&lt;/span>)
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>some notes about this code:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#f92672">import&lt;/span> requests
+cookies &lt;span style="color:#f92672">=&lt;/span> {
+&lt;span style="color:#f92672">...&lt;/span>
+}
+headers &lt;span style="color:#f92672">=&lt;/span> {
+&lt;span style="color:#f92672">...&lt;/span>
+}
+data &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;...&amp;#39;&lt;/span>
+response &lt;span style="color:#f92672">=&lt;/span> requests&lt;span style="color:#f92672">.&lt;/span>post(&lt;span style="color:#e6db74">&amp;#39;...&amp;#39;&lt;/span>, cookies&lt;span style="color:#f92672">=&lt;/span>cookies, headers&lt;span style="color:#f92672">=&lt;/span>headers, data&lt;span style="color:#f92672">=&lt;/span>data)
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>In the example of the KNMI weather data, a single download is limited to about 2 years of data. If we want to build a dataset that contains full historical data, we can loop over all the years that we are interested in, where we iteratively run &lt;code>requests.post(...)&lt;/code> but for the correct years and append it to a larger Pandas &lt;code>DataFrame&lt;/code>. Inside the large data string we find &lt;code>name=&amp;quot;start&amp;quot;\r\n\r\n20230101\r\n&lt;/code> and &lt;code>name=&amp;quot;end&amp;quot;\r\n\r\n20230410\r\n&lt;/code>, so we insert variables here over which we can loop:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">data &lt;span style="color:#f92672">=&lt;/span> f&lt;span style="color:#e6db74">&amp;#39;... name=&amp;#34;start&amp;#34;&lt;/span>&lt;span style="color:#ae81ff">\r\n\r\n&lt;/span>&lt;span style="color:#e6db74">{year}0101&lt;/span>&lt;span style="color:#ae81ff">\r\n&lt;/span>&lt;span style="color:#e6db74"> ... name=&amp;#34;end&amp;#34;&lt;/span>&lt;span style="color:#ae81ff">\r\n\r\n&lt;/span>&lt;span style="color:#e6db74">{year+2}1231&lt;/span>&lt;span style="color:#ae81ff">\r\n&lt;/span>&lt;span style="color:#e6db74"> ...&amp;#39;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>and the looping script will look as:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#f92672">import&lt;/span> pandas &lt;span style="color:#f92672">as&lt;/span> pd
+&lt;span style="color:#f92672">from&lt;/span> tqdm &lt;span style="color:#f92672">import&lt;/span> tqdm
+&lt;span style="color:#f92672">from&lt;/span> io &lt;span style="color:#f92672">import&lt;/span> BytesIO
+&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">get_data&lt;/span>(year):
+data &lt;span style="color:#f92672">=&lt;/span> f&lt;span style="color:#e6db74">&amp;#39;... name=&amp;#34;start&amp;#34;&lt;/span>&lt;span style="color:#ae81ff">\r\n\r\n&lt;/span>&lt;span style="color:#e6db74">{year}0101&lt;/span>&lt;span style="color:#ae81ff">\r\n&lt;/span>&lt;span style="color:#e6db74"> ... name=&amp;#34;end&amp;#34;&lt;/span>&lt;span style="color:#ae81ff">\r\n\r\n&lt;/span>&lt;span style="color:#e6db74">{year+2}1231&lt;/span>&lt;span style="color:#ae81ff">\r\n&lt;/span>&lt;span style="color:#e6db74"> ...&amp;#39;&lt;/span>
+&lt;span style="color:#66d9ef">return&lt;/span> data
+&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">get_chunked_df&lt;/span>(year):
+data &lt;span style="color:#f92672">=&lt;/span> get_data(year)
+response &lt;span style="color:#f92672">=&lt;/span> requests&lt;span style="color:#f92672">.&lt;/span>post(
+&lt;span style="color:#e6db74">&amp;#34;https://daggegevens.knmi.nl/klimatologie/daggegevens&amp;#34;&lt;/span>,
+cookies&lt;span style="color:#f92672">=&lt;/span>cookies,
+headers&lt;span style="color:#f92672">=&lt;/span>headers,
+data&lt;span style="color:#f92672">=&lt;/span>data,
+)
+&lt;span style="color:#66d9ef">if&lt;/span> response&lt;span style="color:#f92672">.&lt;/span>status_code &lt;span style="color:#f92672">==&lt;/span> &lt;span style="color:#ae81ff">200&lt;/span>:
+content &lt;span style="color:#f92672">=&lt;/span> response&lt;span style="color:#f92672">.&lt;/span>content
+&lt;span style="color:#66d9ef">return&lt;/span> pd&lt;span style="color:#f92672">.&lt;/span>read_csv(BytesIO(content), skiprows&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#ae81ff">60&lt;/span>)
+&lt;span style="color:#66d9ef">else&lt;/span>:
+&lt;span style="color:#66d9ef">return&lt;/span> None
+&lt;span style="color:#66d9ef">for&lt;/span> year &lt;span style="color:#f92672">in&lt;/span> tqdm(range(&lt;span style="color:#ae81ff">1900&lt;/span>, &lt;span style="color:#ae81ff">2022&lt;/span>, &lt;span style="color:#ae81ff">2&lt;/span>)):
+df_chunk &lt;span style="color:#f92672">=&lt;/span> get_chunked_df(year)
+df &lt;span style="color:#f92672">=&lt;/span> pd&lt;span style="color:#f92672">.&lt;/span>concat([df, df_chunk])
+df&lt;span style="color:#f92672">.&lt;/span>to_csv(&lt;span style="color:#e6db74">&amp;#34;data/weather.csv&amp;#34;&lt;/span>, index&lt;span style="color:#f92672">=&lt;/span>False)
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>some notes about this code:&lt;/p>
 &lt;ul>
 &lt;li>an HTTP request always returns a &lt;code>status_code&lt;/code>. &lt;code>200&lt;/code> means you made a successful request and any other code indicates that something went wrong (e.g. &lt;code>403&lt;/code> - access denied).&lt;/li>
 &lt;li>&lt;code>response.content&lt;/code> returns a &lt;em>byte stream&lt;/em> that contains the content of the &lt;code>.csv&lt;/code> file that we requested. This can be passed directly to &lt;code>pandas.read_csv&lt;/code> using &lt;code>io.BytesIO&lt;/code>, so no need to save the file to disk first.&lt;/li>
@@ -110,27 +154,27 @@ Black formatter Adds black as one of the code formatters in VS Code. A nice tip:
 &lt;p>When reviewing other&amp;rsquo;s open merge requests, this plugin lets you explore the merge request from within VS code in a much nicer way than the web browser editor on gitlab.com. It allows you to read the description and comments as well. Placing comments is a bit of a hassle, as it doesn&amp;rsquo;t support &amp;ldquo;reviews&amp;rdquo; where you can submit all comments at once. It also doesn&amp;rsquo;t support code suggestions.&lt;/p>
 &lt;h2 id="grammarly">Grammarly&lt;/h2>
 &lt;p>Spell and grammar checker for &lt;code>.md&lt;/code> and &lt;code>.txt&lt;/code> files. To check &lt;code>.md&lt;/code> files, you will have to add the following to your Visual Studio Code settings:&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-json" data-lang="json">&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e6db74">&amp;#34;grammarly.files.include&amp;#34;&lt;/span>&lt;span style="color:#960050;background-color:#1e0010">:&lt;/span> [
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e6db74">&amp;#34;**/*.txt&amp;#34;&lt;/span>,
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e6db74">&amp;#34;**/*.md&amp;#34;&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ]&lt;span style="color:#960050;background-color:#1e0010">,&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>or via the interface:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json"> &lt;span style="color:#e6db74">&amp;#34;grammarly.files.include&amp;#34;&lt;/span>&lt;span style="color:#960050;background-color:#1e0010">:&lt;/span> [
+&lt;span style="color:#e6db74">&amp;#34;**/*.txt&amp;#34;&lt;/span>,
+&lt;span style="color:#e6db74">&amp;#34;**/*.md&amp;#34;&lt;/span>
+]&lt;span style="color:#960050;background-color:#1e0010">,&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>or via the interface:&lt;/p>
 &lt;p>&lt;img src="images/image-2.png" alt="image-2">&lt;/p>
 &lt;h1 id="other">Other&lt;/h1>
 &lt;h2 id="useful-settings">Useful settings&lt;/h2>
 &lt;h3 id="copy-paste-images-into-markdown-files">Copy-paste images into markdown files&lt;/h3>
 &lt;p>Add these two lines to your Visual Studio Code settings&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-json" data-lang="json">&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e6db74">&amp;#34;editor.experimental.pasteActions.enabled&amp;#34;&lt;/span>&lt;span style="color:#960050;background-color:#1e0010">:&lt;/span> &lt;span style="color:#66d9ef">true&lt;/span>&lt;span style="color:#960050;background-color:#1e0010">,&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#e6db74">&amp;#34;markdown.experimental.copyFiles.destination&amp;#34;&lt;/span>&lt;span style="color:#960050;background-color:#1e0010">:&lt;/span> {
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;#34;**/*&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;images/&amp;#34;&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }&lt;span style="color:#960050;background-color:#1e0010">,&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>or via the interface:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json"> &lt;span style="color:#e6db74">&amp;#34;editor.experimental.pasteActions.enabled&amp;#34;&lt;/span>&lt;span style="color:#960050;background-color:#1e0010">:&lt;/span> &lt;span style="color:#66d9ef">true&lt;/span>&lt;span style="color:#960050;background-color:#1e0010">,&lt;/span>
+&lt;span style="color:#e6db74">&amp;#34;markdown.experimental.copyFiles.destination&amp;#34;&lt;/span>&lt;span style="color:#960050;background-color:#1e0010">:&lt;/span> {
+&lt;span style="color:#f92672">&amp;#34;**/*&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;images/&amp;#34;&lt;/span>
+}&lt;span style="color:#960050;background-color:#1e0010">,&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>or via the interface:&lt;/p>
 &lt;p>&lt;img src="images/image-3.png" alt="image">&lt;/p>
 &lt;p>and&lt;/p>
 &lt;p>&lt;img src="images/image-1.png" alt="image-1">&lt;/p>
 &lt;p>This allows you to paste an image directly into a markdown file with &lt;code>ctrl+v / cmd+v&lt;/code>. This inserts the line&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-rst" data-lang="rst">&lt;span style="display:flex;">&lt;span>![image](images/image.png)&lt;span style="color:#960050;background-color:#1e0010">
-&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>into your document and creates a copy of the image in &lt;code>images/image.png&lt;/code>, where &lt;code>images&lt;/code> is the name of the folder relative to your file. This can be changed in the settings above. If you include multiple images, each image name will be appended by a number, i.e. &lt;code>image-1.png&lt;/code>, &lt;code>image-2.png&lt;/code>, etc.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-rst" data-lang="rst">![image](images/image.png)&lt;span style="color:#960050;background-color:#1e0010">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>into your document and creates a copy of the image in &lt;code>images/image.png&lt;/code>, where &lt;code>images&lt;/code> is the name of the folder relative to your file. This can be changed in the settings above. If you include multiple images, each image name will be appended by a number, i.e. &lt;code>image-1.png&lt;/code>, &lt;code>image-2.png&lt;/code>, etc.&lt;/p>
 &lt;h2 id="editable-installs">Editable installs&lt;/h2>
 &lt;p>Sometimes VS Code has problems with auto-completion and finding the definitions of imported symbols when they come from a package that is installed in editable mode, e.g. via &lt;code>pip install -e .&lt;/code>. With recent versions of &lt;code>setuptools&lt;/code> (&amp;gt;=0.64.0), editable installs behave a bit differently and these cause issues. There are three solutions to this:&lt;/p>
 &lt;ol>
@@ -143,7 +187,7 @@ ssh-keygen which will prompt you to specify a location and a passphrase:</descri
 &lt;p>If you only have one account for every git repository provider, for example, one
 for &lt;code>www.github.com&lt;/code> and one for &lt;code>www.gitlab.com&lt;/code>, you will need to add the
 following to your ssh-config file, &lt;code>~/.ssh/config&lt;/code>&lt;/p>
-&lt;pre tabindex="0">&lt;code>host github.com
+&lt;pre>&lt;code>host github.com
 HostName github.com
 IdentityFile ~/.ssh/github
 User git
@@ -153,9 +197,9 @@ IdentityFile ~/.ssh/gitlab
 User git
 &lt;/code>&lt;/pre>&lt;p>where the identity files contain your private key for each account. These can be
 generated by running&lt;/p>
-&lt;pre tabindex="0">&lt;code>ssh-keygen
+&lt;pre>&lt;code>ssh-keygen
 &lt;/code>&lt;/pre>&lt;p>which will prompt you to specify a location and a passphrase:&lt;/p>
-&lt;pre tabindex="0">&lt;code>Generating public/private rsa key pair.
+&lt;pre>&lt;code>Generating public/private rsa key pair.
 Enter file in which to save the key (/home/rsoko/.ssh/id_rsa):
 Enter passphrase (empty for no passphrase):
 Enter same passphrase again:
@@ -165,13 +209,13 @@ passphrase, this can be left empty if you don&amp;rsquo;t want to enter a passwo
 time you create an ssh connection (for example when pushing code to the remote
 repository).&lt;/p>
 &lt;p>check if everything works:&lt;/p>
-&lt;pre tabindex="0">&lt;code>ssh -T git@gitlab.com
+&lt;pre>&lt;code>ssh -T git@gitlab.com
 &lt;/code>&lt;/pre>&lt;p>which gives me&lt;/p>
-&lt;pre tabindex="0">&lt;code>Welcome to GitLab, @rsokolewicz!
+&lt;pre>&lt;code>Welcome to GitLab, @rsokolewicz!
 &lt;/code>&lt;/pre>&lt;h1 id="multiple-accounts-per-provider">multiple accounts per provider&lt;/h1>
 &lt;p>If you have multiple accounts on for example gitlab.com (e.g. one personal and one work),
 you can configure the ssh-config as follows&lt;/p>
-&lt;pre tabindex="0">&lt;code>host gitlab-private
+&lt;pre>&lt;code>host gitlab-private
 HostName gitlab.com
 IdentityFile ~/.ssh/gitlab_private
 User git
@@ -182,7 +226,7 @@ User git
 &lt;/code>&lt;/pre>&lt;p>and follow the steps as before to generate &lt;code>gitlab_private&lt;/code> and &lt;code>gitlab_work&lt;/code>.
 The crucial step now is when setting up the &lt;code>remote-url&lt;/code> of a git repository to
 map it to the correct entry in the above ssh configuration:&lt;/p>
-&lt;pre tabindex="0">&lt;code>git remote set-url origin git@gitlab-private:repo.git
+&lt;pre>&lt;code>git remote set-url origin git@gitlab-private:repo.git
 &lt;/code>&lt;/pre>&lt;p>&lt;code>git@gitlab-private:repo.git&lt;/code> has two important parts: &lt;code>git@...:&lt;/code> and
 &lt;code>:....git&lt;/code>. The first part that&amp;rsquo;s between &lt;code>git@...:&lt;/code> corresponds to the name of
 the host that is specified in the ssh configuration. In the above case &lt;code>host gitlab-private&lt;/code>. The name can be anything and is there just to map the correct ssh key to the corresponding repo. The second part &lt;code>:...git&lt;/code> is the git-url to the repo.&lt;/p></content></item><item><title>The Query Likelihood Model</title><link>https://rsokolewicz.github.io/posts/2_query_likelihood/</link><pubDate>Mon, 18 Apr 2022 00:00:00 +0000</pubDate><guid>https://rsokolewicz.github.io/posts/2_query_likelihood/</guid><description>Language Models One of the central ideas behind language modeling is that when a user tries to produce a good search query, he or she will come up with terms that are likely to appear in a relevant document. In other words, a relevant document is one that is likely to contain the query terms. What makes language modeling different from other probabilistic models, is that it creates a language model for each document from which probabilities are generated that correspond to the likelihood that a query can be found in that document.</description><content>&lt;h1 id="language-models">Language Models&lt;/h1>
@@ -236,36 +280,35 @@ the host that is specified in the ssh configuration. In the above case &lt;code>
 &lt;p>where $0&amp;lt;\lambda&amp;lt;1$ is a hyperparameter that can be finetuned and $M_c$ is a language model created on the entire document collection. Another popular smoothing technique is Dirichlet smoothing&lt;/p>
 &lt;p>$$ P(t|d) = \frac{\text{tf}_{t,d}+\alpha P(t|M_c)}{L_d + \alpha} $$&lt;/p>
 &lt;p>(parts of this article also appear in this &lt;a href="https://medium.com/towards-data-science/understanding-term-based-retrieval-methods-in-information-retrieval-2be5eb3dde9f">Medium post&lt;/a> about term-based retrieval methods in information retrieval I wrote with my gf)&lt;/p></content></item><item><title>Copy large amounts of files over ssh</title><link>https://rsokolewicz.github.io/posts/1_copy_large_amounts_of_files/</link><pubDate>Wed, 13 Apr 2022 00:00:00 +0000</pubDate><guid>https://rsokolewicz.github.io/posts/1_copy_large_amounts_of_files/</guid><description>To copy large amounts of files over ssh you have a few options. The slowest option is using scp -r to recursively copy each file one by one, but it is faster and more convenient to first tar or gzip your home directory, copy it over to your host computer and unpack it there. This is possible to do in a single line
-tar czf - &amp;lt;files&amp;gt; | ssh user@host &amp;#34;tar -C &amp;lt;destination&amp;gt; xvzf -&amp;#34; where &amp;lt;files&amp;gt; are paths to the files and directories to tar and &amp;lt;destination&amp;gt; is the destination folder on the host computer.</description><content>&lt;p>To copy large amounts of files over ssh you have a few options. The slowest option is using &lt;code>scp -r&lt;/code> to recursively copy each file one by one, but it is faster and more convenient to first tar or gzip your home directory, copy it over to your host computer and unpack it there. This is possible to do in a single line&lt;/p>
-&lt;pre tabindex="0">&lt;code>tar czf - &amp;lt;files&amp;gt; | ssh user@host &amp;#34;tar -C &amp;lt;destination&amp;gt; xvzf -&amp;#34;
+tar czf - &amp;lt;files&amp;gt; | ssh user@host &amp;quot;tar -C &amp;lt;destination&amp;gt; xvzf -&amp;quot; where &amp;lt;files&amp;gt; are paths to the files and directories to tar and &amp;lt;destination&amp;gt; is the destination folder on the host computer.</description><content>&lt;p>To copy large amounts of files over ssh you have a few options. The slowest option is using &lt;code>scp -r&lt;/code> to recursively copy each file one by one, but it is faster and more convenient to first tar or gzip your home directory, copy it over to your host computer and unpack it there. This is possible to do in a single line&lt;/p>
+&lt;pre>&lt;code class="language-{bash}" data-lang="{bash}">tar czf - &amp;lt;files&amp;gt; | ssh user@host &amp;quot;tar -C &amp;lt;destination&amp;gt; xvzf -&amp;quot;
 &lt;/code>&lt;/pre>&lt;p>where &lt;code>&amp;lt;files&amp;gt;&lt;/code> are paths to the files and directories to tar and &lt;code>&amp;lt;destination&amp;gt;&lt;/code> is the destination folder on the host computer. One downside of this approach is that you won&amp;rsquo;t have a clear indication on how long it will take. An alternative approach is to first tar everything, and then use &lt;code>rsync&lt;/code> to send everything over.&lt;/p>
-&lt;pre tabindex="0">&lt;code>tar czf &amp;lt;files&amp;gt;
+&lt;pre>&lt;code class="language-{bash}" data-lang="{bash}">tar czf &amp;lt;files&amp;gt;
 rsync -av --progress /foo/*.tar.gz user@host:&amp;lt;directory&amp;gt;
-```
-&lt;/code>&lt;/pre></content></item><item><title>How to ssh over WiFi between two machines running wsl</title><link>https://rsokolewicz.github.io/posts/0_ssh_over_wifi_wsl/</link><pubDate>Wed, 16 Feb 2022 00:00:00 +0000</pubDate><guid>https://rsokolewicz.github.io/posts/0_ssh_over_wifi_wsl/</guid><description>We first follow a tutorial by Scott Hanselman where we will use Windows&amp;rsquo; openSSH to handle ssh connections and set the default ssh shell to be bash on wsl.
+```&lt;/code>&lt;/pre></content></item><item><title>How to ssh over WiFi between two machines running wsl</title><link>https://rsokolewicz.github.io/posts/0_ssh_over_wifi_wsl/</link><pubDate>Wed, 16 Feb 2022 00:00:00 +0000</pubDate><guid>https://rsokolewicz.github.io/posts/0_ssh_over_wifi_wsl/</guid><description>We first follow a tutorial by Scott Hanselman where we will use Windows&amp;rsquo; openSSH to handle ssh connections and set the default ssh shell to be bash on wsl.
 Setup ssh on your machine Choose one of your two machines to be the host. On the host, we need to first check if OpenSSH.Server is installed. Open powershell with elevated rights and run the following
-&amp;gt; Get-WindowsCapability -Online | ? Name -like &amp;#39;OpenSSH*&amp;#39; Name : OpenSSH.</description><content>&lt;p>We first follow a tutorial by &lt;a href="https://www.hanselman.com/blog/the-easy-way-how-to-ssh-into-bash-and-wsl2-on-windows-10-from-an-external-machine">Scott Hanselman&lt;/a> where we will use Windows&amp;rsquo; openSSH to handle ssh connections and set the default ssh shell to be bash on wsl.&lt;/p>
+&amp;gt; Get-WindowsCapability -Online | ? Name -like 'OpenSSH*' Name : OpenSSH.</description><content>&lt;p>We first follow a tutorial by &lt;a href="https://www.hanselman.com/blog/the-easy-way-how-to-ssh-into-bash-and-wsl2-on-windows-10-from-an-external-machine">Scott Hanselman&lt;/a> where we will use Windows&amp;rsquo; openSSH to handle ssh connections and set the default ssh shell to be bash on wsl.&lt;/p>
 &lt;h2 id="setup-ssh-on-your-machine">Setup ssh on your machine&lt;/h2>
 &lt;p>Choose one of your two machines to be the host. On the host, we need to first check if OpenSSH.Server is installed. Open powershell with elevated rights and run the following&lt;/p>
-&lt;pre tabindex="0">&lt;code>&amp;gt; Get-WindowsCapability -Online | ? Name -like &amp;#39;OpenSSH*&amp;#39;
+&lt;pre>&lt;code class="language-{cmd}" data-lang="{cmd}">&amp;gt; Get-WindowsCapability -Online | ? Name -like 'OpenSSH*'
 Name : OpenSSH.Client~~~~0.0.1.0
 State : Installed
 Name : OpenSSH.Server~~~~0.0.1.0
 State : NotPresent
 &lt;/code>&lt;/pre>&lt;p>If the state under OpenSSH.server is &lt;code>NotPresent&lt;/code>, we need to run&lt;/p>
-&lt;pre tabindex="0">&lt;code>Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0
+&lt;pre>&lt;code class="language-{cmd]" data-lang="{cmd]">Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0
 &lt;/code>&lt;/pre>&lt;p>and start the ssh daemon&lt;/p>
-&lt;pre tabindex="0">&lt;code>Start-Service sshd
+&lt;pre>&lt;code class="language-{cmd}" data-lang="{cmd}">Start-Service sshd
 Get-Service sshd
 &lt;/code>&lt;/pre>&lt;p>If you expect to use the Host more often, you can consider starting the ssh daemon automatically on the host&lt;/p>
-&lt;pre tabindex="0">&lt;code>Set-Service -Name sshd -StartupType &amp;#39;Automatic&amp;#39;
+&lt;pre>&lt;code class="language-{cmd}" data-lang="{cmd}">Set-Service -Name sshd -StartupType 'Automatic'
 &lt;/code>&lt;/pre>&lt;p>Next, we will set the default shell used by OpenSSH to be the one used by wsl&lt;/p>
-&lt;pre tabindex="0">&lt;code>New-ItemProperty -Path &amp;#34;HKLM:\SOFTWARE\OpenSSH&amp;#34; -Name DefaultShell -Value &amp;#34;C:\WINDOWS\System32\bash.exe&amp;#34; -PropertyType String -Force
+&lt;pre>&lt;code class="language-{cmd}" data-lang="{cmd}">New-ItemProperty -Path &amp;quot;HKLM:\SOFTWARE\OpenSSH&amp;quot; -Name DefaultShell -Value &amp;quot;C:\WINDOWS\System32\bash.exe&amp;quot; -PropertyType String -Force
 &lt;/code>&lt;/pre>&lt;h2 id="make-your-machine-discoverable-over-network">Make your machine discoverable over network&lt;/h2>
 &lt;p>To be able to find your host machine that runs the ssh daemon, you need to make some configurations in the network settings first. On both machines, go to network settings and under &amp;ldquo;network profile&amp;rdquo;, select &amp;ldquo;private network&amp;rdquo;. This will allow both machines to be discoverable on the WiFi network. If all is well, when you open File Explorer, under Network you should see your two machines. If you don&amp;rsquo;t see it, you might need to restart your computer(s), or temporary turn off Windows firewall.&lt;/p>
 &lt;h2 id="preparing-to-copy">Preparing to copy&lt;/h2>
 &lt;p>Now that this is all set-up, you should be able to ssh into your host computer via&lt;/p>
-&lt;pre tabindex="0">&lt;code>ssh user@host
+&lt;pre>&lt;code class="language-{bash}" data-lang="{bash}">ssh user@host
 &lt;/code>&lt;/pre>&lt;p>where &lt;code>user&lt;/code> is your Windows login username (not your wsl linux username), and &lt;code>host&lt;/code> is your host computer&amp;rsquo;s local private ip address that looks like &lt;code>192.168.x.x&lt;/code> or &lt;code>172.x.x.x&lt;/code>. You can get the ip address by either running &lt;code>ifconfig eth0&lt;/code> in your terminal, or by opening your Windows Network Settings (win-key &amp;gt; &amp;ldquo;network settings&amp;rdquo;).&lt;/p>
 &lt;p>If you do not manage to connect, make sure the ssh daemon is running on your host computer by running &lt;code>sudo service ssh status&lt;/code>. If it is not running you can start it with &lt;code>sudo service ssh start&lt;/code>. If you still cannot connect, try to open port 22 in your firewall on the host computer, or temporary turn off Windows firewall.&lt;/p>
 &lt;p>If all is correct you should get inside your host&amp;rsquo;s wsl partition directly.&lt;/p></content></item><item><title>elements</title><link>https://rsokolewicz.github.io/posts/1_elements/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://rsokolewicz.github.io/posts/1_elements/</guid><description>Table of contents Table of contents Text Code Python C/C++ Bash Tables Text Some example text
@@ -286,19 +329,18 @@ Code Python def foo(): print (&amp;#34;This is a python function&amp;#34;) C/C++
 &lt;p>Some example text&lt;/p>
 &lt;h2 id="code">Code&lt;/h2>
 &lt;h3 id="python">Python&lt;/h3>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-python" data-lang="python">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">foo&lt;/span>():
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print (&lt;span style="color:#e6db74">&amp;#34;This is a python function&amp;#34;&lt;/span>)
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="cc">C/C++&lt;/h3>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-C" data-lang="C">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">void&lt;/span> &lt;span style="color:#a6e22e">foo&lt;/span>(){
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">prinf&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;%s&lt;/span>&lt;span style="color:#ae81ff">\n&lt;/span>&lt;span style="color:#e6db74">&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;This is a C function&amp;#34;&lt;/span>)
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="bash">Bash&lt;/h3>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># This is a bash command&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>cd dir &lt;span style="color:#f92672">&amp;amp;&amp;amp;&lt;/span> echo $PWD;
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Return&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>exit 0;
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="tables">Tables&lt;/h2>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">foo&lt;/span>():
+&lt;span style="color:#66d9ef">print&lt;/span> (&lt;span style="color:#e6db74">&amp;#34;This is a python function&amp;#34;&lt;/span>)
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="cc">C/C++&lt;/h3>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-C" data-lang="C">&lt;span style="color:#66d9ef">void&lt;/span> &lt;span style="color:#a6e22e">foo&lt;/span>(){
+prinf(&lt;span style="color:#e6db74">&amp;#34;%s&lt;/span>&lt;span style="color:#ae81ff">\n&lt;/span>&lt;span style="color:#e6db74">&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;This is a C function&amp;#34;&lt;/span>)
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="bash">Bash&lt;/h3>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">&lt;span style="color:#75715e"># This is a bash command&lt;/span>
+cd dir &lt;span style="color:#f92672">&amp;amp;&amp;amp;&lt;/span> echo $PWD;
+&lt;span style="color:#75715e"># Return&lt;/span>
+exit 0;
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="tables">Tables&lt;/h2>
 &lt;table>
 &lt;thead>
 &lt;tr>
