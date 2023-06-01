@@ -8,6 +8,77 @@
     <language>en-us</language>
     <lastBuildDate>Fri, 22 Apr 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://rsokolewicz.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Mocking context managers with pytest</title>
+      <link>https://rsokolewicz.github.io/posts/7_mock_context_manager/</link>
+      <pubDate>Thu, 01 Jun 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://rsokolewicz.github.io/posts/7_mock_context_manager/</guid>
+      <description>In software testing, it is often necessary to mock external dependencies, such as API calls, to isolate the code under test and simulate specific behaviors. pytest, a popular testing framework in Python, provides powerful mocking capabilities through its pytest-mock plugin. Mocking functions and methods is not so hard, but mocking context managers can be tricky, as sometimes you will need to mock the __enter__() as well.
+Example 1 Suppose we have</description>
+      <content>&lt;p&gt;In software testing, it is often necessary to mock external dependencies, such as API calls, to isolate the code under test and simulate specific behaviors. &lt;code&gt;pytest&lt;/code&gt;, a popular testing framework in Python, provides powerful mocking capabilities through its &lt;code&gt;pytest-mock&lt;/code&gt; plugin. Mocking functions and methods is not so hard, but mocking context managers can be tricky, as sometimes you will need to mock the &lt;code&gt;__enter__()&lt;/code&gt; as well.&lt;/p&gt;
+&lt;h1 id=&#34;example-1&#34;&gt;Example 1&lt;/h1&gt;
+&lt;p&gt;Suppose we have&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;fetch_data&lt;/span&gt;():
+    response &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; requests&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;get(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;https://api.example.com/data&amp;#34;&lt;/span&gt;)
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; response&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;json()
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;which issues an HTTP GET request to &lt;a href=&#34;https://api.example.com/data&#34;&gt;https://api.example.com/data&lt;/a&gt; and returns whatever the response is in a json format.&lt;/p&gt;
+&lt;p&gt;A unit test for this function could look like&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;test_fetch_data&lt;/span&gt;():
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;with&lt;/span&gt; mock&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;patch(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;requests.get&amp;#34;&lt;/span&gt;) &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; mock_get:
+        &lt;span style=&#34;color:#75715e&#34;&gt;# Set up the desired behavior for the mocked function&lt;/span&gt;
+        mock_get&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;return_value&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;json&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;return_value &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; {&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;message&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Mocked data&amp;#34;&lt;/span&gt;}
+
+        &lt;span style=&#34;color:#75715e&#34;&gt;# Call the function under test&lt;/span&gt;
+        result &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; fetch_data()
+
+        &lt;span style=&#34;color:#75715e&#34;&gt;# Assert the expected behavior&lt;/span&gt;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;assert&lt;/span&gt; result &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; {&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;message&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Mocked data&amp;#34;&lt;/span&gt;}
+        mock_get&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;assert_called_once_with(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;https://api.example.com/data&amp;#34;&lt;/span&gt;)
+        mock_get&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;return_value&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;json&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;assert_called_once()
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;where we mock the &lt;code&gt;requests.get&lt;/code&gt; function directly. In the &lt;code&gt;fetch_data&lt;/code&gt; function we are returning &lt;code&gt;response.json()&lt;/code&gt; that we would also like to mock with some dummy return data. By chaining &lt;code&gt;mock_get.return_value&lt;/code&gt; together with &lt;code&gt;json.return_value&lt;/code&gt; we can assign the return value of &lt;code&gt;response.json()&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;One benefit of mockers is that is easy to assert how a method was called, and even how often it was called. In this case, we used&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# Assert the expected behavior&lt;/span&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;assert&lt;/span&gt; result &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; {&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;message&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Mocked data&amp;#34;&lt;/span&gt;}
+mock_get&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;assert_called_once_with(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;https://api.example.com/data&amp;#34;&lt;/span&gt;)
+mock_get&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;return_value&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;json&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;assert_called_once()
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Things become a little tricky in the next example&lt;/p&gt;
+&lt;h1 id=&#34;example-2&#34;&gt;Example 2&lt;/h1&gt;
+&lt;p&gt;&lt;code&gt;requests.get()&lt;/code&gt; returns a &lt;code&gt;Request&lt;/code&gt; object that is a context manager. So often in code we will see the following example instead.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;fetch_data&lt;/span&gt;():
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;with&lt;/span&gt; requests&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;get(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;https://api.example.com/data&amp;#34;&lt;/span&gt;) &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; response:
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; response&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;json()
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;and running the above test on this function instead, will give us a nice warning:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;            &lt;span style=&#34;color:#75715e&#34;&gt;# Assert the expected behavior&lt;/span&gt;
+&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;           &lt;span style=&#34;color:#66d9ef&#34;&gt;assert&lt;/span&gt; result &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; {&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;message&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Mocked data&amp;#34;&lt;/span&gt;}
+E           &lt;span style=&#34;color:#a6e22e&#34;&gt;AssertionError&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;assert&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;MagicMock name&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;get().__enter__().json()&amp;#39;&lt;/span&gt; id&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;140616315269184&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; {&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;message&amp;#39;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Mocked data&amp;#39;&lt;/span&gt;}
+E             Full diff:
+E             &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; {&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;message&amp;#39;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Mocked data&amp;#39;&lt;/span&gt;}
+E             &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;MagicMock name&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;get().__enter__().json()&amp;#39;&lt;/span&gt; id&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;140616315269184&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The error already gives us a hint that we need to mock &lt;code&gt;__enter__&lt;/code&gt; as well. Whereas before &lt;code&gt;response&lt;/code&gt; was the actual &lt;code&gt;Response&lt;/code&gt; object, now it corresponds to whatever &lt;code&gt;Response.__enter__&lt;/code&gt; returns.&lt;/p&gt;
+&lt;p&gt;and so, the modified test will look like&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;test_fetch_data&lt;/span&gt;():
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;with&lt;/span&gt; mock&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;patch(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;requests.get&amp;#34;&lt;/span&gt;) &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; mock_get:
+        mock_response &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; mock&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;Mock()
+        mock_response&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;json&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;return_value &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; {&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;message&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Mocked data&amp;#34;&lt;/span&gt;}
+
+        mock_get&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;return_value&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;__enter__&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;return_value &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; mock_response
+
+        &lt;span style=&#34;color:#75715e&#34;&gt;# Call the function under test&lt;/span&gt;
+        result &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; fetch_data()
+
+        &lt;span style=&#34;color:#75715e&#34;&gt;# Assert the expected behavior&lt;/span&gt;
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;assert&lt;/span&gt; result &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; {&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;message&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Mocked data&amp;#34;&lt;/span&gt;}
+        mock_get&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;assert_called_once_with(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;https://api.example.com/data&amp;#34;&lt;/span&gt;)
+        mock_response&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;json&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;assert_called_once()
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;with two small modifications:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;We also create a mock response object &lt;code&gt;mock_response&lt;/code&gt; using &lt;code&gt;mock.Mock()&lt;/code&gt; to simulate the behavior of the response.&lt;/li&gt;
+&lt;li&gt;We then set up the desired behavior of the context manager by assigning mock_response to &lt;code&gt;mock_get.return_value.__enter__.return_value&lt;/code&gt;. This ensures that when the context manager is entered, our &lt;code&gt;mock_response&lt;/code&gt; object is used.&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+    </item>
+    
+    <item>
       <title>Easy data-scraping using REST API and request package</title>
       <link>https://rsokolewicz.github.io/posts/6_rest_api/</link>
       <pubDate>Mon, 10 Apr 2023 00:00:00 +0000</pubDate>
