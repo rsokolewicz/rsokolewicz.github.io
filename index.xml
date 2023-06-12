@@ -8,6 +8,43 @@
     <language>en-us</language>
     <lastBuildDate>Fri, 22 Apr 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://rsokolewicz.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Getting rid of &#39;fatal: The current branch &lt;new branch&gt; has no upstream branch&#39; in git</title>
+      <link>https://rsokolewicz.github.io/posts/8_git_upstream/</link>
+      <pubDate>Mon, 12 Jun 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://rsokolewicz.github.io/posts/8_git_upstream/</guid>
+      <description>What is an upstream branch? In Git, an upstream branch refers to the branch in a remote repository that your local branch is associated with or tracks. It serves as a reference point for your local branch and determines where your changes will be pushed when you use the git push command.
+When you clone a repository, Git sets up a default upstream branch for the branch you&amp;rsquo;re currently on. For example, if you clone a repository and checkout the master branch, your local master branch will typically have an upstream branch called origin/master, where origin is the default name for the remote repository.</description>
+      <content>&lt;h1 id=&#34;what-is-an-upstream-branch&#34;&gt;What is an upstream branch?&lt;/h1&gt;
+&lt;p&gt;In Git, an upstream branch refers to the branch in a remote repository that your local branch is associated with or tracks. It serves as a reference point for your local branch and determines where your changes will be pushed when you use the &lt;code&gt;git push&lt;/code&gt; command.&lt;/p&gt;
+&lt;p&gt;When you clone a repository, Git sets up a default upstream branch for the branch you&amp;rsquo;re currently on. For example, if you clone a repository and checkout the &lt;code&gt;master&lt;/code&gt; branch, your local &lt;code&gt;master&lt;/code&gt; branch will typically have an upstream branch called &lt;code&gt;origin/master&lt;/code&gt;, where &lt;code&gt;origin&lt;/code&gt; is the default name for the remote repository.&lt;/p&gt;
+&lt;p&gt;Having an upstream branch allows you to easily push and pull changes between your local branch and the corresponding branch in the remote repository. When you push your local changes using &lt;code&gt;git push&lt;/code&gt;, Git knows which remote branch to update based on the upstream branch configuration.&lt;/p&gt;
+&lt;p&gt;By default, Git doesn&amp;rsquo;t set an upstream branch when you create a new branch locally. You need to explicitly set the upstream branch using the &lt;code&gt;--set-upstream&lt;/code&gt; option when pushing for the first time, like this:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;git push --set-upstream origin your-branch
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;or using the &lt;code&gt;-u&lt;/code&gt; flag&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;git push -u origin your-branch
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Setting the upstream branch allows you to use &lt;code&gt;git push&lt;/code&gt; without specifying the remote branch name every time, as Git will remember the association between your local branch and its upstream branch.&lt;/p&gt;
+&lt;h1 id=&#34;how-to-automatically-set-the-upstream-branch&#34;&gt;How to automatically set the upstream branch&lt;/h1&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;git config --global push.default simple
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;To avoid setting upstream explicitly every time you push a new branch, you can configure Git with the push.default option. This option determines the behavior when pushing branches that do not have a configured upstream branch. Here are the possible values for push.default:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;nothing: This is the default option. Git won&amp;rsquo;t push any branch without an upstream branch explicitly specified.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;current: Git pushes the current branch to a branch of the same name on the remote repository, even if it doesn&amp;rsquo;t have an upstream branch.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;upstream: Git pushes the current branch to its upstream branch, if it has one.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;simple: This option is recommended. Git pushes the current branch to its upstream branch if it exists. If the upstream branch doesn&amp;rsquo;t exist, it will push to a branch of the same name on the remote repository, creating a new branch if necessary. However, it won&amp;rsquo;t push if the upstream branch&amp;rsquo;s name is different.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+    </item>
+    
+    <item>
       <title>Mocking context managers with pytest</title>
       <link>https://rsokolewicz.github.io/posts/7_mock_context_manager/</link>
       <pubDate>Thu, 01 Jun 2023 00:00:00 +0000</pubDate>
