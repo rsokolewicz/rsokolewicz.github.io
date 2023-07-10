@@ -6,7 +6,183 @@
     <description>Recent content in Posts on Roberts blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 12 Jun 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://rsokolewicz.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 10 Jul 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://rsokolewicz.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Git ahoy! A Pirate&#39;s Tale of Version Control</title>
+      <link>https://rsokolewicz.github.io/posts/12_gitbeard/</link>
+      <pubDate>Mon, 10 Jul 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://rsokolewicz.github.io/posts/12_gitbeard/</guid>
+      <description>Adventure Begins As the dawn cracks over the horizon, Captain Gitbeard, a notorious pirate, and his crew of misfits aboard the ship, &amp;ldquo;The Digital Marauder,&amp;rdquo; sail through the emerald waves of the Caribbean. They maintain an inventory of their loot with a shared file named loot.txt version controlled through git. But as the crew is always a bit tipsy, they&amp;rsquo;ve been known to commit a few mistakes now and then.</description>
+      <content>&lt;h2 id=&#34;adventure-begins&#34;&gt;Adventure Begins&lt;/h2&gt;
+&lt;p&gt;As the dawn cracks over the horizon, Captain Gitbeard, a notorious pirate, and his crew of misfits aboard the ship, &amp;ldquo;The Digital Marauder,&amp;rdquo; sail through the emerald waves of the Caribbean. They maintain an inventory of their loot with a shared file named &lt;code&gt;loot.txt&lt;/code&gt; version controlled through git. But as the crew is always a bit tipsy, they&amp;rsquo;ve been known to commit a few mistakes now and then.&lt;/p&gt;
+&lt;p&gt;Their &lt;code&gt;loot.txt&lt;/code&gt; file at the moment looks like this:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Pieces of Eight: 500
+Gold Bars: 20
+Jewelled Necklaces: 15
+Diamonds: 7
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;The git log shows:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;commit 1234567
+Author: Captain Gitbeard &amp;lt;gitbeard@pirate.net&amp;gt;
+Date: Fri Jul 7 10:00:00 2023
+Initial loot list.
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;a-blunder-at-plunder&#34;&gt;A Blunder at Plunder&lt;/h2&gt;
+&lt;p&gt;After a successful raid on a Spanish galleon, the crew updates the &lt;code&gt;loot.txt&lt;/code&gt; file with their new treasures. First Mate Morgan, a bit too merry with rum, updates the file as:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Pieces of Eight: 1500
+Gold Bars: 120
+Jewelled Necklaces: 150
+Diamonds: 170
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;He then commits this with the message &amp;ldquo;Plunder from the Spanish galleon&amp;rdquo;. He forgot that the crew only found 100 new Pieces of Eight, 10 new Gold Bars, 5 new Necklaces, and 3 new Diamonds.&lt;/p&gt;
+&lt;p&gt;The git history now looks like:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;commit 7654321
+Author: First Mate Morgan &amp;lt;morgan@pirate.net&amp;gt;
+Date: Sat Jul 8 12:00:00 2023
+Plunder from the Spanish galleon.
+
+commit 1234567
+Author: Captain Gitbeard &amp;lt;Gitbeard@pirate.net&amp;gt;
+Date: Fri Jul 7 10:00:00 2023
+Initial loot list.
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Captain Gitbeard realizes the blunder and orders Morgan to amend the last commit with the correct numbers. Morgan runs:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;git checkout HEAD
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Corrects &lt;code&gt;loot.txt&lt;/code&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Pieces of Eight: 600
+Gold Bars: 30
+Jewelled Necklaces: 20
+Diamonds: 10
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;And then amends the previous commit:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;git add loot.txt
+git commit --amend -m &amp;quot;Plunder from the Spanish galleon&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Now the git history shows the correct values:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;commit abcdefg
+Author: First Mate Morgan &amp;lt;morgan@pirate.net&amp;gt;
+Date: Sat Jul 8 12:00:00 2023
+Plunder from the Spanish galleon.
+
+commit 1234567
+Author: Captain Gitbeard &amp;lt;Gitbeard@pirate.net&amp;gt;
+Date: Fri Jul 7 10:00:00 2023
+Initial loot list.
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;the-tale-of-the-missing-loot&#34;&gt;The Tale of the Missing Loot&lt;/h2&gt;
+&lt;p&gt;During an audit by Quartermaster Anne, she notices the &lt;code&gt;loot.txt&lt;/code&gt; file doesn&amp;rsquo;t list their cache of rum. As she tries to insert this into the initial inventory, she realizes she can&amp;rsquo;t simply amend the commit as it would rewrite everyone&amp;rsquo;s history after that commit.&lt;/p&gt;
+&lt;p&gt;To remedy this, she decides to use the interactive rebase to modify the initial commit. She runs:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;git rebase -i --root
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;In the text editor that opens up, she changes the word &amp;lsquo;pick&amp;rsquo; to &amp;lsquo;edit&amp;rsquo; for the initial commit, then saves and exits. Git now pauses at the commit she wants to edit.&lt;/p&gt;
+&lt;p&gt;She updates &lt;code&gt;loot.txt&lt;/code&gt; to:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Pieces of Eight: 500
+Gold Bars: 20
+Jewelled Necklaces: 15
+Diamonds: 7
+Rum: 100 barrels
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Then, she stages the changes and commits them with:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;git add loot.txt
+git commit --amend -m &amp;quot;Initial loot list.&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;To continue the rebase, she runs:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;git rebase --continue
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;The &lt;code&gt;loot.txt&lt;/code&gt; file is corrected, and the git history remains consistent for all crew members.&lt;/p&gt;
+&lt;h2 id=&#34;the-end&#34;&gt;The End&lt;/h2&gt;
+&lt;p&gt;The &amp;ldquo;Digital Marauder&amp;rdquo; continues to sail through the digital seas, correcting and updating their loot list with each new raid. The crew finds that despite their tipsiness, git gives them the power to make their mistakes disappear - as if they&amp;rsquo;d never happened.&lt;/p&gt;
+</content>
+    </item>
+    
+    <item>
+      <title>All about type hinting in Python</title>
+      <link>https://rsokolewicz.github.io/posts/9_typehinting/</link>
+      <pubDate>Sun, 18 Jun 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://rsokolewicz.github.io/posts/9_typehinting/</guid>
+      <description>What is Type Hinting? Type hinting is a feature introduced in Python 3.5 that allows you to annotate the types of variables, function arguments, and return values. It provides optional typing to the Python language without actually enforcing the types at runtime.
+Type hints are used to indicate the expected types of variables and functions, making your code more explicit and self-documenting. They help you catch potential type-related errors early and improve code development and maintainability.</description>
+      <content>&lt;h3 id=&#34;what-is-type-hinting&#34;&gt;What is Type Hinting?&lt;/h3&gt;
+&lt;p&gt;Type hinting is a feature introduced in Python 3.5 that allows you to annotate
+the types of variables, function arguments, and return values. It provides
+optional typing to the Python language without actually enforcing the
+types at runtime.&lt;/p&gt;
+&lt;p&gt;Type hints are used to indicate the expected types of variables and functions,
+making your code more explicit and self-documenting. They help you catch
+potential type-related errors early and improve code development and
+maintainability.&lt;/p&gt;
+&lt;h3 id=&#34;why-is-type-hinting-useful&#34;&gt;Why is Type Hinting Useful?&lt;/h3&gt;
+&lt;p&gt;Type hinting offers several benefits:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Improved Code Readability&lt;/strong&gt;: Type hints make the code more self-explanatory
+by explicitly stating the expected types. It helps other developers
+understand your code more easily.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Early Detection of Errors&lt;/strong&gt;: Type hints allow static analysis tools to
+catch type-related errors before your code runs. This helps identify
+potential bugs and allows you to fix them early in the development process.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Enhanced IDE Support&lt;/strong&gt;: Many integrated development environments (IDEs) can
+use type hints to provide better code suggestions, autocompletion, and error
+detection while you write your code. This can significantly boost your
+productivity.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Documentation and Design Clarity&lt;/strong&gt;: Type hints act as documentation for
+your code, making it clear what types are expected and returned by functions.
+They help in designing clean interfaces and APIs.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;I find the third point the most useful. If, for example, you&amp;rsquo;re building a data
+processing pipeline, and are writing the data preprocessing method, type hinting
+allows you to tell your IDE that you are working with a &lt;code&gt;pandas.DataFrame&lt;/code&gt; and in
+return, you get all the code suggestions and autocompletion for free.&lt;/p&gt;
+&lt;h3 id=&#34;type-hinting-examples&#34;&gt;Type Hinting Examples&lt;/h3&gt;
+&lt;p&gt;Let&amp;rsquo;s look at some examples of how type hinting can improve your code development:&lt;/p&gt;
+&lt;h4 id=&#34;1-annotating-variable-types&#34;&gt;1. Annotating Variable Types:&lt;/h4&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# Without Type Hinting&lt;/span&gt;
+name &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;John Doe&amp;#39;&lt;/span&gt;
+age &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;30&lt;/span&gt;
+balance &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;100.5&lt;/span&gt;
+
+&lt;span style=&#34;color:#75715e&#34;&gt;# With Type Hinting&lt;/span&gt;
+name: str &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;John Doe&amp;#39;&lt;/span&gt;
+age: int &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;30&lt;/span&gt;
+balance: float &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;100.5&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;By adding type hints to variables, you make it clear what types they should
+hold, making the code more readable.&lt;/p&gt;
+&lt;h4 id=&#34;2-specifying-function-argument-and-return-types&#34;&gt;2. Specifying Function Argument and Return Types:&lt;/h4&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;multiply&lt;/span&gt;(a: int, b: int) &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt; int:
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; a &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; b
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;In the above example, the &lt;code&gt;multiply&lt;/code&gt; function takes two integer arguments and
+returns an integer. The type hints help convey the expected types, enabling
+better understanding and potential error detection.&lt;/p&gt;
+&lt;h4 id=&#34;3-annotating-complex-data-structures&#34;&gt;3. Annotating Complex Data Structures:&lt;/h4&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; typing &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; List, Tuple
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;process_data&lt;/span&gt;(data: List[Tuple[str, int]]) &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt; List[str]:
+    result &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; []
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; name, age &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; data:
+        result&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;append(f&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;{name} is {age} years old.&amp;#39;&lt;/span&gt;)
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; result
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Here, the &lt;code&gt;process_data&lt;/code&gt; function expects a list of tuples, where the first
+element is a string and the second element is an integer. It returns a list of
+strings. The type hints provide clarity on the data structure, enabling better
+understanding and reducing errors.&lt;/p&gt;
+&lt;h4 id=&#34;4-handling-union-and-optional-types&#34;&gt;4. Handling Union and Optional Types:&lt;/h4&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; typing &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; Union, Optional
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;greet&lt;/span&gt;(name: Union[str, None]) &lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt; Optional[str]:
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; name &lt;span style=&#34;color:#f92672&#34;&gt;is&lt;/span&gt; None:
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Hello!&amp;#39;&lt;/span&gt;
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt;:
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; f&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Hello, {name}!&amp;#39;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;In this example, the &lt;code&gt;greet&lt;/code&gt; function can accept either a string or &lt;code&gt;None&lt;/code&gt; as
+the &lt;code&gt;name&lt;/code&gt; argument. It returns an optional string, which means it can return
+either a string or &lt;code&gt;None&lt;/code&gt;. Type hints allow you to express such scenarios
+accurately.&lt;/p&gt;
+&lt;h3 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h3&gt;
+&lt;p&gt;Type hinting in Python is a powerful feature that enhances code readability,
+improves error detection, and provides better development tooling support. By
+explicitly stating the expected types, you can make your code more
+understandable, maintainable, and robust.&lt;/p&gt;
+</content>
+    </item>
+    
     <item>
       <title>Getting rid of &#39;fatal: The current branch &lt;new branch&gt; has no upstream branch&#39; in git</title>
       <link>https://rsokolewicz.github.io/posts/8_git_upstream/</link>

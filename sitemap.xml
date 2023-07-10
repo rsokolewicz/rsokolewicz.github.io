@@ -3,12 +3,22 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://rsokolewicz.github.io/posts/8_git_upstream/</loc>
-    <lastmod>2023-06-12T00:00:00+00:00</lastmod>
+    <loc>https://rsokolewicz.github.io/posts/12_gitbeard/</loc>
+    <lastmod>2023-07-10T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://rsokolewicz.github.io/posts/</loc>
+    <lastmod>2023-07-10T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://rsokolewicz.github.io/posts/9_typehinting/</loc>
+    <lastmod>2023-06-18T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://rsokolewicz.github.io/posts/8_git_upstream/</loc>
     <lastmod>2023-06-12T00:00:00+00:00</lastmod>
   </url>
   
