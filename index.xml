@@ -1,4 +1,153 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Your Name on Roberts blog</title><link>https://rsokolewicz.github.io/</link><description>Recent content in Your Name on Roberts blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Fri, 22 Apr 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://rsokolewicz.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>Getting rid of 'fatal: The current branch &lt;new branch> has no upstream branch' in git</title><link>https://rsokolewicz.github.io/posts/8_git_upstream/</link><pubDate>Mon, 12 Jun 2023 00:00:00 +0000</pubDate><guid>https://rsokolewicz.github.io/posts/8_git_upstream/</guid><description>What is an upstream branch? In Git, an upstream branch refers to the branch in a remote repository that your local branch is associated with or tracks. It serves as a reference point for your local branch and determines where your changes will be pushed when you use the git push command.
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Your Name on Roberts blog</title><link>https://rsokolewicz.github.io/</link><description>Recent content in Your Name on Roberts blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Fri, 22 Apr 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://rsokolewicz.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>Git ahoy! A Pirate's Tale of Version Control</title><link>https://rsokolewicz.github.io/posts/12_gitbeard/</link><pubDate>Mon, 10 Jul 2023 00:00:00 +0000</pubDate><guid>https://rsokolewicz.github.io/posts/12_gitbeard/</guid><description>Adventure Begins As the dawn cracks over the horizon, Captain Gitbeard, a notorious pirate, and his crew of misfits aboard the ship, &amp;ldquo;The Digital Marauder,&amp;rdquo; sail through the emerald waves of the Caribbean. They maintain an inventory of their loot with a shared file named loot.txt version controlled through git. But as the crew is always a bit tipsy, they&amp;rsquo;ve been known to commit a few mistakes now and then.</description><content>&lt;h2 id="adventure-begins">Adventure Begins&lt;/h2>
+&lt;p>As the dawn cracks over the horizon, Captain Gitbeard, a notorious pirate, and his crew of misfits aboard the ship, &amp;ldquo;The Digital Marauder,&amp;rdquo; sail through the emerald waves of the Caribbean. They maintain an inventory of their loot with a shared file named &lt;code>loot.txt&lt;/code> version controlled through git. But as the crew is always a bit tipsy, they&amp;rsquo;ve been known to commit a few mistakes now and then.&lt;/p>
+&lt;p>Their &lt;code>loot.txt&lt;/code> file at the moment looks like this:&lt;/p>
+&lt;pre>&lt;code>Pieces of Eight: 500
+Gold Bars: 20
+Jewelled Necklaces: 15
+Diamonds: 7
+&lt;/code>&lt;/pre>&lt;p>The git log shows:&lt;/p>
+&lt;pre>&lt;code>commit 1234567
+Author: Captain Gitbeard &amp;lt;gitbeard@pirate.net&amp;gt;
+Date: Fri Jul 7 10:00:00 2023
+Initial loot list.
+&lt;/code>&lt;/pre>&lt;h2 id="a-blunder-at-plunder">A Blunder at Plunder&lt;/h2>
+&lt;p>After a successful raid on a Spanish galleon, the crew updates the &lt;code>loot.txt&lt;/code> file with their new treasures. First Mate Morgan, a bit too merry with rum, updates the file as:&lt;/p>
+&lt;pre>&lt;code>Pieces of Eight: 1500
+Gold Bars: 120
+Jewelled Necklaces: 150
+Diamonds: 170
+&lt;/code>&lt;/pre>&lt;p>He then commits this with the message &amp;ldquo;Plunder from the Spanish galleon&amp;rdquo;. He forgot that the crew only found 100 new Pieces of Eight, 10 new Gold Bars, 5 new Necklaces, and 3 new Diamonds.&lt;/p>
+&lt;p>The git history now looks like:&lt;/p>
+&lt;pre>&lt;code>commit 7654321
+Author: First Mate Morgan &amp;lt;morgan@pirate.net&amp;gt;
+Date: Sat Jul 8 12:00:00 2023
+Plunder from the Spanish galleon.
+commit 1234567
+Author: Captain Gitbeard &amp;lt;Gitbeard@pirate.net&amp;gt;
+Date: Fri Jul 7 10:00:00 2023
+Initial loot list.
+&lt;/code>&lt;/pre>&lt;p>Captain Gitbeard realizes the blunder and orders Morgan to amend the last commit with the correct numbers. Morgan runs:&lt;/p>
+&lt;pre>&lt;code>git checkout HEAD
+&lt;/code>&lt;/pre>&lt;p>Corrects &lt;code>loot.txt&lt;/code>:&lt;/p>
+&lt;pre>&lt;code>Pieces of Eight: 600
+Gold Bars: 30
+Jewelled Necklaces: 20
+Diamonds: 10
+&lt;/code>&lt;/pre>&lt;p>And then amends the previous commit:&lt;/p>
+&lt;pre>&lt;code>git add loot.txt
+git commit --amend -m &amp;quot;Plunder from the Spanish galleon&amp;quot;
+&lt;/code>&lt;/pre>&lt;p>Now the git history shows the correct values:&lt;/p>
+&lt;pre>&lt;code>commit abcdefg
+Author: First Mate Morgan &amp;lt;morgan@pirate.net&amp;gt;
+Date: Sat Jul 8 12:00:00 2023
+Plunder from the Spanish galleon.
+commit 1234567
+Author: Captain Gitbeard &amp;lt;Gitbeard@pirate.net&amp;gt;
+Date: Fri Jul 7 10:00:00 2023
+Initial loot list.
+&lt;/code>&lt;/pre>&lt;h2 id="the-tale-of-the-missing-loot">The Tale of the Missing Loot&lt;/h2>
+&lt;p>During an audit by Quartermaster Anne, she notices the &lt;code>loot.txt&lt;/code> file doesn&amp;rsquo;t list their cache of rum. As she tries to insert this into the initial inventory, she realizes she can&amp;rsquo;t simply amend the commit as it would rewrite everyone&amp;rsquo;s history after that commit.&lt;/p>
+&lt;p>To remedy this, she decides to use the interactive rebase to modify the initial commit. She runs:&lt;/p>
+&lt;pre>&lt;code>git rebase -i --root
+&lt;/code>&lt;/pre>&lt;p>In the text editor that opens up, she changes the word &amp;lsquo;pick&amp;rsquo; to &amp;lsquo;edit&amp;rsquo; for the initial commit, then saves and exits. Git now pauses at the commit she wants to edit.&lt;/p>
+&lt;p>She updates &lt;code>loot.txt&lt;/code> to:&lt;/p>
+&lt;pre>&lt;code>Pieces of Eight: 500
+Gold Bars: 20
+Jewelled Necklaces: 15
+Diamonds: 7
+Rum: 100 barrels
+&lt;/code>&lt;/pre>&lt;p>Then, she stages the changes and commits them with:&lt;/p>
+&lt;pre>&lt;code>git add loot.txt
+git commit --amend -m &amp;quot;Initial loot list.&amp;quot;
+&lt;/code>&lt;/pre>&lt;p>To continue the rebase, she runs:&lt;/p>
+&lt;pre>&lt;code>git rebase --continue
+&lt;/code>&lt;/pre>&lt;p>The &lt;code>loot.txt&lt;/code> file is corrected, and the git history remains consistent for all crew members.&lt;/p>
+&lt;h2 id="the-end">The End&lt;/h2>
+&lt;p>The &amp;ldquo;Digital Marauder&amp;rdquo; continues to sail through the digital seas, correcting and updating their loot list with each new raid. The crew finds that despite their tipsiness, git gives them the power to make their mistakes disappear - as if they&amp;rsquo;d never happened.&lt;/p></content></item><item><title>All about type hinting in Python</title><link>https://rsokolewicz.github.io/posts/9_typehinting/</link><pubDate>Sun, 18 Jun 2023 00:00:00 +0000</pubDate><guid>https://rsokolewicz.github.io/posts/9_typehinting/</guid><description>What is Type Hinting? Type hinting is a feature introduced in Python 3.5 that allows you to annotate the types of variables, function arguments, and return values. It provides optional typing to the Python language without actually enforcing the types at runtime.
+Type hints are used to indicate the expected types of variables and functions, making your code more explicit and self-documenting. They help you catch potential type-related errors early and improve code development and maintainability.</description><content>&lt;h3 id="what-is-type-hinting">What is Type Hinting?&lt;/h3>
+&lt;p>Type hinting is a feature introduced in Python 3.5 that allows you to annotate
+the types of variables, function arguments, and return values. It provides
+optional typing to the Python language without actually enforcing the
+types at runtime.&lt;/p>
+&lt;p>Type hints are used to indicate the expected types of variables and functions,
+making your code more explicit and self-documenting. They help you catch
+potential type-related errors early and improve code development and
+maintainability.&lt;/p>
+&lt;h3 id="why-is-type-hinting-useful">Why is Type Hinting Useful?&lt;/h3>
+&lt;p>Type hinting offers several benefits:&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>&lt;strong>Improved Code Readability&lt;/strong>: Type hints make the code more self-explanatory
+by explicitly stating the expected types. It helps other developers
+understand your code more easily.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Early Detection of Errors&lt;/strong>: Type hints allow static analysis tools to
+catch type-related errors before your code runs. This helps identify
+potential bugs and allows you to fix them early in the development process.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Enhanced IDE Support&lt;/strong>: Many integrated development environments (IDEs) can
+use type hints to provide better code suggestions, autocompletion, and error
+detection while you write your code. This can significantly boost your
+productivity.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Documentation and Design Clarity&lt;/strong>: Type hints act as documentation for
+your code, making it clear what types are expected and returned by functions.
+They help in designing clean interfaces and APIs.&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;p>I find the third point the most useful. If, for example, you&amp;rsquo;re building a data
+processing pipeline, and are writing the data preprocessing method, type hinting
+allows you to tell your IDE that you are working with a &lt;code>pandas.DataFrame&lt;/code> and in
+return, you get all the code suggestions and autocompletion for free.&lt;/p>
+&lt;h3 id="type-hinting-examples">Type Hinting Examples&lt;/h3>
+&lt;p>Let&amp;rsquo;s look at some examples of how type hinting can improve your code development:&lt;/p>
+&lt;h4 id="1-annotating-variable-types">1. Annotating Variable Types:&lt;/h4>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#75715e"># Without Type Hinting&lt;/span>
+name &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;John Doe&amp;#39;&lt;/span>
+age &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">30&lt;/span>
+balance &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">100.5&lt;/span>
+&lt;span style="color:#75715e"># With Type Hinting&lt;/span>
+name: str &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;John Doe&amp;#39;&lt;/span>
+age: int &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">30&lt;/span>
+balance: float &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">100.5&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>By adding type hints to variables, you make it clear what types they should
+hold, making the code more readable.&lt;/p>
+&lt;h4 id="2-specifying-function-argument-and-return-types">2. Specifying Function Argument and Return Types:&lt;/h4>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">multiply&lt;/span>(a: int, b: int) &lt;span style="color:#f92672">-&amp;gt;&lt;/span> int:
+&lt;span style="color:#66d9ef">return&lt;/span> a &lt;span style="color:#f92672">*&lt;/span> b
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>In the above example, the &lt;code>multiply&lt;/code> function takes two integer arguments and
+returns an integer. The type hints help convey the expected types, enabling
+better understanding and potential error detection.&lt;/p>
+&lt;h4 id="3-annotating-complex-data-structures">3. Annotating Complex Data Structures:&lt;/h4>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#f92672">from&lt;/span> typing &lt;span style="color:#f92672">import&lt;/span> List, Tuple
+&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">process_data&lt;/span>(data: List[Tuple[str, int]]) &lt;span style="color:#f92672">-&amp;gt;&lt;/span> List[str]:
+result &lt;span style="color:#f92672">=&lt;/span> []
+&lt;span style="color:#66d9ef">for&lt;/span> name, age &lt;span style="color:#f92672">in&lt;/span> data:
+result&lt;span style="color:#f92672">.&lt;/span>append(f&lt;span style="color:#e6db74">&amp;#39;{name} is {age} years old.&amp;#39;&lt;/span>)
+&lt;span style="color:#66d9ef">return&lt;/span> result
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Here, the &lt;code>process_data&lt;/code> function expects a list of tuples, where the first
+element is a string and the second element is an integer. It returns a list of
+strings. The type hints provide clarity on the data structure, enabling better
+understanding and reducing errors.&lt;/p>
+&lt;h4 id="4-handling-union-and-optional-types">4. Handling Union and Optional Types:&lt;/h4>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#f92672">from&lt;/span> typing &lt;span style="color:#f92672">import&lt;/span> Union, Optional
+&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">greet&lt;/span>(name: Union[str, None]) &lt;span style="color:#f92672">-&amp;gt;&lt;/span> Optional[str]:
+&lt;span style="color:#66d9ef">if&lt;/span> name &lt;span style="color:#f92672">is&lt;/span> None:
+&lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#e6db74">&amp;#39;Hello!&amp;#39;&lt;/span>
+&lt;span style="color:#66d9ef">else&lt;/span>:
+&lt;span style="color:#66d9ef">return&lt;/span> f&lt;span style="color:#e6db74">&amp;#39;Hello, {name}!&amp;#39;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>In this example, the &lt;code>greet&lt;/code> function can accept either a string or &lt;code>None&lt;/code> as
+the &lt;code>name&lt;/code> argument. It returns an optional string, which means it can return
+either a string or &lt;code>None&lt;/code>. Type hints allow you to express such scenarios
+accurately.&lt;/p>
+&lt;h3 id="conclusion">Conclusion&lt;/h3>
+&lt;p>Type hinting in Python is a powerful feature that enhances code readability,
+improves error detection, and provides better development tooling support. By
+explicitly stating the expected types, you can make your code more
+understandable, maintainable, and robust.&lt;/p></content></item><item><title>Getting rid of 'fatal: The current branch &lt;new branch> has no upstream branch' in git</title><link>https://rsokolewicz.github.io/posts/8_git_upstream/</link><pubDate>Mon, 12 Jun 2023 00:00:00 +0000</pubDate><guid>https://rsokolewicz.github.io/posts/8_git_upstream/</guid><description>What is an upstream branch? In Git, an upstream branch refers to the branch in a remote repository that your local branch is associated with or tracks. It serves as a reference point for your local branch and determines where your changes will be pushed when you use the git push command.
 When you clone a repository, Git sets up a default upstream branch for the branch you&amp;rsquo;re currently on. For example, if you clone a repository and checkout the master branch, your local master branch will typically have an upstream branch called origin/master, where origin is the default name for the remote repository.</description><content>&lt;h1 id="what-is-an-upstream-branch">What is an upstream branch?&lt;/h1>
 &lt;p>In Git, an upstream branch refers to the branch in a remote repository that your local branch is associated with or tracks. It serves as a reference point for your local branch and determines where your changes will be pushed when you use the &lt;code>git push&lt;/code> command.&lt;/p>
 &lt;p>When you clone a repository, Git sets up a default upstream branch for the branch you&amp;rsquo;re currently on. For example, if you clone a repository and checkout the &lt;code>master&lt;/code> branch, your local &lt;code>master&lt;/code> branch will typically have an upstream branch called &lt;code>origin/master&lt;/code>, where &lt;code>origin&lt;/code> is the default name for the remote repository.&lt;/p>

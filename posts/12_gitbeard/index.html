@@ -1,0 +1,60 @@
+<!doctype html><html lang=en><head><title>Git ahoy! A Pirate's Tale of Version Control :: Roberts blog</title><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="Yo-ho-ho and a bottle of Git! Follow the daring exploits of Captain Blackbeard's rum-soaked crew as they navigate treacherous seas, correct their plundering mistakes with cunning commits, and master the art of version control on their ship, the Jolly Git Committer."><meta name=keywords content><meta name=robots content="noodp"><link rel=canonical href=https://rsokolewicz.github.io/posts/12_gitbeard/><link rel=stylesheet href=https://rsokolewicz.github.io/assets/style.css><link rel=stylesheet href=https://rsokolewicz.github.io/assets/css/style.css><link rel=stylesheet href=https://rsokolewicz.github.io/assets/css/hugo-cite.css><link rel=apple-touch-icon href=https://rsokolewicz.github.io/img/apple-touch-icon-192x192.png><link rel="shortcut icon" href=https://rsokolewicz.github.io/img/favicon/orange.png><meta name=twitter:card content="summary"><meta property="og:locale" content="en"><meta property="og:type" content="article"><meta property="og:title" content="Git ahoy! A Pirate's Tale of Version Control"><meta property="og:description" content="Yo-ho-ho and a bottle of Git! Follow the daring exploits of Captain Blackbeard's rum-soaked crew as they navigate treacherous seas, correct their plundering mistakes with cunning commits, and master the art of version control on their ship, the Jolly Git Committer."><meta property="og:url" content="https://rsokolewicz.github.io/posts/12_gitbeard/"><meta property="og:site_name" content="Roberts blog"><meta property="og:image" content="https://rsokolewicz.github.io/img/favicon/orange.png"><meta property="og:image:width" content="2048"><meta property="og:image:height" content="1024"><meta property="article:published_time" content="2023-07-10 00:00:00 +0000 UTC"><script>MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],displayMath:[['$$','$$'],['\\[','\\]']],macros:{bb:["{\\boldsymbol{#1}}",1],tr:"{\\DeclareMathOperator{\\tr}{Tr}}",im:"{\\DeclareMathOperator{\\im}{Im}}",re:"{\\DeclareMathOperator{\\re}{Re}}",},processEscapes:true,processEnvironments:true,tags:"ams"},options:{skipHtmlTags:['script','noscript','style','textarea','pre']}};window.addEventListener('load',(event)=>{document.querySelectorAll("mjx-container").forEach(function(x){x.parentElement.classList+='has-jax'})});</script><script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script type=text/javascript id=MathJax-script async src=https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js></script><script type=text/x-mathjax-config>
+    MathJax.Hub.Queue(function() {
+        // Fix <code> tags after MathJax finishes running. This is a
+        // hack to overcome a shortcoming of Markdown. Discussion at
+        // https://github.com/mojombo/jekyll/issues/199
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i = 0; i &lt; all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+    </script></head><body class=orange><div class="container center headings--one-size"><header class=header><div class=header__inner><div class=header__logo><a href=/><div class=logo>Home</div></a></div><div class=menu-trigger>menu</div></div><nav class=menu><ul class="menu__inner menu__inner--desktop"><li><a href=/about>About</a></li><li><a href=/books>Book Reviews</a></li><li><a href=/cv>CV</a></li><li><a href=/physics>Physics</a></li></ul><ul class="menu__inner menu__inner--mobile"><li><a href=/about>About</a></li><li><a href=/books>Book Reviews</a></li><li><a href=/cv>CV</a></li><li><a href=/physics>Physics</a></li></ul></nav></header><div class=content><div class=post><h1 class=post-title><a href=https://rsokolewicz.github.io/posts/12_gitbeard/>Git ahoy! A Pirate&rsquo;s Tale of Version Control</a></h1><div class=post-meta><span class=post-date>2023-07-10</span>
+<span class=post-author>:: Robert</span></div><div class=post-content><div><h2 id=adventure-begins>Adventure Begins<a href=#adventure-begins class=hanchor arialabel=Anchor>&#8983;</a></h2><p>As the dawn cracks over the horizon, Captain Gitbeard, a notorious pirate, and his crew of misfits aboard the ship, &ldquo;The Digital Marauder,&rdquo; sail through the emerald waves of the Caribbean. They maintain an inventory of their loot with a shared file named <code>loot.txt</code> version controlled through git. But as the crew is always a bit tipsy, they&rsquo;ve been known to commit a few mistakes now and then.</p><p>Their <code>loot.txt</code> file at the moment looks like this:</p><pre><code>Pieces of Eight: 500
+Gold Bars: 20
+Jewelled Necklaces: 15
+Diamonds: 7
+</code></pre><p>The git log shows:</p><pre><code>commit 1234567
+Author: Captain Gitbeard &lt;gitbeard@pirate.net&gt;
+Date: Fri Jul 7 10:00:00 2023
+Initial loot list.
+</code></pre><h2 id=a-blunder-at-plunder>A Blunder at Plunder<a href=#a-blunder-at-plunder class=hanchor arialabel=Anchor>&#8983;</a></h2><p>After a successful raid on a Spanish galleon, the crew updates the <code>loot.txt</code> file with their new treasures. First Mate Morgan, a bit too merry with rum, updates the file as:</p><pre><code>Pieces of Eight: 1500
+Gold Bars: 120
+Jewelled Necklaces: 150
+Diamonds: 170
+</code></pre><p>He then commits this with the message &ldquo;Plunder from the Spanish galleon&rdquo;. He forgot that the crew only found 100 new Pieces of Eight, 10 new Gold Bars, 5 new Necklaces, and 3 new Diamonds.</p><p>The git history now looks like:</p><pre><code>commit 7654321
+Author: First Mate Morgan &lt;morgan@pirate.net&gt;
+Date: Sat Jul 8 12:00:00 2023
+Plunder from the Spanish galleon.
+
+commit 1234567
+Author: Captain Gitbeard &lt;Gitbeard@pirate.net&gt;
+Date: Fri Jul 7 10:00:00 2023
+Initial loot list.
+</code></pre><p>Captain Gitbeard realizes the blunder and orders Morgan to amend the last commit with the correct numbers. Morgan runs:</p><pre><code>git checkout HEAD
+</code></pre><p>Corrects <code>loot.txt</code>:</p><pre><code>Pieces of Eight: 600
+Gold Bars: 30
+Jewelled Necklaces: 20
+Diamonds: 10
+</code></pre><p>And then amends the previous commit:</p><pre><code>git add loot.txt
+git commit --amend -m &quot;Plunder from the Spanish galleon&quot;
+</code></pre><p>Now the git history shows the correct values:</p><pre><code>commit abcdefg
+Author: First Mate Morgan &lt;morgan@pirate.net&gt;
+Date: Sat Jul 8 12:00:00 2023
+Plunder from the Spanish galleon.
+
+commit 1234567
+Author: Captain Gitbeard &lt;Gitbeard@pirate.net&gt;
+Date: Fri Jul 7 10:00:00 2023
+Initial loot list.
+</code></pre><h2 id=the-tale-of-the-missing-loot>The Tale of the Missing Loot<a href=#the-tale-of-the-missing-loot class=hanchor arialabel=Anchor>&#8983;</a></h2><p>During an audit by Quartermaster Anne, she notices the <code>loot.txt</code> file doesn&rsquo;t list their cache of rum. As she tries to insert this into the initial inventory, she realizes she can&rsquo;t simply amend the commit as it would rewrite everyone&rsquo;s history after that commit.</p><p>To remedy this, she decides to use the interactive rebase to modify the initial commit. She runs:</p><pre><code>git rebase -i --root
+</code></pre><p>In the text editor that opens up, she changes the word &lsquo;pick&rsquo; to &lsquo;edit&rsquo; for the initial commit, then saves and exits. Git now pauses at the commit she wants to edit.</p><p>She updates <code>loot.txt</code> to:</p><pre><code>Pieces of Eight: 500
+Gold Bars: 20
+Jewelled Necklaces: 15
+Diamonds: 7
+Rum: 100 barrels
+</code></pre><p>Then, she stages the changes and commits them with:</p><pre><code>git add loot.txt
+git commit --amend -m &quot;Initial loot list.&quot;
+</code></pre><p>To continue the rebase, she runs:</p><pre><code>git rebase --continue
+</code></pre><p>The <code>loot.txt</code> file is corrected, and the git history remains consistent for all crew members.</p><h2 id=the-end>The End<a href=#the-end class=hanchor arialabel=Anchor>&#8983;</a></h2><p>The &ldquo;Digital Marauder&rdquo; continues to sail through the digital seas, correcting and updating their loot list with each new raid. The crew finds that despite their tipsiness, git gives them the power to make their mistakes disappear - as if they&rsquo;d never happened.</p></div></div><div class=pagination><div class=pagination__title><span class=pagination__title-h>Read other posts</span><hr></div><div class=pagination__buttons><span class="button next"><a href=https://rsokolewicz.github.io/posts/9_typehinting/><span class=button__text>All about type hinting in Python</span>
+<span class=button__icon>→</span></a></span></div></div></div></div><footer class=footer><div class=footer__inner><div class=copyright><span>© 2023 Powered by <a href=http://gohugo.io>Hugo</a></span>
+<span>:: Theme made by <a href=https://twitter.com/panr>panr</a></span></div></div></footer><script src=https://rsokolewicz.github.io/assets/main.js></script><script src=https://rsokolewicz.github.io/assets/prism.js></script></div></body></html>
