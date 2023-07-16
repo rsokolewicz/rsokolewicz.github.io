@@ -15,10 +15,10 @@ printf "\033[0;32mDeploying updates to GitHub...\033[0m\n"
 # Build the project.
 hugo -t hugo-theme-terminal # if using a theme, replace with `hugo -t <YOURTHEME>`
 
-# Go To Public folder
-cd public
+# # Go To Public folder
+# cd public
 
-git pull
+# git pull
 
 # Add changes to git.
 git add .
@@ -33,4 +33,4 @@ git commit -m "$msg"
 # Push source and build repos.
 git push origin main
 
-cd ..
+# cd ..
