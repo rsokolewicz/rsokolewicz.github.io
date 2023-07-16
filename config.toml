@@ -2,7 +2,7 @@ baseURL = "https://rsokolewicz.github.io"
 
 languageCode = "en-us"
 theme = "hugo-theme-terminal"
-paginate = 5
+paginate = 10
 
 [params]
   # dir name of your blog content (default is `content/posts`)
