@@ -9,7 +9,7 @@ description = ""
 Type hinting is a feature introduced in Python 3.5 that allows you to annotate
 the types of variables, function arguments, and return values. It provides
 optional typing to the Python language without actually enforcing the
-types at runtime.
+types at runtime. 
 
 Type hints are used to indicate the expected types of variables and functions,
 making your code more explicit and self-documenting. They help you catch
