@@ -1,0 +1,98 @@
+h1 {
+    color: #ffa86a;
+    font-size: 1.5rem;
+}
+
+.headings--one-size h2 {
+    color: rgb(255 133 46);
+    font-size: 1.2rem;
+}
+
+.headings--one-size h3 {
+    color: rgb(255 133 46);
+    font-size: 1.0rem;
+}
+
+/* unvisited link */
+a:link {
+    color: var(--accent);
+}
+
+/* visited link */
+a:visited {
+    color: #c56f32;
+}
+
+/* mouse over link */
+a:hover {
+    color: red;
+}
+
+/* selected link */
+a:active {
+    color: yellow;
+}
+
+figure {
+    align-content: center;
+    text-align: center;
+}
+
+figure.center img {
+    margin: auto;
+}
+
+figure figcaption {
+    /* background: #23b0ff; */
+    background: var(--background);
+    /* color: #1d212c; */
+    color: var(--accent);
+    font-size: 14px;
+    margin-top: 5px;
+    padding: 5px 10px
+}
+
+
+div .caption {
+    text-align: center;
+    color: var(--accent);
+    font-size: 14px;
+    margin-top: 5px;
+    padding: 5px 10px;
+}
+
+/* style type for ordered list */
+@counter-style custom-ordered {
+    system: fixed;
+    symbols: '(i)' '(ii)' '(iii)' '(iv)' '(v)' '(vi)' '(vii)';
+    suffix: ' ';
+}
+
+/* or list-style-type: custom-unordered; */
+ol {
+    list-style: none outside none;
+    list-style-type: custom-ordered;
+}
+
+ol li:before {
+    content: none;
+}
+
+ol li::marker {
+    color: var(--accent);
+}
+
+dt {
+    color: var(--accent);
+}
+
+code.has-jax {
+    font: inherit;
+    font-size: 100%;
+    background: inherit;
+    border: inherit;
+    color: #ffffff;
+    margin: 0px;
+    padding: 0px;
+    border: none;
+}
