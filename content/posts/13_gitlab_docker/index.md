@@ -47,3 +47,31 @@ here:
 - `<image-path>` should be replaced with the image path that we just copied
 - and `/bin/bash` is the command that will be executed first. This is often optional, but sometimes there's a default `CMD` specified in the image that we would like to override while debugging.
 
+## troubleshooting
+
+### cannot connect to Docker Daemon
+The first time I tried this, I ran into the following problem. Running `docker run` would give me back
+
+```bash
+docker: Cannot connect to the Docker daemon at unix:///var/run/docker.sock
+```
+
+Many solutions can be found on Stackoverflow, but for me, the problem was that I was running Docker inside WSL, but I had installed Docker both in my Ubuntu partition and on Windows. The solution was to uninstall both, install the Windows version and in the settings, you specify that you want to run docker inside WSL. 
+
+### permission denied while trying to connect
+
+then I got this problem
+
+```bash
+docker: Got permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Post http://%2Fvar%2Frun%2Fdocker.sock/v1.35/containers/create: dial unix /var/run/docker.sock: connect: permission denied. See 'docker run --help'.
+```
+
+when using Unix (WSL/Linux/macOS) you have to run docker either as a super user (`sudo docker run`) or you have to add yourself to the `docker` group:
+
+```bash
+sudo groupadd docker
+sudo usermod -aG docker $USER
+newgrp docker
+```
+
+The first line creates the `docker` group (if it doesn't yet exist), the second line adds you to that group (`-aG` stands for append and group), and the third logs you into that group. The third option is just so that you don't have to reload the shell. You could just as well reopen your terminal. 
