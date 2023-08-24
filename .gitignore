@@ -1,5 +1,6 @@
 .vscode
 resources/_gen
+resources
 .hugo_build.lock
 public
 playground
