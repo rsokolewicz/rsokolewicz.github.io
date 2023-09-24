@@ -1,4 +1,107 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Roberts blog</title><link>https://rsokolewicz.github.io/posts/</link><description>Recent content in Posts on Roberts blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Thu, 24 Aug 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://rsokolewicz.github.io/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Debugging gitlab pipeline docker containers</title><link>https://rsokolewicz.github.io/posts/13_gitlab_docker/</link><pubDate>Thu, 24 Aug 2023 00:00:00 +0000</pubDate><guid>https://rsokolewicz.github.io/posts/13_gitlab_docker/</guid><description>docker images and containers Sometimes a pipeline that is running on GitLab has unexpected behavior, for example when a build is different from when you execute a build locally on your laptop. For debugging it is very useful to have the same environment, and sometimes just running a fresh conda environment and installing all the requirements is not enough.
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Roberts blog</title><link>https://rsokolewicz.github.io/posts/</link><description>Recent content in Posts on Roberts blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sun, 24 Sep 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://rsokolewicz.github.io/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Unit testing - Classical vs. London Approaches</title><link>https://rsokolewicz.github.io/posts/14_unit_testing/</link><pubDate>Sun, 24 Sep 2023 00:00:00 +0000</pubDate><guid>https://rsokolewicz.github.io/posts/14_unit_testing/</guid><description>Most, if not all, software projects suffer from the same problem. When starting the project it&amp;rsquo;s very easy to include new features. One feature might take one day to implement, but as the code base grows, implementing something new will take a week, a month, or half a year until it&amp;rsquo;s impossible to implement something without breaking something else. Different parts of the code depend on each other and this can create a cascading effect where a small change propagates throughout the entire codebase breaking a lot of stuff.</description><content>&lt;p>Most, if not all, software projects suffer from the same problem. When starting the project it&amp;rsquo;s very easy to include new features. One feature might take one day to implement, but as the code base grows, implementing something new will take a week, a month, or half a year until it&amp;rsquo;s impossible to implement something without breaking something else. Different parts of the code depend on each other and this can create a cascading effect where a small change propagates throughout the entire codebase breaking a lot of stuff.&lt;/p>
+&lt;p>Unit tests are safeguards that help the developer in writing code that does not break the existing code, making it easier to make progress when working on the codebase.&lt;/p>
+&lt;figure class="center" >
+&lt;img src="images/1.svg" />
+&lt;figcaption class="center" >Figure 1. The time that we spend on developing and expanding the code base grows exponentially with the amount of progress already made.&lt;/figcaption>
+&lt;/figure>
+&lt;p>In the early stages of a project, it is probably easier and faster to implement new features than it is to write unit tests for them. For smaller projects implementing unit tests might even hinder the progress of the project, but in the long run, it is worthwhile.&lt;/p>
+&lt;h2 id="what-is-a-unit-test">What is a unit test?&lt;/h2>
+&lt;p>Let&amp;rsquo;s assume that our codebase has a &lt;code>Cat&lt;/code> class that represents a cat that can meow and always feels hungry until it gets some food to eat. Some unit tests for this class could be something like&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">test_is_hungry&lt;/span>():
+cat &lt;span style="color:#f92672">=&lt;/span> Cat(&lt;span style="color:#e6db74">&amp;#34;funnywhiskers&amp;#34;&lt;/span>)
+&lt;span style="color:#66d9ef">assert&lt;/span> cat&lt;span style="color:#f92672">.&lt;/span>is_hungry &lt;span style="color:#f92672">is&lt;/span> True
+&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">test_meow&lt;/span>():
+cat &lt;span style="color:#f92672">=&lt;/span> Cat(&lt;span style="color:#e6db74">&amp;#34;funnywhiskers&amp;#34;&lt;/span>)
+&lt;span style="color:#66d9ef">assert&lt;/span> cat&lt;span style="color:#f92672">.&lt;/span>meow() &lt;span style="color:#f92672">==&lt;/span> &lt;span style="color:#e6db74">&amp;#34;Meow!&amp;#34;&lt;/span>
+&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">test_eat&lt;/span>():
+cat &lt;span style="color:#f92672">=&lt;/span> Cat(&lt;span style="color:#e6db74">&amp;#34;funnywhiskers&amp;#34;&lt;/span>)
+&lt;span style="color:#66d9ef">assert&lt;/span> cat&lt;span style="color:#f92672">.&lt;/span>eat() &lt;span style="color:#f92672">==&lt;/span> &lt;span style="color:#e6db74">&amp;#34;Yum!&amp;#34;&lt;/span>
+&lt;span style="color:#66d9ef">assert&lt;/span> cat&lt;span style="color:#f92672">.&lt;/span>is_hungry() &lt;span style="color:#f92672">is&lt;/span> False
+&lt;span style="color:#66d9ef">assert&lt;/span> cat&lt;span style="color:#f92672">.&lt;/span>eat() &lt;span style="color:#f92672">==&lt;/span> &lt;span style="color:#e6db74">&amp;#34;I&amp;#39;m not hungry.&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>In this example, we see that even though we have one &lt;code>Cat&lt;/code> class, the tests are split into smaller pieces, each testing a small aspect of that class. This is where the name &amp;ldquo;unit&amp;rdquo; comes from. Furthermore, each test is small, to the point, and fast. And lastly, each test is &lt;em>isolated&lt;/em> from each other. What isolation means exactly, we will explain shortly.&lt;/p>
+&lt;p>A unit test has the following properties:&lt;/p>
+&lt;ol>
+&lt;li>it verifies a piece of code.&lt;/li>
+&lt;li>it is fast.&lt;/li>
+&lt;li>it is isolated.&lt;/li>
+&lt;/ol>
+&lt;p>The requirement that a unit test is isolated is something that many people have strong opinions about, so strong even, that we broadly have two schools of thought: The London (mockist) and the Detroit (classical) school.&lt;/p>
+&lt;h2 id="the-classic-view-of-isolation">The classic view of isolation&lt;/h2>
+&lt;p>Let us examine the classical school first. Imagine that our cat codebase has grown quite a bit and now we also have an &lt;code>Owner&lt;/code> class that is responsible for getting the food for the cat. Again, a simple test to test this functionality would be&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">test_classical_eat&lt;/span>():
+cat &lt;span style="color:#f92672">=&lt;/span> Cat(&lt;span style="color:#e6db74">&amp;#34;funnywhiskers&amp;#34;&lt;/span>)
+owner &lt;span style="color:#f92672">=&lt;/span> Owner(&lt;span style="color:#e6db74">&amp;#34;Robert&amp;#34;&lt;/span>)
+food &lt;span style="color:#f92672">=&lt;/span> owner&lt;span style="color:#f92672">.&lt;/span>get_food(&lt;span style="color:#e6db74">&amp;#34;fish&amp;#34;&lt;/span>)
+&lt;span style="color:#66d9ef">assert&lt;/span> cat&lt;span style="color:#f92672">.&lt;/span>eat(food) &lt;span style="color:#f92672">==&lt;/span> &lt;span style="color:#e6db74">&amp;#34;Yum! Ate fish.&amp;#34;&lt;/span>
+&lt;span style="color:#66d9ef">assert&lt;/span> cat&lt;span style="color:#f92672">.&lt;/span>is_hungry &lt;span style="color:#f92672">is&lt;/span> False
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>There is a small issue with this test, however. We are testing whether the &lt;code>.eat&lt;/code> method and &lt;code>.is_hungry&lt;/code> method are working as intended, but what if we introduce a change in the codebase corresponding to the &lt;code>Owner.get_food&lt;/code> method in such a way that &lt;code>cat.eat(food) != &amp;quot;Yum! Ate fish.&amp;quot;&lt;/code>. The test will fail, but not because anything is wrong with our cat, but because we changed the behavior elsewhere. This is the classic example of touching one part of the code and it breaks something else. This cascading effect of a bug that propagates throughout the code base and fails a lot of tests, is not necessarily wrong. If many tests fail because we made a change to &lt;code>.get_food&lt;/code> it means that the codebase heavily depends on it and we discovered that it&amp;rsquo;s quite an essential piece of code.&lt;/p>
+&lt;p>The downside, however, is that when a lot of tests fail it becomes difficult to isolate where the problem exactly is. As mentioned, in this case, we&amp;rsquo;re testing the eating behavior of the cat, but the problem lies in the &lt;code>.get_food&lt;/code> method of &lt;code>Owner&lt;/code>. And according to the Londonists, this is due to isolation.&lt;/p>
+&lt;h2 id="the-london-view-of-isolation">The London view of isolation&lt;/h2>
+&lt;p>When testing a piece of code that depends on other parts of the codebase, the Londonists say we should replace those dependencies with dummies (also called doubles or mocks). The above test then becomes&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">test_london_eat&lt;/span>(pytest_mock):
+mock_owner &lt;span style="color:#f92672">=&lt;/span> pytest_mock&lt;span style="color:#f92672">.&lt;/span>Mock(spec&lt;span style="color:#f92672">=&lt;/span>Owner)
+mock_owner&lt;span style="color:#f92672">.&lt;/span>get_food&lt;span style="color:#f92672">.&lt;/span>return_value &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;fake fish&amp;#34;&lt;/span>
+cat &lt;span style="color:#f92672">=&lt;/span> Cat(&lt;span style="color:#e6db74">&amp;#34;funnywhiskers&amp;#34;&lt;/span>)
+food &lt;span style="color:#f92672">=&lt;/span> mock_owner&lt;span style="color:#f92672">.&lt;/span>get_food(&lt;span style="color:#e6db74">&amp;#34;fake fish&amp;#34;&lt;/span>)
+&lt;span style="color:#66d9ef">assert&lt;/span> cat&lt;span style="color:#f92672">.&lt;/span>eat(food) &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;Yum! Ate fake fish.&amp;#34;&lt;/span>
+&lt;span style="color:#66d9ef">assert&lt;/span> cat&lt;span style="color:#f92672">.&lt;/span>is_hungry &lt;span style="color:#f92672">is&lt;/span> False
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>where we used the mocking capability of pytest to create a fake version of &lt;code>Owner&lt;/code>. The line &lt;code>mock_owner.get_food.return_value&lt;/code> sets the return value of &lt;code>get_food&lt;/code> regardless of how &lt;code>get_food&lt;/code> is implemented in the code base.&lt;/p>
+&lt;h2 id="a-note-on-dependencies">A note on dependencies&lt;/h2>
+&lt;p>In the classical style of testing, it is still important that unit tests do not depend on each other. Certain dependencies that are shared, should still be mocked even in the classical style. For example, updating a shared database might cause issues with other tests that operate on the same database. Imagine a hundred tests that all add the same cat named &lt;em>funnywhiskers&lt;/em> to the database. This can cause many problems while testing, either because the database requires unique cat names or maybe because there is a test that adds and removes &lt;em>Funnywhiskers&lt;/em> from the database and asserts that no there is no &lt;em>Funnywhiskers&lt;/em> in the database anymore.&lt;/p>
+&lt;h2 id="comparisons">Comparisons&lt;/h2>
+&lt;p>As mentioned above, isolation in the London school attempts to isolate dependencies and as such test small &amp;ldquo;units&amp;rdquo; of code. This has a few side effects though (some positive, some negative). These tests tend to be more focussed on the implementation of code, rather than the behavior of code. In the &lt;code>get_food&lt;/code> example, if we refactor the code so that &lt;code>get_food&lt;/code> returns an instance of a &lt;code>Food&lt;/code> object, and &lt;code>.eat&lt;/code> accepts this food instance the classical test will pass, whereas the London test will fail because &lt;code>get_food&lt;/code> is mocked in a way to return a &lt;code>str&lt;/code> object, rather than a &lt;code>Food&lt;/code> object. Consequently, classical tests generally protect better against code refactors.&lt;/p>
+&lt;p>One benefit of London-style testing is that if you have a large code base with a lot of tests, if you introduce a bug in an important piece of code it will only cause relevant tests to fail and allow you to quickly figure out where you introduced the bug. In the classical style of unit testing, you will see many more tests that fail because of the dependency issue. If you run all the unit tests frequently however, (e.g. with every commit or even more often) you should be able to quickly figure out what went wrong anyway because you haven&amp;rsquo;t made many changes yet. So in practice, this shouldn&amp;rsquo;t be too big of a problem for developers.&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Aspect&lt;/th>
+&lt;th>Classical (Detroit) School&lt;/th>
+&lt;th>London (Mockist) School&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;strong>Isolation&lt;/strong>&lt;/td>
+&lt;td>Units are not isolated from each other; only the tests are isolated.&lt;/td>
+&lt;td>Units under test are isolated from each other.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>Unit Under Test&lt;/strong>&lt;/td>
+&lt;td>A unit of behavior.&lt;/td>
+&lt;td>A unit of code, usually a class.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>Dependencies&lt;/strong>&lt;/td>
+&lt;td>Only shared dependencies are replaced with test doubles.&lt;/td>
+&lt;td>All dependencies except immutable ones are replaced with test doubles.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>Granularity&lt;/strong>&lt;/td>
+&lt;td>May not provide as fine-grained control as the London School.&lt;/td>
+&lt;td>Provides better granularity.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>Ease of Testing&lt;/strong>&lt;/td>
+&lt;td>Less focused on ease of testing large graphs of interconnected classes.&lt;/td>
+&lt;td>Makes it easier to test large graphs of interconnected classes.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>Debugging&lt;/strong>&lt;/td>
+&lt;td>Doesn&amp;rsquo;t make it particularly easy or hard to find which functionality contains a bug.&lt;/td>
+&lt;td>Easier to find which functionality contains a bug.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>Issues&lt;/strong>&lt;/td>
+&lt;td>Does not hide issues with code design.&lt;/td>
+&lt;td>May hide issues with code design due to focus on units of code rather than units of behavior.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>Over-Specification&lt;/strong>&lt;/td>
+&lt;td>Less likely to couple tests to the system under test’s (SUT’s) implementation details.&lt;/td>
+&lt;td>Higher risk of over-specification; tests could become coupled to the SUT’s implementation details.&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table></content></item><item><title>Debugging gitlab pipeline docker containers</title><link>https://rsokolewicz.github.io/posts/13_gitlab_docker/</link><pubDate>Thu, 24 Aug 2023 00:00:00 +0000</pubDate><guid>https://rsokolewicz.github.io/posts/13_gitlab_docker/</guid><description>docker images and containers Sometimes a pipeline that is running on GitLab has unexpected behavior, for example when a build is different from when you execute a build locally on your laptop. For debugging it is very useful to have the same environment, and sometimes just running a fresh conda environment and installing all the requirements is not enough.
 A container is merely an instance that is running a docker image, and so all we need to do is find the Docker image reference in the GitLab registry and we&amp;rsquo;re good to go.</description><content>&lt;h2 id="docker-images-and-containers">docker images and containers&lt;/h2>
 &lt;p>Sometimes a pipeline that is running on GitLab has unexpected behavior, for example when a build is different from when you execute a build locally on your laptop. For debugging it is very useful to have the same environment, and sometimes just running a fresh conda environment and installing all the requirements is not enough.&lt;/p>
 &lt;p>A container is merely an instance that is running a docker image, and so all we need to do is find the Docker image reference in the GitLab registry and we&amp;rsquo;re good to go.&lt;/p>
