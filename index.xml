@@ -1,4 +1,118 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Your Name on Roberts blog</title><link>https://www.robert-sokolewicz.nl/</link><description>Recent content in Your Name on Roberts blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Fri, 22 Apr 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://www.robert-sokolewicz.nl/index.xml" rel="self" type="application/rss+xml"/><item><title>Unit testing - Classical vs. London Approaches</title><link>https://www.robert-sokolewicz.nl/posts/14_unit_testing/</link><pubDate>Sun, 24 Sep 2023 00:00:00 +0000</pubDate><guid>https://www.robert-sokolewicz.nl/posts/14_unit_testing/</guid><description>Most, if not all, software projects suffer from the same problem. When starting the project it&amp;rsquo;s very easy to include new features. One feature might take one day to implement, but as the code base grows, implementing something new will take a week, a month, or half a year until it&amp;rsquo;s impossible to implement something without breaking something else. Different parts of the code depend on each other and this can create a cascading effect where a small change propagates throughout the entire codebase breaking a lot of stuff.</description><content>&lt;p>Most, if not all, software projects suffer from the same problem. When starting the project it&amp;rsquo;s very easy to include new features. One feature might take one day to implement, but as the code base grows, implementing something new will take a week, a month, or half a year until it&amp;rsquo;s impossible to implement something without breaking something else. Different parts of the code depend on each other and this can create a cascading effect where a small change propagates throughout the entire codebase breaking a lot of stuff.&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Your Name on Roberts blog</title><link>https://www.robert-sokolewicz.nl/</link><description>Recent content in Your Name on Roberts blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Fri, 22 Apr 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://www.robert-sokolewicz.nl/index.xml" rel="self" type="application/rss+xml"/><item><title>Google Scripts to label GitLab related emails</title><link>https://www.robert-sokolewicz.nl/posts/15_gmail_labels/</link><pubDate>Wed, 27 Sep 2023 00:00:00 +0000</pubDate><guid>https://www.robert-sokolewicz.nl/posts/15_gmail_labels/</guid><description>Preview of how my inbox looks like now :) If you are subscribed to many GitLab notifications, you might receive a lot of emails from GitLab for every merge request, issue, mention, review requested, and so on. Automatically labeling them in Gmail can be done by creating filters, but can be a bit difficult because you can only filter on titles and text body. A lot of useful information is actually present inside the email-headers, and for each notification GitLab adds GitLab-specific headers.</description><content>
+&lt;figure class="center" >
+&lt;img src="image-9.png" />
+&lt;figcaption class="center" >Preview of how my inbox looks like now :)&lt;/figcaption>
+&lt;/figure>
+&lt;p>If you are subscribed to many GitLab notifications, you might receive a lot of emails from GitLab for every merge request, issue, mention, review requested, and so on. Automatically labeling them in Gmail can be done by creating filters, but can be a bit difficult because you can only filter on titles and text body. A lot of useful information is actually present inside the email-headers, and for each notification GitLab adds GitLab-specific headers. For example which project it belongs to or if it&amp;rsquo;s related to an issue or merge-request.&lt;/p>
+&lt;p>What is nice about this is that it is straightforward to create a script that assigns a label to an email based on which GitLab-specific header it has.&lt;/p>
+&lt;h2 id="google-script">Google Script&lt;/h2>
+&lt;p>In short:&lt;/p>
+&lt;ol>
+&lt;li>go to script.google.com&lt;/li>
+&lt;li>switch account if needed&lt;/li>
+&lt;li>New project&lt;/li>
+&lt;li>Add script that you want to run&lt;/li>
+&lt;li>hit deploy and new deployment &lt;img src="image-1.png" alt="New deployment">&lt;/li>
+&lt;li>select type: Web app &lt;img src="image-2.png" alt="Web App">&lt;/li>
+&lt;li>add details &lt;img src="image-3.png" alt="app details">&lt;/li>
+&lt;li>authorize &lt;img src="image-4.png" alt="authorize">&lt;/li>
+&lt;li>go to trigger &lt;img src="image-5.png" alt="trigger menu">&lt;/li>
+&lt;li>add details &lt;img src="image-6.png" alt="trigger details">&lt;/li>
+&lt;/ol>
+&lt;h2 id="the-script">The Script&lt;/h2>
+&lt;p>The script is written in JavaScript and makes use of some Google magic.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-javascript" data-lang="javascript">
+&lt;span style="color:#66d9ef">function&lt;/span> &lt;span style="color:#a6e22e">searchAllEmails&lt;/span>() {
+&lt;span style="color:#66d9ef">var&lt;/span> &lt;span style="color:#a6e22e">start&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span>;
+&lt;span style="color:#66d9ef">var&lt;/span> &lt;span style="color:#a6e22e">max&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">100&lt;/span>;
+&lt;span style="color:#66d9ef">while&lt;/span> (&lt;span style="color:#66d9ef">true&lt;/span>) {
+&lt;span style="color:#66d9ef">var&lt;/span> &lt;span style="color:#a6e22e">threads&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">GmailApp&lt;/span>.&lt;span style="color:#a6e22e">search&lt;/span>(&lt;span style="color:#e6db74">&amp;#39;&amp;#39;&lt;/span>, &lt;span style="color:#a6e22e">start&lt;/span>, &lt;span style="color:#a6e22e">max&lt;/span>);
+&lt;span style="color:#66d9ef">if&lt;/span> (&lt;span style="color:#a6e22e">threads&lt;/span>.&lt;span style="color:#a6e22e">length&lt;/span> &lt;span style="color:#f92672">===&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span>) &lt;span style="color:#66d9ef">break&lt;/span>;
+&lt;span style="color:#66d9ef">for&lt;/span> (&lt;span style="color:#66d9ef">var&lt;/span> &lt;span style="color:#a6e22e">i&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span>; &lt;span style="color:#a6e22e">i&lt;/span> &lt;span style="color:#f92672">&amp;lt;&lt;/span> &lt;span style="color:#a6e22e">threads&lt;/span>.&lt;span style="color:#a6e22e">length&lt;/span>; &lt;span style="color:#a6e22e">i&lt;/span>&lt;span style="color:#f92672">++&lt;/span>) {
+&lt;span style="color:#66d9ef">var&lt;/span> &lt;span style="color:#a6e22e">messages&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">threads&lt;/span>[&lt;span style="color:#a6e22e">i&lt;/span>].&lt;span style="color:#a6e22e">getMessages&lt;/span>();
+&lt;span style="color:#66d9ef">for&lt;/span> (&lt;span style="color:#66d9ef">var&lt;/span> &lt;span style="color:#a6e22e">j&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span>; &lt;span style="color:#a6e22e">j&lt;/span> &lt;span style="color:#f92672">&amp;lt;&lt;/span> &lt;span style="color:#a6e22e">messages&lt;/span>.&lt;span style="color:#a6e22e">length&lt;/span>; &lt;span style="color:#a6e22e">j&lt;/span>&lt;span style="color:#f92672">++&lt;/span>) {
+&lt;span style="color:#66d9ef">var&lt;/span> &lt;span style="color:#a6e22e">message&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">messages&lt;/span>[&lt;span style="color:#a6e22e">j&lt;/span>];
+&lt;span style="color:#a6e22e">processMessage&lt;/span>(&lt;span style="color:#a6e22e">message&lt;/span>);
+}
+&lt;span style="color:#a6e22e">Logger&lt;/span>.&lt;span style="color:#a6e22e">log&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;processed &amp;#34;&lt;/span> &lt;span style="color:#f92672">+&lt;/span> (&lt;span style="color:#a6e22e">start&lt;/span> &lt;span style="color:#f92672">+&lt;/span> &lt;span style="color:#a6e22e">i&lt;/span>) &lt;span style="color:#f92672">+&lt;/span> &lt;span style="color:#e6db74">&amp;#34;/&amp;#34;&lt;/span> &lt;span style="color:#f92672">+&lt;/span> (&lt;span style="color:#a6e22e">start&lt;/span> &lt;span style="color:#f92672">+&lt;/span> &lt;span style="color:#a6e22e">max&lt;/span>));
+}
+&lt;span style="color:#a6e22e">start&lt;/span> &lt;span style="color:#f92672">+=&lt;/span> &lt;span style="color:#a6e22e">max&lt;/span>;
+}
+}
+&lt;span style="color:#66d9ef">function&lt;/span> &lt;span style="color:#a6e22e">processInbox&lt;/span>() {
+&lt;span style="color:#66d9ef">var&lt;/span> &lt;span style="color:#a6e22e">threads&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">GmailApp&lt;/span>.&lt;span style="color:#a6e22e">search&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;label:unprocessed&amp;#34;&lt;/span>);
+&lt;span style="color:#66d9ef">var&lt;/span> &lt;span style="color:#a6e22e">unprocessedLabel&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">GmailApp&lt;/span>.&lt;span style="color:#a6e22e">getUserLabelByName&lt;/span>(&lt;span style="color:#e6db74">&amp;#39;unprocessed&amp;#39;&lt;/span>);
+&lt;span style="color:#66d9ef">if&lt;/span> (&lt;span style="color:#a6e22e">threads&lt;/span>.&lt;span style="color:#a6e22e">length&lt;/span> &lt;span style="color:#f92672">===&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span>) {
+&lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#66d9ef">null&lt;/span>;
+}
+&lt;span style="color:#66d9ef">for&lt;/span> (&lt;span style="color:#66d9ef">var&lt;/span> &lt;span style="color:#a6e22e">i&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span>; &lt;span style="color:#a6e22e">i&lt;/span> &lt;span style="color:#f92672">&amp;lt;&lt;/span> &lt;span style="color:#a6e22e">threads&lt;/span>.&lt;span style="color:#a6e22e">length&lt;/span>; &lt;span style="color:#a6e22e">i&lt;/span>&lt;span style="color:#f92672">++&lt;/span>) {
+&lt;span style="color:#66d9ef">var&lt;/span> &lt;span style="color:#a6e22e">messages&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">threads&lt;/span>[&lt;span style="color:#a6e22e">i&lt;/span>].&lt;span style="color:#a6e22e">getMessages&lt;/span>();
+&lt;span style="color:#66d9ef">for&lt;/span> (&lt;span style="color:#66d9ef">var&lt;/span> &lt;span style="color:#a6e22e">j&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span>; &lt;span style="color:#a6e22e">j&lt;/span> &lt;span style="color:#f92672">&amp;lt;&lt;/span> &lt;span style="color:#a6e22e">messages&lt;/span>.&lt;span style="color:#a6e22e">length&lt;/span>; &lt;span style="color:#a6e22e">j&lt;/span>&lt;span style="color:#f92672">++&lt;/span>) {
+&lt;span style="color:#66d9ef">var&lt;/span> &lt;span style="color:#a6e22e">message&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">messages&lt;/span>[&lt;span style="color:#a6e22e">j&lt;/span>];
+&lt;span style="color:#a6e22e">processMessage&lt;/span>(&lt;span style="color:#a6e22e">message&lt;/span>);
+}
+&lt;span style="color:#a6e22e">threads&lt;/span>[&lt;span style="color:#a6e22e">i&lt;/span>].&lt;span style="color:#a6e22e">removeLabel&lt;/span>(&lt;span style="color:#a6e22e">unprocessedLabel&lt;/span>);
+}
+}
+&lt;span style="color:#66d9ef">function&lt;/span> &lt;span style="color:#a6e22e">getOrCreateLabel&lt;/span>(&lt;span style="color:#a6e22e">name&lt;/span>) {
+&lt;span style="color:#66d9ef">var&lt;/span> &lt;span style="color:#a6e22e">label&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">GmailApp&lt;/span>.&lt;span style="color:#a6e22e">getUserLabelByName&lt;/span>(&lt;span style="color:#a6e22e">name&lt;/span>);
+&lt;span style="color:#66d9ef">if&lt;/span> (&lt;span style="color:#f92672">!&lt;/span>&lt;span style="color:#a6e22e">label&lt;/span>) {
+&lt;span style="color:#a6e22e">label&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">GmailApp&lt;/span>.&lt;span style="color:#a6e22e">createLabel&lt;/span>(&lt;span style="color:#a6e22e">name&lt;/span>);
+}
+&lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#a6e22e">label&lt;/span>;
+}
+&lt;span style="color:#66d9ef">function&lt;/span> &lt;span style="color:#a6e22e">processMessage&lt;/span>(&lt;span style="color:#a6e22e">message&lt;/span>) {
+&lt;span style="color:#75715e">// see https://docs.gitlab.com/ee/user/profile/notifications.html#email-headers-you-can-use-to-filter-email
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#75715e">// for more options.
+&lt;/span>&lt;span style="color:#75715e">&lt;/span>
+&lt;span style="color:#66d9ef">var&lt;/span> &lt;span style="color:#a6e22e">issueLabel&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">getOrCreateLabel&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;Issue&amp;#34;&lt;/span>);
+&lt;span style="color:#66d9ef">var&lt;/span> &lt;span style="color:#a6e22e">mrLabel&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">getOrCreateLabel&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;Merge request&amp;#34;&lt;/span>);
+&lt;span style="color:#66d9ef">var&lt;/span> &lt;span style="color:#a6e22e">buildLabel&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">getOrCreateLabel&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;Build&amp;#34;&lt;/span>);
+&lt;span style="color:#66d9ef">var&lt;/span> &lt;span style="color:#a6e22e">notificationLabel&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">getOrCreateLabel&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;Notification&amp;#34;&lt;/span>);
+&lt;span style="color:#66d9ef">var&lt;/span> &lt;span style="color:#a6e22e">schedulerLabel&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">getOrCreateLabel&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;quantify-scheduler&amp;#34;&lt;/span>);
+&lt;span style="color:#66d9ef">var&lt;/span> &lt;span style="color:#a6e22e">coreLabel&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">getOrCreateLabel&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;quantify-core&amp;#34;&lt;/span>);
+&lt;span style="color:#66d9ef">var&lt;/span> &lt;span style="color:#a6e22e">mergedLabel&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">getOrCreateLabel&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;merged&amp;#34;&lt;/span>);
+&lt;span style="color:#66d9ef">var&lt;/span> &lt;span style="color:#a6e22e">reviewLabel&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">getOrCreateLabel&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;review-me&amp;#34;&lt;/span>);
+&lt;span style="color:#66d9ef">if&lt;/span> (&lt;span style="color:#a6e22e">message&lt;/span>.&lt;span style="color:#a6e22e">getHeader&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;X-GitLab-Issue-ID&amp;#34;&lt;/span>)) {
+&lt;span style="color:#a6e22e">message&lt;/span>.&lt;span style="color:#a6e22e">getThread&lt;/span>().&lt;span style="color:#a6e22e">addLabel&lt;/span>(&lt;span style="color:#a6e22e">issueLabel&lt;/span>);
+}
+&lt;span style="color:#66d9ef">if&lt;/span> (&lt;span style="color:#a6e22e">message&lt;/span>.&lt;span style="color:#a6e22e">getHeader&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;X-GitLab-MergeRequest-ID&amp;#34;&lt;/span>)) {
+&lt;span style="color:#a6e22e">message&lt;/span>.&lt;span style="color:#a6e22e">getThread&lt;/span>().&lt;span style="color:#a6e22e">addLabel&lt;/span>(&lt;span style="color:#a6e22e">mrLabel&lt;/span>);
+}
+&lt;span style="color:#66d9ef">if&lt;/span> (&lt;span style="color:#a6e22e">message&lt;/span>.&lt;span style="color:#a6e22e">getHeader&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;X-GitLab-Author&amp;#34;&lt;/span>)) {
+&lt;span style="color:#a6e22e">message&lt;/span>.&lt;span style="color:#a6e22e">getThread&lt;/span>().&lt;span style="color:#a6e22e">addLabel&lt;/span>(&lt;span style="color:#a6e22e">commitLabel&lt;/span>);
+}
+&lt;span style="color:#66d9ef">if&lt;/span> (&lt;span style="color:#a6e22e">message&lt;/span>.&lt;span style="color:#a6e22e">getHeader&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;X-GitLab-Pipeline-Id&amp;#34;&lt;/span>)) {
+&lt;span style="color:#a6e22e">message&lt;/span>.&lt;span style="color:#a6e22e">getThread&lt;/span>().&lt;span style="color:#a6e22e">addLabel&lt;/span>(&lt;span style="color:#a6e22e">buildLabel&lt;/span>);
+}
+&lt;span style="color:#66d9ef">if&lt;/span> (&lt;span style="color:#a6e22e">message&lt;/span>.&lt;span style="color:#a6e22e">getHeader&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;X-GitLab-Project&amp;#34;&lt;/span>) &lt;span style="color:#f92672">==&lt;/span> &lt;span style="color:#e6db74">&amp;#34;quantify-scheduler&amp;#34;&lt;/span>) {
+&lt;span style="color:#a6e22e">message&lt;/span>.&lt;span style="color:#a6e22e">getThread&lt;/span>().&lt;span style="color:#a6e22e">addLabel&lt;/span>(&lt;span style="color:#a6e22e">schedulerLabel&lt;/span>);
+}
+&lt;span style="color:#66d9ef">if&lt;/span> (&lt;span style="color:#a6e22e">message&lt;/span>.&lt;span style="color:#a6e22e">getHeader&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;X-GitLab-Project&amp;#34;&lt;/span>) &lt;span style="color:#f92672">==&lt;/span> &lt;span style="color:#e6db74">&amp;#34;quantify-core&amp;#34;&lt;/span>) {
+&lt;span style="color:#a6e22e">message&lt;/span>.&lt;span style="color:#a6e22e">getThread&lt;/span>().&lt;span style="color:#a6e22e">addLabel&lt;/span>(&lt;span style="color:#a6e22e">coreLabel&lt;/span>);
+}
+&lt;span style="color:#66d9ef">var&lt;/span> &lt;span style="color:#a6e22e">value&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">message&lt;/span>.&lt;span style="color:#a6e22e">getHeader&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;X-GitLab-NotificationReason&amp;#34;&lt;/span>);
+&lt;span style="color:#66d9ef">if&lt;/span> (&lt;span style="color:#a6e22e">value&lt;/span>) {
+&lt;span style="color:#66d9ef">if&lt;/span> (&lt;span style="color:#a6e22e">value&lt;/span> &lt;span style="color:#f92672">==&lt;/span> &lt;span style="color:#e6db74">&amp;#34;review_requested&amp;#34;&lt;/span>) {
+&lt;span style="color:#66d9ef">var&lt;/span> &lt;span style="color:#a6e22e">label&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">reviewLabel&lt;/span>;
+} &lt;span style="color:#66d9ef">else&lt;/span> {
+&lt;span style="color:#66d9ef">var&lt;/span> &lt;span style="color:#a6e22e">label&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#a6e22e">notificationLabel&lt;/span>;
+}
+&lt;span style="color:#a6e22e">message&lt;/span>.&lt;span style="color:#a6e22e">getThread&lt;/span>().&lt;span style="color:#a6e22e">addLabel&lt;/span>(&lt;span style="color:#a6e22e">label&lt;/span>);
+}
+&lt;span style="color:#66d9ef">if&lt;/span> (&lt;span style="color:#a6e22e">message&lt;/span>.&lt;span style="color:#a6e22e">getHeader&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;X-GitLab-MergeRequest-State&amp;#34;&lt;/span>) &lt;span style="color:#f92672">==&lt;/span> &lt;span style="color:#e6db74">&amp;#34;merged&amp;#34;&lt;/span>) {
+&lt;span style="color:#a6e22e">message&lt;/span>.&lt;span style="color:#a6e22e">getThread&lt;/span>().&lt;span style="color:#a6e22e">addLabel&lt;/span>(&lt;span style="color:#a6e22e">mergedLabel&lt;/span>);
+}
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>The &lt;code>searchAllEmails&lt;/code> can be executed once to process your entire inbox, or if it takes too long cancel when you are satisfied. The function that gets executed every 5 minutes is &lt;code>processInbox&lt;/code> which looks at each email thread and each email inside that thread for threads that were updated in the last ten minutes. The code should be self-explanatory, but essentially:&lt;/p>
+&lt;ol>
+&lt;li>get email threads via &lt;code>GmailApp.search(&amp;quot;...&amp;quot;)&lt;/code>&lt;/li>
+&lt;li>for each thread get email &lt;code>threads[i].getMessages()&lt;/code>&lt;/li>
+&lt;li>for each email get the header &lt;code>message.getHeader(...)&lt;/code>&lt;/li>
+&lt;li>if the header matches something GitLab specific, add label via &lt;code>message.getThread().addLabel&lt;/code> and if it doesn&amp;rsquo;t exist, create that label with &lt;code>GmailApp.createLabel(name)&lt;/code>.&lt;/li>
+&lt;/ol>
+&lt;p>In the free version of Google Scripts, there is a usage limit that I kept running into (API calls to &lt;code>GmailApp&lt;/code> and a max daily run time-limit of 90 minutes), so I added a condition in the code that only processes emails with the &lt;code>unprocessed&lt;/code> label, and then remove it once done. To get new emails labelled as &lt;code>unprocessed&lt;/code> the easiest is to create a filter inside Gmail itself that will label any email that comes into your inbox. The script will then process and remove the label within 5 minutes.&lt;/p>
+&lt;p>There are a few more headers and options that might be useful for you as listed in &lt;a href="https://docs.gitlab.com/ee/user/profile/notifications.html#email-headers-you-can-use-to-filter-email">https://docs.gitlab.com/ee/user/profile/notifications.html#email-headers-you-can-use-to-filter-email&lt;/a>.&lt;/p></content></item><item><title>Unit testing - Classical vs. London Approaches</title><link>https://www.robert-sokolewicz.nl/posts/14_unit_testing/</link><pubDate>Sun, 24 Sep 2023 00:00:00 +0000</pubDate><guid>https://www.robert-sokolewicz.nl/posts/14_unit_testing/</guid><description>Most, if not all, software projects suffer from the same problem. When starting the project it&amp;rsquo;s very easy to include new features. One feature might take one day to implement, but as the code base grows, implementing something new will take a week, a month, or half a year until it&amp;rsquo;s impossible to implement something without breaking something else. Different parts of the code depend on each other and this can create a cascading effect where a small change propagates throughout the entire codebase breaking a lot of stuff.</description><content>&lt;p>Most, if not all, software projects suffer from the same problem. When starting the project it&amp;rsquo;s very easy to include new features. One feature might take one day to implement, but as the code base grows, implementing something new will take a week, a month, or half a year until it&amp;rsquo;s impossible to implement something without breaking something else. Different parts of the code depend on each other and this can create a cascading effect where a small change propagates throughout the entire codebase breaking a lot of stuff.&lt;/p>
 &lt;p>Unit tests are safeguards that help the developer in writing code that does not break the existing code, making it easier to make progress when working on the codebase.&lt;/p>
 &lt;figure class="center" >
 &lt;img src="images/1.svg" />
