@@ -1,0 +1,382 @@
+<!doctype html><html lang=en><head><title>How to pass custom prompts to langchain chains :: Roberts blog</title><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="Some examples of how to pass custom prompts to `load_summarize_chain` and `load_qa_chain`"><meta name=keywords content><meta name=robots content="noodp"><link rel=canonical href=https://www.robert-sokolewicz.nl/posts/16_langchain_prompts/><link rel=stylesheet href=https://www.robert-sokolewicz.nl/assets/style.css><link rel=stylesheet href=https://www.robert-sokolewicz.nl/assets/css/style.css><link rel=stylesheet href=https://www.robert-sokolewicz.nl/assets/css/hugo-cite.css><link rel=apple-touch-icon href=https://www.robert-sokolewicz.nl/img/apple-touch-icon-192x192.png><link rel="shortcut icon" href=https://www.robert-sokolewicz.nl/img/favicon/orange.png><meta name=twitter:card content="summary"><meta property="og:locale" content="en"><meta property="og:type" content="article"><meta property="og:title" content="How to pass custom prompts to langchain chains"><meta property="og:description" content="Some examples of how to pass custom prompts to `load_summarize_chain` and `load_qa_chain`"><meta property="og:url" content="https://www.robert-sokolewicz.nl/posts/16_langchain_prompts/"><meta property="og:site_name" content="Roberts blog"><meta property="og:image" content="https://www.robert-sokolewicz.nl"><meta property="og:image:width" content="2048"><meta property="og:image:height" content="1024"><meta property="article:published_time" content="2023-11-18 00:00:00 +0000 UTC"><script>MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],displayMath:[['$$','$$'],['\\[','\\]']],macros:{bb:["{\\boldsymbol{#1}}",1],tr:"{\\DeclareMathOperator{\\tr}{Tr}}",im:"{\\DeclareMathOperator{\\im}{Im}}",re:"{\\DeclareMathOperator{\\re}{Re}}",},processEscapes:true,processEnvironments:true,tags:"ams"},options:{skipHtmlTags:['script','noscript','style','textarea','pre']}};window.addEventListener('load',(event)=>{document.querySelectorAll("mjx-container").forEach(function(x){x.parentElement.classList+='has-jax'})});</script><script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script type=text/javascript id=MathJax-script async src=https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js></script><script type=text/x-mathjax-config>
+    MathJax.Hub.Queue(function() {
+        // Fix <code> tags after MathJax finishes running. This is a
+        // hack to overcome a shortcoming of Markdown. Discussion at
+        // https://github.com/mojombo/jekyll/issues/199
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i = 0; i &lt; all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+    </script></head><body class=orange><div class="container center headings--one-size"><header class=header><div class=header__inner><div class=header__logo><a href=/><div class=logo>Home</div></a></div><div class=menu-trigger>menu</div></div><nav class=menu><ul class="menu__inner menu__inner--desktop"><li><a href=/about>About</a></li><li><a href=/books>Book Reviews</a></li><li><a href=/cv>CV</a></li><li><a href=/physics>Physics</a></li></ul><ul class="menu__inner menu__inner--mobile"><li><a href=/about>About</a></li><li><a href=/books>Book Reviews</a></li><li><a href=/cv>CV</a></li><li><a href=/physics>Physics</a></li></ul></nav></header><div class=content><div class=post><h1 class=post-title><a href=https://www.robert-sokolewicz.nl/posts/16_langchain_prompts/>How to pass custom prompts to langchain chains</a></h1><div class=post-meta><span class=post-date>2023-11-18</span>
+<span class=post-author>:: Robert</span></div><div class=post-content><div><h1 id=custom-prompts-for-langchain-chains>Custom prompts for langchain chains<a href=#custom-prompts-for-langchain-chains class=hanchor arialabel=Anchor>&#8983;</a></h1><p>At the moment I’m writing this post, the <code>langchain</code> documentation is a bit
+lacking in providing simple examples of how to pass custom prompts to some of
+the built-in chains. While the existing documentation is focused on using the
+“new” LangChain expression language (LCEL), documentation on how to pass custom
+prompts to “old” methods like <code>load_summarize_chain</code> is not well documented.</p><p>For example, <code>load_summarize_chain</code> allows for additional <code>kwargs</code> to be passed
+to it, but the keyword names for prompts are a bit confusing and undocumented</p><p><code>prompt</code> ,<code>map_prompt</code>, <code>combine_prompt</code>, <code>collapse_prompt</code>, <code>question_prompt</code>, <code>refine_prompt</code></p><p>and moreover, custom prompts require specific variable names to make them work:
+<code>existing_answer</code>, <code>text</code>, <code>question</code>, <code>context_str</code>, which are not documented
+either.</p><p>What I did was dig through the code base to figure out the syntax and variable
+names needed to create custom prompts. For example, <code>load_qa_chain</code> is defined
+in the file</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#f92672>/</span>home<span style=color:#f92672>/</span>rsoko<span style=color:#f92672>/.</span>anaconda3<span style=color:#f92672>/</span>envs<span style=color:#f92672>/</span>dev<span style=color:#f92672>/</span>lib<span style=color:#f92672>/</span>python3<span style=color:#f92672>.</span><span style=color:#ae81ff>9</span><span style=color:#f92672>/</span>site<span style=color:#f92672>-</span>packages<span style=color:#f92672>/</span>langchain<span style=color:#f92672>/</span>chains<span style=color:#f92672>/</span>question_answering<span style=color:#f92672>/</span>__init__<span style=color:#f92672>.</span>py
+</code></pre></div><p>and the prompts are saved in the same folder, inside <code>map_reduce_prompt.py</code> and
+others. To save myself and hopefully others some headaches, here are examples
+for all the summary and QA chains.</p><h1 id=examples>Examples<a href=#examples class=hanchor arialabel=Anchor>&#8983;</a></h1><h2 id=summarize---refine>Summarize - refine<a href=#summarize---refine class=hanchor arialabel=Anchor>&#8983;</a></h2><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#f92672>from</span> langchain.prompts <span style=color:#f92672>import</span> PromptTemplate
+
+refine_prompt <span style=color:#f92672>=</span> PromptTemplate<span style=color:#f92672>.</span>from_template(
+	<span style=color:#e6db74>&#34;&#34;&#34;
+</span><span style=color:#e6db74>	Your job is to produce a final summary.
+</span><span style=color:#e6db74>	We have provided an existing summary up to a certain point: {existing_answer}
+</span><span style=color:#e6db74>	We have the opportunity to refine the existing summary (only if needed) with 
+</span><span style=color:#e6db74>    some more context below.
+</span><span style=color:#e6db74>	------------
+</span><span style=color:#e6db74>	{text}
+</span><span style=color:#e6db74>	------------
+</span><span style=color:#e6db74>	Given the new context, refine the original summary.
+</span><span style=color:#e6db74>	If the context isn&#39;t useful, return the original summary.
+</span><span style=color:#e6db74>	&#34;&#34;&#34;</span> 
+)
+ 
+prompt <span style=color:#f92672>=</span> PromptTemplate<span style=color:#f92672>.</span>from_template(
+	<span style=color:#e6db74>&#34;&#34;&#34;
+</span><span style=color:#e6db74>	Write a concise summary of the following:
+</span><span style=color:#e6db74>	
+</span><span style=color:#e6db74>	
+</span><span style=color:#e6db74>	&#34;{text}&#34;
+</span><span style=color:#e6db74>	
+</span><span style=color:#e6db74>	
+</span><span style=color:#e6db74>	CONCISE SUMMARY:
+</span><span style=color:#e6db74>	&#34;&#34;&#34;</span>
+)
+
+load_summarize_chain(
+	llm, 
+	chain_type<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;refine&#34;</span>, 
+	prompt<span style=color:#f92672>=</span>prompt,
+	refine_prompt <span style=color:#f92672>=</span> refine_prompt, 
+    <span style=color:#75715e># these variables are the default values and can be modified/omitted</span>
+	document_variable_name<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;text&#34;</span>, 
+    initial_response_name<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;existing_answer&#34;</span>
+)
+</code></pre></div><h2 id=summarize---map-reduce>Summarize - map-reduce<a href=#summarize---map-reduce class=hanchor arialabel=Anchor>&#8983;</a></h2><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#f92672>from</span> langchain.prompts <span style=color:#f92672>import</span> PromptTemplate
+
+map_prompt <span style=color:#f92672>=</span> PromptTemplate<span style=color:#f92672>.</span>from_template(
+	<span style=color:#e6db74>&#34;&#34;&#34;
+</span><span style=color:#e6db74>	Write a concise summary of the following:
+</span><span style=color:#e6db74>
+</span><span style=color:#e6db74>	&#34;{text}&#34;
+</span><span style=color:#e6db74>
+</span><span style=color:#e6db74>	CONCISE SUMMARY:
+</span><span style=color:#e6db74>	&#34;&#34;&#34;</span>
+)
+
+combine_prompt <span style=color:#f92672>=</span> PromptTemplate<span style=color:#f92672>.</span>from_template(
+	<span style=color:#e6db74>&#34;&#34;&#34;
+</span><span style=color:#e6db74>	Write a concise summary of the following:
+</span><span style=color:#e6db74>
+</span><span style=color:#e6db74>	&#34;{text}&#34;
+</span><span style=color:#e6db74>
+</span><span style=color:#e6db74>	CONCISE SUMMARY:
+</span><span style=color:#e6db74>	&#34;&#34;&#34;</span>
+)
+
+load_summarize_chain(
+	llm, 
+	chain_type<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;map_reduce&#34;</span>, 
+	map_prompt <span style=color:#f92672>=</span> map_prompt, 
+	combine_prompt<span style=color:#f92672>=</span>combine_prompt,
+    <span style=color:#75715e># these variables are the default values and can be modified/omitted</span>
+    combine_document_variable_name<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;text&#34;</span>,
+    map_reduce_document_variable_name<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;text&#34;</span>,
+)
+</code></pre></div><h2 id=summarize---stuff>Summarize - stuff<a href=#summarize---stuff class=hanchor arialabel=Anchor>&#8983;</a></h2><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#f92672>from</span> langchain.prompts <span style=color:#f92672>import</span> PromptTemplate
+
+prompt <span style=color:#f92672>=</span> PromptTemplate<span style=color:#f92672>.</span>from_template(
+	<span style=color:#e6db74>&#34;&#34;&#34;
+</span><span style=color:#e6db74>	Use the following pieces of context to answer the question at the end. If you 
+</span><span style=color:#e6db74>    don&#39;t know the answer, just say that you don&#39;t know, don&#39;t try to make up an 
+</span><span style=color:#e6db74>    answer.
+</span><span style=color:#e6db74>
+</span><span style=color:#e6db74>	{context}
+</span><span style=color:#e6db74>
+</span><span style=color:#e6db74>	Question: {question}
+</span><span style=color:#e6db74>	Helpful Answer:
+</span><span style=color:#e6db74>	&#34;&#34;&#34;</span>
+)
+
+load_qa_chain(
+	llm, 
+	chain_type<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;stuff&#34;</span>, 
+	prompt<span style=color:#f92672>=</span>prompt, 
+    <span style=color:#75715e># this is the default value and can be modified/omitted</span>
+	document_variable_name<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;context&#34;</span>
+)
+</code></pre></div><h2 id=question-answering---map-rerank>Question-Answering - map rerank<a href=#question-answering---map-rerank class=hanchor arialabel=Anchor>&#8983;</a></h2><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#f92672>from</span> langchain.prompts <span style=color:#f92672>import</span> PromptTemplate
+<span style=color:#f92672>from</span> langchain.output_parsers.regex <span style=color:#f92672>import</span> RegexParser
+
+output_parser <span style=color:#f92672>=</span> RegexParser(
+    regex<span style=color:#f92672>=</span><span style=color:#e6db74>r</span><span style=color:#e6db74>&#34;(.*?)\nScore: (\d*)&#34;</span>,
+    output_keys<span style=color:#f92672>=</span>[<span style=color:#e6db74>&#34;answer&#34;</span>, <span style=color:#e6db74>&#34;score&#34;</span>],
+)
+
+prompt <span style=color:#f92672>=</span> PromptTemplate<span style=color:#f92672>.</span>from_template(
+	<span style=color:#e6db74>&#34;&#34;&#34;
+</span><span style=color:#e6db74>	Use the following pieces of context to answer the question at the end. If you 
+</span><span style=color:#e6db74>    don&#39;t know the answer, just say that you don&#39;t know, don&#39;t try to make up an 
+</span><span style=color:#e6db74>    answer.
+</span><span style=color:#e6db74>	
+</span><span style=color:#e6db74>	In addition to giving an answer, also return a score of how fully it answered 
+</span><span style=color:#e6db74>    the user&#39;s question. This should be in the following format:
+</span><span style=color:#e6db74>	
+</span><span style=color:#e6db74>	Question: [question here]
+</span><span style=color:#e6db74>	Helpful Answer: [answer here]
+</span><span style=color:#e6db74>	Score: [score between 0 and 100]
+</span><span style=color:#e6db74>	
+</span><span style=color:#e6db74>	How to determine the score:
+</span><span style=color:#e6db74>	- Higher is a better answer
+</span><span style=color:#e6db74>	- Better responds fully to the asked question, with sufficient level of detail
+</span><span style=color:#e6db74>	- If you do not know the answer based on the context, that should be a score of 0
+</span><span style=color:#e6db74>	- Don&#39;t be overconfident!
+</span><span style=color:#e6db74>	
+</span><span style=color:#e6db74>	Example #1
+</span><span style=color:#e6db74>	
+</span><span style=color:#e6db74>	Context:
+</span><span style=color:#e6db74>	---------
+</span><span style=color:#e6db74>	Apples are red
+</span><span style=color:#e6db74>	---------
+</span><span style=color:#e6db74>	Question: what color are apples?
+</span><span style=color:#e6db74>	Helpful Answer: red
+</span><span style=color:#e6db74>	Score: 100
+</span><span style=color:#e6db74>	
+</span><span style=color:#e6db74>	Example #2
+</span><span style=color:#e6db74>	
+</span><span style=color:#e6db74>	Context:
+</span><span style=color:#e6db74>	---------
+</span><span style=color:#e6db74>	it was night and the witness forgot his glasses. he was not sure if it was a 
+</span><span style=color:#e6db74>    sports car or an suv
+</span><span style=color:#e6db74>	---------
+</span><span style=color:#e6db74>	Question: what type was the car?
+</span><span style=color:#e6db74>	Helpful Answer: a sports car or an suv
+</span><span style=color:#e6db74>	Score: 60
+</span><span style=color:#e6db74>	
+</span><span style=color:#e6db74>	Example #3
+</span><span style=color:#e6db74>	
+</span><span style=color:#e6db74>	Context:
+</span><span style=color:#e6db74>	---------
+</span><span style=color:#e6db74>	Pears are either red or orange
+</span><span style=color:#e6db74>	---------
+</span><span style=color:#e6db74>	Question: what color are apples?
+</span><span style=color:#e6db74>	Helpful Answer: This document does not answer the question
+</span><span style=color:#e6db74>	Score: 0
+</span><span style=color:#e6db74>	
+</span><span style=color:#e6db74>	Begin!
+</span><span style=color:#e6db74>	
+</span><span style=color:#e6db74>	Context:
+</span><span style=color:#e6db74>	---------
+</span><span style=color:#e6db74>	{context}
+</span><span style=color:#e6db74>	---------
+</span><span style=color:#e6db74>	Question: {question}
+</span><span style=color:#e6db74>	Helpful Answer:
+</span><span style=color:#e6db74>	&#34;&#34;&#34;</span>, output_parser<span style=color:#f92672>=</span>output_parser
+)
+
+load_qa_chain(
+	llm, 
+	chain_type<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;map_rerank&#34;</span>, 
+	prompt<span style=color:#f92672>=</span>prompt,
+    document_variable_name<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;context&#34;</span>,
+    <span style=color:#75715e># these variables are the default values and can be modified/omitted</span>
+    rank_key<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;score&#34;</span>,
+    answer_key<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;answer&#34;</span>
+)
+</code></pre></div><h2 id=question-answering---stuff>Question-Answering - stuff<a href=#question-answering---stuff class=hanchor arialabel=Anchor>&#8983;</a></h2><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#f92672>from</span> langchain.prompts <span style=color:#f92672>import</span> PromptTemplate
+
+prompt <span style=color:#f92672>=</span> PromptTemplate<span style=color:#f92672>.</span>from_template(
+	<span style=color:#e6db74>&#34;&#34;&#34;
+</span><span style=color:#e6db74>	Use the following pieces of context to answer the question at the end. If you 
+</span><span style=color:#e6db74>    don&#39;t know the answer, just say that you don&#39;t know, don&#39;t try to make up an 
+</span><span style=color:#e6db74>    answer.
+</span><span style=color:#e6db74>	
+</span><span style=color:#e6db74>	{context}
+</span><span style=color:#e6db74>	
+</span><span style=color:#e6db74>	Question: {question}
+</span><span style=color:#e6db74>	Helpful Answer:
+</span><span style=color:#e6db74>	&#34;&#34;&#34;</span>
+)
+
+load_qa_chain(
+	llm, 
+	chain_type<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;stuff&#34;</span>, 
+	prompt<span style=color:#f92672>=</span>prompt,
+    <span style=color:#75715e># this is the default values and can be modified/omitted</span>
+    document_variable_name<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;context&#34;</span>,
+)
+</code></pre></div><h2 id=question-answering---map-reduce>Question-Answering - map reduce<a href=#question-answering---map-reduce class=hanchor arialabel=Anchor>&#8983;</a></h2><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#f92672>from</span> langchain.prompts <span style=color:#f92672>import</span> PromptTemplate
+
+question_prompt <span style=color:#f92672>=</span> PromptTemplate<span style=color:#f92672>.</span>from_template(
+	<span style=color:#e6db74>&#34;&#34;&#34;
+</span><span style=color:#e6db74>	Use the following portion of a long document to see if any of the text is 
+</span><span style=color:#e6db74>    relevant to answer the question. 
+</span><span style=color:#e6db74>	Return any relevant text verbatim.
+</span><span style=color:#e6db74>	{context}
+</span><span style=color:#e6db74>	Question: {question}
+</span><span style=color:#e6db74>	Relevant text, if any:
+</span><span style=color:#e6db74>	&#34;&#34;&#34;</span>
+)
+
+combine_prompt <span style=color:#f92672>=</span> PromptTemplate<span style=color:#f92672>.</span>from_template(
+	<span style=color:#e6db74>&#34;&#34;&#34;
+</span><span style=color:#e6db74>	Given the following extracted parts of a long document and a question,
+</span><span style=color:#e6db74>    create a final answer. If you don&#39;t know the answer, just say that you don&#39;t
+</span><span style=color:#e6db74>	know. Don&#39;t try to make up an answer.
+</span><span style=color:#e6db74>	
+</span><span style=color:#e6db74>	QUESTION: Which state/country&#39;s law governs the interpretation of the contract?
+</span><span style=color:#e6db74>	=========
+</span><span style=color:#e6db74>	Content: This Agreement is governed by English law and the parties submit to
+</span><span style=color:#e6db74>    the exclusive jurisdiction of the English courts in  relation to any dispute
+</span><span style=color:#e6db74>    (contractual or non-contractual) concerning this Agreement save that either
+</span><span style=color:#e6db74>    party may apply to any court for an  injunction or other relief to protect
+</span><span style=color:#e6db74>    its Intellectual Property Rights.
+</span><span style=color:#e6db74>	
+</span><span style=color:#e6db74>	Content: No Waiver. Failure or delay in exercising any right or remedy under
+</span><span style=color:#e6db74>    this Agreement shall not constitute a waiver of such (or any other)  right
+</span><span style=color:#e6db74>    or remedy.</span><span style=color:#ae81ff>\n\n</span><span style=color:#e6db74> 11.7 Severability. The invalidity, illegality or
+</span><span style=color:#e6db74>    unenforceability of any term (or part of a term) of this Agreement shall not
+</span><span style=color:#e6db74>    affect the continuation  in force of the remainder of the term (if any) and
+</span><span style=color:#e6db74>    this Agreement.</span><span style=color:#ae81ff>\n\n</span><span style=color:#e6db74>11.8 No Agency. Except as expressly stated otherwise,
+</span><span style=color:#e6db74>    nothing in this Agreement shall create an agency, partnership or joint
+</span><span style=color:#e6db74>    venture of any  kind between the parties.</span><span style=color:#ae81ff>\n\n</span><span style=color:#e6db74>11.9 No Third-Party
+</span><span style=color:#e6db74>    Beneficiaries.
+</span><span style=color:#e6db74>	
+</span><span style=color:#e6db74>	Content: (b) if Google believes, in good faith, that the Distributor has
+</span><span style=color:#e6db74>    violated or caused Google to violate any Anti-Bribery Laws (as  defined in
+</span><span style=color:#e6db74>    Clause 8.5) or that such a violation is reasonably likely to occur,
+</span><span style=color:#e6db74>    
+</span><span style=color:#e6db74>	=========
+</span><span style=color:#e6db74>	FINAL ANSWER: This Agreement is governed by English law.
+</span><span style=color:#e6db74>	
+</span><span style=color:#e6db74>	QUESTION: What did the president say about Michael Jackson?
+</span><span style=color:#e6db74>	=========
+</span><span style=color:#e6db74>	Content: Madam Speaker, Madam Vice President, our First Lady and Second
+</span><span style=color:#e6db74>	Gentleman. Members of Congress and the Cabinet. Justices of the Supreme
+</span><span style=color:#e6db74>	Court. My fellow Americans.  </span><span style=color:#ae81ff>\n\n</span><span style=color:#e6db74>Last year COVID-19 kept us apart. This year
+</span><span style=color:#e6db74>	we are finally together again. </span><span style=color:#ae81ff>\n\n</span><span style=color:#e6db74>Tonight, we meet as Democrats Republicans
+</span><span style=color:#e6db74>	and Independents. But most importantly as Americans. </span><span style=color:#ae81ff>\n\n</span><span style=color:#e6db74>With a duty to one
+</span><span style=color:#e6db74>	another to the American people to the Constitution. </span><span style=color:#ae81ff>\n\n</span><span style=color:#e6db74>And with an
+</span><span style=color:#e6db74>	unwavering resolve that freedom will always triumph over tyranny. </span><span style=color:#ae81ff>\n\n</span><span style=color:#e6db74>Six
+</span><span style=color:#e6db74>	days ago, Russia’s Vladimir Putin sought to shake the foundations of the
+</span><span style=color:#e6db74>	free world thinking he could make it bend to his menacing ways. But he badly
+</span><span style=color:#e6db74>	miscalculated. </span><span style=color:#ae81ff>\n\n</span><span style=color:#e6db74>He thought he could roll into Ukraine and the world would
+</span><span style=color:#e6db74>	roll over. Instead he met a wall of strength he never imagined. </span><span style=color:#ae81ff>\n\n</span><span style=color:#e6db74>He met
+</span><span style=color:#e6db74>	the Ukrainian people. </span><span style=color:#ae81ff>\n\n</span><span style=color:#e6db74>From President Zelenskyy to every Ukrainian, their
+</span><span style=color:#e6db74>	fearlessness, their courage, their determination, inspires the world.
+</span><span style=color:#e6db74>	</span><span style=color:#ae81ff>\n\n</span><span style=color:#e6db74>Groups of citizens blocking tanks with their bodies. Everyone from
+</span><span style=color:#e6db74>	students to retirees teachers turned soldiers defending their homeland.
+</span><span style=color:#e6db74>	
+</span><span style=color:#e6db74>	Content: And we won’t stop. </span><span style=color:#ae81ff>\n\n</span><span style=color:#e6db74>We have lost so much to COVID-19. Time with
+</span><span style=color:#e6db74>	one another. And worst of all, so much loss of life. </span><span style=color:#ae81ff>\n\n</span><span style=color:#e6db74>Let’s use this
+</span><span style=color:#e6db74>	moment to reset. Let’s stop looking at COVID-19 as a partisan dividing line
+</span><span style=color:#e6db74>	and see it for what it is: A God-awful disease.  </span><span style=color:#ae81ff>\n\n</span><span style=color:#e6db74>Let’s stop seeing each
+</span><span style=color:#e6db74>	other as enemies, and start seeing each other for who we really are: Fellow
+</span><span style=color:#e6db74>	Americans.  </span><span style=color:#ae81ff>\n\n</span><span style=color:#e6db74>We can’t change how divided we’ve been. But we can change
+</span><span style=color:#e6db74>	how we move forward—on COVID-19 and other issues we must face together.
+</span><span style=color:#e6db74>	</span><span style=color:#ae81ff>\n\n</span><span style=color:#e6db74>I recently visited the New York City Police Department days after the
+</span><span style=color:#e6db74>	funerals of Officer Wilbert Mora and his partner, Officer Jason Rivera.
+</span><span style=color:#e6db74>	</span><span style=color:#ae81ff>\n\n</span><span style=color:#e6db74>They were responding to a 9-1-1 call when a man shot and killed them
+</span><span style=color:#e6db74>	with a stolen gun. </span><span style=color:#ae81ff>\n\n</span><span style=color:#e6db74>Officer Mora was 27 years old. </span><span style=color:#ae81ff>\n\n</span><span style=color:#e6db74>Officer Rivera was
+</span><span style=color:#e6db74>	22. </span><span style=color:#ae81ff>\n\n</span><span style=color:#e6db74>Both Dominican Americans who’d grown up on the same streets they
+</span><span style=color:#e6db74>	later chose to patrol as police officers. </span><span style=color:#ae81ff>\n\n</span><span style=color:#e6db74>I spoke with their families
+</span><span style=color:#e6db74>	and told them that we are forever in debt for their sacrifice, and we will
+</span><span style=color:#e6db74>	carry on their mission to restore the trust and safety every community
+</span><span style=color:#e6db74>	deserves.
+</span><span style=color:#e6db74>	
+</span><span style=color:#e6db74>	Content: And a proud Ukrainian people, who have known 30 years  of
+</span><span style=color:#e6db74>	independence, have repeatedly shown that they will not tolerate anyone who
+</span><span style=color:#e6db74>	tries to take their country backwards.  </span><span style=color:#ae81ff>\n\n</span><span style=color:#e6db74>To all Americans, I will be
+</span><span style=color:#e6db74>	honest with you, as I’ve always promised. A Russian dictator, invading a
+</span><span style=color:#e6db74>	foreign country, has costs around the world. </span><span style=color:#ae81ff>\n\n</span><span style=color:#e6db74>And I’m taking robust
+</span><span style=color:#e6db74>	action to make sure the pain of our sanctions  is targeted at Russia’s
+</span><span style=color:#e6db74>	economy. And I will use every tool at our disposal to protect American
+</span><span style=color:#e6db74>	businesses and consumers. </span><span style=color:#ae81ff>\n\n</span><span style=color:#e6db74>Tonight, I can announce that the United States
+</span><span style=color:#e6db74>	has worked with 30 other countries to release 60 Million barrels of oil from
+</span><span style=color:#e6db74>	reserves around the world.  </span><span style=color:#ae81ff>\n\n</span><span style=color:#e6db74>America will lead that effort, releasing 30
+</span><span style=color:#e6db74>	Million barrels from our own Strategic Petroleum Reserve. And we stand ready
+</span><span style=color:#e6db74>	to do more if necessary, unified with our allies.  </span><span style=color:#ae81ff>\n\n</span><span style=color:#e6db74>These steps will help
+</span><span style=color:#e6db74>	blunt gas prices here at home. And I know the news about what’s happening
+</span><span style=color:#e6db74>	can seem alarming. </span><span style=color:#ae81ff>\n\n</span><span style=color:#e6db74>But I want you to know that we are going to be okay.
+</span><span style=color:#e6db74>	
+</span><span style=color:#e6db74>	Content: More support for patients and families. </span><span style=color:#ae81ff>\n\n</span><span style=color:#e6db74>To get there, I call on 
+</span><span style=color:#e6db74>    Congress to fund ARPA-H, the Advanced Research Projects Agency for Health. </span><span style=color:#ae81ff>\n\n</span><span style=color:#e6db74>
+</span><span style=color:#e6db74>    It&#39;s based on DARPA—the Defense Department project that led to the Internet, 
+</span><span style=color:#e6db74>    GPS, and so much more.  </span><span style=color:#ae81ff>\n\n</span><span style=color:#e6db74>ARPA-H will have a singular purpose—to drive 
+</span><span style=color:#e6db74>    breakthroughs in cancer, Alzheimer&#39;s, diabetes, and more. </span><span style=color:#ae81ff>\n\n</span><span style=color:#e6db74>A unity agenda 
+</span><span style=color:#e6db74>    for the nation. </span><span style=color:#ae81ff>\n\n</span><span style=color:#e6db74>We can do this. </span><span style=color:#ae81ff>\n\n</span><span style=color:#e6db74>My fellow Americans—tonight , we have 
+</span><span style=color:#e6db74>    gathered in a sacred space—the citadel of our democracy. </span><span style=color:#ae81ff>\n\n</span><span style=color:#e6db74>In this Capitol, 
+</span><span style=color:#e6db74>    generation after generation, Americans have debated great questions amid great 
+</span><span style=color:#e6db74>    strife, and have done great things. </span><span style=color:#ae81ff>\n\n</span><span style=color:#e6db74>We have fought for freedom, expanded 
+</span><span style=color:#e6db74>    liberty, defeated totalitarianism and terror. </span><span style=color:#ae81ff>\n\n</span><span style=color:#e6db74>And built the strongest, freest, 
+</span><span style=color:#e6db74>    and most prosperous nation the world has ever known. </span><span style=color:#ae81ff>\n\n</span><span style=color:#e6db74>Now is the hour. </span><span style=color:#ae81ff>\n\n</span><span style=color:#e6db74>Our 
+</span><span style=color:#e6db74>    moment of responsibility. </span><span style=color:#ae81ff>\n\n</span><span style=color:#e6db74>Our test of resolve and conscience, of history itself. 
+</span><span style=color:#e6db74>    </span><span style=color:#ae81ff>\n\n</span><span style=color:#e6db74>It is in this moment that our character is formed. Our purpose is found. Our 
+</span><span style=color:#e6db74>    future is forged. </span><span style=color:#ae81ff>\n\n</span><span style=color:#e6db74>Well I know this nation.
+</span><span style=color:#e6db74>
+</span><span style=color:#e6db74>	=========
+</span><span style=color:#e6db74>	FINAL ANSWER: The president did not mention Michael Jackson.
+</span><span style=color:#e6db74>	
+</span><span style=color:#e6db74>	QUESTION: {question}
+</span><span style=color:#e6db74>	=========
+</span><span style=color:#e6db74>	{summaries}
+</span><span style=color:#e6db74>	=========
+</span><span style=color:#e6db74>	FINAL ANSWER:
+</span><span style=color:#e6db74>	&#34;&#34;&#34;</span>
+)
+
+load_qa_chain(
+	llm, 
+	chain_type<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;map_reduce&#34;</span>, 
+	question_prompt<span style=color:#f92672>=</span>question_prompt,
+	combine_prompt<span style=color:#f92672>=</span>combine_prompt
+    <span style=color:#75715e># these variables are the default values and can be modified/omitted</span>
+    document_variable_name<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;context&#34;</span>,
+    combine_document_variable_name<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;summaries&#34;</span>,
+    map_reduce_document_variable_name<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;context&#34;</span>
+)
+</code></pre></div><h2 id=question-answering---refine>Question-Answering - refine<a href=#question-answering---refine class=hanchor arialabel=Anchor>&#8983;</a></h2><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#f92672>from</span> langchain.prompts <span style=color:#f92672>import</span> PromptTemplate
+
+refine_prompt <span style=color:#f92672>=</span> PromptTemplate<span style=color:#f92672>.</span>from_template(
+	<span style=color:#e6db74>&#34;&#34;&#34;
+</span><span style=color:#e6db74>    The original question is as follows: {question}
+</span><span style=color:#e6db74>    We have provided an existing answer: {existing_answer}
+</span><span style=color:#e6db74>    We have the opportunity to refine the existing answer (only if needed) with 
+</span><span style=color:#e6db74>    some more context below.
+</span><span style=color:#e6db74>    ------------
+</span><span style=color:#e6db74>    {context_str}
+</span><span style=color:#e6db74>    ------------
+</span><span style=color:#e6db74>    Given the new context, refine the original answer to better  answer the question. 
+</span><span style=color:#e6db74>    If the context isn&#39;t useful, return the original answer.
+</span><span style=color:#e6db74>	&#34;&#34;&#34;</span>
+)
+
+question_prompt <span style=color:#f92672>=</span> PromptTemplate<span style=color:#f92672>.</span>from_template(
+	<span style=color:#e6db74>&#34;&#34;&#34;
+</span><span style=color:#e6db74>    Context information is below.
+</span><span style=color:#e6db74>    ------------
+</span><span style=color:#e6db74>    {context_str}
+</span><span style=color:#e6db74>    ------------
+</span><span style=color:#e6db74>    Given the context information and not prior knowledge, answer the question: 
+</span><span style=color:#e6db74>    {question}
+</span><span style=color:#e6db74>	&#34;&#34;&#34;</span>
+)
+
+load_qa_chain(
+	llm, 
+	chain_type<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;refine&#34;</span>, 
+	question_prompt<span style=color:#f92672>=</span>question_prompt,
+	refine_prompt<span style=color:#f92672>=</span>refine_prompt,
+    <span style=color:#75715e># these variables are the default values and can be modified/omitted</span>
+    document_variable_name<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;context_str&#34;</span>,
+    initial_response_name<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;existing_answer&#34;</span>,
+)
+</code></pre></div></div></div><div class=pagination><div class=pagination__title><span class=pagination__title-h>Read other posts</span><hr></div><div class=pagination__buttons><span class="button next"><a href=https://www.robert-sokolewicz.nl/posts/15_gmail_labels/><span class=button__text>Google Scripts to label GitLab related emails</span>
+<span class=button__icon>→</span></a></span></div></div></div></div><footer class=footer><div class=footer__inner><div class=copyright><span>© 2023 Powered by <a href=http://gohugo.io>Hugo</a></span>
+<span>:: Theme made by <a href=https://twitter.com/panr>panr</a></span></div></div></footer><script src=https://www.robert-sokolewicz.nl/assets/main.js></script><script src=https://www.robert-sokolewicz.nl/assets/prism.js></script></div></body></html>
