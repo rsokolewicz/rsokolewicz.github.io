@@ -14,9 +14,15 @@ lacking in providing simple examples of how to pass custom prompts to some of
 the built-in chains. While the existing documentation is focused on using the
 “new” LangChain expression language (LCEL), documentation on how to pass custom
 prompts to “old” methods like <code>load_summarize_chain</code> is not well documented.</p><p>For example, <code>load_summarize_chain</code> allows for additional <code>kwargs</code> to be passed
-to it, but the keyword names for prompts are a bit confusing and undocumented</p><p><code>prompt</code> ,<code>map_prompt</code>, <code>combine_prompt</code>, <code>collapse_prompt</code>, <code>question_prompt</code>, <code>refine_prompt</code></p><p>and moreover, custom prompts require specific variable names to make them work:
+to it, but the keyword names for prompts are a bit confusing and undocumented</p><p><code>prompt</code> ,<code>map_prompt</code>, <code>combine_prompt</code>, <code>collapse_prompt</code>, <code>question_prompt</code>, <code>refine_prompt</code></p><p>leading to unclear error messages:</p><pre><code>ValidationError: 1 validation error for RefineDocumentsChain
+prompt
+  extra fields not permitted (type=value_error.extra)
+</code></pre><p>Moreover, custom prompts require specific variable names to make them work:
 <code>existing_answer</code>, <code>text</code>, <code>question</code>, <code>context_str</code>, which are not documented
-either.</p><p>What I did was dig through the code base to figure out the syntax and variable
+either and if you use a wrong one you end up with another unclear error message:</p><pre><code>ValidationError: 1 validation error for RefineDocumentsChain
+__root__
+  document_variable_name text was not found in llm_chain input_variables: ['document'] (type=value_error)
+</code></pre><p>What I did was dig through the code base to figure out the syntax and variable
 names needed to create custom prompts. For example, <code>load_qa_chain</code> is defined
 in the file</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#f92672>/</span>home<span style=color:#f92672>/</span>rsoko<span style=color:#f92672>/.</span>anaconda3<span style=color:#f92672>/</span>envs<span style=color:#f92672>/</span>dev<span style=color:#f92672>/</span>lib<span style=color:#f92672>/</span>python3<span style=color:#f92672>.</span><span style=color:#ae81ff>9</span><span style=color:#f92672>/</span>site<span style=color:#f92672>-</span>packages<span style=color:#f92672>/</span>langchain<span style=color:#f92672>/</span>chains<span style=color:#f92672>/</span>question_answering<span style=color:#f92672>/</span>__init__<span style=color:#f92672>.</span>py
 </code></pre></div><p>and the prompts are saved in the same folder, inside <code>map_reduce_prompt.py</code> and
@@ -37,7 +43,7 @@ refine_prompt <span style=color:#f92672>=</span> PromptTemplate<span style=color
 </span><span style=color:#e6db74>	&#34;&#34;&#34;</span> 
 )
  
-prompt <span style=color:#f92672>=</span> PromptTemplate<span style=color:#f92672>.</span>from_template(
+question_prompt <span style=color:#f92672>=</span> PromptTemplate<span style=color:#f92672>.</span>from_template(
 	<span style=color:#e6db74>&#34;&#34;&#34;
 </span><span style=color:#e6db74>	Write a concise summary of the following:
 </span><span style=color:#e6db74>	
@@ -52,7 +58,7 @@ prompt <span style=color:#f92672>=</span> PromptTemplate<span style=color:#f9267
 load_summarize_chain(
 	llm, 
 	chain_type<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;refine&#34;</span>, 
-	prompt<span style=color:#f92672>=</span>prompt,
+	question_prompt<span style=color:#f92672>=</span>prompt,
 	refine_prompt <span style=color:#f92672>=</span> refine_prompt, 
     <span style=color:#75715e># these variables are the default values and can be modified/omitted</span>
 	document_variable_name<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;text&#34;</span>, 

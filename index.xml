@@ -8,10 +8,17 @@ prompts to “old” methods like &lt;code>load_summarize_chain&lt;/code> is not
 &lt;p>For example, &lt;code>load_summarize_chain&lt;/code> allows for additional &lt;code>kwargs&lt;/code> to be passed
 to it, but the keyword names for prompts are a bit confusing and undocumented&lt;/p>
 &lt;p>&lt;code>prompt&lt;/code> ,&lt;code>map_prompt&lt;/code>, &lt;code>combine_prompt&lt;/code>, &lt;code>collapse_prompt&lt;/code>, &lt;code>question_prompt&lt;/code>, &lt;code>refine_prompt&lt;/code>&lt;/p>
-&lt;p>and moreover, custom prompts require specific variable names to make them work:
+&lt;p>leading to unclear error messages:&lt;/p>
+&lt;pre>&lt;code>ValidationError: 1 validation error for RefineDocumentsChain
+prompt
+extra fields not permitted (type=value_error.extra)
+&lt;/code>&lt;/pre>&lt;p>Moreover, custom prompts require specific variable names to make them work:
 &lt;code>existing_answer&lt;/code>, &lt;code>text&lt;/code>, &lt;code>question&lt;/code>, &lt;code>context_str&lt;/code>, which are not documented
-either.&lt;/p>
-&lt;p>What I did was dig through the code base to figure out the syntax and variable
+either and if you use a wrong one you end up with another unclear error message:&lt;/p>
+&lt;pre>&lt;code>ValidationError: 1 validation error for RefineDocumentsChain
+__root__
+document_variable_name text was not found in llm_chain input_variables: ['document'] (type=value_error)
+&lt;/code>&lt;/pre>&lt;p>What I did was dig through the code base to figure out the syntax and variable
 names needed to create custom prompts. For example, &lt;code>load_qa_chain&lt;/code> is defined
 in the file&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#f92672">/&lt;/span>home&lt;span style="color:#f92672">/&lt;/span>rsoko&lt;span style="color:#f92672">/.&lt;/span>anaconda3&lt;span style="color:#f92672">/&lt;/span>envs&lt;span style="color:#f92672">/&lt;/span>dev&lt;span style="color:#f92672">/&lt;/span>lib&lt;span style="color:#f92672">/&lt;/span>python3&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#ae81ff">9&lt;/span>&lt;span style="color:#f92672">/&lt;/span>site&lt;span style="color:#f92672">-&lt;/span>packages&lt;span style="color:#f92672">/&lt;/span>langchain&lt;span style="color:#f92672">/&lt;/span>chains&lt;span style="color:#f92672">/&lt;/span>question_answering&lt;span style="color:#f92672">/&lt;/span>__init__&lt;span style="color:#f92672">.&lt;/span>py
@@ -34,7 +41,7 @@ refine_prompt &lt;span style="color:#f92672">=&lt;/span> PromptTemplate&lt;span 
 &lt;/span>&lt;span style="color:#e6db74"> If the context isn&amp;#39;t useful, return the original summary.
 &lt;/span>&lt;span style="color:#e6db74"> &amp;#34;&amp;#34;&amp;#34;&lt;/span>
 )
-prompt &lt;span style="color:#f92672">=&lt;/span> PromptTemplate&lt;span style="color:#f92672">.&lt;/span>from_template(
+question_prompt &lt;span style="color:#f92672">=&lt;/span> PromptTemplate&lt;span style="color:#f92672">.&lt;/span>from_template(
 &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&amp;#34;
 &lt;/span>&lt;span style="color:#e6db74"> Write a concise summary of the following:
 &lt;/span>&lt;span style="color:#e6db74">
@@ -48,7 +55,7 @@ prompt &lt;span style="color:#f92672">=&lt;/span> PromptTemplate&lt;span style="
 load_summarize_chain(
 llm,
 chain_type&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;refine&amp;#34;&lt;/span>,
-prompt&lt;span style="color:#f92672">=&lt;/span>prompt,
+question_prompt&lt;span style="color:#f92672">=&lt;/span>prompt,
 refine_prompt &lt;span style="color:#f92672">=&lt;/span> refine_prompt,
 &lt;span style="color:#75715e"># these variables are the default values and can be modified/omitted&lt;/span>
 document_variable_name&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;text&amp;#34;&lt;/span>,
