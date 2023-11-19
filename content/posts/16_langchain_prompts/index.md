@@ -19,10 +19,24 @@ to it, but the keyword names for prompts are a bit confusing and undocumented
 
 `prompt` ,`map_prompt`, `combine_prompt`, `collapse_prompt`, `question_prompt`, `refine_prompt`
 
-and moreover, custom prompts require specific variable names to make them work:
-`existing_answer`, `text`, `question`,  `context_str`, which are not documented
-either.
+leading to unclear error messages:
 
+```
+ValidationError: 1 validation error for RefineDocumentsChain
+prompt
+  extra fields not permitted (type=value_error.extra)
+```
+
+Moreover, custom prompts require specific variable names to make them work:
+`existing_answer`, `text`, `question`,  `context_str`, which are not documented
+either and if you use a wrong one you end up with another unclear error message:
+
+```
+ValidationError: 1 validation error for RefineDocumentsChain
+__root__
+  document_variable_name text was not found in llm_chain input_variables: ['document'] (type=value_error)
+```
+ 
 What I did was dig through the code base to figure out the syntax and variable
 names needed to create custom prompts. For example, `load_qa_chain` is defined
 in the file
@@ -56,7 +70,7 @@ refine_prompt = PromptTemplate.from_template(
 	""" 
 )
  
-prompt = PromptTemplate.from_template(
+question_prompt = PromptTemplate.from_template(
 	"""
 	Write a concise summary of the following:
 	
@@ -71,7 +85,7 @@ prompt = PromptTemplate.from_template(
 load_summarize_chain(
 	llm, 
 	chain_type="refine", 
-	prompt=prompt,
+	question_prompt=prompt,
 	refine_prompt = refine_prompt, 
     # these variables are the default values and can be modified/omitted
 	document_variable_name="text", 
