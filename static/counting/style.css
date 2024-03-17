@@ -1,0 +1,42 @@
+body, html {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    padding: 10px;
+    background-color: #f0f0f0;
+}
+
+#app {
+    max-width: 600px;
+    margin: auto;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.choices div {
+    margin: 10px 0;
+    padding: 10px;
+    background-color: #eee;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.choices div:hover {
+    background-color: #ddd;
+}
+
+/* Increase specificity */
+.choices div.correct {
+    background-color: #c8e6c9; /* Pastel green */
+}
+
+.choices div.wrong {
+    background-color: #ffcdd2; /* Pastel red */
+}
+
+/* Maintain hover effect without overriding correct/wrong styles */
+.choices div.correct:hover, .choices div.wrong:hover {
+    opacity: 0.9; /* Slightly lower opacity on hover, or any other effect you prefer */
+}
+
