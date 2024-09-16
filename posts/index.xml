@@ -1,4 +1,251 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Roberts blog</title><link>https://www.robert-sokolewicz.nl/posts/</link><description>Recent content in Posts on Roberts blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sat, 18 Nov 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://www.robert-sokolewicz.nl/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>How to pass custom prompts to langchain chains</title><link>https://www.robert-sokolewicz.nl/posts/16_langchain_prompts/</link><pubDate>Sat, 18 Nov 2023 00:00:00 +0000</pubDate><guid>https://www.robert-sokolewicz.nl/posts/16_langchain_prompts/</guid><description>Custom prompts for langchain chains At the moment I’m writing this post, the langchain documentation is a bit lacking in providing simple examples of how to pass custom prompts to some of the built-in chains. While the existing documentation is focused on using the “new” LangChain expression language (LCEL), documentation on how to pass custom prompts to “old” methods like load_summarize_chain is not well documented.
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Roberts blog</title><link>https://www.robert-sokolewicz.nl/posts/</link><description>Recent content in Posts on Roberts blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sun, 15 Sep 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://www.robert-sokolewicz.nl/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Auto activating conda environments when moving between projects</title><link>https://www.robert-sokolewicz.nl/posts/19_fish_and_starship/</link><pubDate>Sun, 15 Sep 2024 00:00:00 +0000</pubDate><guid>https://www.robert-sokolewicz.nl/posts/19_fish_and_starship/</guid><description>Auto activating conda environments when moving between projects I have the bad habit of forgetting to switch conda environments when moving between projects, and I always end up corrupting them. Although multiple people have requested this feature with the conda developers team, they never implemented some sort of auto activation.
+Fortunately, this is easy to implement yourself. I&amp;rsquo;m using fish shell, but this should be easy to adapt to other shells if you do a quick search (e.</description><content>&lt;h1 id="auto-activating-conda-environments-when-moving-between-projects">Auto activating conda environments when moving between projects&lt;/h1>
+&lt;p>I have the bad habit of forgetting to switch conda environments when moving between projects, and I always end up corrupting them. Although multiple people have requested this feature with the conda developers team, they never implemented some sort of auto activation.&lt;/p>
+&lt;p>Fortunately, this is easy to implement yourself. I&amp;rsquo;m using fish shell, but this should be easy to adapt to other shells if you do a quick search (e.g. there a few suggestions &lt;a href="https://github.com/conda/conda/issues/5179">here&lt;/a> using &lt;code>bash&lt;/code> or something called &lt;code>autoenv&lt;/code>).&lt;/p>
+&lt;p>Basically, add this to &lt;code>~/.config/fish/config.fish&lt;/code>:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">&lt;span style="color:#66d9ef">function&lt;/span> check_and_activate_conda
+&lt;span style="color:#66d9ef">if&lt;/span> test -e &lt;span style="color:#e6db74">&amp;#34;.condaenv&amp;#34;&lt;/span>
+set env_name &lt;span style="color:#f92672">(&lt;/span>cat .condaenv | string trim&lt;span style="color:#f92672">)&lt;/span>
+&lt;span style="color:#66d9ef">if&lt;/span> test -n &lt;span style="color:#e6db74">&amp;#34;&lt;/span>$env_name&lt;span style="color:#e6db74">&amp;#34;&lt;/span>
+&lt;span style="color:#66d9ef">if&lt;/span> not string match -q -- &lt;span style="color:#e6db74">&amp;#34;*&lt;/span>$env_name&lt;span style="color:#e6db74">*&amp;#34;&lt;/span> $CONDA_DEFAULT_ENV
+conda activate $env_name
+end
+end
+end
+end
+&lt;span style="color:#66d9ef">function&lt;/span> auto_activate_conda --on-variable PWD
+check_and_activate_conda
+end
+&lt;span style="color:#66d9ef">if&lt;/span> status is-interactive
+check_and_activate_conda
+end
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>This will run the function &lt;code>check_and_activate_conda&lt;/code> every time you initiate a shell or when you change directory. Now all that you need to do is add a file &lt;code>.condaenv&lt;/code> to the root of your project with the name of the conda environment you want to activate.&lt;/p>
+&lt;p>Unfortunately, I can&amp;rsquo;t add this to some work-related projects because I don&amp;rsquo;t want to add it to the public &lt;code>.gitignore&lt;/code>, nor do I want to remember to not &lt;code>git add&lt;/code> it with every commit. So I added a bit of logic to the script above:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash"> &lt;span style="color:#66d9ef">else&lt;/span> &lt;span style="color:#66d9ef">if&lt;/span> string match -q &lt;span style="color:#e6db74">&amp;#34;&lt;/span>$qblox_path&lt;span style="color:#e6db74">*&amp;#34;&lt;/span> $current_path
+&lt;span style="color:#66d9ef">if&lt;/span> test &lt;span style="color:#e6db74">&amp;#34;&lt;/span>$CONDA_DEFAULT_ENV&lt;span style="color:#e6db74">&amp;#34;&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;base&amp;#34;&lt;/span> -o -z &lt;span style="color:#e6db74">&amp;#34;&lt;/span>$CONDA_DEFAULT_ENV&lt;span style="color:#e6db74">&amp;#34;&lt;/span>
+conda activate dev
+end
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>this will activate the &lt;code>dev&lt;/code> environment whenever I work on a Qblox project.&lt;/p></content></item><item><title>Supercharging your terminal with fish and starship</title><link>https://www.robert-sokolewicz.nl/posts/18_auto_activate_conda/</link><pubDate>Sun, 15 Sep 2024 00:00:00 +0000</pubDate><guid>https://www.robert-sokolewicz.nl/posts/18_auto_activate_conda/</guid><description>A modern looking terminal This is how my terminal looks like at the moment. The layout uses starship to provide useful information about the shell at all times. For example, it shows the current python version if you are in a python environment, and the current branch if you are in a git repository. I made some minor modifications to the default layout, e.g. adding the time information to the right.</description><content>&lt;h1 id="a-modern-looking-terminal">A modern looking terminal&lt;/h1>
+&lt;p>&lt;img src="image-1.png" alt="an awesome terminal">&lt;/p>
+&lt;p>This is how my terminal looks like at the moment. The layout uses &lt;a href="https://starship.rs/">starship&lt;/a> to provide useful information about the shell at all times. For example, it shows the current python version if you are in a python environment, and the current branch if you are in a git repository. I made some minor modifications to the default layout, e.g. adding the time information to the right. I would still like to add a few more things, but I&amp;rsquo;m happy the way it is.&lt;/p>
+&lt;p>Here&amp;rsquo;s my starship config (&lt;code>~/.config/starship.toml&lt;/code>):&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">&lt;span style="color:#e6db74">&amp;#34;&lt;/span>$schema&lt;span style="color:#e6db74">&amp;#34;&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;https://starship.rs/config-schema.json&amp;#39;&lt;/span>
+format &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&amp;#34;
+&lt;/span>&lt;span style="color:#e6db74">[](fg:color_bg1)\
+&lt;/span>&lt;span style="color:#e6db74">&lt;/span>$time&lt;span style="color:#e6db74">\
+&lt;/span>&lt;span style="color:#e6db74">[ ](fg:color_bg1)\
+&lt;/span>&lt;span style="color:#e6db74">[](color_orange)\
+&lt;/span>&lt;span style="color:#e6db74">&lt;/span>$username&lt;span style="color:#e6db74">\
+&lt;/span>&lt;span style="color:#e6db74">[](bg:color_yellow fg:color_orange)\
+&lt;/span>&lt;span style="color:#e6db74">&lt;/span>$directory&lt;span style="color:#e6db74">\
+&lt;/span>&lt;span style="color:#e6db74">[](fg:color_yellow bg:color_aqua)\
+&lt;/span>&lt;span style="color:#e6db74">&lt;/span>$git_branch&lt;span style="color:#e6db74">\
+&lt;/span>&lt;span style="color:#e6db74">&lt;/span>$git_status&lt;span style="color:#e6db74">\
+&lt;/span>&lt;span style="color:#e6db74">[](fg:color_aqua bg:color_blue)\
+&lt;/span>&lt;span style="color:#e6db74">&lt;/span>$c&lt;span style="color:#e6db74">\
+&lt;/span>&lt;span style="color:#e6db74">&lt;/span>$rust&lt;span style="color:#e6db74">\
+&lt;/span>&lt;span style="color:#e6db74">&lt;/span>$golang&lt;span style="color:#e6db74">\
+&lt;/span>&lt;span style="color:#e6db74">&lt;/span>$nodejs&lt;span style="color:#e6db74">\
+&lt;/span>&lt;span style="color:#e6db74">&lt;/span>$php&lt;span style="color:#e6db74">\
+&lt;/span>&lt;span style="color:#e6db74">&lt;/span>$java&lt;span style="color:#e6db74">\
+&lt;/span>&lt;span style="color:#e6db74">&lt;/span>$kotlin&lt;span style="color:#e6db74">\
+&lt;/span>&lt;span style="color:#e6db74">&lt;/span>$haskell&lt;span style="color:#e6db74">\
+&lt;/span>&lt;span style="color:#e6db74">&lt;/span>$python&lt;span style="color:#e6db74">\
+&lt;/span>&lt;span style="color:#e6db74">[](fg:color_blue bg:color_bg3)\
+&lt;/span>&lt;span style="color:#e6db74">&lt;/span>$docker_context&lt;span style="color:#e6db74">\
+&lt;/span>&lt;span style="color:#e6db74">&lt;/span>$conda&lt;span style="color:#e6db74">\
+&lt;/span>&lt;span style="color:#e6db74">[](fg:color_bg3)\
+&lt;/span>&lt;span style="color:#e6db74">&lt;/span>$cmd_duration&lt;span style="color:#e6db74">\
+&lt;/span>&lt;span style="color:#e6db74">&lt;/span>$line_break$character&lt;span style="color:#e6db74">&amp;#34;&amp;#34;&amp;#34;&lt;/span>
+palette &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;gruvbox_dark&amp;#39;&lt;/span>
+&lt;span style="color:#f92672">[&lt;/span>palettes.gruvbox_dark&lt;span style="color:#f92672">]&lt;/span>
+color_fg0 &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;#fbf1c7&amp;#39;&lt;/span>
+color_bg1 &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;#3c3836&amp;#39;&lt;/span>
+color_bg3 &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;#665c54&amp;#39;&lt;/span>
+color_blue &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;#458588&amp;#39;&lt;/span>
+color_aqua &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;#689d6a&amp;#39;&lt;/span>
+color_green &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;#98971a&amp;#39;&lt;/span>
+color_orange &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;#d65d0e&amp;#39;&lt;/span>
+color_purple &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;#b16286&amp;#39;&lt;/span>
+color_red &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;#cc241d&amp;#39;&lt;/span>
+color_yellow &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;#d79921&amp;#39;&lt;/span>
+&lt;span style="color:#f92672">[&lt;/span>os&lt;span style="color:#f92672">]&lt;/span>
+disabled &lt;span style="color:#f92672">=&lt;/span> false
+style &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;bg:color_orange fg:color_fg0&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">[&lt;/span>os.symbols&lt;span style="color:#f92672">]&lt;/span>
+Windows &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;󰍲&amp;#34;&lt;/span>
+Ubuntu &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;󰕈&amp;#34;&lt;/span>
+SUSE &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>
+Raspbian &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;󰐿&amp;#34;&lt;/span>
+Mint &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;󰣭&amp;#34;&lt;/span>
+Macos &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;󰀵&amp;#34;&lt;/span>
+Manjaro &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>
+Linux &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;󰌽&amp;#34;&lt;/span>
+Gentoo &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;󰣨&amp;#34;&lt;/span>
+Fedora &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;󰣛&amp;#34;&lt;/span>
+Alpine &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>
+Amazon &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>
+Android &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>
+Arch &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;󰣇&amp;#34;&lt;/span>
+Artix &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;󰣇&amp;#34;&lt;/span>
+CentOS &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>
+Debian &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;󰣚&amp;#34;&lt;/span>
+Redhat &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;󱄛&amp;#34;&lt;/span>
+RedHatEnterprise &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;󱄛&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">[&lt;/span>username&lt;span style="color:#f92672">]&lt;/span>
+show_always &lt;span style="color:#f92672">=&lt;/span> true
+style_user &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;bg:color_orange fg:color_fg0&amp;#34;&lt;/span>
+style_root &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;bg:color_orange fg:color_fg0&amp;#34;&lt;/span>
+format &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;[ $user ]($style)&amp;#39;&lt;/span>
+&lt;span style="color:#f92672">[&lt;/span>directory&lt;span style="color:#f92672">]&lt;/span>
+style &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;fg:color_fg0 bg:color_yellow&amp;#34;&lt;/span>
+format &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;[ &lt;/span>$path&lt;span style="color:#e6db74"> ](&lt;/span>$style&lt;span style="color:#e6db74">)&amp;#34;&lt;/span>
+truncation_length &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">3&lt;/span>
+truncation_symbol &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;…/&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">[&lt;/span>directory.substitutions&lt;span style="color:#f92672">]&lt;/span>
+&lt;span style="color:#e6db74">&amp;#34;Documents&amp;#34;&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;󰈙 &amp;#34;&lt;/span>
+&lt;span style="color:#e6db74">&amp;#34;Downloads&amp;#34;&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34; &amp;#34;&lt;/span>
+&lt;span style="color:#e6db74">&amp;#34;Music&amp;#34;&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;󰝚 &amp;#34;&lt;/span>
+&lt;span style="color:#e6db74">&amp;#34;Pictures&amp;#34;&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34; &amp;#34;&lt;/span>
+&lt;span style="color:#e6db74">&amp;#34;Developer&amp;#34;&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;󰲋 &amp;#34;&lt;/span>
+&lt;span style="color:#f92672">[&lt;/span>git_branch&lt;span style="color:#f92672">]&lt;/span>
+symbol &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>
+style &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;bg:color_aqua&amp;#34;&lt;/span>
+format &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;[[ $symbol $branch ](fg:color_fg0 bg:color_aqua)]($style)&amp;#39;&lt;/span>
+&lt;span style="color:#f92672">[&lt;/span>git_status&lt;span style="color:#f92672">]&lt;/span>
+style &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;bg:color_aqua&amp;#34;&lt;/span>
+format &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;[[($all_status$ahead_behind )](fg:color_fg0 bg:color_aqua)]($style)&amp;#39;&lt;/span>
+&lt;span style="color:#f92672">[&lt;/span>nodejs&lt;span style="color:#f92672">]&lt;/span>
+symbol &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>
+style &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;bg:color_blue&amp;#34;&lt;/span>
+format &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)&amp;#39;&lt;/span>
+&lt;span style="color:#f92672">[&lt;/span>c&lt;span style="color:#f92672">]&lt;/span>
+symbol &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34; &amp;#34;&lt;/span>
+style &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;bg:color_blue&amp;#34;&lt;/span>
+format &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)&amp;#39;&lt;/span>
+&lt;span style="color:#f92672">[&lt;/span>rust&lt;span style="color:#f92672">]&lt;/span>
+symbol &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>
+style &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;bg:color_blue&amp;#34;&lt;/span>
+format &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)&amp;#39;&lt;/span>
+&lt;span style="color:#f92672">[&lt;/span>golang&lt;span style="color:#f92672">]&lt;/span>
+symbol &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>
+style &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;bg:color_blue&amp;#34;&lt;/span>
+format &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)&amp;#39;&lt;/span>
+&lt;span style="color:#f92672">[&lt;/span>php&lt;span style="color:#f92672">]&lt;/span>
+symbol &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>
+style &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;bg:color_blue&amp;#34;&lt;/span>
+format &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)&amp;#39;&lt;/span>
+&lt;span style="color:#f92672">[&lt;/span>java&lt;span style="color:#f92672">]&lt;/span>
+symbol &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34; &amp;#34;&lt;/span>
+style &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;bg:color_blue&amp;#34;&lt;/span>
+format &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)&amp;#39;&lt;/span>
+&lt;span style="color:#f92672">[&lt;/span>kotlin&lt;span style="color:#f92672">]&lt;/span>
+symbol &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>
+style &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;bg:color_blue&amp;#34;&lt;/span>
+format &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)&amp;#39;&lt;/span>
+&lt;span style="color:#f92672">[&lt;/span>haskell&lt;span style="color:#f92672">]&lt;/span>
+symbol &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>
+style &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;bg:color_blue&amp;#34;&lt;/span>
+format &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)&amp;#39;&lt;/span>
+&lt;span style="color:#f92672">[&lt;/span>python&lt;span style="color:#f92672">]&lt;/span>
+symbol &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>
+style &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;bg:color_blue&amp;#34;&lt;/span>
+format &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)&amp;#39;&lt;/span>
+&lt;span style="color:#f92672">[&lt;/span>docker_context&lt;span style="color:#f92672">]&lt;/span>
+symbol &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>
+style &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;bg:color_bg3&amp;#34;&lt;/span>
+format &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;[[ $symbol( $context) ](fg:#83a598 bg:color_bg3)]($style)&amp;#39;&lt;/span>
+&lt;span style="color:#f92672">[&lt;/span>conda&lt;span style="color:#f92672">]&lt;/span>
+style &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;bg:color_bg3&amp;#34;&lt;/span>
+ignore_base &lt;span style="color:#f92672">=&lt;/span> false
+format &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;[[ $symbol( $environment) ](fg:#83a598 bg:color_bg3)]($style)&amp;#39;&lt;/span>
+&lt;span style="color:#f92672">[&lt;/span>cmd_duration&lt;span style="color:#f92672">]&lt;/span>
+min_time &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">1000&lt;/span>
+show_milliseconds &lt;span style="color:#f92672">=&lt;/span> false
+style &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;bg:color_bg3 fg:#ffffff&amp;#34;&lt;/span>
+show_notifications &lt;span style="color:#f92672">=&lt;/span> false
+format &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;[[ ](fg:color_bg1)[took $duration](fg:color_fg0 bg:color_bg1)]($style)[ ](fg:color_bg1)&amp;#39;&lt;/span>
+&lt;span style="color:#f92672">[&lt;/span>time&lt;span style="color:#f92672">]&lt;/span>
+disabled &lt;span style="color:#f92672">=&lt;/span> false
+time_format &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;%R&amp;#34;&lt;/span>
+style &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;bg:color_bg1&amp;#34;&lt;/span>
+format &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;[[ $time ](fg:color_fg0 bg:color_bg1)]($style)&amp;#39;&lt;/span>
+&lt;span style="color:#f92672">[&lt;/span>line_break&lt;span style="color:#f92672">]&lt;/span>
+disabled &lt;span style="color:#f92672">=&lt;/span> false
+&lt;span style="color:#f92672">[&lt;/span>character&lt;span style="color:#f92672">]&lt;/span>
+disabled &lt;span style="color:#f92672">=&lt;/span> false
+success_symbol &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;[](bold fg:color_green)&amp;#39;&lt;/span>
+error_symbol &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;[](bold fg:color_red)&amp;#39;&lt;/span>
+vimcmd_symbol &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;[](bold fg:color_green)&amp;#39;&lt;/span>
+vimcmd_replace_one_symbol &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;[](bold fg:color_purple)&amp;#39;&lt;/span>
+vimcmd_replace_symbol &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;[](bold fg:color_purple)&amp;#39;&lt;/span>
+vimcmd_visual_symbol &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;[](bold fg:color_yellow)&amp;#39;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>(You&amp;rsquo;ll need a &lt;a href="https://www.nerdfonts.com/">nerd font&lt;/a> with glyphs to see all the fancy characters)&lt;/p>
+&lt;h1 id="fish-shell">Fish shell&lt;/h1>
+&lt;p>I&amp;rsquo;ve been using &lt;a href="https://fishshell.com/">fish&lt;/a> for almost a year now, and I really like it. I use it mostly for the auto-complete feature. It&amp;rsquo;s almost as smart as an AI copilot in your editor, but now in the terminal. (note: it&amp;rsquo;s a very simple frequency based autocomplete, no AI whatsoever)&lt;/p>
+&lt;p>Here&amp;rsquo;s my fish config (&lt;code>~/.config/fish/config.fish&lt;/code>):&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">&lt;span style="color:#75715e"># Fish syntax highlighting&lt;/span>
+set -g fish_color_autosuggestion &lt;span style="color:#e6db74">&amp;#39;555&amp;#39;&lt;/span> &lt;span style="color:#e6db74">&amp;#39;brblack&amp;#39;&lt;/span>
+set -g fish_color_cancel -r
+set -g fish_color_command --bold
+set -g fish_color_comment red
+set -g fish_color_cwd green
+set -g fish_color_cwd_root red
+set -g fish_color_end brmagenta
+set -g fish_color_error brred
+set -g fish_color_escape &lt;span style="color:#e6db74">&amp;#39;bryellow&amp;#39;&lt;/span> &lt;span style="color:#e6db74">&amp;#39;--bold&amp;#39;&lt;/span>
+set -g fish_color_history_current --bold
+set -g fish_color_host normal
+set -g fish_color_match --background&lt;span style="color:#f92672">=&lt;/span>brblue
+set -g fish_color_normal normal
+set -g fish_color_operator bryellow
+set -g fish_color_param cyan
+set -g fish_color_quote yellow
+set -g fish_color_redirection brblue
+set -g fish_color_search_match &lt;span style="color:#e6db74">&amp;#39;bryellow&amp;#39;&lt;/span> &lt;span style="color:#e6db74">&amp;#39;--background=brblack&amp;#39;&lt;/span>
+set -g fish_color_selection &lt;span style="color:#e6db74">&amp;#39;white&amp;#39;&lt;/span> &lt;span style="color:#e6db74">&amp;#39;--bold&amp;#39;&lt;/span> &lt;span style="color:#e6db74">&amp;#39;--background=brblack&amp;#39;&lt;/span>
+set -g fish_color_user brgreen
+set -g fish_color_valid_path --underline
+&lt;span style="color:#75715e"># Install Starship&lt;/span>
+starship init fish | source
+set -x PATH $PATH /home/rsoko/flutter/bin
+&lt;span style="color:#75715e"># &amp;gt;&amp;gt;&amp;gt; conda initialize &amp;gt;&amp;gt;&amp;gt;&lt;/span>
+&lt;span style="color:#75715e"># !! Contents within this block are managed by &amp;#39;conda init&amp;#39; !!&lt;/span>
+eval /home/rsoko/.anaconda3/bin/conda &lt;span style="color:#e6db74">&amp;#34;shell.fish&amp;#34;&lt;/span> &lt;span style="color:#e6db74">&amp;#34;hook&amp;#34;&lt;/span> $argv | source
+set -e CONDA_DEFAULT_ENV &lt;span style="color:#75715e"># disable showing environment name. This is done by starship&lt;/span>
+&lt;span style="color:#75715e"># &amp;lt;&amp;lt;&amp;lt; conda initialize &amp;lt;&amp;lt;&amp;lt;&lt;/span>
+&lt;span style="color:#66d9ef">function&lt;/span> edge
+set path $argv&lt;span style="color:#f92672">[&lt;/span>1&lt;span style="color:#f92672">]&lt;/span>
+set winpath &lt;span style="color:#f92672">(&lt;/span>wslpath -w $path&lt;span style="color:#f92672">)&lt;/span>
+&lt;span style="color:#e6db74">&amp;#34;/mnt/c/Program Files (x86)/Microsoft/Edge/Application/msedge.exe&amp;#34;&lt;/span> &lt;span style="color:#e6db74">&amp;#34;file://&lt;/span>$winpath&lt;span style="color:#e6db74">&amp;#34;&lt;/span> &amp;amp;
+end
+&lt;span style="color:#66d9ef">function&lt;/span> check_and_activate_conda
+set current_path &lt;span style="color:#f92672">(&lt;/span>pwd&lt;span style="color:#f92672">)&lt;/span>
+set qblox_path ~/qblox
+&lt;span style="color:#66d9ef">if&lt;/span> test -e &lt;span style="color:#e6db74">&amp;#34;.condaenv&amp;#34;&lt;/span>
+set env_name &lt;span style="color:#f92672">(&lt;/span>cat .condaenv | string trim&lt;span style="color:#f92672">)&lt;/span>
+&lt;span style="color:#66d9ef">if&lt;/span> test -n &lt;span style="color:#e6db74">&amp;#34;&lt;/span>$env_name&lt;span style="color:#e6db74">&amp;#34;&lt;/span>
+&lt;span style="color:#66d9ef">if&lt;/span> not string match -q -- &lt;span style="color:#e6db74">&amp;#34;*&lt;/span>$env_name&lt;span style="color:#e6db74">*&amp;#34;&lt;/span> $CONDA_DEFAULT_ENV
+conda activate $env_name
+end
+end
+&lt;span style="color:#66d9ef">else&lt;/span> &lt;span style="color:#66d9ef">if&lt;/span> string match -q &lt;span style="color:#e6db74">&amp;#34;&lt;/span>$qblox_path&lt;span style="color:#e6db74">*&amp;#34;&lt;/span> $current_path
+&lt;span style="color:#66d9ef">if&lt;/span> test &lt;span style="color:#e6db74">&amp;#34;&lt;/span>$CONDA_DEFAULT_ENV&lt;span style="color:#e6db74">&amp;#34;&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;base&amp;#34;&lt;/span> -o -z &lt;span style="color:#e6db74">&amp;#34;&lt;/span>$CONDA_DEFAULT_ENV&lt;span style="color:#e6db74">&amp;#34;&lt;/span>
+conda activate dev
+end
+end
+end
+&lt;span style="color:#66d9ef">function&lt;/span> auto_activate_conda --on-variable PWD
+check_and_activate_conda
+end
+&lt;span style="color:#75715e"># Run check_and_activate_conda on shell init&lt;/span>
+&lt;span style="color:#66d9ef">if&lt;/span> status is-interactive
+check_and_activate_conda
+end
+&lt;span style="color:#75715e"># API Keys&lt;/span>
+set -x OPENAI_API_KEY &lt;span style="color:#e6db74">&amp;#34;sk-proj-...&amp;#34;&lt;/span>
+set -x ANTHROPIC_API_KEY &lt;span style="color:#e6db74">&amp;#34;sk-ant-...&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div></content></item><item><title>How to pass custom prompts to langchain chains</title><link>https://www.robert-sokolewicz.nl/posts/16_langchain_prompts/</link><pubDate>Sat, 18 Nov 2023 00:00:00 +0000</pubDate><guid>https://www.robert-sokolewicz.nl/posts/16_langchain_prompts/</guid><description>Custom prompts for langchain chains At the moment I’m writing this post, the langchain documentation is a bit lacking in providing simple examples of how to pass custom prompts to some of the built-in chains. While the existing documentation is focused on using the “new” LangChain expression language (LCEL), documentation on how to pass custom prompts to “old” methods like load_summarize_chain is not well documented.
 For example, load_summarize_chain allows for additional kwargs to be passed to it, but the keyword names for prompts are a bit confusing and undocumented</description><content>&lt;h1 id="custom-prompts-for-langchain-chains">Custom prompts for langchain chains&lt;/h1>
 &lt;p>At the moment I’m writing this post, the &lt;code>langchain&lt;/code> documentation is a bit
 lacking in providing simple examples of how to pass custom prompts to some of

@@ -1,0 +1,162 @@
+@font-face {
+    font-family: 'FiraCode Nerd Font Med';
+    src: url('FiraCodeNF-Med.woff2') format('woff2'),
+        url('FiraCodeNF-Med.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'FiraCode Nerd Font';
+    src: url('FiraCodeNF-Bold.woff2') format('woff2'),
+        url('FiraCodeNF-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'FiraCode Nerd Font';
+    src: url('FiraCodeNF-Light.woff2') format('woff2'),
+        url('FiraCodeNF-Light.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'FiraCode Nerd Font Mono';
+    src: url('FiraCodeNFM-Bold.woff2') format('woff2'),
+        url('FiraCodeNFM-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'FiraCode Nerd Font Mono Med';
+    src: url('FiraCodeNFM-Med.woff2') format('woff2'),
+        url('FiraCodeNFM-Med.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'FiraCode Nerd Font Mono';
+    src: url('FiraCodeNFM-Reg.woff2') format('woff2'),
+        url('FiraCodeNFM-Reg.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'FiraCode Nerd Font Mono';
+    src: url('FiraCodeNFM-Light.woff2') format('woff2'),
+        url('FiraCodeNFM-Light.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'FiraCode Nerd Font Propo';
+    src: url('FiraCodeNFP-Bold.woff2') format('woff2'),
+        url('FiraCodeNFP-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'FiraCode Nerd Font Mono Ret';
+    src: url('FiraCodeNFM-Ret.woff2') format('woff2'),
+        url('FiraCodeNFM-Ret.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'FiraCode Nerd Font Propo';
+    src: url('FiraCodeNFP-Light.woff2') format('woff2'),
+        url('FiraCodeNFP-Light.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'FiraCode Nerd Font Mono SemBd';
+    src: url('FiraCodeNFM-SemBd.woff2') format('woff2'),
+        url('FiraCodeNFM-SemBd.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'FiraCode Nerd Font Propo Med';
+    src: url('FiraCodeNFP-Med.woff2') format('woff2'),
+        url('FiraCodeNFP-Med.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'FiraCode Nerd Font Propo SemBd';
+    src: url('FiraCodeNFP-SemBd.woff2') format('woff2'),
+        url('FiraCodeNFP-SemBd.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'FiraCode Nerd Font';
+    src: url('FiraCodeNF-Reg.woff2') format('woff2'),
+        url('FiraCodeNF-Reg.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'FiraCode Nerd Font Propo';
+    src: url('FiraCodeNFP-Reg.woff2') format('woff2'),
+        url('FiraCodeNFP-Reg.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'FiraCode Nerd Font Ret';
+    src: url('FiraCodeNF-Ret.woff2') format('woff2'),
+        url('FiraCodeNF-Ret.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'FiraCode Nerd Font SemBd';
+    src: url('FiraCodeNF-SemBd.woff2') format('woff2'),
+        url('FiraCodeNF-SemBd.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'FiraCode Nerd Font Propo Ret';
+    src: url('FiraCodeNFP-Ret.woff2') format('woff2'),
+        url('FiraCodeNFP-Ret.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+

@@ -1,4 +1,277 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Your Name on Roberts blog</title><link>https://www.robert-sokolewicz.nl/</link><description>Recent content in Your Name on Roberts blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Fri, 22 Apr 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://www.robert-sokolewicz.nl/index.xml" rel="self" type="application/rss+xml"/><item><title>How to pass custom prompts to langchain chains</title><link>https://www.robert-sokolewicz.nl/posts/16_langchain_prompts/</link><pubDate>Sat, 18 Nov 2023 00:00:00 +0000</pubDate><guid>https://www.robert-sokolewicz.nl/posts/16_langchain_prompts/</guid><description>Custom prompts for langchain chains At the moment I’m writing this post, the langchain documentation is a bit lacking in providing simple examples of how to pass custom prompts to some of the built-in chains. While the existing documentation is focused on using the “new” LangChain expression language (LCEL), documentation on how to pass custom prompts to “old” methods like load_summarize_chain is not well documented.
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Your Name on Roberts blog</title><link>https://www.robert-sokolewicz.nl/</link><description>Recent content in Your Name on Roberts blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Fri, 22 Apr 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://www.robert-sokolewicz.nl/index.xml" rel="self" type="application/rss+xml"/><item><title>Auto activating conda environments when moving between projects</title><link>https://www.robert-sokolewicz.nl/posts/19_fish_and_starship/</link><pubDate>Sun, 15 Sep 2024 00:00:00 +0000</pubDate><guid>https://www.robert-sokolewicz.nl/posts/19_fish_and_starship/</guid><description>Auto activating conda environments when moving between projects I have the bad habit of forgetting to switch conda environments when moving between projects, and I always end up corrupting them. Although multiple people have requested this feature with the conda developers team, they never implemented some sort of auto activation.
+Fortunately, this is easy to implement yourself. I&amp;rsquo;m using fish shell, but this should be easy to adapt to other shells if you do a quick search (e.</description><content>&lt;h1 id="auto-activating-conda-environments-when-moving-between-projects">Auto activating conda environments when moving between projects&lt;/h1>
+&lt;p>I have the bad habit of forgetting to switch conda environments when moving between projects, and I always end up corrupting them. Although multiple people have requested this feature with the conda developers team, they never implemented some sort of auto activation.&lt;/p>
+&lt;p>Fortunately, this is easy to implement yourself. I&amp;rsquo;m using fish shell, but this should be easy to adapt to other shells if you do a quick search (e.g. there a few suggestions &lt;a href="https://github.com/conda/conda/issues/5179">here&lt;/a> using &lt;code>bash&lt;/code> or something called &lt;code>autoenv&lt;/code>).&lt;/p>
+&lt;p>Basically, add this to &lt;code>~/.config/fish/config.fish&lt;/code>:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">&lt;span style="color:#66d9ef">function&lt;/span> check_and_activate_conda
+&lt;span style="color:#66d9ef">if&lt;/span> test -e &lt;span style="color:#e6db74">&amp;#34;.condaenv&amp;#34;&lt;/span>
+set env_name &lt;span style="color:#f92672">(&lt;/span>cat .condaenv | string trim&lt;span style="color:#f92672">)&lt;/span>
+&lt;span style="color:#66d9ef">if&lt;/span> test -n &lt;span style="color:#e6db74">&amp;#34;&lt;/span>$env_name&lt;span style="color:#e6db74">&amp;#34;&lt;/span>
+&lt;span style="color:#66d9ef">if&lt;/span> not string match -q -- &lt;span style="color:#e6db74">&amp;#34;*&lt;/span>$env_name&lt;span style="color:#e6db74">*&amp;#34;&lt;/span> $CONDA_DEFAULT_ENV
+conda activate $env_name
+end
+end
+end
+end
+&lt;span style="color:#66d9ef">function&lt;/span> auto_activate_conda --on-variable PWD
+check_and_activate_conda
+end
+&lt;span style="color:#66d9ef">if&lt;/span> status is-interactive
+check_and_activate_conda
+end
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>This will run the function &lt;code>check_and_activate_conda&lt;/code> every time you initiate a shell or when you change directory. Now all that you need to do is add a file &lt;code>.condaenv&lt;/code> to the root of your project with the name of the conda environment you want to activate.&lt;/p>
+&lt;p>Unfortunately, I can&amp;rsquo;t add this to some work-related projects because I don&amp;rsquo;t want to add it to the public &lt;code>.gitignore&lt;/code>, nor do I want to remember to not &lt;code>git add&lt;/code> it with every commit. So I added a bit of logic to the script above:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash"> &lt;span style="color:#66d9ef">else&lt;/span> &lt;span style="color:#66d9ef">if&lt;/span> string match -q &lt;span style="color:#e6db74">&amp;#34;&lt;/span>$qblox_path&lt;span style="color:#e6db74">*&amp;#34;&lt;/span> $current_path
+&lt;span style="color:#66d9ef">if&lt;/span> test &lt;span style="color:#e6db74">&amp;#34;&lt;/span>$CONDA_DEFAULT_ENV&lt;span style="color:#e6db74">&amp;#34;&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;base&amp;#34;&lt;/span> -o -z &lt;span style="color:#e6db74">&amp;#34;&lt;/span>$CONDA_DEFAULT_ENV&lt;span style="color:#e6db74">&amp;#34;&lt;/span>
+conda activate dev
+end
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>this will activate the &lt;code>dev&lt;/code> environment whenever I work on a Qblox project.&lt;/p></content></item><item><title>Supercharging your terminal with fish and starship</title><link>https://www.robert-sokolewicz.nl/posts/18_auto_activate_conda/</link><pubDate>Sun, 15 Sep 2024 00:00:00 +0000</pubDate><guid>https://www.robert-sokolewicz.nl/posts/18_auto_activate_conda/</guid><description>A modern looking terminal This is how my terminal looks like at the moment. The layout uses starship to provide useful information about the shell at all times. For example, it shows the current python version if you are in a python environment, and the current branch if you are in a git repository. I made some minor modifications to the default layout, e.g. adding the time information to the right.</description><content>&lt;h1 id="a-modern-looking-terminal">A modern looking terminal&lt;/h1>
+&lt;p>&lt;img src="image-1.png" alt="an awesome terminal">&lt;/p>
+&lt;p>This is how my terminal looks like at the moment. The layout uses &lt;a href="https://starship.rs/">starship&lt;/a> to provide useful information about the shell at all times. For example, it shows the current python version if you are in a python environment, and the current branch if you are in a git repository. I made some minor modifications to the default layout, e.g. adding the time information to the right. I would still like to add a few more things, but I&amp;rsquo;m happy the way it is.&lt;/p>
+&lt;p>Here&amp;rsquo;s my starship config (&lt;code>~/.config/starship.toml&lt;/code>):&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">&lt;span style="color:#e6db74">&amp;#34;&lt;/span>$schema&lt;span style="color:#e6db74">&amp;#34;&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;https://starship.rs/config-schema.json&amp;#39;&lt;/span>
+format &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&amp;#34;
+&lt;/span>&lt;span style="color:#e6db74">[](fg:color_bg1)\
+&lt;/span>&lt;span style="color:#e6db74">&lt;/span>$time&lt;span style="color:#e6db74">\
+&lt;/span>&lt;span style="color:#e6db74">[ ](fg:color_bg1)\
+&lt;/span>&lt;span style="color:#e6db74">[](color_orange)\
+&lt;/span>&lt;span style="color:#e6db74">&lt;/span>$username&lt;span style="color:#e6db74">\
+&lt;/span>&lt;span style="color:#e6db74">[](bg:color_yellow fg:color_orange)\
+&lt;/span>&lt;span style="color:#e6db74">&lt;/span>$directory&lt;span style="color:#e6db74">\
+&lt;/span>&lt;span style="color:#e6db74">[](fg:color_yellow bg:color_aqua)\
+&lt;/span>&lt;span style="color:#e6db74">&lt;/span>$git_branch&lt;span style="color:#e6db74">\
+&lt;/span>&lt;span style="color:#e6db74">&lt;/span>$git_status&lt;span style="color:#e6db74">\
+&lt;/span>&lt;span style="color:#e6db74">[](fg:color_aqua bg:color_blue)\
+&lt;/span>&lt;span style="color:#e6db74">&lt;/span>$c&lt;span style="color:#e6db74">\
+&lt;/span>&lt;span style="color:#e6db74">&lt;/span>$rust&lt;span style="color:#e6db74">\
+&lt;/span>&lt;span style="color:#e6db74">&lt;/span>$golang&lt;span style="color:#e6db74">\
+&lt;/span>&lt;span style="color:#e6db74">&lt;/span>$nodejs&lt;span style="color:#e6db74">\
+&lt;/span>&lt;span style="color:#e6db74">&lt;/span>$php&lt;span style="color:#e6db74">\
+&lt;/span>&lt;span style="color:#e6db74">&lt;/span>$java&lt;span style="color:#e6db74">\
+&lt;/span>&lt;span style="color:#e6db74">&lt;/span>$kotlin&lt;span style="color:#e6db74">\
+&lt;/span>&lt;span style="color:#e6db74">&lt;/span>$haskell&lt;span style="color:#e6db74">\
+&lt;/span>&lt;span style="color:#e6db74">&lt;/span>$python&lt;span style="color:#e6db74">\
+&lt;/span>&lt;span style="color:#e6db74">[](fg:color_blue bg:color_bg3)\
+&lt;/span>&lt;span style="color:#e6db74">&lt;/span>$docker_context&lt;span style="color:#e6db74">\
+&lt;/span>&lt;span style="color:#e6db74">&lt;/span>$conda&lt;span style="color:#e6db74">\
+&lt;/span>&lt;span style="color:#e6db74">[](fg:color_bg3)\
+&lt;/span>&lt;span style="color:#e6db74">&lt;/span>$cmd_duration&lt;span style="color:#e6db74">\
+&lt;/span>&lt;span style="color:#e6db74">&lt;/span>$line_break$character&lt;span style="color:#e6db74">&amp;#34;&amp;#34;&amp;#34;&lt;/span>
+palette &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;gruvbox_dark&amp;#39;&lt;/span>
+&lt;span style="color:#f92672">[&lt;/span>palettes.gruvbox_dark&lt;span style="color:#f92672">]&lt;/span>
+color_fg0 &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;#fbf1c7&amp;#39;&lt;/span>
+color_bg1 &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;#3c3836&amp;#39;&lt;/span>
+color_bg3 &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;#665c54&amp;#39;&lt;/span>
+color_blue &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;#458588&amp;#39;&lt;/span>
+color_aqua &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;#689d6a&amp;#39;&lt;/span>
+color_green &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;#98971a&amp;#39;&lt;/span>
+color_orange &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;#d65d0e&amp;#39;&lt;/span>
+color_purple &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;#b16286&amp;#39;&lt;/span>
+color_red &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;#cc241d&amp;#39;&lt;/span>
+color_yellow &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;#d79921&amp;#39;&lt;/span>
+&lt;span style="color:#f92672">[&lt;/span>os&lt;span style="color:#f92672">]&lt;/span>
+disabled &lt;span style="color:#f92672">=&lt;/span> false
+style &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;bg:color_orange fg:color_fg0&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">[&lt;/span>os.symbols&lt;span style="color:#f92672">]&lt;/span>
+Windows &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;󰍲&amp;#34;&lt;/span>
+Ubuntu &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;󰕈&amp;#34;&lt;/span>
+SUSE &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>
+Raspbian &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;󰐿&amp;#34;&lt;/span>
+Mint &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;󰣭&amp;#34;&lt;/span>
+Macos &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;󰀵&amp;#34;&lt;/span>
+Manjaro &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>
+Linux &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;󰌽&amp;#34;&lt;/span>
+Gentoo &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;󰣨&amp;#34;&lt;/span>
+Fedora &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;󰣛&amp;#34;&lt;/span>
+Alpine &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>
+Amazon &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>
+Android &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>
+Arch &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;󰣇&amp;#34;&lt;/span>
+Artix &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;󰣇&amp;#34;&lt;/span>
+CentOS &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>
+Debian &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;󰣚&amp;#34;&lt;/span>
+Redhat &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;󱄛&amp;#34;&lt;/span>
+RedHatEnterprise &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;󱄛&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">[&lt;/span>username&lt;span style="color:#f92672">]&lt;/span>
+show_always &lt;span style="color:#f92672">=&lt;/span> true
+style_user &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;bg:color_orange fg:color_fg0&amp;#34;&lt;/span>
+style_root &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;bg:color_orange fg:color_fg0&amp;#34;&lt;/span>
+format &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;[ $user ]($style)&amp;#39;&lt;/span>
+&lt;span style="color:#f92672">[&lt;/span>directory&lt;span style="color:#f92672">]&lt;/span>
+style &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;fg:color_fg0 bg:color_yellow&amp;#34;&lt;/span>
+format &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;[ &lt;/span>$path&lt;span style="color:#e6db74"> ](&lt;/span>$style&lt;span style="color:#e6db74">)&amp;#34;&lt;/span>
+truncation_length &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">3&lt;/span>
+truncation_symbol &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;…/&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">[&lt;/span>directory.substitutions&lt;span style="color:#f92672">]&lt;/span>
+&lt;span style="color:#e6db74">&amp;#34;Documents&amp;#34;&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;󰈙 &amp;#34;&lt;/span>
+&lt;span style="color:#e6db74">&amp;#34;Downloads&amp;#34;&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34; &amp;#34;&lt;/span>
+&lt;span style="color:#e6db74">&amp;#34;Music&amp;#34;&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;󰝚 &amp;#34;&lt;/span>
+&lt;span style="color:#e6db74">&amp;#34;Pictures&amp;#34;&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34; &amp;#34;&lt;/span>
+&lt;span style="color:#e6db74">&amp;#34;Developer&amp;#34;&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;󰲋 &amp;#34;&lt;/span>
+&lt;span style="color:#f92672">[&lt;/span>git_branch&lt;span style="color:#f92672">]&lt;/span>
+symbol &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>
+style &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;bg:color_aqua&amp;#34;&lt;/span>
+format &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;[[ $symbol $branch ](fg:color_fg0 bg:color_aqua)]($style)&amp;#39;&lt;/span>
+&lt;span style="color:#f92672">[&lt;/span>git_status&lt;span style="color:#f92672">]&lt;/span>
+style &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;bg:color_aqua&amp;#34;&lt;/span>
+format &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;[[($all_status$ahead_behind )](fg:color_fg0 bg:color_aqua)]($style)&amp;#39;&lt;/span>
+&lt;span style="color:#f92672">[&lt;/span>nodejs&lt;span style="color:#f92672">]&lt;/span>
+symbol &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>
+style &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;bg:color_blue&amp;#34;&lt;/span>
+format &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)&amp;#39;&lt;/span>
+&lt;span style="color:#f92672">[&lt;/span>c&lt;span style="color:#f92672">]&lt;/span>
+symbol &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34; &amp;#34;&lt;/span>
+style &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;bg:color_blue&amp;#34;&lt;/span>
+format &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)&amp;#39;&lt;/span>
+&lt;span style="color:#f92672">[&lt;/span>rust&lt;span style="color:#f92672">]&lt;/span>
+symbol &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>
+style &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;bg:color_blue&amp;#34;&lt;/span>
+format &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)&amp;#39;&lt;/span>
+&lt;span style="color:#f92672">[&lt;/span>golang&lt;span style="color:#f92672">]&lt;/span>
+symbol &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>
+style &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;bg:color_blue&amp;#34;&lt;/span>
+format &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)&amp;#39;&lt;/span>
+&lt;span style="color:#f92672">[&lt;/span>php&lt;span style="color:#f92672">]&lt;/span>
+symbol &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>
+style &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;bg:color_blue&amp;#34;&lt;/span>
+format &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)&amp;#39;&lt;/span>
+&lt;span style="color:#f92672">[&lt;/span>java&lt;span style="color:#f92672">]&lt;/span>
+symbol &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34; &amp;#34;&lt;/span>
+style &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;bg:color_blue&amp;#34;&lt;/span>
+format &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)&amp;#39;&lt;/span>
+&lt;span style="color:#f92672">[&lt;/span>kotlin&lt;span style="color:#f92672">]&lt;/span>
+symbol &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>
+style &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;bg:color_blue&amp;#34;&lt;/span>
+format &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)&amp;#39;&lt;/span>
+&lt;span style="color:#f92672">[&lt;/span>haskell&lt;span style="color:#f92672">]&lt;/span>
+symbol &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>
+style &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;bg:color_blue&amp;#34;&lt;/span>
+format &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)&amp;#39;&lt;/span>
+&lt;span style="color:#f92672">[&lt;/span>python&lt;span style="color:#f92672">]&lt;/span>
+symbol &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>
+style &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;bg:color_blue&amp;#34;&lt;/span>
+format &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)&amp;#39;&lt;/span>
+&lt;span style="color:#f92672">[&lt;/span>docker_context&lt;span style="color:#f92672">]&lt;/span>
+symbol &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>
+style &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;bg:color_bg3&amp;#34;&lt;/span>
+format &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;[[ $symbol( $context) ](fg:#83a598 bg:color_bg3)]($style)&amp;#39;&lt;/span>
+&lt;span style="color:#f92672">[&lt;/span>conda&lt;span style="color:#f92672">]&lt;/span>
+style &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;bg:color_bg3&amp;#34;&lt;/span>
+ignore_base &lt;span style="color:#f92672">=&lt;/span> false
+format &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;[[ $symbol( $environment) ](fg:#83a598 bg:color_bg3)]($style)&amp;#39;&lt;/span>
+&lt;span style="color:#f92672">[&lt;/span>cmd_duration&lt;span style="color:#f92672">]&lt;/span>
+min_time &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">1000&lt;/span>
+show_milliseconds &lt;span style="color:#f92672">=&lt;/span> false
+style &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;bg:color_bg3 fg:#ffffff&amp;#34;&lt;/span>
+show_notifications &lt;span style="color:#f92672">=&lt;/span> false
+format &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;[[ ](fg:color_bg1)[took $duration](fg:color_fg0 bg:color_bg1)]($style)[ ](fg:color_bg1)&amp;#39;&lt;/span>
+&lt;span style="color:#f92672">[&lt;/span>time&lt;span style="color:#f92672">]&lt;/span>
+disabled &lt;span style="color:#f92672">=&lt;/span> false
+time_format &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;%R&amp;#34;&lt;/span>
+style &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;bg:color_bg1&amp;#34;&lt;/span>
+format &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;[[ $time ](fg:color_fg0 bg:color_bg1)]($style)&amp;#39;&lt;/span>
+&lt;span style="color:#f92672">[&lt;/span>line_break&lt;span style="color:#f92672">]&lt;/span>
+disabled &lt;span style="color:#f92672">=&lt;/span> false
+&lt;span style="color:#f92672">[&lt;/span>character&lt;span style="color:#f92672">]&lt;/span>
+disabled &lt;span style="color:#f92672">=&lt;/span> false
+success_symbol &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;[](bold fg:color_green)&amp;#39;&lt;/span>
+error_symbol &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;[](bold fg:color_red)&amp;#39;&lt;/span>
+vimcmd_symbol &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;[](bold fg:color_green)&amp;#39;&lt;/span>
+vimcmd_replace_one_symbol &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;[](bold fg:color_purple)&amp;#39;&lt;/span>
+vimcmd_replace_symbol &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;[](bold fg:color_purple)&amp;#39;&lt;/span>
+vimcmd_visual_symbol &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;[](bold fg:color_yellow)&amp;#39;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>(You&amp;rsquo;ll need a &lt;a href="https://www.nerdfonts.com/">nerd font&lt;/a> with glyphs to see all the fancy characters)&lt;/p>
+&lt;h1 id="fish-shell">Fish shell&lt;/h1>
+&lt;p>I&amp;rsquo;ve been using &lt;a href="https://fishshell.com/">fish&lt;/a> for almost a year now, and I really like it. I use it mostly for the auto-complete feature. It&amp;rsquo;s almost as smart as an AI copilot in your editor, but now in the terminal. (note: it&amp;rsquo;s a very simple frequency based autocomplete, no AI whatsoever)&lt;/p>
+&lt;p>Here&amp;rsquo;s my fish config (&lt;code>~/.config/fish/config.fish&lt;/code>):&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">&lt;span style="color:#75715e"># Fish syntax highlighting&lt;/span>
+set -g fish_color_autosuggestion &lt;span style="color:#e6db74">&amp;#39;555&amp;#39;&lt;/span> &lt;span style="color:#e6db74">&amp;#39;brblack&amp;#39;&lt;/span>
+set -g fish_color_cancel -r
+set -g fish_color_command --bold
+set -g fish_color_comment red
+set -g fish_color_cwd green
+set -g fish_color_cwd_root red
+set -g fish_color_end brmagenta
+set -g fish_color_error brred
+set -g fish_color_escape &lt;span style="color:#e6db74">&amp;#39;bryellow&amp;#39;&lt;/span> &lt;span style="color:#e6db74">&amp;#39;--bold&amp;#39;&lt;/span>
+set -g fish_color_history_current --bold
+set -g fish_color_host normal
+set -g fish_color_match --background&lt;span style="color:#f92672">=&lt;/span>brblue
+set -g fish_color_normal normal
+set -g fish_color_operator bryellow
+set -g fish_color_param cyan
+set -g fish_color_quote yellow
+set -g fish_color_redirection brblue
+set -g fish_color_search_match &lt;span style="color:#e6db74">&amp;#39;bryellow&amp;#39;&lt;/span> &lt;span style="color:#e6db74">&amp;#39;--background=brblack&amp;#39;&lt;/span>
+set -g fish_color_selection &lt;span style="color:#e6db74">&amp;#39;white&amp;#39;&lt;/span> &lt;span style="color:#e6db74">&amp;#39;--bold&amp;#39;&lt;/span> &lt;span style="color:#e6db74">&amp;#39;--background=brblack&amp;#39;&lt;/span>
+set -g fish_color_user brgreen
+set -g fish_color_valid_path --underline
+&lt;span style="color:#75715e"># Install Starship&lt;/span>
+starship init fish | source
+set -x PATH $PATH /home/rsoko/flutter/bin
+&lt;span style="color:#75715e"># &amp;gt;&amp;gt;&amp;gt; conda initialize &amp;gt;&amp;gt;&amp;gt;&lt;/span>
+&lt;span style="color:#75715e"># !! Contents within this block are managed by &amp;#39;conda init&amp;#39; !!&lt;/span>
+eval /home/rsoko/.anaconda3/bin/conda &lt;span style="color:#e6db74">&amp;#34;shell.fish&amp;#34;&lt;/span> &lt;span style="color:#e6db74">&amp;#34;hook&amp;#34;&lt;/span> $argv | source
+set -e CONDA_DEFAULT_ENV &lt;span style="color:#75715e"># disable showing environment name. This is done by starship&lt;/span>
+&lt;span style="color:#75715e"># &amp;lt;&amp;lt;&amp;lt; conda initialize &amp;lt;&amp;lt;&amp;lt;&lt;/span>
+&lt;span style="color:#66d9ef">function&lt;/span> edge
+set path $argv&lt;span style="color:#f92672">[&lt;/span>1&lt;span style="color:#f92672">]&lt;/span>
+set winpath &lt;span style="color:#f92672">(&lt;/span>wslpath -w $path&lt;span style="color:#f92672">)&lt;/span>
+&lt;span style="color:#e6db74">&amp;#34;/mnt/c/Program Files (x86)/Microsoft/Edge/Application/msedge.exe&amp;#34;&lt;/span> &lt;span style="color:#e6db74">&amp;#34;file://&lt;/span>$winpath&lt;span style="color:#e6db74">&amp;#34;&lt;/span> &amp;amp;
+end
+&lt;span style="color:#66d9ef">function&lt;/span> check_and_activate_conda
+set current_path &lt;span style="color:#f92672">(&lt;/span>pwd&lt;span style="color:#f92672">)&lt;/span>
+set qblox_path ~/qblox
+&lt;span style="color:#66d9ef">if&lt;/span> test -e &lt;span style="color:#e6db74">&amp;#34;.condaenv&amp;#34;&lt;/span>
+set env_name &lt;span style="color:#f92672">(&lt;/span>cat .condaenv | string trim&lt;span style="color:#f92672">)&lt;/span>
+&lt;span style="color:#66d9ef">if&lt;/span> test -n &lt;span style="color:#e6db74">&amp;#34;&lt;/span>$env_name&lt;span style="color:#e6db74">&amp;#34;&lt;/span>
+&lt;span style="color:#66d9ef">if&lt;/span> not string match -q -- &lt;span style="color:#e6db74">&amp;#34;*&lt;/span>$env_name&lt;span style="color:#e6db74">*&amp;#34;&lt;/span> $CONDA_DEFAULT_ENV
+conda activate $env_name
+end
+end
+&lt;span style="color:#66d9ef">else&lt;/span> &lt;span style="color:#66d9ef">if&lt;/span> string match -q &lt;span style="color:#e6db74">&amp;#34;&lt;/span>$qblox_path&lt;span style="color:#e6db74">*&amp;#34;&lt;/span> $current_path
+&lt;span style="color:#66d9ef">if&lt;/span> test &lt;span style="color:#e6db74">&amp;#34;&lt;/span>$CONDA_DEFAULT_ENV&lt;span style="color:#e6db74">&amp;#34;&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;base&amp;#34;&lt;/span> -o -z &lt;span style="color:#e6db74">&amp;#34;&lt;/span>$CONDA_DEFAULT_ENV&lt;span style="color:#e6db74">&amp;#34;&lt;/span>
+conda activate dev
+end
+end
+end
+&lt;span style="color:#66d9ef">function&lt;/span> auto_activate_conda --on-variable PWD
+check_and_activate_conda
+end
+&lt;span style="color:#75715e"># Run check_and_activate_conda on shell init&lt;/span>
+&lt;span style="color:#66d9ef">if&lt;/span> status is-interactive
+check_and_activate_conda
+end
+&lt;span style="color:#75715e"># API Keys&lt;/span>
+set -x OPENAI_API_KEY &lt;span style="color:#e6db74">&amp;#34;sk-proj-...&amp;#34;&lt;/span>
+set -x ANTHROPIC_API_KEY &lt;span style="color:#e6db74">&amp;#34;sk-ant-...&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div></content></item><item><title>[8.0/10] Richard Feynman's Six not so easy pieces</title><link>https://www.robert-sokolewicz.nl/books/5_6_not_so_easy_pieces/</link><pubDate>Thu, 22 Aug 2024 00:00:00 +0000</pubDate><guid>https://www.robert-sokolewicz.nl/books/5_6_not_so_easy_pieces/</guid><description>In a small second hand store I was browsing books and there I saw this book for only €1.50! It&amp;rsquo;s a distillation from a few chapters from his famous The Feynman Lectures and concern special and general relativity. As a physicist both the author and the topics excite me, so I managed to read through it quite quickly. For non-physicists I wouldn&amp;rsquo;t recommend the book as it is quite technical (though everyone online contradict me), but for anyone either studying or have studied physics it&amp;rsquo;s a good read.</description><content>&lt;p>In a small second hand store I was browsing books and there I saw this book for only €1.50! It&amp;rsquo;s a distillation from a few chapters from his famous &lt;em>The Feynman Lectures&lt;/em> and concern special and general relativity. As a physicist both the author and the topics excite me, so I managed to read through it quite quickly. For non-physicists I wouldn&amp;rsquo;t recommend the book as it is quite technical (though everyone online contradict me), but for anyone either studying or have studied physics it&amp;rsquo;s a good read. It&amp;rsquo;s nice to reminisce some of the topics I studied at university, but at the same time I got a bit annoyed. Feynman explains the need for each theory and also which symmetries of nature we put into the theory. Everything is done with very little math with a focus on understanding everything intuitively. The reason why it&amp;rsquo;s a bit upsetting, is that I realize how bad some of the lectures at university were. Special relativity was taught to me as more or less: &amp;ldquo;Einstein says light speed is constant for all observers, let&amp;rsquo;s see what that means&amp;rdquo;. No discussion around the history, no discussion around Maxwell&amp;rsquo;s equations, no mention of the fact that length contraction and time dilation were already known (with an incorrect interpretation). Same for general relativity. It was taught by introducing tensors, some tensor algebra rules and we spent 3 months calculating Ricci tensors, Levi-Civita symbols, covariant derivatives. I managed to pass the exam without understanding anything, by just memorizing some math rules. It was so dramatic that after 3 months I still didn&amp;rsquo;t even know what a tensor was, apart from that if it transforms like a tensor, it is a tensor.&lt;/p>
+&lt;p>Of course later on you read some stuff online, watch some youtube videos and you slowly learn the history and intuition behind it. But why not teach it properly the first time?&lt;/p>
+&lt;p>In any case, the book can be summarized with the following ideas:&lt;/p>
+&lt;ol>
+&lt;li>All mechanics should not depend on which units you use, nor where you place the origin of the coordinate system you measure in. In a sense, this means that if I want to understand the game of billiards from a physics perspective it doesn&amp;rsquo;t matter if I use grams or ounces, nor does it matter if I stand on one side of the table, or the other. I can even walk around the room while taking measurements, and the laws of physics should remain the same. We call this Galilean invariance.&lt;/li>
+&lt;li>Einstein (in part also Poincaré) comes along and says: not only mechanics, but all of physics should remain invariant. If I sit in a car, or in a spaceship I should not be able to create any experiment that can tell me how fast I&amp;rsquo;m moving (without looking outside). This is called the relativity principle. From here we can choose two philosophical paths:
+&lt;ul>
+&lt;li>The speed of light is constant. And from there we derive a new set of rules that are called Lorentzian invariance.&lt;/li>
+&lt;li>You can show that the relativity principle implies either Galilean invariance, or Lorentzian invariance. Then experimentally we see we need to choose Lorentzian invariance, and that the constant c that appears must be (up to experimental precision) identical to the speed of light.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>And finally, Einstein in another stroke of brilliance says: not only should all of physics be the same when moving with a constant velocity, it should also be the same both in a falling elevator, and in an accelerating spaceship. In a sense equating acceleration to gravity and claiming that they are one and the same. This is called the principle of equivalence.&lt;/li>
+&lt;/ol>
+&lt;p>So in short, most of modern physics was invented by a few philosophical leaps: starting from the fact that all of mechanics should be the same (at constant velocity), to all of physics should be the same (at constant velocity), and finally to the idea that all of physics should be the same in gravity and when accelerating.&lt;/p>
+&lt;p>Presenting it this way gives me a much better appreciation of physics, but it also shows how special and general relativity follows quite naturally from classical mechanics. Something quite fundamental, but still missing from my education unfortunately.&lt;/p>
+&lt;p>Besides these ideas Feynman also goes a bit more into detail of time and space dilation, why clocks move slower in stronger gravity (think of the movie interstellar) and what it means that space has a &amp;ldquo;geometry&amp;rdquo;.&lt;/p></content></item><item><title>[8/10] Max Tegman's Life 3.0</title><link>https://www.robert-sokolewicz.nl/books/8_life3/</link><pubDate>Thu, 01 Aug 2024 00:00:00 +0000</pubDate><guid>https://www.robert-sokolewicz.nl/books/8_life3/</guid><description/><content/></item><item><title>[5/10] Nick Bostrom's Superintelligence</title><link>https://www.robert-sokolewicz.nl/books/7_superintelligence/</link><pubDate>Mon, 15 Jul 2024 00:00:00 +0000</pubDate><guid>https://www.robert-sokolewicz.nl/books/7_superintelligence/</guid><description>The book explores the idea of &amp;ldquo;superintelligence&amp;rdquo;, an intelligence that is above that of human in all regards. Nick tries to be rather complete in his exploration and defines different types and aspects of superintelligence, and then explores the implications for our future. Initially I was quite excited with the book. It seemed to be quite diverse and in-depth, and it was written right before the large-language-model boom.
+Unfortunately, the book is quite dense and technical and I found it difficult to read.</description><content>&lt;p>The book explores the idea of &amp;ldquo;superintelligence&amp;rdquo;, an intelligence that is above that of human in all regards. Nick tries to be rather complete in his exploration and defines different types and aspects of superintelligence, and then explores the implications for our future. Initially I was quite excited with the book. It seemed to be quite diverse and in-depth, and it was written right before the large-language-model boom.&lt;/p>
+&lt;p>Unfortunately, the book is quite dense and technical and I found it difficult to read. Most of the content was quite interesting, but it was hard to push through it and in the end I skipped a few chapters. It starts of with defining different sorts of superintelligence. For example, a single computer that can outsmart humans on all tasks, or perhaps a network or collection of intelligences? The network he calls &amp;ldquo;collective superintelligence&amp;rdquo;, which I found an interesting idea. Now that we have large-language-models producing content online and sometimes even engaging with each other, it&amp;rsquo;s not hard to imagine how the internet will look like in the near future. As each AI becomes smarter and more capable, the internet will have a life of its own. Other examples of superintelligence could be genetically enhanced humans, consciousness uploaded to computers, cyborgs and a few other ideas.&lt;/p>
+&lt;p>So far so good. Nick then continues to explore different pathways how these various kinds of superintelligences can emerge. I was less convinced here and it seemed more like science fiction, than anything else. It wasn&amp;rsquo;t wrong or unbelievable, but it felt like a random collection of ideas without giving merit to any of them. He does argue however that the leap from moderate intelligence, to superintelligence can happen exponentially fast. The idea is also shared with Max Tegmark in his &amp;ldquo;Life 3.0&amp;rdquo;, at a certain moment an AI can design a better version of itself, and this can repeat indefinitely, and very quickly. However, looking at what is called the &amp;ldquo;chinchilla scaling laws&amp;rdquo;, it seems to me that we have lots of bottlenecks that prevent this fast emergence of intelligence from ever happening.&lt;/p>
+&lt;p>The main argument of Nick here is that the &amp;ldquo;recalcitrance&amp;rdquo; of AI, i.e. its resistance to improve, is likely to be lower than the &amp;ldquo;optimization power&amp;rdquo; of artificial AI. For human superintelligence (e.g. spending a few hundred years selective breeding the most intelligent humans), our DNA might be an early bottleneck preventing any further boost to our intelligence. For artificial AI however, Nick argues that the optimization power is always higher than the recalcitrance, leading to a &amp;ldquo;fast takeoff&amp;rdquo; where superintelligence is reached in a very short time. This is sounds familiar to the movie Terminator, where computers become self-aware and in no time able to take over the world.&lt;/p>
+&lt;p>Again, I&amp;rsquo;m not very convinced by this argument. Looking at large language models, we have to throw so much compute at it and we&amp;rsquo;re already close to the limit of how big these models can get. Data becomes a limiting factor and you can&amp;rsquo;t expect the model to have a lower cross entropy loss than the entropy of natural language itself.&lt;/p>
+&lt;p>I stopped reading soon after this. As I mentioned before, the text is written in aa dense and technical way, and reminds me a bit of reading academic papers. I got recommended to read Life 3.0 by Max Tegmark instead, which shares many ideas and is written in a more accessible way.&lt;/p>
+&lt;p>So to end this review: content wise I think it was quite interesting, but it wasn&amp;rsquo;t very pleasurable to read before sleeping. If you read slowly, spend time contemplating the content, I&amp;rsquo;m sure it&amp;rsquo;s worth a read, but these days I&amp;rsquo;m too impatient for that :D&lt;/p></content></item><item><title>[7/10] Kazuo Ishiguro's Klara and the sun</title><link>https://www.robert-sokolewicz.nl/books/6_clara_and_the_sun/</link><pubDate>Tue, 12 Mar 2024 00:00:00 +0000</pubDate><guid>https://www.robert-sokolewicz.nl/books/6_clara_and_the_sun/</guid><description>A science fiction book based in a time where children grow up with an AI best friend. They are there to comfort the children, help them develop and give them strength and security to tackle the adult world once they grow up. We follow the robot friend Klara, and their human friend Josie, throughout Josie&amp;rsquo;s childhood. Through the eyes of Klara we learn about the world they live in, the social interactions between humans and AI and her observations act as a looking glass and a reflection on our own society.</description><content>&lt;p>A science fiction book based in a time where children grow up with an AI best friend. They are there to comfort the children, help them develop and give them strength and security to tackle the adult world once they grow up. We follow the robot friend Klara, and their human friend Josie, throughout Josie&amp;rsquo;s childhood. Through the eyes of Klara we learn about the world they live in, the social interactions between humans and AI and her observations act as a looking glass and a reflection on our own society.&lt;/p>
+&lt;p>Although the story unfolds through the eyes of Klara, we experience the story from Josie&amp;rsquo;s perspective as well. While Klara tries to understand the world in her own way, as the reader you know what is actually going on. For example, Josie is upset after a fight with her neighbor boy, and even though we don&amp;rsquo;t have all the details it&amp;rsquo;s clear what happened and why Josie feels that way. But then Klara tries to understand it in her own way. It&amp;rsquo;s an interesting perspective to try to make sense of emotions in a rational way.&lt;/p>
+&lt;p>We see how Josie grows up with Klara and shows us one of the possible future of how AI will integrate with our lives. Unfortunately, the world building surrounding AI was a bit lacking. Although most rich kids have a robot friend, we see little interaction between Klara and them. The story is focussed on Josie and Klara.&lt;/p>
+&lt;p>A bit of a dystopian feeling that I always have about the future with AI, is also present in this book: because the children grow up with an AI best friend, they lack social skills to interact with each other. Because all the kids want one, it not only creates a social divide between rich kids and poor kids, it creates this feedback loop every new generation of AI is the new thing, rich kids get dependent on it and it becomes a necessity, rather than a cool thing to have.&lt;/p>
+&lt;p>All in all a nice story, but I would&amp;rsquo;ve appreciated more if the world building was more expanded. We only see AI in the form of best friends for children that get discarded when they grow up, but we do not see how AI is integrated in other aspects of life.&lt;/p></content></item><item><title>How to pass custom prompts to langchain chains</title><link>https://www.robert-sokolewicz.nl/posts/16_langchain_prompts/</link><pubDate>Sat, 18 Nov 2023 00:00:00 +0000</pubDate><guid>https://www.robert-sokolewicz.nl/posts/16_langchain_prompts/</guid><description>Custom prompts for langchain chains At the moment I’m writing this post, the langchain documentation is a bit lacking in providing simple examples of how to pass custom prompts to some of the built-in chains. While the existing documentation is focused on using the “new” LangChain expression language (LCEL), documentation on how to pass custom prompts to “old” methods like load_summarize_chain is not well documented.
 For example, load_summarize_chain allows for additional kwargs to be passed to it, but the keyword names for prompts are a bit confusing and undocumented</description><content>&lt;h1 id="custom-prompts-for-langchain-chains">Custom prompts for langchain chains&lt;/h1>
 &lt;p>At the moment I’m writing this post, the &lt;code>langchain&lt;/code> documentation is a bit
 lacking in providing simple examples of how to pass custom prompts to some of
@@ -370,7 +643,7 @@ refine_prompt&lt;span style="color:#f92672">=&lt;/span>refine_prompt,
 document_variable_name&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;context_str&amp;#34;&lt;/span>,
 initial_response_name&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;existing_answer&amp;#34;&lt;/span>,
 )
-&lt;/code>&lt;/pre>&lt;/div></content></item><item><title>Google Scripts to label GitLab related emails</title><link>https://www.robert-sokolewicz.nl/posts/15_gmail_labels/</link><pubDate>Wed, 27 Sep 2023 00:00:00 +0000</pubDate><guid>https://www.robert-sokolewicz.nl/posts/15_gmail_labels/</guid><description>Preview of how my inbox looks like now :) If you are subscribed to many GitLab notifications, you might receive a lot of emails from GitLab for every merge request, issue, mention, review requested, and so on. Automatically labeling them in Gmail can be done by creating filters, but can be a bit difficult because you can only filter on titles and text body. A lot of useful information is actually present inside the email-headers, and for each notification GitLab adds GitLab-specific headers.</description><content>
+&lt;/code>&lt;/pre>&lt;/div></content></item><item><title>[8/10] Vladimir Khorikov's Unit Testing: Principles, Practices, and Patterns</title><link>https://www.robert-sokolewicz.nl/books/11_unit_testing/</link><pubDate>Mon, 30 Oct 2023 00:00:00 +0000</pubDate><guid>https://www.robert-sokolewicz.nl/books/11_unit_testing/</guid><description/><content/></item><item><title>Google Scripts to label GitLab related emails</title><link>https://www.robert-sokolewicz.nl/posts/15_gmail_labels/</link><pubDate>Wed, 27 Sep 2023 00:00:00 +0000</pubDate><guid>https://www.robert-sokolewicz.nl/posts/15_gmail_labels/</guid><description>Preview of how my inbox looks like now :) If you are subscribed to many GitLab notifications, you might receive a lot of emails from GitLab for every merge request, issue, mention, review requested, and so on. Automatically labeling them in Gmail can be done by creating filters, but can be a bit difficult because you can only filter on titles and text body. A lot of useful information is actually present inside the email-headers, and for each notification GitLab adds GitLab-specific headers.</description><content>
 &lt;figure class="center" >
 &lt;img src="image-9.png" />
 &lt;figcaption class="center" >Preview of how my inbox looks like now :)&lt;/figcaption>
@@ -1824,7 +2097,58 @@ a kid, it is important to belong to and feel accepted by your group. This I
 imagine is one of the root causes of his desire to be more Dutch and less
 Chinese. And now that he reconciled with his past, it seemed that he accepted
 being Chinese on the outside and Dutch on the inside, just like a banana. But
-does this mean he feels being Dutch, Chinese or both, Chinese-Dutch?&lt;/p></content></item><item><title>A derivation of the Kubo formula</title><link>https://www.robert-sokolewicz.nl/physics/4_kubo/</link><pubDate>Sun, 01 Jan 2023 00:00:00 +0000</pubDate><guid>https://www.robert-sokolewicz.nl/physics/4_kubo/</guid><description>The linear response formula we used to compute the spin-density of conducting electrons can be obtained in a Keldysh-framework. We start by introducing the Green function $\mathcal{G}$ in rotated Keldysh space [see e.g. (Citation: Rammer &amp;amp; al.,&amp;#32;1986Rammer,&amp;#32; J.&amp;#32;&amp;amp;&amp;#32;Smith,&amp;#32; H. &amp;#32; (1986). &amp;#32;Quantum field-theoretical methods in transport theory of metals. Rev. Mod. Phys.,&amp;#32;58(2).&amp;#32;323–359. https://doi.org/10.1103/revmodphys.58.323 )]
+does this mean he feels being Dutch, Chinese or both, Chinese-Dutch?&lt;/p></content></item><item><title>[6.5/10] Matt Parker's Humble Pi</title><link>https://www.robert-sokolewicz.nl/books/1_humble_pi/</link><pubDate>Sun, 26 Feb 2023 00:00:00 +0000</pubDate><guid>https://www.robert-sokolewicz.nl/books/1_humble_pi/</guid><description>Matt Parker some of us know from his appearances on the YouTube channel numberphile and on his personal YouTube channel standupmaths. Matt created a collection of funny situations and unexpected mistakes in the real world, that originate from math mistakes. It is a fun read to spend a few evenings, but unfortunately for me most of the problems I already knew.
+Some highlights:
+The oldest known maths error was found on an old Sumerian clay tablet that was made between 3000 and 3400 BC.</description><content>&lt;p>Matt Parker some of us know from his appearances on the YouTube channel &lt;a href="https://www.youtube.com/user/numberphile">numberphile&lt;/a> and on his personal YouTube channel &lt;a href="https://www.youtube.com/user/standupmaths">standupmaths&lt;/a>. Matt created a collection of funny situations and unexpected mistakes in the real world, that originate from math mistakes. It is a fun read to spend a few evenings, but unfortunately for me most of the problems I already knew.&lt;/p>
+&lt;p>Some highlights:&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>The oldest known maths error was found on an old Sumerian clay tablet that was made between 3000 and 3400 BC. Someone named Kushim was in charge of tracking stock levels in a warehouse containing ingredients to make beer. There are 18 tablets signed by Kushim that involves counting how much barley there is, and in one of the tablets he made a mistake of adding things up.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>In 2011 the book &lt;em>the making of a fly&lt;/em> was for sale on Amazon for over 23 million USD. There were two sellers selling the book, and apparently their listing price was determined automatically using an algorithm. One seller set their price to be for example 1.5% higher then the second lowest price, while the second seller set the price to be 0.9% cheaper then the second lowest price. As time went on, the algorithms were increasing the price bit by bit until it was noticed that the listing price increased from about 10 USD to 23 USD.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>In 1983, Air Canada flight 143 ran out of fuel mid flight because the ground crew used pounds instead of kilograms to measure the total amount of fuel. After safely landing and refuelling&amp;hellip; the exact same thing happened.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>In 1968 after the space shuttle Challenger exploded, a special commission was formed to investigate the root cause. One of the commission members was Richard Feynman, and it was discovered that the rubber rings that connected different sections of the booster rockets did not produce a tight seal. This was in part of lack of elasticity in low temperatures (and the shuttle was launched on a particularly cold day), but also because the booster rocket sections were not perfectly circular. The way the engineers determined how circular each section was, was by measuring the diameter across three angles and ensure that they are equal. However, a circle isn&amp;rsquo;t the only shape with constant diameter, and hence the approach of the engineers failed. Consider for example the Reuleaux triangle which has a constant diameter across all angles:&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;div class="flex flex-wrap justify-center items-center vh-100">
+&lt;div>
+&lt;svg
+viewBox="0 0 400 400"
+class="db w5 h5 center"
+fill="none"
+stroke-linejoin="round"
+stroke-linecap="round"
+stroke-width="4">
+&lt;g transform="translate(200 200)">
+&lt;path
+id="square"
+stroke="#0f0"
+d="M -155.885 -155.885 h 311.77 v 311.77 h -311.77 z"
+/>
+&lt;/g>
+&lt;circle cx="200" cy="200" r="4" stroke="#ccc" stroke-width="4" />
+&lt;g id="container">
+&lt;circle cx="0" cy="0" r="4" stroke="#f0f" stroke-width="4" />
+&lt;path
+id="reuleaux-triangle"
+stroke="#333"
+d="M 90 155.88457268119896
+A 311.77 311.77 0 0 1 -180 0
+A 311.77 311.77 0 0 1 90 -155.885
+A 311.77 311.77 0 0 1 90 155.885
+Z"
+/>
+&lt;/g>
+&lt;/svg>
+&lt;/div>
+&lt;/div>
+&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js">&lt;/script>
+&lt;p>the width of the triangle in the above animation is just the size of the outer box (400 pixels in this case).&lt;/p></content></item><item><title>A derivation of the Kubo formula</title><link>https://www.robert-sokolewicz.nl/physics/4_kubo/</link><pubDate>Sun, 01 Jan 2023 00:00:00 +0000</pubDate><guid>https://www.robert-sokolewicz.nl/physics/4_kubo/</guid><description>The linear response formula we used to compute the spin-density of conducting electrons can be obtained in a Keldysh-framework. We start by introducing the Green function $\mathcal{G}$ in rotated Keldysh space [see e.g. (Citation: Rammer &amp;amp; al.,&amp;#32;1986Rammer,&amp;#32; J.&amp;#32;&amp;amp;&amp;#32;Smith,&amp;#32; H. &amp;#32; (1986). &amp;#32;Quantum field-theoretical methods in transport theory of metals. Rev. Mod. Phys.,&amp;#32;58(2).&amp;#32;323–359. https://doi.org/10.1103/revmodphys.58.323 )]
 $$\mathcal{G}=\begin{pmatrix}G^\text{R} &amp; G^\text{K}\\ 0 &amp; G^\text{A}\end{pmatrix}$$ where R, A and K denote retarded, advanced and Keldysh Green functions respectively.</description><content>&lt;p>The linear response formula we used to compute the spin-density of conducting electrons can be obtained in a Keldysh-framework. We start by introducing the Green function &lt;code>$\mathcal{G}$&lt;/code> in rotated Keldysh space [see e.g.
 &lt;span class="hugo-cite-intext"
 itemprop="citation">(&lt;span class="hugo-cite-group">
@@ -14074,7 +14398,7 @@ Get-Service sshd
 &lt;pre>&lt;code class="language-{bash}" data-lang="{bash}">ssh user@host
 &lt;/code>&lt;/pre>&lt;p>where &lt;code>user&lt;/code> is your Windows login username (not your wsl linux username), and &lt;code>host&lt;/code> is your host computer&amp;rsquo;s local private ip address that looks like &lt;code>192.168.x.x&lt;/code> or &lt;code>172.x.x.x&lt;/code>. You can get the ip address by either running &lt;code>ifconfig eth0&lt;/code> in your terminal, or by opening your Windows Network Settings (win-key &amp;gt; &amp;ldquo;network settings&amp;rdquo;).&lt;/p>
 &lt;p>If you do not manage to connect, make sure the ssh daemon is running on your host computer by running &lt;code>sudo service ssh status&lt;/code>. If it is not running you can start it with &lt;code>sudo service ssh start&lt;/code>. If you still cannot connect, try to open port 22 in your firewall on the host computer, or temporary turn off Windows firewall.&lt;/p>
-&lt;p>If all is correct you should get inside your host&amp;rsquo;s wsl partition directly.&lt;/p></content></item><item><title>elements</title><link>https://www.robert-sokolewicz.nl/posts/1_elements/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.robert-sokolewicz.nl/posts/1_elements/</guid><description>Table of contents Table of contents Text Code Python C/C++ Bash Tables Text Some example text
+&lt;p>If all is correct you should get inside your host&amp;rsquo;s wsl partition directly.&lt;/p></content></item><item><title>[8/10] Christoff Molnar's The Modelers Mindset</title><link>https://www.robert-sokolewicz.nl/books/10_modelers_mindset/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.robert-sokolewicz.nl/books/10_modelers_mindset/</guid><description/><content/></item><item><title>[9/10] Caroline Perez' Invisible Women</title><link>https://www.robert-sokolewicz.nl/books/9_womendata/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.robert-sokolewicz.nl/books/9_womendata/</guid><description/><content/></item><item><title>elements</title><link>https://www.robert-sokolewicz.nl/posts/1_elements/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.robert-sokolewicz.nl/posts/1_elements/</guid><description>Table of contents Table of contents Text Code Python C/C++ Bash Tables Text Some example text
 Code Python def foo(): print (&amp;#34;This is a python function&amp;#34;) C/C++ void foo(){ prinf(&amp;#34;%s\n&amp;#34;, &amp;#34;This is a C function&amp;#34;) } Bash # This is a bash command cd dir &amp;amp;&amp;amp; echo $PWD; # Return exit 0; Tables Pages Elements 1 Text 2 Code 3 Tables</description><content>&lt;h2 id="table-of-contents">Table of contents&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="#table-of-contents">Table of contents&lt;/a>&lt;/li>

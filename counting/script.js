@@ -1,101 +1,82 @@
-let score = 0;
-
-function generateQuestion() {
-    const num1 = Math.ceil(Math.random() * 10);
-    const num2 = Math.ceil(Math.random() * 10);
-    const correctAnswer = num1 + num2;
-
-    // Assuming a function to convert numbers to their Vietnamese representation
-    // For numbers > 10, you would need to extend your dictionary or logic
-    const questionText = `${convertNumberToVietnamese(num1)} + ${convertNumberToVietnamese(num2)}`;
-    document.getElementById('question').textContent = questionText;
-
-    const choices = generateChoices(correctAnswer);
-    displayChoices(choices, correctAnswer);
-}
-
-function generateChoices(correctAnswer) {
-    let choicesSet = new Set([correctAnswer]);
-    while (choicesSet.size < 4) {
-        // Generate near numbers for choices, ensuring they're within a reasonable range
-        let nearNumber = correctAnswer + Math.floor(Math.random() * 7) - 3; // Generate numbers in a range around the correct answer
-        if (nearNumber > 0) choicesSet.add(nearNumber); // Ensure no negative numbers
+// Function to open a specific game tab
+function openGame(evt, gameName) {
+    var tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (let i = 0; i < tabcontent.length; i++) {
+      tabcontent[i].style.display = "none";
     }
-
-    // Convert the Set to an Array and shuffle it
-    let choices = Array.from(choicesSet);
-    choices = choices.sort(() => Math.random() - 0.5);
-    return choices;
-}
-
-function displayChoices(choices, correctAnswer) {
-    const choicesElement = document.getElementById('choices');
-    choicesElement.innerHTML = '';
-    choices.forEach(choice => {
-        const choiceElement = document.createElement('div');
-        choiceElement.textContent = convertNumberToVietnamese(choice); // Convert choices to Vietnamese
-        choiceElement.onclick = function() { selectChoice(choice, correctAnswer); };
-        choicesElement.appendChild(choiceElement);
-    });
-}
-
-function selectChoice(selected, correct) {
-    const choicesElement = document.getElementById('choices').children;
-    let correctElement, selectedElement;
-
-    for (let i = 0; i < choicesElement.length; i++) {
-        if (choicesElement[i].textContent === convertNumberToVietnamese(correct)) {
-            correctElement = choicesElement[i];
-        }
-        if (choicesElement[i].textContent === convertNumberToVietnamese(selected)) {
-            selectedElement = choicesElement[i];
-        }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (let i = 0; i < tablinks.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace(" active", "");
     }
-
-    if (selected === correct) {
-        selectedElement.classList.add('correct');
+    document.getElementById(gameName).style.display = "block";
+    evt.currentTarget.className += " active";
+  
+    if (gameName === "NumberGuess") {
+      startNumberGuessGame();
+    }
+  }
+  
+  // Mapping for Vietnamese numbers 0-10
+  const numberToVietnamese = {
+    0: 'không', 1: 'một', 2: 'hai', 3: 'ba', 4: 'bốn', 
+    5: 'năm', 6: 'sáu', 7: 'bảy', 8: 'tám', 9: 'chín', 10: 'mười'
+  };
+  
+  let currentNumber = 0; // The number currently displayed
+  let correctAnswers = 0; // Total correct answers
+  let incorrectAnswers = 0; // Total incorrect answers
+  
+  function displayNewNumber() {
+    currentNumber = Math.floor(Math.random() * 11); // Random number between 0 and 10
+    document.getElementById('vietnameseNumber').textContent = numberToVietnamese[currentNumber];
+    document.getElementById('vietnameseNumber').style.backgroundColor = ''; // Reset background color
+  }
+  
+  function updateScore() {
+    document.getElementById('scoreGuess').textContent = `Correct: ${correctAnswers} Incorrect: ${incorrectAnswers}`;
+  }
+  
+  function startNumberGuessGame() {
+    correctAnswers = 0;
+    incorrectAnswers = 0;
+    updateScore();
+    displayNewNumber();
+  
+    // Attach the keydown event listener specifically for this game
+    document.addEventListener('keydown', handleNumberGuess);
+  }
+  
+  function handleNumberGuess(event) {
+    // Ensure we only accept number key presses and ignore others like Alt+Tab
+    if (event.key >= 0 && event.key <= 9) {
+      let guess = parseInt(event.key);
+      checkGuess(guess);
+    } else if (event.key === '0' && currentNumber === 10) { // Special case for "10" as "0" being the second digit
+      // Wait for potential second digit
+      setTimeout(() => {
+        if (currentNumber === 10) {
+          checkGuess(10);
+        }
+      }, 500); // Wait 0.5s for a user to possibly press "1" after "0" for "10"
+    }
+  }
+  
+  function checkGuess(guess) {
+    let isCorrect = guess === currentNumber;
+    if (isCorrect) {
+      correctAnswers++;
+      document.getElementById('vietnameseNumber').style.backgroundColor = '#c8e6c9'; // Pastel green
     } else {
-        selectedElement.classList.add('wrong');
-        correctElement.classList.add('correct');
+      incorrectAnswers++;
+      document.getElementById('vietnameseNumber').style.backgroundColor = '#ffcdd2'; // Pastel red
     }
-
-    setTimeout(() => {
-        // Reset classes for the next question
-        Array.from(choicesElement).forEach(element => element.className = '');
-        if (selected === correct) {
-            score++;
-            document.getElementById('score').textContent = `Score: ${score}`;
-        }
-        generateQuestion();
-    }, 500); // Wait 0.5 seconds before moving to the next question
-}
-
-
-
-function highlightCorrectAnswer(correctAnswer) {
-    const choices = document.getElementById('choices').children;
-    for (let i = 0; i < choices.length; i++) {
-        const choice = choices[i];
-        if (parseInt(choice.textContent) === correctAnswer) { // Assuming direct comparison for simplicity
-            choice.classList.add('correct');
-        } else {
-            choice.classList.add('wrong');
-        }
-    }
-}
-
-function convertNumberToVietnamese(number) {
-    const numberToVietnamese = {
-        1: 'một', 2: 'hai', 3: 'ba', 4: 'bốn', 5: 'năm',
-        6: 'sáu', 7: 'bảy', 8: 'tám', 9: 'chín', 10: 'mười',
-        11: 'mười một', 12: 'mười hai', 13: 'mười ba', 14: 'mười bốn', 15: 'mười lăm',
-        16: 'mười sáu', 17: 'mười bảy', 18: 'mười tám', 19: 'mười chín', 20: 'hai mươi'
-    };
-
-    return numberToVietnamese[number] || number.toString();
-}
-
-
-// Debug: Check if the script reaches this point and can generate questions
-console.log("Script loaded. Generating first question.");
-generateQuestion();
+    updateScore();
+    setTimeout(displayNewNumber, 500); // Wait 0.5 seconds before showing the next number
+  }
+  
+  // Initial call to set up the first game or tab as active on load
+  document.addEventListener('DOMContentLoaded', () => {
+    openGame({ currentTarget: document.querySelector('.tablinks') }, 'Arithmetic'); // Default to opening the first game
+  });
+  

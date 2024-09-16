@@ -15,7 +15,7 @@
     font-family: Fira Code;
     font-style: normal;
     font-weight: 400;
-    src: url(2078a57b79d547bf1e2502f8d249b867.woff) format("woff")
+    src: url(fonts/FiraCodeNF-Reg.woff) format("woff")
 }
 
 @font-face {
@@ -23,7 +23,7 @@
     font-family: Fira Code;
     font-style: normal;
     font-weight: 800;
-    src: url(58cebbe9a6bdcba6d4bb56a22a9e812f.woff) format("woff")
+    src: url(fonts/FiraCodeNF-Bold.woff) format("woff")
 }
 
 .button-container {

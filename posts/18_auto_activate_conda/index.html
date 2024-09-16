@@ -1,0 +1,263 @@
+<!doctype html><html lang=en><head><title>Supercharging your terminal with fish and starship :: Roberts blog</title><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="Some cool enhancements to your terminal"><meta name=keywords content><meta name=robots content="noodp"><link rel=canonical href=https://www.robert-sokolewicz.nl/posts/18_auto_activate_conda/><link rel=stylesheet href=https://www.robert-sokolewicz.nl/assets/style.css><link rel=stylesheet href=https://www.robert-sokolewicz.nl/assets/css/hugo-cite.css><link rel=apple-touch-icon href=https://www.robert-sokolewicz.nl/img/apple-touch-icon-192x192.png><link rel="shortcut icon" href=https://www.robert-sokolewicz.nl/img/favicon/orange.png><meta name=twitter:card content="summary"><meta property="og:locale" content="en"><meta property="og:type" content="article"><meta property="og:title" content="Supercharging your terminal with fish and starship"><meta property="og:description" content="Some cool enhancements to your terminal"><meta property="og:url" content="https://www.robert-sokolewicz.nl/posts/18_auto_activate_conda/"><meta property="og:site_name" content="Roberts blog"><meta property="og:image" content="https://www.robert-sokolewicz.nl"><meta property="og:image:width" content="2048"><meta property="og:image:height" content="1024"><meta property="article:published_time" content="2024-09-15 00:00:00 +0000 UTC"><script>MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],displayMath:[['$$','$$'],['\\[','\\]']],macros:{bb:["{\\boldsymbol{#1}}",1],tr:"{\\DeclareMathOperator{\\tr}{Tr}}",im:"{\\DeclareMathOperator{\\im}{Im}}",re:"{\\DeclareMathOperator{\\re}{Re}}",},processEscapes:true,processEnvironments:true,tags:"ams"},options:{skipHtmlTags:['script','noscript','style','textarea','pre']}};window.addEventListener('load',(event)=>{document.querySelectorAll("mjx-container").forEach(function(x){x.parentElement.classList+='has-jax'})});</script><script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script><script type=text/javascript id=MathJax-script async src=https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js></script><script type=text/x-mathjax-config>
+    MathJax.Hub.Queue(function() {
+        // Fix <code> tags after MathJax finishes running. This is a
+        // hack to overcome a shortcoming of Markdown. Discussion at
+        // https://github.com/mojombo/jekyll/issues/199
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i = 0; i &lt; all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+    </script></head><body class=orange><div class="container center headings--one-size"><header class=header><div class=header__inner><div class=header__logo><a href=/><div class=logo>Home</div></a></div><div class=menu-trigger>menu</div></div><nav class=menu><ul class="menu__inner menu__inner--desktop"><li><a href=/about>About</a></li><li><a href=/books>Book Reviews</a></li><li><a href=/cv>CV</a></li><li><a href=/physics>Physics</a></li></ul><ul class="menu__inner menu__inner--mobile"><li><a href=/about>About</a></li><li><a href=/books>Book Reviews</a></li><li><a href=/cv>CV</a></li><li><a href=/physics>Physics</a></li></ul></nav></header><div class=content><div class=post><h1 class=post-title><a href=https://www.robert-sokolewicz.nl/posts/18_auto_activate_conda/>Supercharging your terminal with fish and starship</a></h1><div class=post-meta><span class=post-date>2024-09-15</span>
+<span class=post-author>:: Robert</span></div><div class=post-content><div><h1 id=a-modern-looking-terminal>A modern looking terminal<a href=#a-modern-looking-terminal class=hanchor arialabel=Anchor>&#8983;</a></h1><p><img src=image-1.png alt="an awesome terminal"></p><p>This is how my terminal looks like at the moment. The layout uses <a href=https://starship.rs/>starship</a> to provide useful information about the shell at all times. For example, it shows the current python version if you are in a python environment, and the current branch if you are in a git repository. I made some minor modifications to the default layout, e.g. adding the time information to the right. I would still like to add a few more things, but I&rsquo;m happy the way it is.</p><p>Here&rsquo;s my starship config (<code>~/.config/starship.toml</code>):</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#e6db74>&#34;</span>$schema<span style=color:#e6db74>&#34;</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;https://starship.rs/config-schema.json&#39;</span>
+
+format <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;&#34;&#34;
+</span><span style=color:#e6db74>[](fg:color_bg1)\
+</span><span style=color:#e6db74></span>$time<span style=color:#e6db74>\
+</span><span style=color:#e6db74>[ ](fg:color_bg1)\
+</span><span style=color:#e6db74>[](color_orange)\
+</span><span style=color:#e6db74></span>$username<span style=color:#e6db74>\
+</span><span style=color:#e6db74>[](bg:color_yellow fg:color_orange)\
+</span><span style=color:#e6db74></span>$directory<span style=color:#e6db74>\
+</span><span style=color:#e6db74>[](fg:color_yellow bg:color_aqua)\
+</span><span style=color:#e6db74></span>$git_branch<span style=color:#e6db74>\
+</span><span style=color:#e6db74></span>$git_status<span style=color:#e6db74>\
+</span><span style=color:#e6db74>[](fg:color_aqua bg:color_blue)\
+</span><span style=color:#e6db74></span>$c<span style=color:#e6db74>\
+</span><span style=color:#e6db74></span>$rust<span style=color:#e6db74>\
+</span><span style=color:#e6db74></span>$golang<span style=color:#e6db74>\
+</span><span style=color:#e6db74></span>$nodejs<span style=color:#e6db74>\
+</span><span style=color:#e6db74></span>$php<span style=color:#e6db74>\
+</span><span style=color:#e6db74></span>$java<span style=color:#e6db74>\
+</span><span style=color:#e6db74></span>$kotlin<span style=color:#e6db74>\
+</span><span style=color:#e6db74></span>$haskell<span style=color:#e6db74>\
+</span><span style=color:#e6db74></span>$python<span style=color:#e6db74>\
+</span><span style=color:#e6db74>[](fg:color_blue bg:color_bg3)\
+</span><span style=color:#e6db74></span>$docker_context<span style=color:#e6db74>\
+</span><span style=color:#e6db74></span>$conda<span style=color:#e6db74>\
+</span><span style=color:#e6db74>[](fg:color_bg3)\
+</span><span style=color:#e6db74></span>$cmd_duration<span style=color:#e6db74>\
+</span><span style=color:#e6db74></span>$line_break$character<span style=color:#e6db74>&#34;&#34;&#34;</span>
+
+palette <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;gruvbox_dark&#39;</span>
+
+<span style=color:#f92672>[</span>palettes.gruvbox_dark<span style=color:#f92672>]</span>
+color_fg0 <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;#fbf1c7&#39;</span>
+color_bg1 <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;#3c3836&#39;</span>
+color_bg3 <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;#665c54&#39;</span>
+color_blue <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;#458588&#39;</span>
+color_aqua <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;#689d6a&#39;</span>
+color_green <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;#98971a&#39;</span>
+color_orange <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;#d65d0e&#39;</span>
+color_purple <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;#b16286&#39;</span>
+color_red <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;#cc241d&#39;</span>
+color_yellow <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;#d79921&#39;</span>
+
+<span style=color:#f92672>[</span>os<span style=color:#f92672>]</span>
+disabled <span style=color:#f92672>=</span> false
+style <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;bg:color_orange fg:color_fg0&#34;</span>
+
+<span style=color:#f92672>[</span>os.symbols<span style=color:#f92672>]</span>
+Windows <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;󰍲&#34;</span>
+Ubuntu <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;󰕈&#34;</span>
+SUSE <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;&#34;</span>
+Raspbian <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;󰐿&#34;</span>
+Mint <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;󰣭&#34;</span>
+Macos <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;󰀵&#34;</span>
+Manjaro <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;&#34;</span>
+Linux <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;󰌽&#34;</span>
+Gentoo <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;󰣨&#34;</span>
+Fedora <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;󰣛&#34;</span>
+Alpine <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;&#34;</span>
+Amazon <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;&#34;</span>
+Android <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;&#34;</span>
+Arch <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;󰣇&#34;</span>
+Artix <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;󰣇&#34;</span>
+CentOS <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;&#34;</span>
+Debian <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;󰣚&#34;</span>
+Redhat <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;󱄛&#34;</span>
+RedHatEnterprise <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;󱄛&#34;</span>
+
+<span style=color:#f92672>[</span>username<span style=color:#f92672>]</span>
+show_always <span style=color:#f92672>=</span> true
+style_user <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;bg:color_orange fg:color_fg0&#34;</span>
+style_root <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;bg:color_orange fg:color_fg0&#34;</span>
+format <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;[ $user ]($style)&#39;</span>
+
+<span style=color:#f92672>[</span>directory<span style=color:#f92672>]</span>
+style <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;fg:color_fg0 bg:color_yellow&#34;</span>
+format <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;[ </span>$path<span style=color:#e6db74> ](</span>$style<span style=color:#e6db74>)&#34;</span>
+truncation_length <span style=color:#f92672>=</span> <span style=color:#ae81ff>3</span>
+truncation_symbol <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;…/&#34;</span>
+
+<span style=color:#f92672>[</span>directory.substitutions<span style=color:#f92672>]</span>
+<span style=color:#e6db74>&#34;Documents&#34;</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;󰈙 &#34;</span>
+<span style=color:#e6db74>&#34;Downloads&#34;</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34; &#34;</span>
+<span style=color:#e6db74>&#34;Music&#34;</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;󰝚 &#34;</span>
+<span style=color:#e6db74>&#34;Pictures&#34;</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34; &#34;</span>
+<span style=color:#e6db74>&#34;Developer&#34;</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;󰲋 &#34;</span>
+
+<span style=color:#f92672>[</span>git_branch<span style=color:#f92672>]</span>
+symbol <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;&#34;</span>
+style <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;bg:color_aqua&#34;</span>
+format <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;[[ $symbol $branch ](fg:color_fg0 bg:color_aqua)]($style)&#39;</span>
+
+<span style=color:#f92672>[</span>git_status<span style=color:#f92672>]</span>
+style <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;bg:color_aqua&#34;</span>
+format <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;[[($all_status$ahead_behind )](fg:color_fg0 bg:color_aqua)]($style)&#39;</span>
+
+<span style=color:#f92672>[</span>nodejs<span style=color:#f92672>]</span>
+symbol <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;&#34;</span>
+style <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;bg:color_blue&#34;</span>
+format <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)&#39;</span>
+
+<span style=color:#f92672>[</span>c<span style=color:#f92672>]</span>
+symbol <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34; &#34;</span>
+style <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;bg:color_blue&#34;</span>
+format <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)&#39;</span>
+
+<span style=color:#f92672>[</span>rust<span style=color:#f92672>]</span>
+symbol <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;&#34;</span>
+style <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;bg:color_blue&#34;</span>
+format <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)&#39;</span>
+
+<span style=color:#f92672>[</span>golang<span style=color:#f92672>]</span>
+symbol <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;&#34;</span>
+style <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;bg:color_blue&#34;</span>
+format <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)&#39;</span>
+
+<span style=color:#f92672>[</span>php<span style=color:#f92672>]</span>
+symbol <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;&#34;</span>
+style <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;bg:color_blue&#34;</span>
+format <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)&#39;</span>
+
+<span style=color:#f92672>[</span>java<span style=color:#f92672>]</span>
+symbol <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34; &#34;</span>
+style <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;bg:color_blue&#34;</span>
+format <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)&#39;</span>
+
+<span style=color:#f92672>[</span>kotlin<span style=color:#f92672>]</span>
+symbol <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;&#34;</span>
+style <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;bg:color_blue&#34;</span>
+format <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)&#39;</span>
+
+<span style=color:#f92672>[</span>haskell<span style=color:#f92672>]</span>
+symbol <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;&#34;</span>
+style <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;bg:color_blue&#34;</span>
+format <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)&#39;</span>
+
+<span style=color:#f92672>[</span>python<span style=color:#f92672>]</span>
+symbol <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;&#34;</span>
+style <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;bg:color_blue&#34;</span>
+format <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)&#39;</span>
+
+<span style=color:#f92672>[</span>docker_context<span style=color:#f92672>]</span>
+symbol <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;&#34;</span>
+style <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;bg:color_bg3&#34;</span>
+format <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;[[ $symbol( $context) ](fg:#83a598 bg:color_bg3)]($style)&#39;</span>
+
+<span style=color:#f92672>[</span>conda<span style=color:#f92672>]</span>
+style <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;bg:color_bg3&#34;</span>
+ignore_base <span style=color:#f92672>=</span> false
+format <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;[[ $symbol( $environment) ](fg:#83a598 bg:color_bg3)]($style)&#39;</span>
+
+<span style=color:#f92672>[</span>cmd_duration<span style=color:#f92672>]</span>
+min_time <span style=color:#f92672>=</span> <span style=color:#ae81ff>1000</span>
+show_milliseconds <span style=color:#f92672>=</span> false
+style <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;bg:color_bg3 fg:#ffffff&#34;</span>
+show_notifications <span style=color:#f92672>=</span> false
+format <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;[[ ](fg:color_bg1)[took $duration](fg:color_fg0 bg:color_bg1)]($style)[ ](fg:color_bg1)&#39;</span>
+
+<span style=color:#f92672>[</span>time<span style=color:#f92672>]</span>
+disabled <span style=color:#f92672>=</span> false
+time_format <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;%R&#34;</span>
+style <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;bg:color_bg1&#34;</span>
+format <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;[[ $time ](fg:color_fg0 bg:color_bg1)]($style)&#39;</span>
+
+<span style=color:#f92672>[</span>line_break<span style=color:#f92672>]</span>
+disabled <span style=color:#f92672>=</span> false
+
+<span style=color:#f92672>[</span>character<span style=color:#f92672>]</span>
+disabled <span style=color:#f92672>=</span> false
+success_symbol <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;[](bold fg:color_green)&#39;</span>
+error_symbol <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;[](bold fg:color_red)&#39;</span>
+vimcmd_symbol <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;[](bold fg:color_green)&#39;</span>
+vimcmd_replace_one_symbol <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;[](bold fg:color_purple)&#39;</span>
+vimcmd_replace_symbol <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;[](bold fg:color_purple)&#39;</span>
+vimcmd_visual_symbol <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;[](bold fg:color_yellow)&#39;</span>
+</code></pre></div><p>(You&rsquo;ll need a <a href=https://www.nerdfonts.com/>nerd font</a> with glyphs to see all the fancy characters)</p><h1 id=fish-shell>Fish shell<a href=#fish-shell class=hanchor arialabel=Anchor>&#8983;</a></h1><p>I&rsquo;ve been using <a href=https://fishshell.com/>fish</a> for almost a year now, and I really like it. I use it mostly for the auto-complete feature. It&rsquo;s almost as smart as an AI copilot in your editor, but now in the terminal. (note: it&rsquo;s a very simple frequency based autocomplete, no AI whatsoever)</p><p>Here&rsquo;s my fish config (<code>~/.config/fish/config.fish</code>):</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#75715e># Fish syntax highlighting</span>
+set -g fish_color_autosuggestion <span style=color:#e6db74>&#39;555&#39;</span>  <span style=color:#e6db74>&#39;brblack&#39;</span>
+set -g fish_color_cancel -r
+set -g fish_color_command --bold
+set -g fish_color_comment red
+set -g fish_color_cwd green
+set -g fish_color_cwd_root red
+set -g fish_color_end brmagenta
+set -g fish_color_error brred
+set -g fish_color_escape <span style=color:#e6db74>&#39;bryellow&#39;</span>  <span style=color:#e6db74>&#39;--bold&#39;</span>
+set -g fish_color_history_current --bold
+set -g fish_color_host normal
+set -g fish_color_match --background<span style=color:#f92672>=</span>brblue
+set -g fish_color_normal normal
+set -g fish_color_operator bryellow
+set -g fish_color_param cyan
+set -g fish_color_quote yellow
+set -g fish_color_redirection brblue
+set -g fish_color_search_match <span style=color:#e6db74>&#39;bryellow&#39;</span>  <span style=color:#e6db74>&#39;--background=brblack&#39;</span>
+set -g fish_color_selection <span style=color:#e6db74>&#39;white&#39;</span>  <span style=color:#e6db74>&#39;--bold&#39;</span>  <span style=color:#e6db74>&#39;--background=brblack&#39;</span>
+set -g fish_color_user brgreen
+set -g fish_color_valid_path --underline
+
+<span style=color:#75715e># Install Starship</span>
+starship init fish | source
+
+set -x PATH $PATH /home/rsoko/flutter/bin
+
+<span style=color:#75715e># &gt;&gt;&gt; conda initialize &gt;&gt;&gt;</span>
+<span style=color:#75715e># !! Contents within this block are managed by &#39;conda init&#39; !!</span>
+eval /home/rsoko/.anaconda3/bin/conda <span style=color:#e6db74>&#34;shell.fish&#34;</span> <span style=color:#e6db74>&#34;hook&#34;</span> $argv | source
+set -e CONDA_DEFAULT_ENV <span style=color:#75715e># disable showing environment name. This is done by starship</span>
+
+<span style=color:#75715e># &lt;&lt;&lt; conda initialize &lt;&lt;&lt;</span>
+
+<span style=color:#66d9ef>function</span> edge
+    set path $argv<span style=color:#f92672>[</span>1<span style=color:#f92672>]</span>
+    set winpath <span style=color:#f92672>(</span>wslpath -w $path<span style=color:#f92672>)</span>
+    <span style=color:#e6db74>&#34;/mnt/c/Program Files (x86)/Microsoft/Edge/Application/msedge.exe&#34;</span> <span style=color:#e6db74>&#34;file://</span>$winpath<span style=color:#e6db74>&#34;</span> &amp;
+end
+
+<span style=color:#66d9ef>function</span> check_and_activate_conda
+    set current_path <span style=color:#f92672>(</span>pwd<span style=color:#f92672>)</span>
+    set qblox_path ~/qblox
+
+    <span style=color:#66d9ef>if</span> test -e <span style=color:#e6db74>&#34;.condaenv&#34;</span>
+        set env_name <span style=color:#f92672>(</span>cat .condaenv | string trim<span style=color:#f92672>)</span>
+        <span style=color:#66d9ef>if</span> test -n <span style=color:#e6db74>&#34;</span>$env_name<span style=color:#e6db74>&#34;</span>
+            <span style=color:#66d9ef>if</span> not string match -q -- <span style=color:#e6db74>&#34;*</span>$env_name<span style=color:#e6db74>*&#34;</span> $CONDA_DEFAULT_ENV
+                conda activate $env_name
+            end
+        end
+    <span style=color:#66d9ef>else</span> <span style=color:#66d9ef>if</span> string match -q <span style=color:#e6db74>&#34;</span>$qblox_path<span style=color:#e6db74>*&#34;</span> $current_path
+        <span style=color:#66d9ef>if</span> test <span style=color:#e6db74>&#34;</span>$CONDA_DEFAULT_ENV<span style=color:#e6db74>&#34;</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;base&#34;</span> -o -z <span style=color:#e6db74>&#34;</span>$CONDA_DEFAULT_ENV<span style=color:#e6db74>&#34;</span>
+            conda activate dev
+        end
+    end
+end
+
+<span style=color:#66d9ef>function</span> auto_activate_conda --on-variable PWD
+    check_and_activate_conda
+end
+
+<span style=color:#75715e># Run check_and_activate_conda on shell init</span>
+<span style=color:#66d9ef>if</span> status is-interactive
+    check_and_activate_conda
+end
+
+<span style=color:#75715e># API Keys</span>
+set -x OPENAI_API_KEY <span style=color:#e6db74>&#34;sk-proj-...&#34;</span>
+set -x ANTHROPIC_API_KEY <span style=color:#e6db74>&#34;sk-ant-...&#34;</span>
+</code></pre></div></div></div><div class=pagination><div class=pagination__title><span class=pagination__title-h>Read other posts</span><hr></div><div class=pagination__buttons><span class="button previous"><a href=https://www.robert-sokolewicz.nl/posts/19_fish_and_starship/><span class=button__icon>←</span>
+<span class=button__text>Auto activating conda environments when moving between projects</span></a></span>
+<span class="button next"><a href=https://www.robert-sokolewicz.nl/posts/16_langchain_prompts/><span class=button__text>How to pass custom prompts to langchain chains</span>
+<span class=button__icon>→</span></a></span></div></div></div></div><footer class=footer><div class=footer__inner><div class=copyright><span>© 2024 Powered by <a href=http://gohugo.io>Hugo</a></span>
+<span>:: Theme made by <a href=https://twitter.com/panr>panr</a></span></div></div></footer><script src=https://www.robert-sokolewicz.nl/assets/main.js></script><script src=https://www.robert-sokolewicz.nl/assets/prism.js></script></div></body></html>
