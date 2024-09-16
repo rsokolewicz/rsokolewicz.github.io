@@ -1,5 +1,7 @@
 +++
 title = "[7/10] Pete Wu's De bananengeneratie"
+score = "7/10"
+cover_image = "bananen.jpg"
 date = "2023-03-18"
 author = "Robert"
 description = "Pete Wu's book 'De Bananengeneratie' takes readers on a journey through his personal experiences growing up as a Chinese-Dutch in the Netherlands. Pete was born and raised in the Netherlands, but his Chinese heritage often made him feel like an outsider. He struggled to find his identity as someone who was 'Chinese on the outside, white on the inside', which he termed as being a 'banana'."

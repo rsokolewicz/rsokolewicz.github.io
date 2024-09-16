@@ -40,3 +40,13 @@ body, html {
     opacity: 0.9; /* Slightly lower opacity on hover, or any other effect you prefer */
 }
 
+#numberToGuess {
+    font-size: 4em;
+    transition: background-color 0.5s ease;
+  }
+  
+.game {
+    display: none;
+  }
+  
+  

@@ -1,5 +1,7 @@
 +++
 title = "[7/10] Brené Brown's Daring Greatly"
+score="7/10"
+cover_image="daringgreatly.jpg"
 date = "2023-08-17"
 author = "Robert"
 description = "Shame and vulnerability defines who we are and how it shapes our future. Although everyone has experience with shame and vulnerability, everyone understands it in a different way. Brené defines it as the fear of not belonging. Daring Greatly offers valuable lessons on shame's role in work cultures and personal lives, underscoring the need for empathy and mindfulness as tools for navigating shame and fostering healthier connections."

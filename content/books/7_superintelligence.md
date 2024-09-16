@@ -1,0 +1,20 @@
++++
+title = "[5/10] Nick Bostrom's Superintelligence"
+score = "5/10"
+date = "2024-07-15"
+cover_image = "superintelligence.jpg"
++++
+
+The book explores the idea of "superintelligence", an intelligence that is above that of human in all regards. Nick tries to be rather complete in his exploration and defines different types and aspects of superintelligence, and then explores the implications for our future. Initially I was quite excited with the book. It seemed to be quite diverse and in-depth, and it was written right before the large-language-model boom. 
+
+Unfortunately, the book is quite dense and technical and I found it difficult to read. Most of the content was quite interesting, but it was hard to push through it and in the end I skipped a few chapters. It starts of with defining different sorts of superintelligence. For example, a single computer that can outsmart humans on all tasks, or perhaps a network or collection of intelligences? The network he calls "collective superintelligence", which I found an interesting idea. Now that we have large-language-models producing content online and sometimes even engaging with each other, it's not hard to imagine how the internet will look like in the near future. As each AI becomes smarter and more capable, the internet will have a life of its own. Other examples of superintelligence could be genetically enhanced humans, consciousness uploaded to computers, cyborgs and a few other ideas. 
+
+So far so good. Nick then continues to explore different pathways how these various kinds of superintelligences can emerge. I was less convinced here and it seemed more like science fiction, than anything else. It wasn't wrong or unbelievable, but it felt like a random collection of ideas without giving merit to any of them. He does argue however that the leap from moderate intelligence, to superintelligence can happen exponentially fast. The idea is also shared with Max Tegmark in his "Life 3.0", at a certain moment an AI can design a better version of itself, and this can repeat indefinitely, and very quickly. However, looking at what is called the "chinchilla scaling laws", it seems to me that we have lots of bottlenecks that prevent this fast emergence of intelligence from ever happening. 
+
+The main argument of Nick here is that the "recalcitrance" of AI, i.e. its resistance to improve, is likely to be lower than the "optimization power" of artificial AI. For human superintelligence (e.g. spending a few hundred years selective breeding the most intelligent humans), our DNA might be an early bottleneck preventing any further boost to our intelligence. For artificial AI however, Nick argues that the optimization power is always higher than the recalcitrance, leading to a "fast takeoff" where superintelligence is reached in a very short time. This is sounds familiar to the movie Terminator, where computers become self-aware and in no time able to take over the world. 
+
+Again, I'm not very convinced by this argument. Looking at large language models, we have to throw so much compute at it and we're already close to the limit of how big these models can get. Data becomes a limiting factor and you can't expect the model to have a lower cross entropy loss than the entropy of natural language itself. 
+
+I stopped reading soon after this. As I mentioned before, the text is written in aa dense and technical way, and reminds me a bit of reading academic papers. I got recommended to read Life 3.0 by Max Tegmark instead, which shares many ideas and is written in a more accessible way. 
+
+So to end this review: content wise I think it was quite interesting, but it wasn't very pleasurable to read before sleeping. If you read slowly, spend time contemplating the content, I'm sure it's worth a read, but these days I'm too impatient for that :D 

@@ -7,12 +7,22 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="app">
-        <h1>Learn Vietnamese Numbers</h1>
-        <div id="question"></div>
-        <div id="choices" class="choices"></div>
-        <div id="score">Score: 0</div>
-    </div>
-    <script src="script.js"></script>
-</body>
+    <div class="tab">
+        <button class="tablinks" onclick="openGame(event, 'Arithmetic')">Arithmetic Game</button>
+        <button class="tablinks" onclick="openGame(event, 'NumberGuess')">Number Guessing Game</button>
+      </div>
+      
+      <div id="Arithmetic" class="tabcontent">
+        <h1 id="vietnameseNumber"></h1>
+        <div id="scoreGuess">Correct: 0 Incorrect: 0</div>
+      </div>
+      
+      <div id="NumberGuess" class="tabcontent">
+        <h1 id="vietnameseNumber"></h1>
+        <div id="scoreGuess">Correct: 0 Incorrect: 0</div>
+      </div>
+      
+      <script src="games.js" defer></script>
+      <script src="arithmetic.js" defer></script>
+      <script src="number_guess.js" defer></script></body>
 </html>
