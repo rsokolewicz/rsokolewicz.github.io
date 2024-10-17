@@ -1,4 +1,97 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Roberts blog</title><link>https://www.robert-sokolewicz.nl/posts/</link><description>Recent content in Posts on Roberts blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sun, 15 Sep 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://www.robert-sokolewicz.nl/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Auto activating conda environments when moving between projects</title><link>https://www.robert-sokolewicz.nl/posts/19_fish_and_starship/</link><pubDate>Sun, 15 Sep 2024 00:00:00 +0000</pubDate><guid>https://www.robert-sokolewicz.nl/posts/19_fish_and_starship/</guid><description>Auto activating conda environments when moving between projects I have the bad habit of forgetting to switch conda environments when moving between projects, and I always end up corrupting them. Although multiple people have requested this feature with the conda developers team, they never implemented some sort of auto activation.
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Roberts blog</title><link>https://www.robert-sokolewicz.nl/posts/</link><description>Recent content in Posts on Roberts blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Wed, 16 Oct 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://www.robert-sokolewicz.nl/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Using git bisect to find a bug</title><link>https://www.robert-sokolewicz.nl/posts/20_git_bisect/</link><pubDate>Wed, 16 Oct 2024 00:00:00 +0000</pubDate><guid>https://www.robert-sokolewicz.nl/posts/20_git_bisect/</guid><description>Bisecting the git bisect command Imagine implementing a feature, while not running any unit tests for a couple of commits. And oops, there&amp;rsquo;s a failing test. Or worse, a user discovers a breaking change but you don&amp;rsquo;t know which commit introduced it.
+With git bisect you can do a quick binary search through your git history to find the commit that introduced the bug. Pretty cool! I find the interface a bit confusing, so here it is.</description><content>&lt;h1 id="bisecting-the-git-bisect-command">Bisecting the &lt;code>git bisect&lt;/code> command&lt;/h1>
+&lt;p>Imagine implementing a feature, while not running any unit tests for a couple of commits. And oops, there&amp;rsquo;s a failing test. Or worse, a user discovers a breaking change but you don&amp;rsquo;t know which commit introduced it.&lt;/p>
+&lt;p>With &lt;code>git bisect&lt;/code> you can do a quick binary search through your git history to find the commit that introduced the bug. Pretty cool! I find the interface a bit confusing, so here it is. It&amp;rsquo;s basically a bunch of commands:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">git bisect start
+git bisect bad &amp;lt;commit_hash&amp;gt;
+git bisect good &amp;lt;commit_hash&amp;gt;
+git run &amp;lt;command&amp;gt;
+git bisect reset
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>instead of git hashes or tags you can also specify the number of commits from the current state. So if you know that 20 commits ago everything worked, you can do &lt;code>git bisect good HEAD~20&lt;/code> and &lt;code>git bisect bad HEAD&lt;/code> to start the search. With &lt;code>git run &amp;lt;command&amp;gt;&lt;/code>, you can specify any command that should return with a non-zero exit code if the current commit is bad. This can be a pytest, e.g.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">git bisect run pytest tests/test_foo.py::test_bar
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>or any script that you want to run:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">git bisect run ./run_tests.sh
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>or even&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">git bisect run python foo.py
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>alternatively, you can also manually inspect/run each commit during the bisection and mark if their good or bad using &lt;code>git bisect good&lt;/code> and &lt;code>git bisect bad&lt;/code>.&lt;/p>
+&lt;p>If you run &lt;code>git bisect run&lt;/code> it might output a lot of noise that you don&amp;rsquo;t care about. e.g. with ptyest you&amp;rsquo;ll end up with:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">git bisect run pytest tests/test_foo.py::test_bar
+running pytest tests/test_foo.py::test_bar
+&lt;span style="color:#f92672">=============================&lt;/span> test session starts &lt;span style="color:#f92672">==============================&lt;/span>
+platform linux -- Python 3.12.10, pytest-8.3.3
+rootdir: /home/user/project
+collected &lt;span style="color:#ae81ff">1&lt;/span> item
+tests/test_foo.py F &lt;span style="color:#f92672">[&lt;/span>100%&lt;span style="color:#f92672">]&lt;/span>
+&lt;span style="color:#f92672">==================================&lt;/span> FAILURES &lt;span style="color:#f92672">===================================&lt;/span>
+__________________________________ test_bar __________________________________
+def test_bar&lt;span style="color:#f92672">()&lt;/span>:
+&amp;gt; assert foo.bar&lt;span style="color:#f92672">()&lt;/span> &lt;span style="color:#f92672">==&lt;/span> &lt;span style="color:#ae81ff">42&lt;/span>
+E AssertionError: assert 41 &lt;span style="color:#f92672">==&lt;/span> &lt;span style="color:#ae81ff">42&lt;/span>
+E + where 41 &lt;span style="color:#f92672">=&lt;/span> &amp;lt;&lt;span style="color:#66d9ef">function&lt;/span> bar at 0x7f9b1c3e6f70&amp;gt;&lt;span style="color:#f92672">()&lt;/span>
+E + where &amp;lt;&lt;span style="color:#66d9ef">function&lt;/span> bar at 0x7f9b1c3e6f70&amp;gt; &lt;span style="color:#f92672">=&lt;/span> foo.bar
+tests/test_foo.py:8: AssertionError
+&lt;span style="color:#f92672">===========================&lt;/span> short test summary info &lt;span style="color:#f92672">===========================&lt;/span>
+FAILED tests/test_foo.py::test_bar - AssertionError: assert 41 &lt;span style="color:#f92672">==&lt;/span> 42
+&lt;span style="color:#f92672">==============================&lt;/span> &lt;span style="color:#ae81ff">1&lt;/span> failed in 0.03s &lt;span style="color:#f92672">==============================&lt;/span>
+Bisecting: &lt;span style="color:#ae81ff">4&lt;/span> revisions left to test after this &lt;span style="color:#f92672">(&lt;/span>roughly &lt;span style="color:#ae81ff">2&lt;/span> steps&lt;span style="color:#f92672">)&lt;/span>
+&lt;span style="color:#f92672">[&lt;/span>41dd4aa10cf685f0671659283980eefb3d9c5468&lt;span style="color:#f92672">]&lt;/span> Update foo.py
+running pytest tests/test_foo.py::test_bar
+&lt;span style="color:#f92672">=============================&lt;/span> test session starts &lt;span style="color:#f92672">==============================&lt;/span>
+platform linux -- Python 3.12.10, pytest-8.3.3
+rootdir: /home/user/project
+collected &lt;span style="color:#ae81ff">1&lt;/span> item
+tests/test_foo.py F &lt;span style="color:#f92672">[&lt;/span>100%&lt;span style="color:#f92672">]&lt;/span>
+&lt;span style="color:#f92672">==================================&lt;/span> FAILURES &lt;span style="color:#f92672">===================================&lt;/span>
+__________________________________ test_bar __________________________________
+def test_bar&lt;span style="color:#f92672">()&lt;/span>:
+&amp;gt; assert foo.bar&lt;span style="color:#f92672">()&lt;/span> &lt;span style="color:#f92672">==&lt;/span> &lt;span style="color:#ae81ff">42&lt;/span>
+E AssertionError: assert 41 &lt;span style="color:#f92672">==&lt;/span> &lt;span style="color:#ae81ff">42&lt;/span>
+E + where 41 &lt;span style="color:#f92672">=&lt;/span> &amp;lt;&lt;span style="color:#66d9ef">function&lt;/span> bar at 0x7f9b1c3e6f70&amp;gt;&lt;span style="color:#f92672">()&lt;/span>
+E + where &amp;lt;&lt;span style="color:#66d9ef">function&lt;/span> bar at 0x7f9b1c3e6f70&amp;gt; &lt;span style="color:#f92672">=&lt;/span> foo.bar
+tests/test_foo.py:8: AssertionError
+&lt;span style="color:#f92672">===========================&lt;/span> short test summary info &lt;span style="color:#f92672">===========================&lt;/span>
+FAILED tests/test_foo.py::test_bar - AssertionError: assert 41 &lt;span style="color:#f92672">==&lt;/span> 42
+&lt;span style="color:#f92672">==============================&lt;/span> &lt;span style="color:#ae81ff">1&lt;/span> failed in 0.03s &lt;span style="color:#f92672">==============================&lt;/span>
+Bisecting: &lt;span style="color:#ae81ff">2&lt;/span> revisions left to test after this &lt;span style="color:#f92672">(&lt;/span>roughly &lt;span style="color:#ae81ff">1&lt;/span> step&lt;span style="color:#f92672">)&lt;/span>
+&lt;span style="color:#f92672">[&lt;/span>c6ece2440925057a362da7ad41cb689c09e6503b&lt;span style="color:#f92672">]&lt;/span> Refactor foo.py
+running pytest tests/test_foo.py::test_bar
+&lt;span style="color:#f92672">=============================&lt;/span> test session starts &lt;span style="color:#f92672">==============================&lt;/span>
+platform linux -- Python 3.12.10, pytest-8.3.3
+rootdir: /home/user/project
+collected &lt;span style="color:#ae81ff">1&lt;/span> item
+tests/test_foo.py . &lt;span style="color:#f92672">[&lt;/span>100%&lt;span style="color:#f92672">]&lt;/span>
+&lt;span style="color:#f92672">==============================&lt;/span> &lt;span style="color:#ae81ff">1&lt;/span> passed in 0.01s &lt;span style="color:#f92672">==============================&lt;/span>
+Bisecting: &lt;span style="color:#ae81ff">0&lt;/span> revisions left to test after this &lt;span style="color:#f92672">(&lt;/span>roughly &lt;span style="color:#ae81ff">1&lt;/span> step&lt;span style="color:#f92672">)&lt;/span>
+&lt;span style="color:#f92672">[&lt;/span>5f5248584dc4c435a89c708998b2b17115aa36e5&lt;span style="color:#f92672">]&lt;/span> Minor changes to foo.py
+running pytest tests/test_foo.py::test_bar
+&lt;span style="color:#f92672">=============================&lt;/span> test session starts &lt;span style="color:#f92672">==============================&lt;/span>
+platform linux -- Python 3.12.10, pytest-8.3.3
+rootdir: /home/user/project
+collected &lt;span style="color:#ae81ff">1&lt;/span> item
+tests/test_foo.py F &lt;span style="color:#f92672">[&lt;/span>100%&lt;span style="color:#f92672">]&lt;/span>
+&lt;span style="color:#f92672">==================================&lt;/span> FAILURES &lt;span style="color:#f92672">===================================&lt;/span>
+__________________________________ test_bar __________________________________
+def test_bar&lt;span style="color:#f92672">()&lt;/span>:
+&amp;gt; assert foo.bar&lt;span style="color:#f92672">()&lt;/span> &lt;span style="color:#f92672">==&lt;/span> &lt;span style="color:#ae81ff">42&lt;/span>
+E AssertionError: assert 41 &lt;span style="color:#f92672">==&lt;/span> &lt;span style="color:#ae81ff">42&lt;/span>
+E + where 41 &lt;span style="color:#f92672">=&lt;/span> &amp;lt;&lt;span style="color:#66d9ef">function&lt;/span> bar at 0x7f9b1c3e6f70&amp;gt;&lt;span style="color:#f92672">()&lt;/span>
+E + where &amp;lt;&lt;span style="color:#66d9ef">function&lt;/span> bar at 0x7f9b1c3e6f70&amp;gt; &lt;span style="color:#f92672">=&lt;/span> foo.bar
+tests/test_foo.py:8: AssertionError
+&lt;span style="color:#f92672">===========================&lt;/span> short test summary info &lt;span style="color:#f92672">===========================&lt;/span>
+FAILED tests/test_foo.py::test_bar - AssertionError: assert 41 &lt;span style="color:#f92672">==&lt;/span> 42
+&lt;span style="color:#f92672">==============================&lt;/span> &lt;span style="color:#ae81ff">1&lt;/span> failed in 0.03s &lt;span style="color:#f92672">==============================&lt;/span>
+5f5248584dc4c435a89c708998b2b17115aa36e5 is the first bad commit
+commit 5f5248584dc4c435a89c708998b2b17115aa36e5
+Author: John Doe &amp;lt;john.doe@example.com&amp;gt;
+Date: Mon Jul &lt;span style="color:#ae81ff">10&lt;/span> 19:21:31 &lt;span style="color:#ae81ff">2023&lt;/span> +0200
+Minor changes to foo.py
+foo.py | &lt;span style="color:#ae81ff">2&lt;/span> +-
+&lt;span style="color:#ae81ff">1&lt;/span> file changed, &lt;span style="color:#ae81ff">1&lt;/span> insertion&lt;span style="color:#f92672">(&lt;/span>+&lt;span style="color:#f92672">)&lt;/span>, &lt;span style="color:#ae81ff">1&lt;/span> deletion&lt;span style="color:#f92672">(&lt;/span>-&lt;span style="color:#f92672">)&lt;/span>
+bisect run success
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>To suppress all this noise you can redirect the output to /dev/null and grep from the log:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">git bisect run pytest tests/test_foo.py::test_bar &amp;gt; /dev/null 2&amp;gt;&amp;amp;&lt;span style="color:#ae81ff">1&lt;/span>
+git bisect log | grep &lt;span style="color:#e6db74">&amp;#34;first bad commit&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div></content></item><item><title>Auto activating conda environments when moving between projects</title><link>https://www.robert-sokolewicz.nl/posts/19_fish_and_starship/</link><pubDate>Sun, 15 Sep 2024 00:00:00 +0000</pubDate><guid>https://www.robert-sokolewicz.nl/posts/19_fish_and_starship/</guid><description>Auto activating conda environments when moving between projects I have the bad habit of forgetting to switch conda environments when moving between projects, and I always end up corrupting them. Although multiple people have requested this feature with the conda developers team, they never implemented some sort of auto activation.
 Fortunately, this is easy to implement yourself. I&amp;rsquo;m using fish shell, but this should be easy to adapt to other shells if you do a quick search (e.</description><content>&lt;h1 id="auto-activating-conda-environments-when-moving-between-projects">Auto activating conda environments when moving between projects&lt;/h1>
 &lt;p>I have the bad habit of forgetting to switch conda environments when moving between projects, and I always end up corrupting them. Although multiple people have requested this feature with the conda developers team, they never implemented some sort of auto activation.&lt;/p>
 &lt;p>Fortunately, this is easy to implement yourself. I&amp;rsquo;m using fish shell, but this should be easy to adapt to other shells if you do a quick search (e.g. there a few suggestions &lt;a href="https://github.com/conda/conda/issues/5179">here&lt;/a> using &lt;code>bash&lt;/code> or something called &lt;code>autoenv&lt;/code>).&lt;/p>
