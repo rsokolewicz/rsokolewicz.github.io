@@ -4,3 +4,4 @@ resources
 .hugo_build.lock
 public
 playground
+.cache_ggshield
