@@ -1,4 +1,264 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Your Name on Roberts blog</title><link>https://www.robert-sokolewicz.nl/</link><description>Recent content in Your Name on Roberts blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Fri, 22 Apr 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://www.robert-sokolewicz.nl/index.xml" rel="self" type="application/rss+xml"/><item><title>Using git bisect to find a bug</title><link>https://www.robert-sokolewicz.nl/posts/20_git_bisect/</link><pubDate>Wed, 16 Oct 2024 00:00:00 +0000</pubDate><guid>https://www.robert-sokolewicz.nl/posts/20_git_bisect/</guid><description>Bisecting the git bisect command Imagine implementing a feature, while not running any unit tests for a couple of commits. And oops, there&amp;rsquo;s a failing test. Or worse, a user discovers a breaking change but you don&amp;rsquo;t know which commit introduced it.
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Your Name on Roberts blog</title><link>https://www.robert-sokolewicz.nl/</link><description>Recent content in Your Name on Roberts blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Fri, 22 Apr 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://www.robert-sokolewicz.nl/index.xml" rel="self" type="application/rss+xml"/><item><title>Keeping secrets secret</title><link>https://www.robert-sokolewicz.nl/posts/21_secrets/</link><pubDate>Sat, 28 Dec 2024 00:00:00 +0000</pubDate><guid>https://www.robert-sokolewicz.nl/posts/21_secrets/</guid><description>Managing secrets with python-dotenv Managing secrets with streamlit Preventing secrets from showing up in print and logging Autocompleting secrets Preventing commiting secrets to git using git guardian Managing secrets with python-dotenv Now that I&amp;rsquo;m working more often with third party APIs, I need to manage and store API keys. Normally I would add them to my .bashrc or similar, but this is becoming cumbersome when you have for example different OpenAI keys for different projects.</description><content>&lt;nav id="TableOfContents">
+&lt;ul>
+&lt;li>&lt;a href="#managing-secrets-with-python-dotenv">Managing secrets with &lt;code>python-dotenv&lt;/code>&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#managing-secrets-with-streamlit">Managing secrets with &lt;code>streamlit&lt;/code>&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#preventing-secrets-from-showing-up-in-print-and-logging">Preventing secrets from showing up in &lt;code>print&lt;/code> and &lt;code>logging&lt;/code>&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#autocompleting-secrets">Autocompleting secrets&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#preventing-commiting-secrets-to-git-using-git-guardian">Preventing commiting secrets to git using git guardian&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/nav>
+&lt;h2 id="managing-secrets-with-python-dotenv">Managing secrets with &lt;code>python-dotenv&lt;/code>&lt;/h2>
+&lt;p>Now that I&amp;rsquo;m working more often with third party APIs, I need to manage and store API keys. Normally I would add them to my &lt;code>.bashrc&lt;/code> or similar, but this is becoming cumbersome when you have for example different OpenAI keys for different projects. It&amp;rsquo;s much nicer to save them inside each project and use something like &lt;code>python-dotenv&lt;/code> to load them into the environment.&lt;/p>
+&lt;p>A &lt;code>.env&lt;/code> file could look like this:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">OPENAI_API_KEY=sk-proj-zGoKFui76yo-kwqXx_...
+GOOGLE_CLOUD_CREDENTIALS=...
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>and then the following will load the variables into your environment:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#f92672">from&lt;/span> dotenv &lt;span style="color:#f92672">import&lt;/span> load_dotenv
+load_dotenv()
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>and if you want to override an existing environmental variable, you can do so by setting the &lt;code>override=True&lt;/code> flag:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">load_dotenv(override&lt;span style="color:#f92672">=&lt;/span>True)
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>The exact format is not important, so all of the following is equivalent:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">OPENAI_API_KEY&lt;span style="color:#f92672">=&lt;/span>sk&lt;span style="color:#f92672">-...&lt;/span>
+OPENAI_API_KEY &lt;span style="color:#f92672">=&lt;/span> sk&lt;span style="color:#f92672">-...&lt;/span>
+OPENAI_API_KEY&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;sk-...&amp;#34;&lt;/span>
+OPENAI_API_KEY sk&lt;span style="color:#f92672">-...&lt;/span>
+OPENAI_API_KEY &lt;span style="color:#e6db74">&amp;#34;sk-...&amp;#34;&lt;/span>
+&lt;span style="color:#f92672">...&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="managing-secrets-with-streamlit">Managing secrets with &lt;code>streamlit&lt;/code>&lt;/h2>
+&lt;p>When using streamlit, you can instead use &lt;code>st.secrets&lt;/code> to load secrets from the &lt;code>.streamlit/secrets.toml&lt;/code> file. This is a bit more secure than using &lt;code>st.secrets&lt;/code> as it&amp;rsquo;s not stored in the &lt;code>.streamlit&lt;/code> folder, but instead in the &lt;code>.streamlit/secrets.toml&lt;/code> file.&lt;/p>
+&lt;p>One benefit over using &lt;code>python-dotenv&lt;/code> is that you can grab a collection of secrets in a json format. This is useful when using Google Cloud credentials:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-toml" data-lang="toml">&lt;span style="color:#75715e"># .streamlit/secrets.toml&lt;/span>
+[&lt;span style="color:#a6e22e">google_cloud_credentials&lt;/span>]
+&lt;span style="color:#a6e22e">type&lt;/span> = &lt;span style="color:#e6db74">&amp;#34;service_account&amp;#34;&lt;/span>
+&lt;span style="color:#a6e22e">project_id&lt;/span> = &lt;span style="color:#e6db74">&amp;#34;my-project&amp;#34;&lt;/span>
+&lt;span style="color:#a6e22e">private_key_id&lt;/span> = &lt;span style="color:#e6db74">&amp;#34;...&amp;#34;&lt;/span>
+&lt;span style="color:#a6e22e">private_key&lt;/span> = &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>
+&lt;span style="color:#a6e22e">client_email&lt;/span> = &lt;span style="color:#e6db74">&amp;#34;...&amp;#34;&lt;/span>
+&lt;span style="color:#a6e22e">client_id&lt;/span> = &lt;span style="color:#e6db74">&amp;#34;...&amp;#34;&lt;/span>
+...
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>and then you can easily load it into your streamlit app:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#f92672">import&lt;/span> streamlit &lt;span style="color:#f92672">as&lt;/span> st
+&lt;span style="color:#f92672">from&lt;/span> google.cloud &lt;span style="color:#f92672">import&lt;/span> storage
+&lt;span style="color:#f92672">from&lt;/span> google.oauth2 &lt;span style="color:#f92672">import&lt;/span> service_account
+credentials &lt;span style="color:#f92672">=&lt;/span> service_account&lt;span style="color:#f92672">.&lt;/span>Credentials&lt;span style="color:#f92672">.&lt;/span>from_service_account_info(
+st&lt;span style="color:#f92672">.&lt;/span>secrets[&lt;span style="color:#e6db74">&amp;#34;google_cloud_credentials&amp;#34;&lt;/span>]
+)
+storage_client &lt;span style="color:#f92672">=&lt;/span> storage&lt;span style="color:#f92672">.&lt;/span>Client(
+credentials&lt;span style="color:#f92672">=&lt;/span>credentials,
+project&lt;span style="color:#f92672">=&lt;/span>st&lt;span style="color:#f92672">.&lt;/span>secrets[&lt;span style="color:#e6db74">&amp;#34;google_cloud_credentials&amp;#34;&lt;/span>][&lt;span style="color:#e6db74">&amp;#34;project_id&amp;#34;&lt;/span>],
+)
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="preventing-secrets-from-showing-up-in-print-and-logging">Preventing secrets from showing up in &lt;code>print&lt;/code> and &lt;code>logging&lt;/code>&lt;/h2>
+&lt;p>Sometimes API keys are accidentally leaked in prints, logs or error messages. Using &lt;code>Pydantic.SecretStr&lt;/code>, you can easily prevent this from happening:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#f92672">from&lt;/span> pydantic &lt;span style="color:#f92672">import&lt;/span> SecretStr
+&lt;span style="color:#66d9ef">class&lt;/span> &lt;span style="color:#a6e22e">MyModel&lt;/span>(BaseModel):
+api_key: SecretStr
+model &lt;span style="color:#f92672">=&lt;/span> MyModel(api_key&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;sk-abc123&amp;#34;&lt;/span>)
+model
+&lt;span style="color:#75715e"># displays &amp;#34;MyModel(api_key=SecretStr(&amp;#39;**********&amp;#39;))&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>and in case you really need to access the secret, you can do so by calling &lt;code>get_secret_value()&lt;/code>:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">secret &lt;span style="color:#f92672">=&lt;/span> model&lt;span style="color:#f92672">.&lt;/span>api_key&lt;span style="color:#f92672">.&lt;/span>get_secret_value()
+&lt;span style="color:#66d9ef">print&lt;/span>(secret)
+&lt;span style="color:#75715e"># displays &amp;#34;sk-abc123&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="autocompleting-secrets">Autocompleting secrets&lt;/h2>
+&lt;p>I often test code in a notebook before adding it to the codebase, and because secrets are dynamic (rather than static), autocomplete doesn&amp;rsquo;t work right out of the box. So I wrote a small convenience function to help me out with this:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#75715e"># secrets.py&lt;/span>
+&lt;span style="color:#f92672">import&lt;/span> os
+&lt;span style="color:#f92672">from&lt;/span> dotenv &lt;span style="color:#f92672">import&lt;/span> load_dotenv
+&lt;span style="color:#f92672">from&lt;/span> pydantic &lt;span style="color:#f92672">import&lt;/span> SecretStr
+load_dotenv(override&lt;span style="color:#f92672">=&lt;/span>True)
+&lt;span style="color:#66d9ef">class&lt;/span> &lt;span style="color:#a6e22e">Secrets&lt;/span>:
+&lt;span style="color:#66d9ef">def&lt;/span> __init__(self):
+object&lt;span style="color:#f92672">.&lt;/span>__setattr__(self, &lt;span style="color:#e6db74">&amp;#34;_env_vars&amp;#34;&lt;/span>, dict(os&lt;span style="color:#f92672">.&lt;/span>environ))
+&lt;span style="color:#66d9ef">def&lt;/span> __getattribute__(self, name: str) &lt;span style="color:#f92672">-&amp;gt;&lt;/span> SecretStr:
+&lt;span style="color:#66d9ef">if&lt;/span> name &lt;span style="color:#f92672">==&lt;/span> &lt;span style="color:#e6db74">&amp;#34;_env_vars&amp;#34;&lt;/span>:
+&lt;span style="color:#66d9ef">return&lt;/span> object&lt;span style="color:#f92672">.&lt;/span>__getattribute__(self, name)
+secret &lt;span style="color:#f92672">=&lt;/span> os&lt;span style="color:#f92672">.&lt;/span>getenv(name)
+&lt;span style="color:#66d9ef">if&lt;/span> secret &lt;span style="color:#f92672">is&lt;/span> None:
+&lt;span style="color:#66d9ef">raise&lt;/span> &lt;span style="color:#a6e22e">ValueError&lt;/span>(f&lt;span style="color:#e6db74">&amp;#34;Secret &amp;#39;{name}&amp;#39; not found in environment variables&amp;#34;&lt;/span>)
+&lt;span style="color:#66d9ef">return&lt;/span> SecretStr(secret)
+&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">__dir__&lt;/span>(self) &lt;span style="color:#f92672">-&amp;gt;&lt;/span> list[str]:
+&lt;span style="color:#66d9ef">return&lt;/span> list(object&lt;span style="color:#f92672">.&lt;/span>__getattribute__(self, &lt;span style="color:#e6db74">&amp;#34;_env_vars&amp;#34;&lt;/span>)&lt;span style="color:#f92672">.&lt;/span>keys())
+secrets &lt;span style="color:#f92672">=&lt;/span> Secrets()
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Then when importing &lt;code>secrets&lt;/code> from the &lt;code>secrets&lt;/code> module, you get autocomplete for all the secrets in your environment:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#f92672">from&lt;/span> secrets &lt;span style="color:#f92672">import&lt;/span> secrets
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;img src="image.png" alt="alt text">&lt;/p>
+&lt;p>(here cursor is actually correct, but often it has the right idea, but doesn&amp;rsquo;t predict the exact name). Then I can easily select the secret that I want to use. I had some problems with recursive behavior when replacing the &lt;code>__getattribute__&lt;/code> method, but that was fixed by replacing &lt;code>self&lt;/code> with &lt;code>object&lt;/code> in some locations and checking for the existence of the &lt;code>_env_vars&lt;/code> attribute :)&lt;/p>
+&lt;p>Last thing that I want to mention, I&amp;rsquo;m listing everything from &lt;code>os.environ&lt;/code>, but you can easily change it to only list things from &lt;code>.env&lt;/code> for example, by using &lt;code>dotenv_values()&lt;/code> in the &lt;code>__init__&lt;/code> method:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#75715e"># secrets.py&lt;/span>
+&lt;span style="color:#f92672">import&lt;/span> os
+&lt;span style="color:#f92672">from&lt;/span> dotenv &lt;span style="color:#f92672">import&lt;/span> load_dotenv, dotenv_values
+&lt;span style="color:#f92672">from&lt;/span> pydantic &lt;span style="color:#f92672">import&lt;/span> SecretStr
+load_dotenv(override&lt;span style="color:#f92672">=&lt;/span>True)
+&lt;span style="color:#66d9ef">class&lt;/span> &lt;span style="color:#a6e22e">Secrets&lt;/span>:
+&lt;span style="color:#66d9ef">def&lt;/span> __init__(self):
+object&lt;span style="color:#f92672">.&lt;/span>__setattr__(self, &lt;span style="color:#e6db74">&amp;#34;_env_vars&amp;#34;&lt;/span>, dotenv_values())
+&lt;span style="color:#66d9ef">def&lt;/span> __getattribute__(self, name: str) &lt;span style="color:#f92672">-&amp;gt;&lt;/span> SecretStr:
+&lt;span style="color:#66d9ef">if&lt;/span> name &lt;span style="color:#f92672">==&lt;/span> &lt;span style="color:#e6db74">&amp;#34;_env_vars&amp;#34;&lt;/span>:
+&lt;span style="color:#66d9ef">return&lt;/span> object&lt;span style="color:#f92672">.&lt;/span>__getattribute__(self, name)
+secret &lt;span style="color:#f92672">=&lt;/span> os&lt;span style="color:#f92672">.&lt;/span>getenv(name)
+&lt;span style="color:#66d9ef">if&lt;/span> secret &lt;span style="color:#f92672">is&lt;/span> None:
+&lt;span style="color:#66d9ef">raise&lt;/span> &lt;span style="color:#a6e22e">ValueError&lt;/span>(f&lt;span style="color:#e6db74">&amp;#34;Secret &amp;#39;{name}&amp;#39; not found in environment variables&amp;#34;&lt;/span>)
+&lt;span style="color:#66d9ef">return&lt;/span> SecretStr(secret)
+&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">__dir__&lt;/span>(self) &lt;span style="color:#f92672">-&amp;gt;&lt;/span> list[str]:
+&lt;span style="color:#66d9ef">return&lt;/span> list(object&lt;span style="color:#f92672">.&lt;/span>__getattribute__(self, &lt;span style="color:#e6db74">&amp;#34;_env_vars&amp;#34;&lt;/span>)&lt;span style="color:#f92672">.&lt;/span>keys())
+secrets &lt;span style="color:#f92672">=&lt;/span> Secrets()
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="preventing-commiting-secrets-to-git-using-git-guardian">Preventing commiting secrets to git using git guardian&lt;/h2>
+&lt;p>There are a few tools out there that you can install with a git-commit hook to prevent secrets from being committed to git. The last one I tried was &lt;a href="https://github.com/jesseduffield/git-guardian">git-guardian&lt;/a>, which also allows you to scan your git history for secrets. Pretty cool! There&amp;rsquo;s also a web interface and when connecting your github account they will even send you an email if you accidentally push a secret :')&lt;/p>
+&lt;figure class="left" >
+&lt;img src="image-1.png" style="opacity: 0.7;" />
+&lt;/figure>
+&lt;p>You can install it globally either with &lt;code>brew&lt;/code> or &lt;code>pipx&lt;/code> (which is like pip, but it will install it so that it&amp;rsquo;s always available (practically speaking)).&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-sh" data-lang="sh">pipx install ggshield
+&lt;span style="color:#75715e"># or&lt;/span>
+brew install gitguardian/tap/ggshield
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Then you autenticate once using&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-sh" data-lang="sh">ggshield auth login
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>which will ask you to login with your git guardian account in a browser.&lt;/p>
+&lt;p>Then you either scan with &lt;code>ggshield scan&lt;/code>, or you can add a hook to your repository:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#75715e"># .pre-commit-config.yaml&lt;/span>
+&lt;span style="color:#66d9ef">repos&lt;/span>:
+- &lt;span style="color:#66d9ef">repo&lt;/span>: https://github.com/gitguardian/ggshield
+&lt;span style="color:#66d9ef">rev&lt;/span>: v1&lt;span style="color:#ae81ff">.34.0&lt;/span>
+&lt;span style="color:#66d9ef">hooks&lt;/span>:
+- &lt;span style="color:#66d9ef">id&lt;/span>: ggshield
+&lt;span style="color:#66d9ef">language_version&lt;/span>: python3
+&lt;span style="color:#66d9ef">stages&lt;/span>: [pre-commit]
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>and install the hook with &lt;code>pre-commit install&lt;/code>. Then every time you commit, it will first scan for secrets and if it finds any, it will prevent the commit from happening:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-txt" data-lang="txt">ggshield (pre-commit)....................................................Failed
+- hook id: ggshield
+- exit code: 1
+Scanning... ━━━━━━━━━━━━━━━━━━━━━━━━╺━━━━━━━━━━━━━━━ 60% 3 / 5
+&amp;gt; commit://staged/content/posts/21_secrets/tmp.ipynb: 1 incident detected
+&amp;gt;&amp;gt; Secret detected: Generic High Entropy Secret
+Validity: No Checker
+Occurrences: 1
+Known by GitGuardian dashboard: NO
+Incident URL: N/A
+Secret SHA: 77580e69c7104d86b1d3c3b332e503b9a9df67604927334f4adc3c94e084b504
+34 | + &amp;#34;outputs&amp;#34;: [],
+35 | + &amp;#34;source&amp;#34;: [
+36 | +…I_KEY = \&amp;#34;sk-proj-zGZKFysyo-kMXx_2Hm_V*********************************************************************-**************************************18IZ6hh2xxXZ7Dwau29Khz3Kma0A\&amp;#34;\n&amp;#34;…
+37 | + ]
+38 | + }
+&amp;gt; How to remediate
+Since the secret was detected before the commit was made:
+1. replace the secret with its reference (e.g. environment variable).
+2. commit again.
+&amp;gt; [Apply with caution] If you want to bypass ggshield (false positive or other
+reason), run:
+- if you use the pre-commit framework:
+SKIP=ggshield git commit -m &amp;#34;&amp;lt;your message&amp;gt;&amp;#34;
+&lt;/code>&lt;/pre>&lt;/div></content></item><item><title>Managing multiple hugo versions</title><link>https://www.robert-sokolewicz.nl/posts/22_multiple_hugos/</link><pubDate>Sat, 28 Dec 2024 00:00:00 +0000</pubDate><guid>https://www.robert-sokolewicz.nl/posts/22_multiple_hugos/</guid><description>I&amp;rsquo;m maintaining a few Hugo sites (this one and www.ai-stories.io), and unfortunately this website uses a quite old version of Hugo. I need to be able to easilyswitch between versions v0.68.3 and v0.140.0.
+My approach is this:
+Install Hugo globally with brew install hugo (so that running hugo will use v0.140.0) Install a specific version of Hugo for this website and run a simple shell script to use the v0.</description><content>&lt;p>I&amp;rsquo;m maintaining a few Hugo sites (this one and &lt;a href="https://www.ai-stories.io">www.ai-stories.io&lt;/a>), and unfortunately this website uses a quite old version of Hugo. I need to be able to easilyswitch between versions v0.68.3 and v0.140.0.&lt;/p>
+&lt;p>My approach is this:&lt;/p>
+&lt;ul>
+&lt;li>Install Hugo globally with &lt;code>brew install hugo&lt;/code> (so that running &lt;code>hugo&lt;/code> will use v0.140.0)&lt;/li>
+&lt;li>Install a specific version of Hugo for this website and run a simple shell script to use the v0.68.3 version.&lt;/li>
+&lt;/ul>
+&lt;p>Unfortunately you cannot directly install a specific version of Hugo, so I had to use a workaround that I found on the Hugo forums.&lt;/p>
+&lt;p>First I try to find &lt;a href="https://github.com/search?q=repo%3AHomebrew%2Fhomebrew-core+hugo+0.68.3&amp;amp;type=commits">the correct bottle version on github&lt;/a> then get the raw file. Unfortunately, with the current version of brew this bottle is not entirely compatible, but we can easily change it (thanks Claude :'))&lt;/p>
+&lt;p>Original file:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-ruby" data-lang="ruby">&lt;span style="color:#75715e"># hugo.rb&lt;/span>
+&lt;span style="color:#66d9ef">class&lt;/span> &lt;span style="color:#a6e22e">Hugo&lt;/span> &lt;span style="color:#f92672">&amp;lt;&lt;/span> &lt;span style="color:#66d9ef">Formula&lt;/span>
+desc &lt;span style="color:#e6db74">&amp;#34;Configurable static site generator&amp;#34;&lt;/span>
+homepage &lt;span style="color:#e6db74">&amp;#34;https://gohugo.io/&amp;#34;&lt;/span>
+url &lt;span style="color:#e6db74">&amp;#34;https://github.com/gohugoio/hugo/archive/v0.68.3.tar.gz&amp;#34;&lt;/span>
+sha256 &lt;span style="color:#e6db74">&amp;#34;38e743605e45e3aafd9563feb9e78477e72d79535ce83b56b243ff991d3a2b6e&amp;#34;&lt;/span>
+head &lt;span style="color:#e6db74">&amp;#34;https://github.com/gohugoio/hugo.git&amp;#34;&lt;/span>
+bottle &lt;span style="color:#66d9ef">do&lt;/span>
+cellar &lt;span style="color:#e6db74">:any_skip_relocation&lt;/span>
+sha256 &lt;span style="color:#e6db74">&amp;#34;202cb22f91d546939c3e7d11a360b39eb67e445b41f8a8114c35c6cb26d7a7d1&amp;#34;&lt;/span> &lt;span style="color:#f92672">=&amp;gt;&lt;/span> &lt;span style="color:#e6db74">:catalina&lt;/span>
+sha256 &lt;span style="color:#e6db74">&amp;#34;9b93809ed925204a4d34458044e5d81e152c43c10debaf87509007f45b84bec3&amp;#34;&lt;/span> &lt;span style="color:#f92672">=&amp;gt;&lt;/span> &lt;span style="color:#e6db74">:mojave&lt;/span>
+sha256 &lt;span style="color:#e6db74">&amp;#34;71684aacddbb3d971ea53de453cc8de91c15501ef3db9fab5077a43aa6bd73ee&amp;#34;&lt;/span> &lt;span style="color:#f92672">=&amp;gt;&lt;/span> &lt;span style="color:#e6db74">:high_sierra&lt;/span>
+&lt;span style="color:#66d9ef">end&lt;/span>
+depends_on &lt;span style="color:#e6db74">&amp;#34;go&amp;#34;&lt;/span> &lt;span style="color:#f92672">=&amp;gt;&lt;/span> &lt;span style="color:#e6db74">:build&lt;/span>
+&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">install&lt;/span>
+&lt;span style="color:#66d9ef">ENV&lt;/span>&lt;span style="color:#f92672">[&lt;/span>&lt;span style="color:#e6db74">&amp;#34;GOPATH&amp;#34;&lt;/span>&lt;span style="color:#f92672">]&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#66d9ef">HOMEBREW_CACHE&lt;/span>&lt;span style="color:#f92672">/&lt;/span>&lt;span style="color:#e6db74">&amp;#34;go_cache&amp;#34;&lt;/span>
+(buildpath&lt;span style="color:#f92672">/&lt;/span>&lt;span style="color:#e6db74">&amp;#34;src/github.com/gohugoio/hugo&amp;#34;&lt;/span>)&lt;span style="color:#f92672">.&lt;/span>install buildpath&lt;span style="color:#f92672">.&lt;/span>children
+cd &lt;span style="color:#e6db74">&amp;#34;src/github.com/gohugoio/hugo&amp;#34;&lt;/span> &lt;span style="color:#66d9ef">do&lt;/span>
+system &lt;span style="color:#e6db74">&amp;#34;go&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;build&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;-o&amp;#34;&lt;/span>, bin&lt;span style="color:#f92672">/&lt;/span>&lt;span style="color:#e6db74">&amp;#34;hugo&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;-tags&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;extended&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;main.go&amp;#34;&lt;/span>
+&lt;span style="color:#75715e"># Build bash completion&lt;/span>
+system bin&lt;span style="color:#f92672">/&lt;/span>&lt;span style="color:#e6db74">&amp;#34;hugo&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;gen&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;autocomplete&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;--completionfile=hugo.sh&amp;#34;&lt;/span>
+bash_completion&lt;span style="color:#f92672">.&lt;/span>install &lt;span style="color:#e6db74">&amp;#34;hugo.sh&amp;#34;&lt;/span>
+&lt;span style="color:#75715e"># Build man pages; target dir man/ is hardcoded :(&lt;/span>
+(&lt;span style="color:#66d9ef">Pathname&lt;/span>&lt;span style="color:#f92672">.&lt;/span>pwd&lt;span style="color:#f92672">/&lt;/span>&lt;span style="color:#e6db74">&amp;#34;man&amp;#34;&lt;/span>)&lt;span style="color:#f92672">.&lt;/span>mkpath
+system bin&lt;span style="color:#f92672">/&lt;/span>&lt;span style="color:#e6db74">&amp;#34;hugo&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;gen&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;man&amp;#34;&lt;/span>
+man1&lt;span style="color:#f92672">.&lt;/span>install &lt;span style="color:#66d9ef">Dir&lt;/span>&lt;span style="color:#f92672">[&lt;/span>&lt;span style="color:#e6db74">&amp;#34;man/*.1&amp;#34;&lt;/span>&lt;span style="color:#f92672">]&lt;/span>
+prefix&lt;span style="color:#f92672">.&lt;/span>install_metafiles
+&lt;span style="color:#66d9ef">end&lt;/span>
+&lt;span style="color:#66d9ef">end&lt;/span>
+test &lt;span style="color:#66d9ef">do&lt;/span>
+site &lt;span style="color:#f92672">=&lt;/span> testpath&lt;span style="color:#f92672">/&lt;/span>&lt;span style="color:#e6db74">&amp;#34;hops-yeast-malt-water&amp;#34;&lt;/span>
+system &lt;span style="color:#e6db74">&amp;#34;&lt;/span>&lt;span style="color:#e6db74">#{&lt;/span>bin&lt;span style="color:#e6db74">}&lt;/span>&lt;span style="color:#e6db74">/hugo&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;new&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;site&amp;#34;&lt;/span>, site
+assert_predicate testpath&lt;span style="color:#f92672">/&lt;/span>&lt;span style="color:#e6db74">&amp;#34;&lt;/span>&lt;span style="color:#e6db74">#{&lt;/span>site&lt;span style="color:#e6db74">}&lt;/span>&lt;span style="color:#e6db74">/config.toml&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">:exist?&lt;/span>
+&lt;span style="color:#66d9ef">end&lt;/span>
+&lt;span style="color:#66d9ef">end&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>updated file:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-ruby" data-lang="ruby">&lt;span style="color:#75715e"># hugo.rb&lt;/span>
+&lt;span style="color:#66d9ef">class&lt;/span> &lt;span style="color:#a6e22e">Hugo&lt;/span> &lt;span style="color:#f92672">&amp;lt;&lt;/span> &lt;span style="color:#66d9ef">Formula&lt;/span>
+desc &lt;span style="color:#e6db74">&amp;#34;Configurable static site generator&amp;#34;&lt;/span>
+homepage &lt;span style="color:#e6db74">&amp;#34;https://gohugo.io/&amp;#34;&lt;/span>
+url &lt;span style="color:#e6db74">&amp;#34;https://github.com/gohugoio/hugo/archive/v0.68.3.tar.gz&amp;#34;&lt;/span>
+sha256 &lt;span style="color:#e6db74">&amp;#34;38e743605e45e3aafd9563feb9e78477e72d79535ce83b56b243ff991d3a2b6e&amp;#34;&lt;/span>
+head &lt;span style="color:#e6db74">&amp;#34;https://github.com/gohugoio/hugo.git&amp;#34;&lt;/span>
+bottle &lt;span style="color:#66d9ef">do&lt;/span>
+root_url &lt;span style="color:#e6db74">&amp;#34;https://homebrew.bintray.com/bottles&amp;#34;&lt;/span>
+rebuild &lt;span style="color:#ae81ff">0&lt;/span>
+sha256 &lt;span style="color:#e6db74">catalina&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;202cb22f91d546939c3e7d11a360b39eb67e445b41f8a8114c35c6cb26d7a7d1&amp;#34;&lt;/span>
+sha256 &lt;span style="color:#e6db74">mojave&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;9b93809ed925204a4d34458044e5d81e152c43c10debaf87509007f45b84bec3&amp;#34;&lt;/span>
+sha256 &lt;span style="color:#e6db74">high_sierra&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;71684aacddbb3d971ea53de453cc8de91c15501ef3db9fab5077a43aa6bd73ee&amp;#34;&lt;/span>
+&lt;span style="color:#66d9ef">end&lt;/span>
+depends_on &lt;span style="color:#e6db74">&amp;#34;go&amp;#34;&lt;/span> &lt;span style="color:#f92672">=&amp;gt;&lt;/span> &lt;span style="color:#e6db74">:build&lt;/span>
+&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">install&lt;/span>
+&lt;span style="color:#66d9ef">ENV&lt;/span>&lt;span style="color:#f92672">[&lt;/span>&lt;span style="color:#e6db74">&amp;#34;GOPATH&amp;#34;&lt;/span>&lt;span style="color:#f92672">]&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#66d9ef">HOMEBREW_CACHE&lt;/span>&lt;span style="color:#f92672">/&lt;/span>&lt;span style="color:#e6db74">&amp;#34;go_cache&amp;#34;&lt;/span>
+(buildpath&lt;span style="color:#f92672">/&lt;/span>&lt;span style="color:#e6db74">&amp;#34;src/github.com/gohugoio/hugo&amp;#34;&lt;/span>)&lt;span style="color:#f92672">.&lt;/span>install buildpath&lt;span style="color:#f92672">.&lt;/span>children
+cd &lt;span style="color:#e6db74">&amp;#34;src/github.com/gohugoio/hugo&amp;#34;&lt;/span> &lt;span style="color:#66d9ef">do&lt;/span>
+system &lt;span style="color:#e6db74">&amp;#34;go&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;build&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;-o&amp;#34;&lt;/span>, bin&lt;span style="color:#f92672">/&lt;/span>&lt;span style="color:#e6db74">&amp;#34;hugo&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;-tags&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;extended&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;main.go&amp;#34;&lt;/span>
+&lt;span style="color:#75715e"># Build bash completion&lt;/span>
+system bin&lt;span style="color:#f92672">/&lt;/span>&lt;span style="color:#e6db74">&amp;#34;hugo&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;gen&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;autocomplete&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;--completionfile=hugo.sh&amp;#34;&lt;/span>
+bash_completion&lt;span style="color:#f92672">.&lt;/span>install &lt;span style="color:#e6db74">&amp;#34;hugo.sh&amp;#34;&lt;/span>
+&lt;span style="color:#75715e"># Build man pages; target dir man/ is hardcoded :(&lt;/span>
+(&lt;span style="color:#66d9ef">Pathname&lt;/span>&lt;span style="color:#f92672">.&lt;/span>pwd&lt;span style="color:#f92672">/&lt;/span>&lt;span style="color:#e6db74">&amp;#34;man&amp;#34;&lt;/span>)&lt;span style="color:#f92672">.&lt;/span>mkpath
+system bin&lt;span style="color:#f92672">/&lt;/span>&lt;span style="color:#e6db74">&amp;#34;hugo&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;gen&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;man&amp;#34;&lt;/span>
+man1&lt;span style="color:#f92672">.&lt;/span>install &lt;span style="color:#66d9ef">Dir&lt;/span>&lt;span style="color:#f92672">[&lt;/span>&lt;span style="color:#e6db74">&amp;#34;man/*.1&amp;#34;&lt;/span>&lt;span style="color:#f92672">]&lt;/span>
+prefix&lt;span style="color:#f92672">.&lt;/span>install_metafiles
+&lt;span style="color:#66d9ef">end&lt;/span>
+&lt;span style="color:#66d9ef">end&lt;/span>
+test &lt;span style="color:#66d9ef">do&lt;/span>
+site &lt;span style="color:#f92672">=&lt;/span> testpath&lt;span style="color:#f92672">/&lt;/span>&lt;span style="color:#e6db74">&amp;#34;hops-yeast-malt-water&amp;#34;&lt;/span>
+system &lt;span style="color:#e6db74">&amp;#34;&lt;/span>&lt;span style="color:#e6db74">#{&lt;/span>bin&lt;span style="color:#e6db74">}&lt;/span>&lt;span style="color:#e6db74">/hugo&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;new&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">&amp;#34;site&amp;#34;&lt;/span>, site
+assert_predicate testpath&lt;span style="color:#f92672">/&lt;/span>&lt;span style="color:#e6db74">&amp;#34;&lt;/span>&lt;span style="color:#e6db74">#{&lt;/span>site&lt;span style="color:#e6db74">}&lt;/span>&lt;span style="color:#e6db74">/config.toml&amp;#34;&lt;/span>, &lt;span style="color:#e6db74">:exist?&lt;/span>
+&lt;span style="color:#66d9ef">end&lt;/span>
+&lt;span style="color:#66d9ef">end&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>(changes are in the &lt;code>bottle do&lt;/code> section, but easiest to ask AI to do the changes for you :P)&lt;/p>
+&lt;p>Then I create a simple shell script to use the v0.68.3 version:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">&lt;span style="color:#75715e">#!/bin/bash
+&lt;/span>&lt;span style="color:#75715e">&lt;/span>/opt/homebrew/Cellar/hugo/0.68.3/bin/hugo &lt;span style="color:#e6db74">&amp;#34;&lt;/span>$@&lt;span style="color:#e6db74">&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>and make it executable with &lt;code>chmod +x hugo&lt;/code>. Then I can simply run &lt;code>./hugo&lt;/code> to use the v0.68.3 version.&lt;/p></content></item><item><title>Nesting context managers</title><link>https://www.robert-sokolewicz.nl/posts/23_nested-context-managers/</link><pubDate>Sat, 28 Dec 2024 00:00:00 +0000</pubDate><guid>https://www.robert-sokolewicz.nl/posts/23_nested-context-managers/</guid><description>The other day I used tempfile to create two temporary files inside a temporary directory. I&amp;rsquo;ve used python for so long that I never realized that since python 3.8 we can write the following much shorter:
+# the old way import tempfile with TemporaryDirectory() as temp_dir: with NamedTemporaryFile(suffix=&amp;#34;.pdf&amp;#34;) as temp_pdf_file: with NamedTemporaryFile(suffix=&amp;#34;.zip&amp;#34;) as temp_zip_file: ... # the new way with ( TemporaryDirectory() as temp_dir, NamedTemporaryFile(suffix=&amp;#34;.pdf&amp;#34;) as temp_pdf_file, NamedTemporaryFile(suffix=&amp;#34;.zip&amp;#34;) as temp_zip_file, ): .</description><content>&lt;p>The other day I used &lt;code>tempfile&lt;/code> to create two temporary files inside a temporary directory. I&amp;rsquo;ve used python for so long that I never realized that since python 3.8 we can write the following much shorter:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#75715e"># the old way&lt;/span>
+&lt;span style="color:#f92672">import&lt;/span> tempfile
+&lt;span style="color:#66d9ef">with&lt;/span> TemporaryDirectory() &lt;span style="color:#66d9ef">as&lt;/span> temp_dir:
+&lt;span style="color:#66d9ef">with&lt;/span> NamedTemporaryFile(suffix&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;.pdf&amp;#34;&lt;/span>) &lt;span style="color:#66d9ef">as&lt;/span> temp_pdf_file:
+&lt;span style="color:#66d9ef">with&lt;/span> NamedTemporaryFile(suffix&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;.zip&amp;#34;&lt;/span>) &lt;span style="color:#66d9ef">as&lt;/span> temp_zip_file:
+&lt;span style="color:#f92672">...&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#75715e"># the new way&lt;/span>
+&lt;span style="color:#66d9ef">with&lt;/span> (
+TemporaryDirectory() &lt;span style="color:#66d9ef">as&lt;/span> temp_dir,
+NamedTemporaryFile(suffix&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;.pdf&amp;#34;&lt;/span>) &lt;span style="color:#66d9ef">as&lt;/span> temp_pdf_file,
+NamedTemporaryFile(suffix&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;.zip&amp;#34;&lt;/span>) &lt;span style="color:#66d9ef">as&lt;/span> temp_zip_file,
+):
+&lt;span style="color:#f92672">...&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>and this works for all context managers, not just &lt;code>tempfile&lt;/code>.&lt;/p>
+&lt;p>In this example, unfortunately &lt;code>temp_dir&lt;/code> won&amp;rsquo;t be created until the with block actually enters, so if we want to create the temporary files in the same directory, we will need to do it like this:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#66d9ef">with&lt;/span> TemporaryDirectory() &lt;span style="color:#66d9ef">as&lt;/span> temp_dir:
+&lt;span style="color:#66d9ef">with&lt;/span> (
+NamedTemporaryFile(suffix&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;.pdf&amp;#34;&lt;/span>, dir&lt;span style="color:#f92672">=&lt;/span>temp_dir) &lt;span style="color:#66d9ef">as&lt;/span> temp_pdf_file,
+NamedTemporaryFile(suffix&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;.zip&amp;#34;&lt;/span>, dir&lt;span style="color:#f92672">=&lt;/span>temp_dir) &lt;span style="color:#66d9ef">as&lt;/span> temp_zip_file,
+):
+&lt;span style="color:#f92672">...&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div></content></item><item><title>Using git bisect to find a bug</title><link>https://www.robert-sokolewicz.nl/posts/20_git_bisect/</link><pubDate>Wed, 16 Oct 2024 00:00:00 +0000</pubDate><guid>https://www.robert-sokolewicz.nl/posts/20_git_bisect/</guid><description>Bisecting the git bisect command Imagine implementing a feature, while not running any unit tests for a couple of commits. And oops, there&amp;rsquo;s a failing test. Or worse, a user discovers a breaking change but you don&amp;rsquo;t know which commit introduced it.
 With git bisect you can do a quick binary search through your git history to find the commit that introduced the bug. Pretty cool! I find the interface a bit confusing, so here it is.</description><content>&lt;h1 id="bisecting-the-git-bisect-command">Bisecting the &lt;code>git bisect&lt;/code> command&lt;/h1>
 &lt;p>Imagine implementing a feature, while not running any unit tests for a couple of commits. And oops, there&amp;rsquo;s a failing test. Or worse, a user discovers a breaking change but you don&amp;rsquo;t know which commit introduced it.&lt;/p>
 &lt;p>With &lt;code>git bisect&lt;/code> you can do a quick binary search through your git history to find the commit that introduced the bug. Pretty cool! I find the interface a bit confusing, so here it is. It&amp;rsquo;s basically a bunch of commands:&lt;/p>
