@@ -1,0 +1,92 @@
+[
+    {
+      "author": [
+        {
+          "family": "Poincare",
+          "given": "H"
+        }
+      ],
+      "container-title": "Relativité Restraimte SR",
+      "id": "poincare1905dynamique",
+      "issued": {
+        "date-parts": [
+          [
+            1905
+          ]
+        ]
+      },
+      "title": "Sur la dynamique de l’electron’, comptes rendus 140 june 5th, 1504-08. In fact, poincaré’s anticipated einstein’s by more than three weeks",
+      "type": "article-journal",
+      "URL": "https://fr.wikisource.org/wiki/Sur_la_dynamique_de_l’électron_(juin)"
+    },
+    {
+      "author": [
+        {
+          "family": "Poincaré",
+          "given": "Henri"
+        }
+      ],
+      "id": "poincare1913dynamique",
+      "issued": {
+        "date-parts": [
+          [
+            1913
+          ]
+        ]
+      },
+      "publisher": "A. Dumas",
+      "title": "La dynamique de l’électron",
+      "type": "book",
+      "URL": "https://fr.wikisource.org/wiki/Sur_la_dynamique_de_l’électron"
+    },
+    {
+      "ISSN": "1631-0705",
+      "URL": "https://www.sciencedirect.com/science/article/pii/S1631070517300762",
+      "abstract": "On 5 June 1905 Poincaré presented a Note to the Académie des Sciences entitled Sur la dynamique de l’électron (“On the dynamics of the electron”). After briefly recalling the context that led Poincaré to write this Note, we comment its content. We emphasize that Poincaré’s electron model consists in assuming that the interior of the worldtube of the (hollow) electron is filled with a positive cosmological constant. We then discuss the several novel contributions to the physico-mathematical aspects of Special Relativity that are sketched in the Note, though they are downplayed by Poincaré, who describes them as having only completed the May 1904 results of Lorentz dans quelques points de détail (“in a few points of detail”). Résumé Le 5 juin 1905, Poincaré présenta à l’Académie des sciences une Note intitulée « Sur la dynamique de l’électron ». Après avoir brièvement rappelé le contexte qui conduisit Poincaré à écrire cette Note, nous commentons son contenu. Nous soulignons que le modèle de l’électron proposé par Poincaré consiste à supposer que l’intérieur du tube d’univers de l’électron (creux) est rempli par une constante cosmologique positive. Nous exposons ensuite les contributions novatrices aux aspects physico-mathématiques de la relativité restreinte qui sont esquissées dans la Note. Ces contributions sont minimisées par Poincaré, qui décrit ses résultats comme ayant seulement complété les résultats de mai 1904 de Lorentz « dans quelques points de détail ».",
+      "author": [
+        {
+          "family": "Damour",
+          "given": "Thibault"
+        }
+      ],
+      "container-title": "Comptes Rendus Physique",
+      "id": "DAMOUR2017551",
+      "issue": "9",
+      "issued": {
+        "date-parts": [
+          [
+            2017
+          ]
+        ]
+      },
+      "keyword": "Relativity, Lorentz transformations, Electron model, Cosmological constant, Relativité, Transformations de Lorentz, Modèle de l’électron, Constante cosmologique",
+      "note": "Science in the making: The Comptes rendus de l’Académie des sciences throughout history",
+      "page": "551-562",
+      "title": "Poincaré, the dynamics of the electron, and relativity",
+      "type": "article-journal",
+      "volume": "18"
+    },
+    {
+      "author": [
+        {
+          "family": "Lorentz",
+          "given": "Hendrik Antoon"
+        }
+      ],
+      "container-title": "Collected papers: Volume v",
+      "id": "lorentz1937electromagnetic",
+      "issued": {
+        "date-parts": [
+          [
+            1937
+          ]
+        ]
+      },
+      "page": "172-197",
+      "publisher": "Springer",
+      "title": "Electromagnetic phenomena in a system moving with any velocity smaller than that of light",
+      "type": "chapter",
+      "URL": "https://isidore.co/misc/Physics%20papers%20and%20books/Classic%20Papers/Electromagnetic%20phenomena%20in%20a%20system%20moving%20with%20any%20velocity%20smaller%20than%20that%20of%20light%20(H.%20A.%20Lorentz%201904).pdf"
+    }
+  ]
+  
