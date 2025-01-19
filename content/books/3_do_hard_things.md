@@ -1,6 +1,6 @@
 +++
-title = "[8/10] Steve Magness' Do Hard Things"
-score = "8/10"
+title = "[9/10] Steve Magness' Do Hard Things"
+score = "9/10"
 cover_image = "hardthings.jpg"
 date = "2023-07-10"
 author = "Robert"
