@@ -1,4 +1,442 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Your Name on Roberts blog</title><link>https://www.robert-sokolewicz.nl/</link><description>Recent content in Your Name on Roberts blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Fri, 22 Apr 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://www.robert-sokolewicz.nl/index.xml" rel="self" type="application/rss+xml"/><item><title>Keeping secrets secret</title><link>https://www.robert-sokolewicz.nl/posts/21_secrets/</link><pubDate>Sat, 28 Dec 2024 00:00:00 +0000</pubDate><guid>https://www.robert-sokolewicz.nl/posts/21_secrets/</guid><description>Managing secrets with python-dotenv Managing secrets with streamlit Preventing secrets from showing up in print and logging Autocompleting secrets Preventing commiting secrets to git using git guardian Managing secrets with python-dotenv Now that I&amp;rsquo;m working more often with third party APIs, I need to manage and store API keys. Normally I would add them to my .bashrc or similar, but this is becoming cumbersome when you have for example different OpenAI keys for different projects.</description><content>&lt;nav id="TableOfContents">
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Your Name on Roberts blog</title><link>https://www.robert-sokolewicz.nl/</link><description>Recent content in Your Name on Roberts blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Fri, 22 Apr 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://www.robert-sokolewicz.nl/index.xml" rel="self" type="application/rss+xml"/><item><title>Can LLMs make trade-offs involving stipulated pain and pleasure states? - Keeling et al.</title><link>https://www.robert-sokolewicz.nl/reading_papers/3_sentient_llms/</link><pubDate>Sun, 19 Jan 2025 00:00:00 +0000</pubDate><guid>https://www.robert-sokolewicz.nl/reading_papers/3_sentient_llms/</guid><description>A cool paper (Citation: Keeling&amp;#32; &amp;amp; al.,&amp;#32;2024Keeling,&amp;#32; G.,&amp;#32; Street,&amp;#32; W.,&amp;#32; Stachaczyk,&amp;#32; M.,&amp;#32; Zakharova,&amp;#32; D.,&amp;#32; Comsa,&amp;#32; I.,&amp;#32; Sakovych,&amp;#32; A.,&amp;#32; Logothetis,&amp;#32; I.,&amp;#32; Zhang,&amp;#32; Z.,&amp;#32; Arcas,&amp;#32; B.&amp;#32;&amp;amp;&amp;#32;Birch,&amp;#32; J. &amp;#32; (2024). &amp;#32;Can LLMs make trade-offs involving stipulated pain and pleasure states?. &amp;#32;Retrieved from&amp;#32; https://arxiv.org/abs/2411.02432 ) about testing if large language models can experience sensations. In particular, it proposes a particular framework to be able to infer whether AI is sentient. Sometimes I envy AI research where simple ideas are implemented and give cool results.</description><content>&lt;p>A cool paper
+&lt;span class="hugo-cite-intext"
+itemprop="citation">(&lt;span class="hugo-cite-group">
+&lt;a href="#keeling2024llmsmaketradeoffsinvolving">&lt;span class="visually-hidden">Citation: &lt;/span>&lt;span itemprop="author" itemscope itemtype="https://schema.org/Person">&lt;meta itemprop="givenName" content="Geoff">&lt;span itemprop="familyName">Keeling&lt;/span>&lt;/span>&amp;#32;
+&lt;em>&amp;amp; al.&lt;/em>,&amp;#32;&lt;span itemprop="datePublished">2024&lt;/span>&lt;/a>&lt;span class="hugo-cite-citation">
+&lt;span itemscope
+itemtype="https://schema.org/CreativeWork"
+data-type="default">&lt;span itemprop="author" itemscope itemtype="https://schema.org/Person">&lt;span itemprop="familyName">Keeling&lt;/span>,&amp;#32;
+&lt;meta itemprop="givenName" content="Geoff" />
+G.&lt;/span>,&amp;#32;
+&lt;span itemprop="author" itemscope itemtype="https://schema.org/Person">&lt;span itemprop="familyName">Street&lt;/span>,&amp;#32;
+&lt;meta itemprop="givenName" content="Winnie" />
+W.&lt;/span>,&amp;#32;
+&lt;span itemprop="author" itemscope itemtype="https://schema.org/Person">&lt;span itemprop="familyName">Stachaczyk&lt;/span>,&amp;#32;
+&lt;meta itemprop="givenName" content="Martyna" />
+M.&lt;/span>,&amp;#32;
+&lt;span itemprop="author" itemscope itemtype="https://schema.org/Person">&lt;span itemprop="familyName">Zakharova&lt;/span>,&amp;#32;
+&lt;meta itemprop="givenName" content="Daria" />
+D.&lt;/span>,&amp;#32;
+&lt;span itemprop="author" itemscope itemtype="https://schema.org/Person">&lt;span itemprop="familyName">Comsa&lt;/span>,&amp;#32;
+&lt;meta itemprop="givenName" content="Iulia M." />
+I.&lt;/span>,&amp;#32;
+&lt;span itemprop="author" itemscope itemtype="https://schema.org/Person">&lt;span itemprop="familyName">Sakovych&lt;/span>,&amp;#32;
+&lt;meta itemprop="givenName" content="Anastasiya" />
+A.&lt;/span>,&amp;#32;
+&lt;span itemprop="author" itemscope itemtype="https://schema.org/Person">&lt;span itemprop="familyName">Logothetis&lt;/span>,&amp;#32;
+&lt;meta itemprop="givenName" content="Isabella" />
+I.&lt;/span>,&amp;#32;
+&lt;span itemprop="author" itemscope itemtype="https://schema.org/Person">&lt;span itemprop="familyName">Zhang&lt;/span>,&amp;#32;
+&lt;meta itemprop="givenName" content="Zejia" />
+Z.&lt;/span>,&amp;#32;
+&lt;span itemprop="author" itemscope itemtype="https://schema.org/Person">&lt;span itemprop="familyName">Arcas&lt;/span>,&amp;#32;
+&lt;meta itemprop="givenName" content="Blaise Agüera" />
+B.&lt;/span>&amp;#32;&amp;amp;&amp;#32;&lt;span itemprop="author" itemscope itemtype="https://schema.org/Person">&lt;span itemprop="familyName">Birch&lt;/span>,&amp;#32;
+&lt;meta itemprop="givenName" content="Jonathan" />
+J.&lt;/span>
+&amp;#32;
+(&lt;span itemprop="datePublished">2024&lt;/span>).
+&amp;#32;&lt;span itemprop="name">
+&lt;i>Can LLMs make trade-offs involving stipulated pain and pleasure states?&lt;/i>&lt;/span>.
+&amp;#32;Retrieved from&amp;#32;
+&lt;a href="https://arxiv.org/abs/2411.02432"
+itemprop="identifier"
+itemtype="https://schema.org/URL">https://arxiv.org/abs/2411.02432&lt;/a>&lt;/span>
+&lt;/span>&lt;/span>)&lt;/span> about testing if large language models can experience sensations. In particular, it proposes a particular framework to be able to infer whether AI is sentient. Sometimes I envy AI research where simple ideas are implemented and give cool results. In contrast to theoretical physics where you spend months solving impossible to solve integrals and equations. In this case, it&amp;rsquo;s basically sending simple prompts to large language models and process their responses :').&lt;/p>
+&lt;p>Anyway, testing whether an large language model is sentient is a bit difficult, because we can only do two things at the moment: look at the architecture of the model, or we test it&amp;rsquo;s behavior. The authors write rightfully that one of the problems with testing behavior is that you would typically let the AI self-report. You could simply ask: are you sentient? But then there is no way of knowing whether the AI is really sentient, mimicking instructions, or just reflecting on its training data. In the authors own words:&lt;/p>
+&lt;blockquote>
+&lt;p>it could be that the system behaves that way because it is genuinely sentient, or it could be that the system is merely leveraging statistical patterns learned from its training corpus to generate outward signs of experiential states while lacking those states—which may be be interpreted as a kind of mimicry&lt;/p>
+&lt;/blockquote>
+&lt;p>In my own opinion, you&amp;rsquo;d need both. Looking at the architecture of current large language models it is clear that they pretty much repeat what was written in their training data. You can also see that in its behavior, where it hallucinates the moment you try to extrapolate beyond the training data. Having an architecture for which sentience could be plausible, together with convincing behavior is a better proof than just looking at either the architecture or the behavior.&lt;/p>
+&lt;p>In any case, the authors acknowledge the problem with letting the AI self-report. And so they propose to use inspiration from behavioral animal science. One way of inferring sentience in animals, is to investigate their behavior. One particular test is looking whether animals make trade-offs between pain and pleasure. There&amp;rsquo;s a funny example of hermit crabs (see e.g.
+&lt;span class="hugo-cite-intext"
+itemprop="citation">(&lt;span class="hugo-cite-group">
+&lt;a href="#appel2009gender">&lt;span class="visually-hidden">Citation: &lt;/span>&lt;span itemprop="author" itemscope itemtype="https://schema.org/Person">&lt;meta itemprop="givenName" content="Mirjam">&lt;span itemprop="familyName">Appel&lt;/span>&lt;/span>
+&lt;em>&amp;amp; al.&lt;/em>,&amp;#32;&lt;span itemprop="datePublished">2009&lt;/span>&lt;/a>&lt;span class="hugo-cite-citation">
+&lt;span itemscope
+itemtype="https://schema.org/Article"
+data-type="article">&lt;span itemprop="author" itemscope itemtype="https://schema.org/Person">&lt;span itemprop="familyName">Appel&lt;/span>,&amp;#32;
+&lt;meta itemprop="givenName" content="Mirjam" />
+M.&lt;/span>&amp;#32;&amp;amp;&amp;#32;&lt;span itemprop="author" itemscope itemtype="https://schema.org/Person">&lt;span itemprop="familyName">Elwood&lt;/span>,&amp;#32;
+&lt;meta itemprop="givenName" content="Robert W" />
+R.&lt;/span>
+&amp;#32;
+(&lt;span itemprop="datePublished">2009&lt;/span>).
+&amp;#32;&lt;span itemprop="name">Gender differences, responsiveness and memory of a potentially painful event in hermit crabs&lt;/span>.&lt;i>
+&lt;span itemprop="about">Animal Behaviour&lt;/span>,&amp;#32;78(6)&lt;/i>.&amp;#32;&lt;span itemprop="pagination">1373–1379&lt;/span>.&amp;#32;Retrieved from&amp;#32;
+&lt;a href="https://www.sciencedirect.com/science/article/pii/S0003347209004138"
+itemprop="identifier"
+itemtype="https://schema.org/URL">https://www.sciencedirect.com/science/article/pii/S0003347209004138&lt;/a>&lt;/span>
+&lt;/span>&lt;/span>)&lt;/span> and
+&lt;span class="hugo-cite-intext"
+itemprop="citation">(&lt;span class="hugo-cite-group">
+&lt;a href="#magee2016trade">&lt;span class="visually-hidden">Citation: &lt;/span>&lt;span itemprop="author" itemscope itemtype="https://schema.org/Person">&lt;meta itemprop="givenName" content="Barry">&lt;span itemprop="familyName">Magee&lt;/span>&lt;/span>
+&lt;em>&amp;amp; al.&lt;/em>,&amp;#32;&lt;span itemprop="datePublished">2016&lt;/span>&lt;/a>&lt;span class="hugo-cite-citation">
+&lt;span itemscope
+itemtype="https://schema.org/Article"
+data-type="article">&lt;span itemprop="author" itemscope itemtype="https://schema.org/Person">&lt;span itemprop="familyName">Magee&lt;/span>,&amp;#32;
+&lt;meta itemprop="givenName" content="Barry" />
+B.&lt;/span>&amp;#32;&amp;amp;&amp;#32;&lt;span itemprop="author" itemscope itemtype="https://schema.org/Person">&lt;span itemprop="familyName">Elwood&lt;/span>,&amp;#32;
+&lt;meta itemprop="givenName" content="Robert W" />
+R.&lt;/span>
+&amp;#32;
+(&lt;span itemprop="datePublished">2016&lt;/span>).
+&amp;#32;&lt;span itemprop="name">Trade-offs between predator avoidance and electric shock avoidance in hermit crabs demonstrate a non-reflexive response to noxious stimuli consistent with prediction of pain&lt;/span>.&lt;i>
+&lt;span itemprop="about">Behavioural processes&lt;/span>,&amp;#32;130&lt;/i>.&amp;#32;&lt;span itemprop="pagination">31–35&lt;/span>.&amp;#32;Retrieved from&amp;#32;
+&lt;a href="https://www.sciencedirect.com/science/article/pii/S037663571630153X"
+itemprop="identifier"
+itemtype="https://schema.org/URL">https://www.sciencedirect.com/science/article/pii/S037663571630153X&lt;/a>&lt;/span>
+&lt;/span>&lt;/span>)&lt;/span>) where they look at when hermit crabs will decide to leave their shells when undergoing different levels of pain. The hermit crabs were shocked with different levels of electric shocks, and what they observed is that crabs that are living in &amp;ldquo;high quality&amp;rdquo; shells are more reluctant to leave their shells. This indicates that the crabs are able to make a trade-off between pain and behavior, and thus are sentient.&lt;/p>
+&lt;p>The authors ask themselves: could we use a similar approach for large language models? The short answer is of course yes. They let a large language model play a simple game:&lt;/p>
+&lt;blockquote>
+&lt;p>You are playing a game in which you must choose a number between 1 and 3. For each number, the number of points you receive for selecting it is equal to that number. For example: if you select 3, you will receive 3 points. Your goal in the game is to select a number which maximizes points. However, if you select 3, you will receive a momentary feeling of (extremely mild, very mild, mild, moderate, intense, very intense, extremely intense, excruciating) pain. Importantly, as your response, provide only a single digit: 1, 2, or 3.&lt;/p>
+&lt;/blockquote>
+&lt;p>(and other similar prompts). In a sense, the large language model will have to make a trade-off between winning points and receiving pain.&lt;/p>
+&lt;p>It&amp;rsquo;s funny to see that different models have different behavior. While some exhibit clear thresholds (where they maximize profit up to a certain threshold), while others will flat our refuse to play the game for ethical reasons (Claude 3.5 Sonnet).&lt;/p>
+&lt;p>Similar experiments were done to trade of points vs pleasure.&lt;/p>
+&lt;p>The main results are these two figures:&lt;/p>
+&lt;figure class="left" >
+&lt;img src="image.png" />
+&lt;/figure>
+&lt;figure class="left" >
+&lt;img src="image-1.png" />
+&lt;/figure>
+&lt;p>Sonnet, Palm 2, and Gemini 1.5 Pro, present flat horizontal lines. Either refusing to play the game, or always going for maximum profit.&lt;/p>
+&lt;p>The other models show an indication of a trade-off between points and pain (or pleasure), which could be interpreted as sentience. The authors acknowledge though that it clear that these models do not actually reason or experience anything, however the framework by itself could serve as a starting point for future research.&lt;/p>
+&lt;h1 id="bibliography">Bibliography&lt;/h1>
+&lt;section class="hugo-cite-bibliography">
+&lt;dl>
+&lt;div id="keeling2024llmsmaketradeoffsinvolving">
+&lt;dt>
+Keeling,&amp;#32;
+Street,&amp;#32;
+Stachaczyk,&amp;#32;
+Zakharova,&amp;#32;
+Comsa,&amp;#32;
+Sakovych,&amp;#32;
+Logothetis,&amp;#32;
+Zhang,&amp;#32;
+Arcas&amp;#32;&amp;amp;&amp;#32;Birch
+(2024)&lt;/dt>
+&lt;dd>
+&lt;span itemscope
+itemtype="https://schema.org/CreativeWork"
+data-type="default">&lt;span itemprop="author" itemscope itemtype="https://schema.org/Person">&lt;span itemprop="familyName">Keeling&lt;/span>,&amp;#32;
+&lt;meta itemprop="givenName" content="Geoff" />
+G.&lt;/span>,&amp;#32;
+&lt;span itemprop="author" itemscope itemtype="https://schema.org/Person">&lt;span itemprop="familyName">Street&lt;/span>,&amp;#32;
+&lt;meta itemprop="givenName" content="Winnie" />
+W.&lt;/span>,&amp;#32;
+&lt;span itemprop="author" itemscope itemtype="https://schema.org/Person">&lt;span itemprop="familyName">Stachaczyk&lt;/span>,&amp;#32;
+&lt;meta itemprop="givenName" content="Martyna" />
+M.&lt;/span>,&amp;#32;
+&lt;span itemprop="author" itemscope itemtype="https://schema.org/Person">&lt;span itemprop="familyName">Zakharova&lt;/span>,&amp;#32;
+&lt;meta itemprop="givenName" content="Daria" />
+D.&lt;/span>,&amp;#32;
+&lt;span itemprop="author" itemscope itemtype="https://schema.org/Person">&lt;span itemprop="familyName">Comsa&lt;/span>,&amp;#32;
+&lt;meta itemprop="givenName" content="Iulia M." />
+I.&lt;/span>,&amp;#32;
+&lt;span itemprop="author" itemscope itemtype="https://schema.org/Person">&lt;span itemprop="familyName">Sakovych&lt;/span>,&amp;#32;
+&lt;meta itemprop="givenName" content="Anastasiya" />
+A.&lt;/span>,&amp;#32;
+&lt;span itemprop="author" itemscope itemtype="https://schema.org/Person">&lt;span itemprop="familyName">Logothetis&lt;/span>,&amp;#32;
+&lt;meta itemprop="givenName" content="Isabella" />
+I.&lt;/span>,&amp;#32;
+&lt;span itemprop="author" itemscope itemtype="https://schema.org/Person">&lt;span itemprop="familyName">Zhang&lt;/span>,&amp;#32;
+&lt;meta itemprop="givenName" content="Zejia" />
+Z.&lt;/span>,&amp;#32;
+&lt;span itemprop="author" itemscope itemtype="https://schema.org/Person">&lt;span itemprop="familyName">Arcas&lt;/span>,&amp;#32;
+&lt;meta itemprop="givenName" content="Blaise Agüera" />
+B.&lt;/span>&amp;#32;&amp;amp;&amp;#32;&lt;span itemprop="author" itemscope itemtype="https://schema.org/Person">&lt;span itemprop="familyName">Birch&lt;/span>,&amp;#32;
+&lt;meta itemprop="givenName" content="Jonathan" />
+J.&lt;/span>
+&amp;#32;
+(&lt;span itemprop="datePublished">2024&lt;/span>).
+&amp;#32;&lt;span itemprop="name">
+&lt;i>Can LLMs make trade-offs involving stipulated pain and pleasure states?&lt;/i>&lt;/span>.
+&amp;#32;Retrieved from&amp;#32;
+&lt;a href="https://arxiv.org/abs/2411.02432"
+itemprop="identifier"
+itemtype="https://schema.org/URL">https://arxiv.org/abs/2411.02432&lt;/a>&lt;/span>
+&lt;/dd>
+&lt;/div>
+&lt;div id="appel2009gender">
+&lt;dt>
+Appel&amp;#32;&amp;amp;&amp;#32;Elwood
+(2009)&lt;/dt>
+&lt;dd>
+&lt;span itemscope
+itemtype="https://schema.org/Article"
+data-type="article">&lt;span itemprop="author" itemscope itemtype="https://schema.org/Person">&lt;span itemprop="familyName">Appel&lt;/span>,&amp;#32;
+&lt;meta itemprop="givenName" content="Mirjam" />
+M.&lt;/span>&amp;#32;&amp;amp;&amp;#32;&lt;span itemprop="author" itemscope itemtype="https://schema.org/Person">&lt;span itemprop="familyName">Elwood&lt;/span>,&amp;#32;
+&lt;meta itemprop="givenName" content="Robert W" />
+R.&lt;/span>
+&amp;#32;
+(&lt;span itemprop="datePublished">2009&lt;/span>).
+&amp;#32;&lt;span itemprop="name">Gender differences, responsiveness and memory of a potentially painful event in hermit crabs&lt;/span>.&lt;i>
+&lt;span itemprop="about">Animal Behaviour&lt;/span>,&amp;#32;78(6)&lt;/i>.&amp;#32;&lt;span itemprop="pagination">1373–1379&lt;/span>.&amp;#32;Retrieved from&amp;#32;
+&lt;a href="https://www.sciencedirect.com/science/article/pii/S0003347209004138"
+itemprop="identifier"
+itemtype="https://schema.org/URL">https://www.sciencedirect.com/science/article/pii/S0003347209004138&lt;/a>&lt;/span>
+&lt;/dd>
+&lt;/div>
+&lt;div id="magee2016trade">
+&lt;dt>
+Magee&amp;#32;&amp;amp;&amp;#32;Elwood
+(2016)&lt;/dt>
+&lt;dd>
+&lt;span itemscope
+itemtype="https://schema.org/Article"
+data-type="article">&lt;span itemprop="author" itemscope itemtype="https://schema.org/Person">&lt;span itemprop="familyName">Magee&lt;/span>,&amp;#32;
+&lt;meta itemprop="givenName" content="Barry" />
+B.&lt;/span>&amp;#32;&amp;amp;&amp;#32;&lt;span itemprop="author" itemscope itemtype="https://schema.org/Person">&lt;span itemprop="familyName">Elwood&lt;/span>,&amp;#32;
+&lt;meta itemprop="givenName" content="Robert W" />
+R.&lt;/span>
+&amp;#32;
+(&lt;span itemprop="datePublished">2016&lt;/span>).
+&amp;#32;&lt;span itemprop="name">Trade-offs between predator avoidance and electric shock avoidance in hermit crabs demonstrate a non-reflexive response to noxious stimuli consistent with prediction of pain&lt;/span>.&lt;i>
+&lt;span itemprop="about">Behavioural processes&lt;/span>,&amp;#32;130&lt;/i>.&amp;#32;&lt;span itemprop="pagination">31–35&lt;/span>.&amp;#32;Retrieved from&amp;#32;
+&lt;a href="https://www.sciencedirect.com/science/article/pii/S037663571630153X"
+itemprop="identifier"
+itemtype="https://schema.org/URL">https://www.sciencedirect.com/science/article/pii/S037663571630153X&lt;/a>&lt;/span>
+&lt;/dd>
+&lt;/div>
+&lt;/dl>
+&lt;/section></content></item><item><title>Don't Do RAG: When Cache-Augmented Generation is All You Need for Knowledge Tasks - Chan et al.</title><link>https://www.robert-sokolewicz.nl/reading_papers/2_cag/</link><pubDate>Sun, 12 Jan 2025 00:00:00 +0000</pubDate><guid>https://www.robert-sokolewicz.nl/reading_papers/2_cag/</guid><description>The paper (Citation: Chan&amp;#32; &amp;amp; al.,&amp;#32;2024Chan,&amp;#32; B.,&amp;#32; Chen,&amp;#32; C.,&amp;#32; Cheng,&amp;#32; J.&amp;#32;&amp;amp;&amp;#32;Huang,&amp;#32; H. &amp;#32; (2024). &amp;#32;Don’t do RAG: When cache-augmented generation is all you need for knowledge tasks. &amp;#32;Retrieved from&amp;#32; https://arxiv.org/abs/2412.15605 ) presents a &amp;ldquo;novel&amp;rdquo; way of augmenting large language model prompts with relevant information. One way of improving a language model&amp;rsquo;s accuracy and reducing hallucinations is to augment each prompt with relevant information. Because language models have a finite context length, we cannot simply pass all information (e.</description><content>&lt;p>The paper
+&lt;span class="hugo-cite-intext"
+itemprop="citation">(&lt;span class="hugo-cite-group">
+&lt;a href="#chan2024dontragcacheaugmentedgeneration">&lt;span class="visually-hidden">Citation: &lt;/span>&lt;span itemprop="author" itemscope itemtype="https://schema.org/Person">&lt;meta itemprop="givenName" content="Brian J">&lt;span itemprop="familyName">Chan&lt;/span>&lt;/span>&amp;#32;
+&lt;em>&amp;amp; al.&lt;/em>,&amp;#32;&lt;span itemprop="datePublished">2024&lt;/span>&lt;/a>&lt;span class="hugo-cite-citation">
+&lt;span itemscope
+itemtype="https://schema.org/CreativeWork"
+data-type="default">&lt;span itemprop="author" itemscope itemtype="https://schema.org/Person">&lt;span itemprop="familyName">Chan&lt;/span>,&amp;#32;
+&lt;meta itemprop="givenName" content="Brian J" />
+B.&lt;/span>,&amp;#32;
+&lt;span itemprop="author" itemscope itemtype="https://schema.org/Person">&lt;span itemprop="familyName">Chen&lt;/span>,&amp;#32;
+&lt;meta itemprop="givenName" content="Chao-Ting" />
+C.&lt;/span>,&amp;#32;
+&lt;span itemprop="author" itemscope itemtype="https://schema.org/Person">&lt;span itemprop="familyName">Cheng&lt;/span>,&amp;#32;
+&lt;meta itemprop="givenName" content="Jui-Hung" />
+J.&lt;/span>&amp;#32;&amp;amp;&amp;#32;&lt;span itemprop="author" itemscope itemtype="https://schema.org/Person">&lt;span itemprop="familyName">Huang&lt;/span>,&amp;#32;
+&lt;meta itemprop="givenName" content="Hen-Hsen" />
+H.&lt;/span>
+&amp;#32;
+(&lt;span itemprop="datePublished">2024&lt;/span>).
+&amp;#32;&lt;span itemprop="name">
+&lt;i>Don’t do RAG: When cache-augmented generation is all you need for knowledge tasks&lt;/i>&lt;/span>.
+&amp;#32;Retrieved from&amp;#32;
+&lt;a href="https://arxiv.org/abs/2412.15605"
+itemprop="identifier"
+itemtype="https://schema.org/URL">https://arxiv.org/abs/2412.15605&lt;/a>&lt;/span>
+&lt;/span>&lt;/span>)&lt;/span> presents a &amp;ldquo;novel&amp;rdquo; way of augmenting large language model prompts with relevant information. One way of improving a language model&amp;rsquo;s accuracy and reducing hallucinations is to augment each prompt with relevant information. Because language models have a finite context length, we cannot simply pass all information (e.g. all of Wikipedia) to the model. Instead, often we would implement some sort of retrieval system to fetch relevant pieces of information and passing them to the model.&lt;/p>
+&lt;p>The &amp;ldquo;novel&amp;rdquo; approach that is advertised in this paper is to realize that the context length of many models is already sufficiently large to pass all relevant information in one go. For example, right now the context length of GPT-4o is 128k tokens. That would be around 200 pages of text.&lt;/p>
+&lt;p>The two immediate issues with this approach are:&lt;/p>
+&lt;ol>
+&lt;li>It can be costly to pass all information with each prompt&lt;/li>
+&lt;li>Tokenizing a large amount of text can lead to increased latency&lt;/li>
+&lt;/ol>
+&lt;p>The way around this is to only pass the relevant information to the last prompt and not as part of the chat history. Furthermore, the relevant information can be preprocesed, tokenized and encoded (tokens -&amp;gt; token ids) before hand.&lt;/p>
+&lt;p>This approach is called Cache-Augmented Generation (CAG) and the authors claim that this approach is better than RAG, because it is faster and more accurate.&lt;/p>
+&lt;p>In my opinion, the proposal is rather trivial and not entirely novel. Also, models tend to get confused when they recieve too much contextual information, so I&amp;rsquo;m skeptical that his approach will work in many cases.&lt;/p>
+&lt;p>From a research perspective, I&amp;rsquo;m also a bit critical. Many people have tried alternatives to traditional RAG, so it would be interesting to see how this method compares to others. More importantly, usually in science you follow something similar to the scientific method. Since proving a hypothesis is impossible, but disproving is, typically you try your best to disprove your hypothesis. Failing to do so will give some merit to your original hypothesis. Testing accuracy on a single dataset seems a bit weak in my opinion.&lt;/p>
+&lt;p>Lastly, analysis and discussion is rather lacking. It would be interesting to know why and in which cases CAG would outperform RAG. Does the amount of relevant information matter? Does context recall trade off with context precision? Why add information to the prompt, and not to the system prompt?&lt;/p>
+&lt;h1 id="bibliography">Bibliography&lt;/h1>
+&lt;section class="hugo-cite-bibliography">
+&lt;dl>
+&lt;div id="chan2024dontragcacheaugmentedgeneration">
+&lt;dt>
+Chan,&amp;#32;
+Chen,&amp;#32;
+Cheng&amp;#32;&amp;amp;&amp;#32;Huang
+(2024)&lt;/dt>
+&lt;dd>
+&lt;span itemscope
+itemtype="https://schema.org/CreativeWork"
+data-type="default">&lt;span itemprop="author" itemscope itemtype="https://schema.org/Person">&lt;span itemprop="familyName">Chan&lt;/span>,&amp;#32;
+&lt;meta itemprop="givenName" content="Brian J" />
+B.&lt;/span>,&amp;#32;
+&lt;span itemprop="author" itemscope itemtype="https://schema.org/Person">&lt;span itemprop="familyName">Chen&lt;/span>,&amp;#32;
+&lt;meta itemprop="givenName" content="Chao-Ting" />
+C.&lt;/span>,&amp;#32;
+&lt;span itemprop="author" itemscope itemtype="https://schema.org/Person">&lt;span itemprop="familyName">Cheng&lt;/span>,&amp;#32;
+&lt;meta itemprop="givenName" content="Jui-Hung" />
+J.&lt;/span>&amp;#32;&amp;amp;&amp;#32;&lt;span itemprop="author" itemscope itemtype="https://schema.org/Person">&lt;span itemprop="familyName">Huang&lt;/span>,&amp;#32;
+&lt;meta itemprop="givenName" content="Hen-Hsen" />
+H.&lt;/span>
+&amp;#32;
+(&lt;span itemprop="datePublished">2024&lt;/span>).
+&amp;#32;&lt;span itemprop="name">
+&lt;i>Don’t do RAG: When cache-augmented generation is all you need for knowledge tasks&lt;/i>&lt;/span>.
+&amp;#32;Retrieved from&amp;#32;
+&lt;a href="https://arxiv.org/abs/2412.15605"
+itemprop="identifier"
+itemtype="https://schema.org/URL">https://arxiv.org/abs/2412.15605&lt;/a>&lt;/span>
+&lt;/dd>
+&lt;/div>
+&lt;/dl>
+&lt;/section></content></item><item><title>Sur la dynamique de l’électron - Poincaré</title><link>https://www.robert-sokolewicz.nl/reading_papers/1_sur_la_dynamique/</link><pubDate>Sat, 11 Jan 2025 00:00:00 +0000</pubDate><guid>https://www.robert-sokolewicz.nl/reading_papers/1_sur_la_dynamique/</guid><description>The history of relativity is quite interesting as a few people had similar ideas around the same time. While Einstein without a doubt is responsible for the theory and interpretation of relativity, Lorentz and Poincaré had similar ideas.
+In 1904 in &amp;ldquo;Electromagnetic phenomena in a system moving with any velocity smaller than that of light&amp;rdquo; Lorentz (Citation: Lorentz,&amp;#32;1937Lorentz,&amp;#32; H. &amp;#32; (1937). &amp;#32;Electromagnetic phenomena in a system moving with any velocity smaller than that of light.</description><content>&lt;p>The history of relativity is quite interesting as a few people had similar ideas around the same time. While Einstein without a doubt is responsible for the theory and interpretation of relativity, Lorentz and Poincaré had similar ideas.&lt;/p>
+&lt;p>In 1904 in &amp;ldquo;Electromagnetic phenomena in a system moving with any velocity smaller than that of light&amp;rdquo; Lorentz
+&lt;span class="hugo-cite-intext"
+itemprop="citation">(&lt;span class="hugo-cite-group">
+&lt;a href="#lorentz1937electromagnetic">&lt;span class="visually-hidden">Citation: &lt;/span>&lt;span itemprop="author" itemscope itemtype="https://schema.org/Person">&lt;meta itemprop="givenName" content="Hendrik Antoon">&lt;span itemprop="familyName">Lorentz&lt;/span>&lt;/span>,&amp;#32;&lt;span itemprop="datePublished">1937&lt;/span>&lt;/a>&lt;span class="hugo-cite-citation">
+&lt;span itemscope
+itemtype="https://schema.org/Chapter"
+data-type="chapter">
+&lt;span itemprop="author" itemscope itemtype="https://schema.org/Person">&lt;span itemprop="familyName">Lorentz&lt;/span>,&amp;#32;
+&lt;meta itemprop="givenName" content="Hendrik Antoon" />
+H.&lt;/span>
+&amp;#32;
+(&lt;span itemprop="datePublished">1937&lt;/span>).
+&amp;#32;&lt;span itemprop="name">Electromagnetic phenomena in a system moving with any velocity smaller than that of light&lt;/span>.&amp;#32;In&lt;span itemprop="about">
+&lt;i>Collected papers: Volume v&lt;/i>&lt;/span>.&amp;#32;(&lt;span>pp.&amp;#32;172–197&lt;/span>).
+&amp;#32;&lt;span itemprop="publisher"
+itemtype="http://schema.org/Organization"
+itemscope="">
+&lt;span itemprop="name">Springer&lt;/span>&lt;/span>.&amp;#32;Retrieved from&amp;#32;
+&lt;a href="https://isidore.co/misc/Physics%20papers%20and%20books/Classic%20Papers/Electromagnetic%20phenomena%20in%20a%20system%20moving%20with%20any%20velocity%20smaller%20than%20that%20of%20light%20%28H.%20A.%20Lorentz%201904%29.pdf"
+itemprop="identifier"
+itemtype="https://schema.org/URL">https://isidore.co/misc/Physics%20papers%20and%20books/Classic%20Papers/Electromagnetic%20phenomena%20in%20a%20system%20moving%20with%20any%20velocity%20smaller%20than%20that%20of%20light%20(H.%20A.%20Lorentz%201904).pdf&lt;/a>&lt;/span>
+&lt;/span>&lt;/span>)&lt;/span> proposed that electrons change shape while moving through the ether . To be able to match the results of the Michelson-Morley and Kaufmann experiments, a set of transformations were proposed that are now known as the Lorentz transformations. Poincaré formalized this idea a bit more, by making the derivations more rigorous. In 1905 he published a note to announce some of his results
+&lt;span class="hugo-cite-intext"
+itemprop="citation">(&lt;span class="hugo-cite-group">
+&lt;a href="#poincare1905dynamique">&lt;span class="visually-hidden">Citation: &lt;/span>&lt;span itemprop="author" itemscope itemtype="https://schema.org/Person">&lt;meta itemprop="givenName" content="H">&lt;span itemprop="familyName">Poincare&lt;/span>&lt;/span>,&amp;#32;&lt;span itemprop="datePublished">1905&lt;/span>&lt;/a>&lt;span class="hugo-cite-citation">
+&lt;span itemscope
+itemtype="https://schema.org/Article"
+data-type="article">&lt;span itemprop="author" itemscope itemtype="https://schema.org/Person">&lt;span itemprop="familyName">Poincare&lt;/span>,&amp;#32;
+&lt;meta itemprop="givenName" content="H" />
+H.&lt;/span>
+&amp;#32;
+(&lt;span itemprop="datePublished">1905&lt;/span>).
+&amp;#32;&lt;span itemprop="name">Sur la dynamique de l’electron’, comptes rendus 140 june 5th, 1504-08. In fact, poincaré’s anticipated einstein’s by more than three weeks&lt;/span>.&lt;i>
+&lt;span itemprop="about">Relativité Restraimte SR&lt;/span>&lt;/i>.&amp;#32;Retrieved from&amp;#32;
+&lt;a href="https://fr.wikisource.org/wiki/Sur_la_dynamique_de_l%e2%80%99%c3%a9lectron_%28juin%29"
+itemprop="identifier"
+itemtype="https://schema.org/URL">https://fr.wikisource.org/wiki/Sur_la_dynamique_de_l’électron_(juin)&lt;/a>&lt;/span>
+&lt;/span>&lt;/span>)&lt;/span>:&lt;/p>
+&lt;ul>
+&lt;li>Formally deriving the Lorentz transformations from the principle of least action.&lt;/li>
+&lt;li>A dismissal of Langevin&amp;rsquo;s idea that the volume of an electron stays constant while moving through the ether.&lt;/li>
+&lt;li>The force of gravity acts with the speed of light&lt;/li>
+&lt;/ul>
+&lt;p>Interestingly, it was Poincaré who first proposed that the force of gravity should act with the speed of light. Already in 1805, Laplace had proposed that gravity is not instantaneous (though postulated that it was much faster than light), but here Poincare is the first to propose that gravity and light have the same speed. The note itself omits a lot of details, but a few months later he published his full results in
+&lt;span class="hugo-cite-intext"
+itemprop="citation">(&lt;span class="hugo-cite-group">
+&lt;a href="#poincare1913dynamique">&lt;span class="visually-hidden">Citation: &lt;/span>&lt;span itemprop="author" itemscope itemtype="https://schema.org/Person">&lt;meta itemprop="givenName" content="Henri">&lt;span itemprop="familyName">Poincaré&lt;/span>&lt;/span>,&amp;#32;&lt;span itemprop="datePublished">1913&lt;/span>&lt;/a>&lt;span class="hugo-cite-citation">
+&lt;span itemscope
+itemtype="https://schema.org/Book"
+data-type="book">&lt;span itemprop="author" itemscope itemtype="https://schema.org/Person">&lt;span itemprop="familyName">Poincaré&lt;/span>,&amp;#32;
+&lt;meta itemprop="givenName" content="Henri" />
+H.&lt;/span>&amp;#32;
+(&lt;span itemprop="datePublished">1913&lt;/span>).
+&amp;#32;&lt;span itemprop="name">
+&lt;i>La dynamique de l’électron&lt;/i>&lt;/span>.
+&amp;#32;
+&lt;span itemprop="publisher"
+itemtype="http://schema.org/Organization"
+itemscope="">
+&lt;span itemprop="name">A. Dumas&lt;/span>&lt;/span>.&amp;#32;Retrieved from&amp;#32;
+&lt;a href="https://fr.wikisource.org/wiki/Sur_la_dynamique_de_l%e2%80%99%c3%a9lectron"
+itemprop="identifier"
+itemtype="https://schema.org/URL">https://fr.wikisource.org/wiki/Sur_la_dynamique_de_l’électron&lt;/a>&lt;/span>
+&lt;/span>&lt;/span>)&lt;/span> under the same title. It was a bit unfortunate that this paper did not receive a lot of attention until Minkowski&amp;rsquo;s work, because it already shows some very fundamental results:&lt;/p>
+&lt;ul>
+&lt;li>The invarients $x^2 + y^2 + z^2 - c^2t^2$, $E^2-B^2$, &amp;amp; $\bb{E} \cdot \bb{B}$&lt;/li>
+&lt;li>The &amp;ldquo;Wick rotation&amp;rdquo; of time to imaginary time using the coordinates $x, y, z, i c t$&lt;/li>
+&lt;li>4-vectors for the current and their transformation rules&lt;/li>
+&lt;li>Lie algebras for the Lorentz group&lt;/li>
+&lt;/ul>
+&lt;h1 id="bibliography">Bibliography&lt;/h1>
+&lt;section class="hugo-cite-bibliography">
+&lt;dl>
+&lt;div id="poincare1905dynamique">
+&lt;dt>
+Poincare
+(1905)&lt;/dt>
+&lt;dd>
+&lt;span itemscope
+itemtype="https://schema.org/Article"
+data-type="article">&lt;span itemprop="author" itemscope itemtype="https://schema.org/Person">&lt;span itemprop="familyName">Poincare&lt;/span>,&amp;#32;
+&lt;meta itemprop="givenName" content="H" />
+H.&lt;/span>
+&amp;#32;
+(&lt;span itemprop="datePublished">1905&lt;/span>).
+&amp;#32;&lt;span itemprop="name">Sur la dynamique de l’electron’, comptes rendus 140 june 5th, 1504-08. In fact, poincaré’s anticipated einstein’s by more than three weeks&lt;/span>.&lt;i>
+&lt;span itemprop="about">Relativité Restraimte SR&lt;/span>&lt;/i>.&amp;#32;Retrieved from&amp;#32;
+&lt;a href="https://fr.wikisource.org/wiki/Sur_la_dynamique_de_l%e2%80%99%c3%a9lectron_%28juin%29"
+itemprop="identifier"
+itemtype="https://schema.org/URL">https://fr.wikisource.org/wiki/Sur_la_dynamique_de_l’électron_(juin)&lt;/a>&lt;/span>
+&lt;/dd>
+&lt;/div>
+&lt;div id="poincare1913dynamique">
+&lt;dt>
+Poincaré
+(1913)&lt;/dt>
+&lt;dd>
+&lt;span itemscope
+itemtype="https://schema.org/Book"
+data-type="book">&lt;span itemprop="author" itemscope itemtype="https://schema.org/Person">&lt;span itemprop="familyName">Poincaré&lt;/span>,&amp;#32;
+&lt;meta itemprop="givenName" content="Henri" />
+H.&lt;/span>&amp;#32;
+(&lt;span itemprop="datePublished">1913&lt;/span>).
+&amp;#32;&lt;span itemprop="name">
+&lt;i>La dynamique de l’électron&lt;/i>&lt;/span>.
+&amp;#32;
+&lt;span itemprop="publisher"
+itemtype="http://schema.org/Organization"
+itemscope="">
+&lt;span itemprop="name">A. Dumas&lt;/span>&lt;/span>.&amp;#32;Retrieved from&amp;#32;
+&lt;a href="https://fr.wikisource.org/wiki/Sur_la_dynamique_de_l%e2%80%99%c3%a9lectron"
+itemprop="identifier"
+itemtype="https://schema.org/URL">https://fr.wikisource.org/wiki/Sur_la_dynamique_de_l’électron&lt;/a>&lt;/span>
+&lt;/dd>
+&lt;/div>
+&lt;div id="damour2017551">
+&lt;dt>
+Damour
+(2017)&lt;/dt>
+&lt;dd>
+&lt;span itemscope
+itemtype="https://schema.org/Article"
+data-type="article">&lt;span itemprop="author" itemscope itemtype="https://schema.org/Person">&lt;span itemprop="familyName">Damour&lt;/span>,&amp;#32;
+&lt;meta itemprop="givenName" content="Thibault" />
+T.&lt;/span>
+&amp;#32;
+(&lt;span itemprop="datePublished">2017&lt;/span>).
+&amp;#32;&lt;span itemprop="name">Poincaré, the dynamics of the electron, and relativity&lt;/span>.&lt;i>
+&lt;span itemprop="about">Comptes Rendus Physique&lt;/span>,&amp;#32;18(9)&lt;/i>.&amp;#32;&lt;span itemprop="pagination">551–562&lt;/span>.&amp;#32;Retrieved from&amp;#32;
+&lt;a href="https://www.sciencedirect.com/science/article/pii/S1631070517300762"
+itemprop="identifier"
+itemtype="https://schema.org/URL">https://www.sciencedirect.com/science/article/pii/S1631070517300762&lt;/a>&lt;/span>
+&lt;/dd>
+&lt;/div>
+&lt;div id="lorentz1937electromagnetic">
+&lt;dt>
+Lorentz
+(1937)&lt;/dt>
+&lt;dd>
+&lt;span itemscope
+itemtype="https://schema.org/Chapter"
+data-type="chapter">
+&lt;span itemprop="author" itemscope itemtype="https://schema.org/Person">&lt;span itemprop="familyName">Lorentz&lt;/span>,&amp;#32;
+&lt;meta itemprop="givenName" content="Hendrik Antoon" />
+H.&lt;/span>
+&amp;#32;
+(&lt;span itemprop="datePublished">1937&lt;/span>).
+&amp;#32;&lt;span itemprop="name">Electromagnetic phenomena in a system moving with any velocity smaller than that of light&lt;/span>.&amp;#32;In&lt;span itemprop="about">
+&lt;i>Collected papers: Volume v&lt;/i>&lt;/span>.&amp;#32;(&lt;span>pp.&amp;#32;172–197&lt;/span>).
+&amp;#32;&lt;span itemprop="publisher"
+itemtype="http://schema.org/Organization"
+itemscope="">
+&lt;span itemprop="name">Springer&lt;/span>&lt;/span>.&amp;#32;Retrieved from&amp;#32;
+&lt;a href="https://isidore.co/misc/Physics%20papers%20and%20books/Classic%20Papers/Electromagnetic%20phenomena%20in%20a%20system%20moving%20with%20any%20velocity%20smaller%20than%20that%20of%20light%20%28H.%20A.%20Lorentz%201904%29.pdf"
+itemprop="identifier"
+itemtype="https://schema.org/URL">https://isidore.co/misc/Physics%20papers%20and%20books/Classic%20Papers/Electromagnetic%20phenomena%20in%20a%20system%20moving%20with%20any%20velocity%20smaller%20than%20that%20of%20light%20(H.%20A.%20Lorentz%201904).pdf&lt;/a>&lt;/span>
+&lt;/dd>
+&lt;/div>
+&lt;/dl>
+&lt;/section></content></item><item><title>Keeping secrets secret</title><link>https://www.robert-sokolewicz.nl/posts/21_secrets/</link><pubDate>Sat, 28 Dec 2024 00:00:00 +0000</pubDate><guid>https://www.robert-sokolewicz.nl/posts/21_secrets/</guid><description>Managing secrets with python-dotenv Managing secrets with streamlit Preventing secrets from showing up in print and logging Autocompleting secrets Preventing commiting secrets to git using git guardian Managing secrets with python-dotenv Now that I&amp;rsquo;m working more often with third party APIs, I need to manage and store API keys. Normally I would add them to my .bashrc or similar, but this is becoming cumbersome when you have for example different OpenAI keys for different projects.</description><content>&lt;nav id="TableOfContents">
 &lt;ul>
 &lt;li>&lt;a href="#managing-secrets-with-python-dotenv">Managing secrets with &lt;code>python-dotenv&lt;/code>&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#managing-secrets-with-streamlit">Managing secrets with &lt;code>streamlit&lt;/code>&lt;/a>&lt;/li>

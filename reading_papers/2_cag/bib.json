@@ -1,0 +1,35 @@
+[
+    {
+      "URL": "https://arxiv.org/abs/2412.15605",
+      "author": [
+        {
+          "family": "Chan",
+          "given": "Brian J"
+        },
+        {
+          "family": "Chen",
+          "given": "Chao-Ting"
+        },
+        {
+          "family": "Cheng",
+          "given": "Jui-Hung"
+        },
+        {
+          "family": "Huang",
+          "given": "Hen-Hsen"
+        }
+      ],
+      "id": "chan2024dontragcacheaugmentedgeneration",
+      "issued": {
+        "date-parts": [
+          [
+            2024
+          ]
+        ]
+      },
+      "title": "Don’t do RAG: When cache-augmented generation is all you need for knowledge tasks",
+      "title-short": "Don’t do RAG",
+      "type": ""
+    }
+  ]
+  
