@@ -396,13 +396,17 @@ itemprop="identifier"
 itemtype="https://schema.org/URL">https://doi.org/10.1038/srep43705&lt;/a>&lt;/span>
 &lt;/span>&lt;/span>)&lt;/span>.&lt;/p>
 &lt;h3 id="fig1">&lt;/h3>
-&lt;figure class="center" >
-&lt;img src="../images/llg.svg" />
+&lt;figure class="center"
+>
+&lt;img src="../images/llg.svg"
+/>
 &lt;figcaption class="center" >Figure 1. Precession of magnetization due to field-like torques (a) and relaxation due to damping-like torques (b).&lt;/figcaption>
 &lt;/figure>
 &lt;h3 id="fig2">&lt;/h3>
-&lt;figure class="center" >
-&lt;img src="../images/switch_ferro%20%282%29.svg" />
+&lt;figure class="center"
+>
+&lt;img src="../images/switch_ferro%20%282%29.svg"
+/>
 &lt;figcaption class="center" >Figure 2. Switching behavior for a Rashba ferromagnet, subject to alternating current pulses. Gray areas correspond to a constant current flowing in the direction of `$\pm\hat{x}$`, where the sign alternates between each successive box. In the white area the current is switched off. The graph corresponds to numerically solving Eq.(\ref{eq:sd:ferro}) with values `$c_1=0.2$`, `$j=|\bb{j}|=1$` and `$\alpha=0.1$`. In the top panel we choose a value of `$c_2=0.25$` corresponding to a current overcoming the Gilbert damping making switching possible. In the bottom panel we choose a value of `$c_2=0.05$` which corresponds to the opposite case: an insufficiently strong current and therefore no switching. A magneto-crystalline anisotropy term `$-K \bb{n}\times\bb{n_y}$` with `$K=1$` was included in Eq.(\ref{eq:sd:ferro}).&lt;/figcaption>
 &lt;/figure>
 &lt;!-- \begin{figure}
@@ -836,8 +840,10 @@ By denoting &lt;code>$\hat{s}^{\text{vc}}$&lt;/code> as the vertex-corrected fun
 \label{eq:onedisorderline}
 \end{align}$$&lt;/div>
 &lt;h3 id="fig3">&lt;/h3>
-&lt;figure class="center" >
-&lt;img src="../images/bubble1.svg" />
+&lt;figure class="center"
+>
+&lt;img src="../images/bubble1.svg"
+/>
 &lt;figcaption class="center" >Figure 3. Diagrammatic illustration. a) Disorder-averaged polarization bubble. b) Ladder-approximation.&lt;/figcaption>
 &lt;/figure>
 &lt;!-- \begin{figure}
@@ -3016,8 +3022,10 @@ itemtype="https://schema.org/URL">https://doi.org/10.1016/b978-0-08-102154-5.000
 &lt;/div>
 &lt;p>The groups of two-dimensional chalgonides and halides are currently a popular topic of investigation as they provide access to many physical properties not found in other two-dimensional materials. The electronic properties, e.g. bandgap, of these crystals are highly tunable to doping, strain, and chemical composition. Furthermore, a large variety of magnetic phases are also found among these materials (see &lt;a href="#magnetic_phases">Figure 1&lt;/a>).&lt;/p>
 &lt;h2 id="magnetic_phases">&lt;/h2>
-&lt;figure class="left" >
-&lt;img src="https://www.robert-sokolewicz.nl/images/phases.svg" />
+&lt;figure class="center"
+>
+&lt;img src="https://www.robert-sokolewicz.nl/images/phases.svg"
+/>
 &lt;figcaption class="center" >Figure 1. Four magnetic phases commonly found among van-der-Waals magnets.&lt;/figcaption>
 &lt;/figure>
 &lt;p>Apart from the crystals in &lt;a href="#table1">Table 1&lt;/a>, there is also a large amount of two-dimensional crystals that are neither ferro- or antiferromagnetic. The possibility to induce (anti)ferromagnetism in such a crystal is attractive as it gives access to even a wider range of material parameters. In general one can undertake three ways:&lt;/p>

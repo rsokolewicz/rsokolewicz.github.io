@@ -95,11 +95,15 @@ itemtype="https://schema.org/URL">https://www.sciencedirect.com/science/article/
 &lt;p>It&amp;rsquo;s funny to see that different models have different behavior. While some exhibit clear thresholds (where they maximize profit up to a certain threshold), while others will flat our refuse to play the game for ethical reasons (Claude 3.5 Sonnet).&lt;/p>
 &lt;p>Similar experiments were done to trade of points vs pleasure.&lt;/p>
 &lt;p>The main results are these two figures:&lt;/p>
-&lt;figure class="left" >
-&lt;img src="image.png" />
+&lt;figure class="center"
+>
+&lt;img src="image.png"
+/>
 &lt;/figure>
-&lt;figure class="left" >
-&lt;img src="image-1.png" />
+&lt;figure class="center"
+>
+&lt;img src="image-1.png"
+/>
 &lt;/figure>
 &lt;p>Sonnet, Palm 2, and Gemini 1.5 Pro, present flat horizontal lines. Either refusing to play the game, or always going for maximum profit.&lt;/p>
 &lt;p>The other models show an indication of a trade-off between points and pain (or pleasure), which could be interpreted as sentience. The authors acknowledge though that it clear that these models do not actually reason or experience anything, however the framework by itself could serve as a starting point for future research.&lt;/p>
