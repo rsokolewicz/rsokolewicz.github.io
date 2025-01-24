@@ -39,6 +39,12 @@ Sonnet, Palm 2, and Gemini 1.5 Pro, present flat horizontal lines. Either refusi
 
 The other models show an indication of a trade-off between points and pain (or pleasure), which could be interpreted as sentience. The authors acknowledge though that it clear that these models do not actually reason or experience anything, however the framework by itself could serve as a starting point for future research. 
 
+---
+
+Co written with [Lan Chu](https://huonglanchu.medium.com/).
+
+---
+
 # Bibliography
 
 {{< bibliography >}}
