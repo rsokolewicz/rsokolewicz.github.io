@@ -1,4 +1,128 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Your Name on Roberts blog</title><link>https://www.robert-sokolewicz.nl/</link><description>Recent content in Your Name on Roberts blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Fri, 22 Apr 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://www.robert-sokolewicz.nl/index.xml" rel="self" type="application/rss+xml"/><item><title>Can LLMs make trade-offs involving stipulated pain and pleasure states? - Keeling et al.</title><link>https://www.robert-sokolewicz.nl/reading_papers/3_sentient_llms/</link><pubDate>Sun, 19 Jan 2025 00:00:00 +0000</pubDate><guid>https://www.robert-sokolewicz.nl/reading_papers/3_sentient_llms/</guid><description>A cool paper (Citation: Keeling&amp;#32; &amp;amp; al.,&amp;#32;2024Keeling,&amp;#32; G.,&amp;#32; Street,&amp;#32; W.,&amp;#32; Stachaczyk,&amp;#32; M.,&amp;#32; Zakharova,&amp;#32; D.,&amp;#32; Comsa,&amp;#32; I.,&amp;#32; Sakovych,&amp;#32; A.,&amp;#32; Logothetis,&amp;#32; I.,&amp;#32; Zhang,&amp;#32; Z.,&amp;#32; Arcas,&amp;#32; B.&amp;#32;&amp;amp;&amp;#32;Birch,&amp;#32; J. &amp;#32; (2024). &amp;#32;Can LLMs make trade-offs involving stipulated pain and pleasure states?. &amp;#32;Retrieved from&amp;#32; https://arxiv.org/abs/2411.02432 ) about testing if large language models can experience sensations. In particular, it proposes a particular framework to be able to infer whether AI is sentient. Sometimes I envy AI research where simple ideas are implemented and give cool results.</description><content>&lt;p>A cool paper
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Your Name on Roberts blog</title><link>https://www.robert-sokolewicz.nl/</link><description>Recent content in Your Name on Roberts blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Fri, 22 Apr 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://www.robert-sokolewicz.nl/index.xml" rel="self" type="application/rss+xml"/><item><title>profiling time and memory using pytest</title><link>https://www.robert-sokolewicz.nl/posts/24_pytest_benchmark/</link><pubDate>Fri, 24 Jan 2025 00:00:00 +0000</pubDate><guid>https://www.robert-sokolewicz.nl/posts/24_pytest_benchmark/</guid><description>I was reading about a new benchmarking framework for quantum control software called Benchpress. Looking through the code, it seems to be built upon the benchmark plugin for pytest. If you want to quickly benchmark your code, it&amp;rsquo;s quite easy to do with pytest-benchmark.
+Running benchmark If you know a bit about pytest, it&amp;rsquo;s actually very easy to add some benchmarking to your tests by just using the benchmark fixture. Suppose we have these two functions:</description><content>&lt;p>I was reading about a new benchmarking framework for quantum control software called &lt;a href="https://github.com/qiskit/benchpress">Benchpress&lt;/a>. Looking through the code, it seems to be built upon the &lt;code>benchmark&lt;/code> plugin for &lt;code>pytest&lt;/code>. If you want to quickly benchmark your code, it&amp;rsquo;s quite easy to do with &lt;code>pytest-benchmark&lt;/code>.&lt;/p>
+&lt;h2 id="running-benchmark">Running benchmark&lt;/h2>
+&lt;p>If you know a bit about pytest, it&amp;rsquo;s actually very easy to add some benchmarking to your tests by just using the &lt;code>benchmark&lt;/code> fixture. Suppose we have these two functions:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">fibonacci_recursive&lt;/span>(n):
+&lt;span style="color:#66d9ef">if&lt;/span> n &lt;span style="color:#f92672">&amp;lt;=&lt;/span> &lt;span style="color:#ae81ff">1&lt;/span>:
+&lt;span style="color:#66d9ef">return&lt;/span> n
+&lt;span style="color:#66d9ef">return&lt;/span> fibonacci_recursive(n &lt;span style="color:#f92672">-&lt;/span> &lt;span style="color:#ae81ff">1&lt;/span>) &lt;span style="color:#f92672">+&lt;/span> fibonacci_recursive(n &lt;span style="color:#f92672">-&lt;/span> &lt;span style="color:#ae81ff">2&lt;/span>)
+&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">fibonacci_iterative&lt;/span>(n):
+&lt;span style="color:#66d9ef">if&lt;/span> n &lt;span style="color:#f92672">&amp;lt;=&lt;/span> &lt;span style="color:#ae81ff">1&lt;/span>:
+&lt;span style="color:#66d9ef">return&lt;/span> n
+a, b &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span>, &lt;span style="color:#ae81ff">1&lt;/span>
+&lt;span style="color:#66d9ef">for&lt;/span> _ &lt;span style="color:#f92672">in&lt;/span> range(&lt;span style="color:#ae81ff">2&lt;/span>, n &lt;span style="color:#f92672">+&lt;/span> &lt;span style="color:#ae81ff">1&lt;/span>):
+a, b &lt;span style="color:#f92672">=&lt;/span> b, a &lt;span style="color:#f92672">+&lt;/span> b
+&lt;span style="color:#66d9ef">return&lt;/span> b
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>that we would like to test and benchmark. We can do this by just adding a &lt;code>benchmark&lt;/code> fixture to our test function:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#f92672">import&lt;/span> pytest
+&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">test_fibonacci_recursive&lt;/span>(benchmark):
+result &lt;span style="color:#f92672">=&lt;/span> benchmark(fibonacci_recursive, &lt;span style="color:#ae81ff">30&lt;/span>)
+&lt;span style="color:#66d9ef">assert&lt;/span> result &lt;span style="color:#f92672">==&lt;/span> &lt;span style="color:#ae81ff">832040&lt;/span>
+&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">test_fibonacci_iterative&lt;/span>(benchmark):
+result &lt;span style="color:#f92672">=&lt;/span> benchmark(fibonacci_iterative, &lt;span style="color:#ae81ff">30&lt;/span>)
+&lt;span style="color:#66d9ef">assert&lt;/span> result &lt;span style="color:#f92672">==&lt;/span> &lt;span style="color:#ae81ff">832040&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Then after installing the &lt;code>pytest-benchmark&lt;/code> package, we can run our tests with the &lt;code>pytest --benchmark-enable&lt;/code> flag.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">pytest --benchmark-enable tests/
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>This will run the tests and print out the results in a nice table.&lt;/p>
+&lt;pre>&lt;code>
+---------------------------------------------------------------------------------------------------------------- benchmark: 2 tests ---------------------------------------------------------------------------------------------------------------
+Name (time in ns) Min Max Mean StdDev Median IQR Outliers OPS Rounds Iterations
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+test_fibonacci_iterative 387.8466 (1.0) 7,455.1521 (1.0) 435.0220 (1.0) 33.3827 (1.0) 435.9217 (1.0) 6.4655 (1.0) 4121;31660 2,298,734.2926 (1.0) 181819 13
+test_fibonacci_recursive 60,989,416.0298 (&amp;gt;1000.0) 65,767,124.9937 (&amp;gt;1000.0) 63,742,859.3145 (&amp;gt;1000.0) 1,336,402.2177 (&amp;gt;1000.0) 63,621,042.0053 (&amp;gt;1000.0) 1,510,000.5257 (&amp;gt;1000.0) 5;0 15.6880 (0.00) 16 1
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Legend:
+Outliers: 1 Standard Deviation from Mean; 1.5 IQR (InterQuartile Range) from 1st Quartile and 3rd Quartile.
+OPS: Operations Per Second, computed as 1 / Mean
+============================================================================================= 2 passed in 3.33s =============================================================================================
+&lt;/code>&lt;/pre>&lt;p>(the enable flag will keep it enabled forever, until you disable it with &lt;code>--benchmark-disable&lt;/code>)&lt;/p>
+&lt;p>Surprisingly, the recursive version is about 15,000 times slower than the iterative version. This is because the recursive version has to call the function itself, which in python is more expensive than looping and adding two numbers (today I learned&amp;hellip; lol).&lt;/p>
+&lt;h2 id="comparing-results">Comparing results&lt;/h2>
+&lt;p>With &lt;code>pytest-benchmark&lt;/code>, you can compare results to previous runs by using the &lt;code>--benchmark-save&lt;/code> and &lt;code>--benchmark-compare&lt;/code> flags.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">&lt;span style="color:#75715e"># run and save results&lt;/span>
+pytest --benchmark-save&lt;span style="color:#f92672">=&lt;/span>baseline tests/
+&lt;span style="color:#75715e"># make changes, run and compare&lt;/span>
+pytest --benchmark-compare&lt;span style="color:#f92672">=&lt;/span>baseline tests/
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>which is convenient if you want to compare the effects of some refactor work:&lt;/p>
+&lt;pre>&lt;code>------------------------------------------------------------------------------------------------------------------------ benchmark: 4 tests ------------------------------------------------------------------------------------------------------------------------
+Name (time in ns) Min Max Mean StdDev Median IQR Outliers OPS Rounds Iterations
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+test_fibonacci_iterative (NOW) 392.3293 (1.0) 6,972.2494 (1.91) 435.3606 (1.0) 31.0298 (1.03) 437.4985 (1.0) 6.9995 (1.0) 8191;37003 2,296,946.3097 (1.0) 198334 12
+test_fibonacci_iterative (0002_baselin) 395.8315 (1.01) 3,645.8320 (1.0) 440.7425 (1.01) 30.2541 (1.0) 441.0006 (1.01) 6.9995 (1.0) 11175;30137 2,268,898.7304 (0.99) 196697 12
+test_fibonacci_recursive (NOW) 62,625,999.9699 (&amp;gt;1000.0) 67,687,292.0012 (&amp;gt;1000.0) 65,359,044.3762 (&amp;gt;1000.0) 1,253,637.0277 (&amp;gt;1000.0) 65,587,125.0201 (&amp;gt;1000.0) 1,420,166.4890 (&amp;gt;1000.0) 4;0 15.3001 (0.00) 16 1
+test_fibonacci_recursive (0002_baselin) 63,488,584.0118 (&amp;gt;1000.0) 66,528,582.9455 (&amp;gt;1000.0) 65,248,984.4360 (&amp;gt;1000.0) 910,938.2318 (&amp;gt;1000.0) 65,386,229.0201 (&amp;gt;1000.0) 1,530,999.4924 (&amp;gt;1000.0) 5;0 15.3259 (0.00) 16 1
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Legend:
+Outliers: 1 Standard Deviation from Mean; 1.5 IQR (InterQuartile Range) from 1st Quartile and 3rd Quartile.
+OPS: Operations Per Second, computed as 1 / Mean
+============================================================================================= 2 passed in 3.38s =============================================================================================
+&lt;/code>&lt;/pre>&lt;p>So seemingly, I made the iterative version slower. oops.&lt;/p>
+&lt;h2 id="visualizing-results">Visualizing results&lt;/h2>
+&lt;p>I don&amp;rsquo;t recommend this, but there&amp;rsquo;s a &lt;code>--benchmark-histogram&lt;/code> flag to create a very simple histogram of the results and save that as an svg:&lt;/p>
+&lt;figure class="left" >
+&lt;img src="https://www.robert-sokolewicz.nl/posts/24_pytest_benchmark/hist.svg.svg" />
+&lt;/figure>
+&lt;p>which is nice for a quick look at the results, but frankly: it&amp;rsquo;s ugly :D&lt;/p>
+&lt;p>Alternatively, you can use matplotlib to make a much nicer plot:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#f92672">import&lt;/span> json
+&lt;span style="color:#f92672">import&lt;/span> matplotlib.pyplot &lt;span style="color:#f92672">as&lt;/span> plt
+&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">compare_benchmarks&lt;/span>(
+baseline_file: str, refactor_file: str
+) &lt;span style="color:#f92672">-&amp;gt;&lt;/span> tuple[plt&lt;span style="color:#f92672">.&lt;/span>Figure, plt&lt;span style="color:#f92672">.&lt;/span>Axes]:
+&lt;span style="color:#66d9ef">with&lt;/span> open(baseline_file, &lt;span style="color:#e6db74">&amp;#34;r&amp;#34;&lt;/span>) &lt;span style="color:#66d9ef">as&lt;/span> f:
+baseline_data &lt;span style="color:#f92672">=&lt;/span> json&lt;span style="color:#f92672">.&lt;/span>load(f)
+&lt;span style="color:#66d9ef">with&lt;/span> open(refactor_file, &lt;span style="color:#e6db74">&amp;#34;r&amp;#34;&lt;/span>) &lt;span style="color:#66d9ef">as&lt;/span> f:
+refactor_data &lt;span style="color:#f92672">=&lt;/span> json&lt;span style="color:#f92672">.&lt;/span>load(f)
+baseline_dict &lt;span style="color:#f92672">=&lt;/span> {b[&lt;span style="color:#e6db74">&amp;#34;name&amp;#34;&lt;/span>]: b[&lt;span style="color:#e6db74">&amp;#34;stats&amp;#34;&lt;/span>][&lt;span style="color:#e6db74">&amp;#34;mean&amp;#34;&lt;/span>] &lt;span style="color:#66d9ef">for&lt;/span> b &lt;span style="color:#f92672">in&lt;/span> baseline_data[&lt;span style="color:#e6db74">&amp;#34;benchmarks&amp;#34;&lt;/span>]}
+refactor_dict &lt;span style="color:#f92672">=&lt;/span> {b[&lt;span style="color:#e6db74">&amp;#34;name&amp;#34;&lt;/span>]: b[&lt;span style="color:#e6db74">&amp;#34;stats&amp;#34;&lt;/span>][&lt;span style="color:#e6db74">&amp;#34;mean&amp;#34;&lt;/span>] &lt;span style="color:#66d9ef">for&lt;/span> b &lt;span style="color:#f92672">in&lt;/span> refactor_data[&lt;span style="color:#e6db74">&amp;#34;benchmarks&amp;#34;&lt;/span>]}
+all_names &lt;span style="color:#f92672">=&lt;/span> sorted(set(baseline_dict&lt;span style="color:#f92672">.&lt;/span>keys()) &lt;span style="color:#f92672">|&lt;/span> set(refactor_dict&lt;span style="color:#f92672">.&lt;/span>keys()))
+means_baseline &lt;span style="color:#f92672">=&lt;/span> [baseline_dict&lt;span style="color:#f92672">.&lt;/span>get(name, &lt;span style="color:#ae81ff">0&lt;/span>) &lt;span style="color:#66d9ef">for&lt;/span> name &lt;span style="color:#f92672">in&lt;/span> all_names]
+means_refactor &lt;span style="color:#f92672">=&lt;/span> [&lt;span style="color:#ae81ff">0.2&lt;/span> &lt;span style="color:#f92672">*&lt;/span> refactor_dict&lt;span style="color:#f92672">.&lt;/span>get(name, &lt;span style="color:#ae81ff">0&lt;/span>) &lt;span style="color:#66d9ef">for&lt;/span> name &lt;span style="color:#f92672">in&lt;/span> all_names]
+y &lt;span style="color:#f92672">=&lt;/span> range(len(all_names))
+width &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">0.35&lt;/span>
+fig, ax &lt;span style="color:#f92672">=&lt;/span> plt&lt;span style="color:#f92672">.&lt;/span>subplots(figsize&lt;span style="color:#f92672">=&lt;/span>(&lt;span style="color:#ae81ff">10&lt;/span>, max(&lt;span style="color:#ae81ff">8&lt;/span>, len(all_names) &lt;span style="color:#f92672">*&lt;/span> &lt;span style="color:#ae81ff">0.3&lt;/span>)))
+ax&lt;span style="color:#f92672">.&lt;/span>barh([i &lt;span style="color:#f92672">-&lt;/span> width &lt;span style="color:#f92672">/&lt;/span> &lt;span style="color:#ae81ff">2&lt;/span> &lt;span style="color:#66d9ef">for&lt;/span> i &lt;span style="color:#f92672">in&lt;/span> y], means_baseline, width, label&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;Baseline&amp;#34;&lt;/span>)
+ax&lt;span style="color:#f92672">.&lt;/span>barh([i &lt;span style="color:#f92672">+&lt;/span> width &lt;span style="color:#f92672">/&lt;/span> &lt;span style="color:#ae81ff">2&lt;/span> &lt;span style="color:#66d9ef">for&lt;/span> i &lt;span style="color:#f92672">in&lt;/span> y], means_refactor, width, label&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;Refactor&amp;#34;&lt;/span>)
+ax&lt;span style="color:#f92672">.&lt;/span>set_xscale(&lt;span style="color:#e6db74">&amp;#34;log&amp;#34;&lt;/span>)
+ax&lt;span style="color:#f92672">.&lt;/span>set_xlabel(&lt;span style="color:#e6db74">&amp;#34;Mean Time (seconds) - Log Scale&amp;#34;&lt;/span>)
+ax&lt;span style="color:#f92672">.&lt;/span>set_yticks(y)
+ax&lt;span style="color:#f92672">.&lt;/span>set_yticklabels(all_names)
+ax&lt;span style="color:#f92672">.&lt;/span>legend()
+ax&lt;span style="color:#f92672">.&lt;/span>grid(True, which&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;both&amp;#34;&lt;/span>, ls&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;-&amp;#34;&lt;/span>, alpha&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#ae81ff">0.2&lt;/span>)
+plt&lt;span style="color:#f92672">.&lt;/span>tight_layout()
+&lt;span style="color:#66d9ef">return&lt;/span> fig, ax
+plt&lt;span style="color:#f92672">.&lt;/span>style&lt;span style="color:#f92672">.&lt;/span>use(&lt;span style="color:#e6db74">&amp;#34;dark_background&amp;#34;&lt;/span>)
+fig, ax &lt;span style="color:#f92672">=&lt;/span> compare_benchmarks(
+&lt;span style="color:#e6db74">&amp;#34;.benchmarks/Darwin-CPython-3.11-64bit/0001_baseline.json&amp;#34;&lt;/span>,
+&lt;span style="color:#e6db74">&amp;#34;.benchmarks/Darwin-CPython-3.11-64bit/0003_refactor.json&amp;#34;&lt;/span>,
+)
+plt&lt;span style="color:#f92672">.&lt;/span>show()
+&lt;/code>&lt;/pre>&lt;/div>
+&lt;figure class="left" >
+&lt;img src="https://www.robert-sokolewicz.nl/posts/24_pytest_benchmark/image-1.png" />
+&lt;/figure>
+&lt;p>because the results are saved in a json file inside the .benchmarks folder.&lt;/p>
+&lt;h3 id="memory-profiling">memory profiling&lt;/h3>
+&lt;p>One last thing I want to mention is that there is a similar plugin called &lt;code>pytest-memray&lt;/code> that can be used to do memory profiling.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">pytest --memray tests/
+&lt;/code>&lt;/pre>&lt;/div>&lt;pre>&lt;code>=============================================================================================== MEMRAY REPORT ===============================================================================================
+Allocation results for rsokolewicz.github.io/content/posts/24_pytest_benchmark/benchpress.py::test_fibonacci_iterative at the high watermark
+📦 Total memory allocated: 6.4MiB
+📏 Total allocations: 2
+📊 Histogram of allocation sizes: |█ |
+🥇 Biggest allocating functions:
+- fibonacci_iterative:/Users/rsoko/Documents/private/rsokolewicz.github.io/content/posts/24_pytest_benchmark/benchpress.py:15 -&amp;gt; 5.0MiB
+- update:/Users/rsoko/miniforge3/envs/dev/lib/python3.11/site-packages/pytest_benchmark/stats.py:45 -&amp;gt; 1.4MiB
+Allocation results for rsokolewicz.github.io/content/posts/24_pytest_benchmark/benchpress.py::test_fibonacci_recursive at the high watermark
+📦 Total memory allocated: 3.5KiB
+📏 Total allocations: 4
+📊 Histogram of allocation sizes: |█ ▄|
+🥇 Biggest allocating functions:
+- _raw:/Users/rsoko/miniforge3/envs/dev/lib/python3.11/site-packages/pytest_benchmark/fixture.py:180 -&amp;gt; 1.2KiB
+- __call__:/Users/rsoko/miniforge3/envs/dev/lib/python3.11/site-packages/pytest_benchmark/fixture.py:156 -&amp;gt; 1.1KiB
+- _calibrate_timer:/Users/rsoko/miniforge3/envs/dev/lib/python3.11/site-packages/pytest_benchmark/fixture.py:318 -&amp;gt; 586.0B
+&lt;/code>&lt;/pre>&lt;hr>
+&lt;p>This post was co-written with &lt;a href="https://huonglanchu.medium.com/">Lan Chu&lt;/a>.&lt;/p></content></item><item><title>Can LLMs make trade-offs involving stipulated pain and pleasure states? - Keeling et al.</title><link>https://www.robert-sokolewicz.nl/reading_papers/3_sentient_llms/</link><pubDate>Sun, 19 Jan 2025 00:00:00 +0000</pubDate><guid>https://www.robert-sokolewicz.nl/reading_papers/3_sentient_llms/</guid><description>A cool paper (Citation: Keeling&amp;#32; &amp;amp; al.,&amp;#32;2024Keeling,&amp;#32; G.,&amp;#32; Street,&amp;#32; W.,&amp;#32; Stachaczyk,&amp;#32; M.,&amp;#32; Zakharova,&amp;#32; D.,&amp;#32; Comsa,&amp;#32; I.,&amp;#32; Sakovych,&amp;#32; A.,&amp;#32; Logothetis,&amp;#32; I.,&amp;#32; Zhang,&amp;#32; Z.,&amp;#32; Arcas,&amp;#32; B.&amp;#32;&amp;amp;&amp;#32;Birch,&amp;#32; J. &amp;#32; (2024). &amp;#32;Can LLMs make trade-offs involving stipulated pain and pleasure states?. &amp;#32;Retrieved from&amp;#32; https://arxiv.org/abs/2411.02432 ) about testing if large language models can experience sensations. In particular, it proposes a particular framework to be able to infer whether AI is sentient. Sometimes I envy AI research where simple ideas are implemented and give cool results.</description><content>&lt;p>A cool paper
 &lt;span class="hugo-cite-intext"
 itemprop="citation">(&lt;span class="hugo-cite-group">
 &lt;a href="#keeling2024llmsmaketradeoffsinvolving">&lt;span class="visually-hidden">Citation: &lt;/span>&lt;span itemprop="author" itemscope itemtype="https://schema.org/Person">&lt;meta itemprop="givenName" content="Geoff">&lt;span itemprop="familyName">Keeling&lt;/span>&lt;/span>&amp;#32;

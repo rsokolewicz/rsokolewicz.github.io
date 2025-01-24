@@ -1,0 +1,138 @@
+<!doctype html><html lang=en><head><title>profiling time and memory using pytest :: Roberts blog</title><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="I was reading about a new benchmarking framework for quantum control software called [Benchpress](https://github.com/qiskit/benchpress). Looking through the code, it seems to be built upon the `benchmark` plugin for `pytest`. If you want to quickly benchmark your code, it's quite easy to do with `pytest-benchmark`..."><meta name=keywords content><meta name=robots content="noodp"><link rel=canonical href=https://www.robert-sokolewicz.nl/posts/24_pytest_benchmark/><link rel=stylesheet href=https://www.robert-sokolewicz.nl/assets/style.css><link rel=stylesheet href=https://www.robert-sokolewicz.nl/assets/css/hugo-cite.css><link rel=apple-touch-icon href=https://www.robert-sokolewicz.nl/img/apple-touch-icon-192x192.png><link rel="shortcut icon" href=https://www.robert-sokolewicz.nl/img/favicon/orange.png><meta name=twitter:card content="summary"><meta property="og:locale" content="en"><meta property="og:type" content="article"><meta property="og:title" content="profiling time and memory using pytest"><meta property="og:description" content="I was reading about a new benchmarking framework for quantum control software called [Benchpress](https://github.com/qiskit/benchpress). Looking through the code, it seems to be built upon the `benchmark` plugin for `pytest`. If you want to quickly benchmark your code, it's quite easy to do with `pytest-benchmark`..."><meta property="og:url" content="https://www.robert-sokolewicz.nl/posts/24_pytest_benchmark/"><meta property="og:site_name" content="Roberts blog"><meta property="og:image" content="https://www.robert-sokolewicz.nl"><meta property="og:image:width" content="2048"><meta property="og:image:height" content="1024"><meta property="article:published_time" content="2025-01-24 00:00:00 +0000 UTC"><script>MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],displayMath:[['$$','$$'],['\\[','\\]']],macros:{bb:["{\\boldsymbol{#1}}",1],tr:"{\\DeclareMathOperator{\\tr}{Tr}}",im:"{\\DeclareMathOperator{\\im}{Im}}",re:"{\\DeclareMathOperator{\\re}{Re}}",},processEscapes:true,processEnvironments:true,tags:"ams"},options:{skipHtmlTags:['script','noscript','style','textarea','pre']}};window.addEventListener('load',(event)=>{document.querySelectorAll("mjx-container").forEach(function(x){x.parentElement.classList+='has-jax'})});</script><script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script><script type=text/javascript id=MathJax-script async src=https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js></script><script type=text/x-mathjax-config>
+    MathJax.Hub.Queue(function() {
+        // Fix <code> tags after MathJax finishes running. This is a
+        // hack to overcome a shortcoming of Markdown. Discussion at
+        // https://github.com/mojombo/jekyll/issues/199
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i = 0; i &lt; all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+    </script></head><body class=orange><div class="container center headings--one-size"><header class=header><div class=header__inner><div class=header__logo><a href=/><div class=logo>Home</div></a></div><div class=menu-trigger>menu</div></div><nav class=menu><ul class="menu__inner menu__inner--desktop"><li><a href=/about>About</a></li><li><a href=/books>Book Reviews</a></li><li><a href=/cv>CV</a></li><li><a href=/physics>Physics</a></li><li><a href=/reading_papers>Reading Papers</a></li></ul><ul class="menu__inner menu__inner--mobile"><li><a href=/about>About</a></li><li><a href=/books>Book Reviews</a></li><li><a href=/cv>CV</a></li><li><a href=/physics>Physics</a></li><li><a href=/reading_papers>Reading Papers</a></li></ul></nav></header><div class=content><div class=post><h1 class=post-title><a href=https://www.robert-sokolewicz.nl/posts/24_pytest_benchmark/>profiling time and memory using pytest</a></h1><div class=post-meta><span class=post-date>2025-01-24</span>
+<span class=post-author>:: Robert</span></div><div class=post-content><div><p>I was reading about a new benchmarking framework for quantum control software called <a href=https://github.com/qiskit/benchpress>Benchpress</a>. Looking through the code, it seems to be built upon the <code>benchmark</code> plugin for <code>pytest</code>. If you want to quickly benchmark your code, it&rsquo;s quite easy to do with <code>pytest-benchmark</code>.</p><h2 id=running-benchmark>Running benchmark<a href=#running-benchmark class=hanchor arialabel=Anchor>&#8983;</a></h2><p>If you know a bit about pytest, it&rsquo;s actually very easy to add some benchmarking to your tests by just using the <code>benchmark</code> fixture. Suppose we have these two functions:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>fibonacci_recursive</span>(n):
+    <span style=color:#66d9ef>if</span> n <span style=color:#f92672>&lt;=</span> <span style=color:#ae81ff>1</span>:
+        <span style=color:#66d9ef>return</span> n
+    <span style=color:#66d9ef>return</span> fibonacci_recursive(n <span style=color:#f92672>-</span> <span style=color:#ae81ff>1</span>) <span style=color:#f92672>+</span> fibonacci_recursive(n <span style=color:#f92672>-</span> <span style=color:#ae81ff>2</span>)
+
+
+<span style=color:#66d9ef>def</span> <span style=color:#a6e22e>fibonacci_iterative</span>(n):
+    <span style=color:#66d9ef>if</span> n <span style=color:#f92672>&lt;=</span> <span style=color:#ae81ff>1</span>:
+        <span style=color:#66d9ef>return</span> n
+    a, b <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>1</span>
+    <span style=color:#66d9ef>for</span> _ <span style=color:#f92672>in</span> range(<span style=color:#ae81ff>2</span>, n <span style=color:#f92672>+</span> <span style=color:#ae81ff>1</span>):
+        a, b <span style=color:#f92672>=</span> b, a <span style=color:#f92672>+</span> b
+    <span style=color:#66d9ef>return</span> b
+</code></pre></div><p>that we would like to test and benchmark. We can do this by just adding a <code>benchmark</code> fixture to our test function:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#f92672>import</span> pytest
+
+<span style=color:#66d9ef>def</span> <span style=color:#a6e22e>test_fibonacci_recursive</span>(benchmark):
+    result <span style=color:#f92672>=</span> benchmark(fibonacci_recursive, <span style=color:#ae81ff>30</span>)
+    <span style=color:#66d9ef>assert</span> result <span style=color:#f92672>==</span> <span style=color:#ae81ff>832040</span>
+
+<span style=color:#66d9ef>def</span> <span style=color:#a6e22e>test_fibonacci_iterative</span>(benchmark):
+    result <span style=color:#f92672>=</span> benchmark(fibonacci_iterative, <span style=color:#ae81ff>30</span>)
+    <span style=color:#66d9ef>assert</span> result <span style=color:#f92672>==</span> <span style=color:#ae81ff>832040</span>
+</code></pre></div><p>Then after installing the <code>pytest-benchmark</code> package, we can run our tests with the <code>pytest --benchmark-enable</code> flag.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>pytest --benchmark-enable tests/
+</code></pre></div><p>This will run the tests and print out the results in a nice table.</p><pre><code>
+---------------------------------------------------------------------------------------------------------------- benchmark: 2 tests ---------------------------------------------------------------------------------------------------------------
+Name (time in ns)                        Min                        Max                       Mean                    StdDev                     Median                       IQR            Outliers             OPS            Rounds  Iterations
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+test_fibonacci_iterative            387.8466 (1.0)           7,455.1521 (1.0)             435.0220 (1.0)             33.3827 (1.0)             435.9217 (1.0)              6.4655 (1.0)    4121;31660  2,298,734.2926 (1.0)      181819          13
+test_fibonacci_recursive     60,989,416.0298 (&gt;1000.0)  65,767,124.9937 (&gt;1000.0)  63,742,859.3145 (&gt;1000.0)  1,336,402.2177 (&gt;1000.0)  63,621,042.0053 (&gt;1000.0)  1,510,000.5257 (&gt;1000.0)       5;0         15.6880 (0.00)         16           1
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Legend:
+  Outliers: 1 Standard Deviation from Mean; 1.5 IQR (InterQuartile Range) from 1st Quartile and 3rd Quartile.
+  OPS: Operations Per Second, computed as 1 / Mean
+============================================================================================= 2 passed in 3.33s =============================================================================================
+
+</code></pre><p>(the enable flag will keep it enabled forever, until you disable it with <code>--benchmark-disable</code>)</p><p>Surprisingly, the recursive version is about 15,000 times slower than the iterative version. This is because the recursive version has to call the function itself, which in python is more expensive than looping and adding two numbers (today I learned&mldr; lol).</p><h2 id=comparing-results>Comparing results<a href=#comparing-results class=hanchor arialabel=Anchor>&#8983;</a></h2><p>With <code>pytest-benchmark</code>, you can compare results to previous runs by using the <code>--benchmark-save</code> and <code>--benchmark-compare</code> flags.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#75715e># run and save results</span>
+pytest --benchmark-save<span style=color:#f92672>=</span>baseline tests/
+
+<span style=color:#75715e># make changes, run and compare</span>
+pytest --benchmark-compare<span style=color:#f92672>=</span>baseline tests/
+</code></pre></div><p>which is convenient if you want to compare the effects of some refactor work:</p><pre><code>------------------------------------------------------------------------------------------------------------------------ benchmark: 4 tests ------------------------------------------------------------------------------------------------------------------------
+Name (time in ns)                                       Min                        Max                       Mean                    StdDev                     Median                       IQR              Outliers             OPS            Rounds  Iterations
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+test_fibonacci_iterative (NOW)                     392.3293 (1.0)           6,972.2494 (1.91)            435.3606 (1.0)             31.0298 (1.03)            437.4985 (1.0)              6.9995 (1.0)      8191;37003  2,296,946.3097 (1.0)      198334          12
+test_fibonacci_iterative (0002_baselin)            395.8315 (1.01)          3,645.8320 (1.0)             440.7425 (1.01)            30.2541 (1.0)             441.0006 (1.01)             6.9995 (1.0)     11175;30137  2,268,898.7304 (0.99)     196697          12
+test_fibonacci_recursive (NOW)              62,625,999.9699 (&gt;1000.0)  67,687,292.0012 (&gt;1000.0)  65,359,044.3762 (&gt;1000.0)  1,253,637.0277 (&gt;1000.0)  65,587,125.0201 (&gt;1000.0)  1,420,166.4890 (&gt;1000.0)         4;0         15.3001 (0.00)         16           1
+test_fibonacci_recursive (0002_baselin)     63,488,584.0118 (&gt;1000.0)  66,528,582.9455 (&gt;1000.0)  65,248,984.4360 (&gt;1000.0)    910,938.2318 (&gt;1000.0)  65,386,229.0201 (&gt;1000.0)  1,530,999.4924 (&gt;1000.0)         5;0         15.3259 (0.00)         16           1
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Legend:
+  Outliers: 1 Standard Deviation from Mean; 1.5 IQR (InterQuartile Range) from 1st Quartile and 3rd Quartile.
+  OPS: Operations Per Second, computed as 1 / Mean
+============================================================================================= 2 passed in 3.38s =============================================================================================
+
+</code></pre><p>So seemingly, I made the iterative version slower. oops.</p><h2 id=visualizing-results>Visualizing results<a href=#visualizing-results class=hanchor arialabel=Anchor>&#8983;</a></h2><p>I don&rsquo;t recommend this, but there&rsquo;s a <code>--benchmark-histogram</code> flag to create a very simple histogram of the results and save that as an svg:</p><figure class=left><img src=/posts/24_pytest_benchmark/hist.svg.svg></figure><p>which is nice for a quick look at the results, but frankly: it&rsquo;s ugly :D</p><p>Alternatively, you can use matplotlib to make a much nicer plot:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#f92672>import</span> json
+<span style=color:#f92672>import</span> matplotlib.pyplot <span style=color:#f92672>as</span> plt
+
+
+<span style=color:#66d9ef>def</span> <span style=color:#a6e22e>compare_benchmarks</span>(
+    baseline_file: str, refactor_file: str
+) <span style=color:#f92672>-&gt;</span> tuple[plt<span style=color:#f92672>.</span>Figure, plt<span style=color:#f92672>.</span>Axes]:
+    <span style=color:#66d9ef>with</span> open(baseline_file, <span style=color:#e6db74>&#34;r&#34;</span>) <span style=color:#66d9ef>as</span> f:
+        baseline_data <span style=color:#f92672>=</span> json<span style=color:#f92672>.</span>load(f)
+
+    <span style=color:#66d9ef>with</span> open(refactor_file, <span style=color:#e6db74>&#34;r&#34;</span>) <span style=color:#66d9ef>as</span> f:
+        refactor_data <span style=color:#f92672>=</span> json<span style=color:#f92672>.</span>load(f)
+
+    baseline_dict <span style=color:#f92672>=</span> {b[<span style=color:#e6db74>&#34;name&#34;</span>]: b[<span style=color:#e6db74>&#34;stats&#34;</span>][<span style=color:#e6db74>&#34;mean&#34;</span>] <span style=color:#66d9ef>for</span> b <span style=color:#f92672>in</span> baseline_data[<span style=color:#e6db74>&#34;benchmarks&#34;</span>]}
+    refactor_dict <span style=color:#f92672>=</span> {b[<span style=color:#e6db74>&#34;name&#34;</span>]: b[<span style=color:#e6db74>&#34;stats&#34;</span>][<span style=color:#e6db74>&#34;mean&#34;</span>] <span style=color:#66d9ef>for</span> b <span style=color:#f92672>in</span> refactor_data[<span style=color:#e6db74>&#34;benchmarks&#34;</span>]}
+
+    all_names <span style=color:#f92672>=</span> sorted(set(baseline_dict<span style=color:#f92672>.</span>keys()) <span style=color:#f92672>|</span> set(refactor_dict<span style=color:#f92672>.</span>keys()))
+
+    means_baseline <span style=color:#f92672>=</span> [baseline_dict<span style=color:#f92672>.</span>get(name, <span style=color:#ae81ff>0</span>) <span style=color:#66d9ef>for</span> name <span style=color:#f92672>in</span> all_names]
+    means_refactor <span style=color:#f92672>=</span> [<span style=color:#ae81ff>0.2</span> <span style=color:#f92672>*</span> refactor_dict<span style=color:#f92672>.</span>get(name, <span style=color:#ae81ff>0</span>) <span style=color:#66d9ef>for</span> name <span style=color:#f92672>in</span> all_names]
+
+    y <span style=color:#f92672>=</span> range(len(all_names))
+    width <span style=color:#f92672>=</span> <span style=color:#ae81ff>0.35</span>
+
+    fig, ax <span style=color:#f92672>=</span> plt<span style=color:#f92672>.</span>subplots(figsize<span style=color:#f92672>=</span>(<span style=color:#ae81ff>10</span>, max(<span style=color:#ae81ff>8</span>, len(all_names) <span style=color:#f92672>*</span> <span style=color:#ae81ff>0.3</span>)))
+    ax<span style=color:#f92672>.</span>barh([i <span style=color:#f92672>-</span> width <span style=color:#f92672>/</span> <span style=color:#ae81ff>2</span> <span style=color:#66d9ef>for</span> i <span style=color:#f92672>in</span> y], means_baseline, width, label<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;Baseline&#34;</span>)
+    ax<span style=color:#f92672>.</span>barh([i <span style=color:#f92672>+</span> width <span style=color:#f92672>/</span> <span style=color:#ae81ff>2</span> <span style=color:#66d9ef>for</span> i <span style=color:#f92672>in</span> y], means_refactor, width, label<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;Refactor&#34;</span>)
+
+    ax<span style=color:#f92672>.</span>set_xscale(<span style=color:#e6db74>&#34;log&#34;</span>)
+    ax<span style=color:#f92672>.</span>set_xlabel(<span style=color:#e6db74>&#34;Mean Time (seconds) - Log Scale&#34;</span>)
+    ax<span style=color:#f92672>.</span>set_yticks(y)
+    ax<span style=color:#f92672>.</span>set_yticklabels(all_names)
+    ax<span style=color:#f92672>.</span>legend()
+
+    ax<span style=color:#f92672>.</span>grid(True, which<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;both&#34;</span>, ls<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;-&#34;</span>, alpha<span style=color:#f92672>=</span><span style=color:#ae81ff>0.2</span>)
+
+    plt<span style=color:#f92672>.</span>tight_layout()
+    <span style=color:#66d9ef>return</span> fig, ax
+
+
+plt<span style=color:#f92672>.</span>style<span style=color:#f92672>.</span>use(<span style=color:#e6db74>&#34;dark_background&#34;</span>)
+
+fig, ax <span style=color:#f92672>=</span> compare_benchmarks(
+    <span style=color:#e6db74>&#34;.benchmarks/Darwin-CPython-3.11-64bit/0001_baseline.json&#34;</span>,
+    <span style=color:#e6db74>&#34;.benchmarks/Darwin-CPython-3.11-64bit/0003_refactor.json&#34;</span>,
+)
+
+plt<span style=color:#f92672>.</span>show()
+</code></pre></div><figure class=left><img src=/posts/24_pytest_benchmark/image-1.png></figure><p>because the results are saved in a json file inside the .benchmarks folder.</p><h3 id=memory-profiling>memory profiling<a href=#memory-profiling class=hanchor arialabel=Anchor>&#8983;</a></h3><p>One last thing I want to mention is that there is a similar plugin called <code>pytest-memray</code> that can be used to do memory profiling.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>pytest --memray tests/
+</code></pre></div><pre><code>=============================================================================================== MEMRAY REPORT ===============================================================================================
+Allocation results for rsokolewicz.github.io/content/posts/24_pytest_benchmark/benchpress.py::test_fibonacci_iterative at the high watermark
+
+         📦 Total memory allocated: 6.4MiB
+         📏 Total allocations: 2
+         📊 Histogram of allocation sizes: |█ |
+         🥇 Biggest allocating functions:
+                - fibonacci_iterative:/Users/rsoko/Documents/private/rsokolewicz.github.io/content/posts/24_pytest_benchmark/benchpress.py:15 -&gt; 5.0MiB
+                - update:/Users/rsoko/miniforge3/envs/dev/lib/python3.11/site-packages/pytest_benchmark/stats.py:45 -&gt; 1.4MiB
+
+
+Allocation results for rsokolewicz.github.io/content/posts/24_pytest_benchmark/benchpress.py::test_fibonacci_recursive at the high watermark
+
+         📦 Total memory allocated: 3.5KiB
+         📏 Total allocations: 4
+         📊 Histogram of allocation sizes: |█  ▄|
+         🥇 Biggest allocating functions:
+                - _raw:/Users/rsoko/miniforge3/envs/dev/lib/python3.11/site-packages/pytest_benchmark/fixture.py:180 -&gt; 1.2KiB
+                - __call__:/Users/rsoko/miniforge3/envs/dev/lib/python3.11/site-packages/pytest_benchmark/fixture.py:156 -&gt; 1.1KiB
+                - _calibrate_timer:/Users/rsoko/miniforge3/envs/dev/lib/python3.11/site-packages/pytest_benchmark/fixture.py:318 -&gt; 586.0B
+</code></pre><hr><p>This post was co-written with <a href=https://huonglanchu.medium.com/>Lan Chu</a>.</p></div></div><div class=pagination><div class=pagination__title><span class=pagination__title-h>Read other posts</span><hr></div><div class=pagination__buttons><span class="button next"><a href=https://www.robert-sokolewicz.nl/posts/21_secrets/><span class=button__text>Keeping secrets secret</span>
+<span class=button__icon>→</span></a></span></div></div></div></div><footer class=footer><div class=footer__inner><div class=copyright><span>© 2025 Powered by <a href=http://gohugo.io>Hugo</a></span>
+<span>:: Theme made by <a href=https://twitter.com/panr>panr</a></span></div></div></footer><script src=https://www.robert-sokolewicz.nl/assets/main.js></script><script src=https://www.robert-sokolewicz.nl/assets/prism.js></script></div></body></html>
