@@ -1,0 +1,28 @@
+# Using dark background as base
+axes.facecolor: "#222129"
+figure.facecolor: "#222129"
+savefig.facecolor: "#222129"
+
+# Main orange color scheme
+axes.prop_cycle: cycler('color', ['"#ffa86a"'])
+text.color: white
+axes.labelcolor: white
+xtick.color: white
+ytick.color: white
+grid.color: white
+grid.alpha: 0.3
+axes.edgecolor: white
+
+# Legend
+legend.facecolor: "#222129"
+legend.edgecolor: white
+legend.labelcolor: white
+
+# Font
+font.family: FiraCode Nerd Font
+font.size: 10
+axes.titlesize: 12
+axes.labelsize: 10
+xtick.labelsize: 10
+ytick.labelsize: 10
+legend.fontsize: 10

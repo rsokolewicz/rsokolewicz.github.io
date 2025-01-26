@@ -183,7 +183,7 @@ secrets = Secrets()
 
 ## Preventing commiting secrets to git using git guardian
 
-There are a few tools out there that you can install with a git-commit hook to prevent secrets from being committed to git. The last one I tried was [git-guardian](https://github.com/jesseduffield/git-guardian), which also allows you to scan your git history for secrets. Pretty cool! There's also a web interface and when connecting your github account they will even send you an email if you accidentally push a secret :') 
+There are a few tools out there that you can install with a git-commit hook to prevent secrets from being committed to git. The last one I tried was [git-guardian](https://www.gitguardian.com/), which also allows you to scan your git history for secrets. Pretty cool! There's also a web interface and when connecting your github account they will even send you an email if you accidentally push a secret :') 
 
 {{< figure src="image-1.png" style="opacity: 0.7;" >}}
 

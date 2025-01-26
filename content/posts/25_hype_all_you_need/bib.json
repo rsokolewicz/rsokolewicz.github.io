@@ -1,0 +1,118 @@
+[
+  {
+    "author": [
+      {
+        "family": "Bassamboo",
+        "given": "Achal"
+      },
+      {
+        "family": "Randhawa",
+        "given": "Ramandeep S"
+      },
+      {
+        "family": "Mieghem",
+        "given": "Jan A Van"
+      }
+    ],
+    "container-title": "Operations Research",
+    "id": "bassamboo2012little",
+    "issue": "6",
+    "issued": {
+      "date-parts": [
+        [
+          2012
+        ]
+      ]
+    },
+    "page": "1423-1435",
+    "publisher": "INFORMS",
+    "title": "A little flexibility is all you need: On the asymptotic value of flexible capacity in parallel queuing systems",
+    "title-short": "A little flexibility is all you need",
+    "type": "article-journal",
+    "volume": "60"
+  },
+  {
+    "DOI": "https://doi.org/10.1002/ejsp.2035",
+    "URL": "https://onlinelibrary.wiley.com/doi/abs/10.1002/ejsp.2035",
+    "abstract": "Abstract In the Internet age, people who feel alone can use online social media to restore a sense of social connectedness. In the present experiment, participants were either excluded or included in Cyberball, a virtual ball-tossing game. Afterwards, a Facebook icon or a control icon (Flash Player) was shown on the margin of a computer screen during a filler task. In the control condition, excluded (vs. included) participants subsequently expressed greater interest in social contact. This response to exclusion was absent after the subtle exposure to the Facebook icon. The effect of icon presentation was moderated by relational Facebook use: The interest in further social contact after exclusion was particularly low in participants who reported employing Facebook to maintain relationships to a greater (vs. lower) extent. In sum, our findings suggest that Facebook can dispense with compensatory affiliation attempts after exclusion, especially in more socially minded Facebook users. Copyright © 2014 John Wiley & Sons, Ltd.",
+    "author": [
+      {
+        "family": "Knausenberger",
+        "given": "Judith"
+      },
+      {
+        "family": "Hellmann",
+        "given": "Jens H."
+      },
+      {
+        "family": "Echterhoff",
+        "given": "Gerald"
+      }
+    ],
+    "container-title": "European Journal of Social Psychology",
+    "id": "https://doi.org/10.1002/ejsp.2035",
+    "issue": "3",
+    "issued": {
+      "date-parts": [
+        [
+          2015
+        ]
+      ]
+    },
+    "page": "279-284",
+    "title": "When virtual contact is all you need: Subtle reminders of facebook preempt social-contact restoration after exclusion",
+    "title-short": "When virtual contact is all you need",
+    "type": "article-journal",
+    "volume": "45"
+  },
+  {
+    "author": [
+      {
+        "family": "Vaswani",
+        "given": "A"
+      }
+    ],
+    "container-title": "Advances in Neural Information Processing Systems",
+    "id": "vaswani2017attention",
+    "issued": {
+      "date-parts": [
+        [
+          2017
+        ]
+      ]
+    },
+    "title": "Attention is all you need",
+    "type": "article-journal"
+  },
+  {
+    "author": [
+      {
+        "family": "Krizhevsky",
+        "given": "Alex"
+      },
+      {
+        "family": "Sutskever",
+        "given": "Ilya"
+      },
+      {
+        "family": "Hinton",
+        "given": "Geoffrey E"
+      }
+    ],
+    "container-title": "Communications of the ACM",
+    "id": "krizhevsky2017imagenet",
+    "issue": "6",
+    "issued": {
+      "date-parts": [
+        [
+          2017
+        ]
+      ]
+    },
+    "page": "84-90",
+    "publisher": "AcM New York, NY, USA",
+    "title": "ImageNet classification with deep convolutional neural networks",
+    "type": "article-journal",
+    "volume": "60"
+  }
+]
