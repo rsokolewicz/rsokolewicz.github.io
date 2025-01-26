@@ -1,4 +1,386 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Your Name on Roberts blog</title><link>https://www.robert-sokolewicz.nl/</link><description>Recent content in Your Name on Roberts blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Fri, 22 Apr 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://www.robert-sokolewicz.nl/index.xml" rel="self" type="application/rss+xml"/><item><title>profiling time and memory using pytest</title><link>https://www.robert-sokolewicz.nl/posts/24_pytest_benchmark/</link><pubDate>Fri, 24 Jan 2025 00:00:00 +0000</pubDate><guid>https://www.robert-sokolewicz.nl/posts/24_pytest_benchmark/</guid><description>I was reading about a new benchmarking framework for quantum control software called Benchpress. Looking through the code, it seems to be built upon the benchmark plugin for pytest. If you want to quickly benchmark your code, it&amp;rsquo;s quite easy to do with pytest-benchmark.
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Your Name on Roberts blog</title><link>https://www.robert-sokolewicz.nl/</link><description>Recent content in Your Name on Roberts blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Fri, 22 Apr 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://www.robert-sokolewicz.nl/index.xml" rel="self" type="application/rss+xml"/><item><title>Custom matplotlib styles</title><link>https://www.robert-sokolewicz.nl/posts/26_matplotlib_styles/</link><pubDate>Sun, 26 Jan 2025 00:00:00 +0000</pubDate><guid>https://www.robert-sokolewicz.nl/posts/26_matplotlib_styles/</guid><description>Creating custom matplotlib styles is apparently super easy! For this blog I gathered all the matplotlib parameters and added them to a file called orange_dark.mplstyle. You&amp;rsquo;re supposed to put this inside the .matplotlib folder in your home directory, but for some reason that didn&amp;rsquo;t work out for me, so I put it inside the root of this blog folder and refer to it with a full path.
+Now, if I want to make a simple plot, I can just do this:</description><content>&lt;p>Creating custom matplotlib styles is apparently super easy! For this blog I gathered all the matplotlib parameters and added them to a file called &lt;code>orange_dark.mplstyle&lt;/code>. You&amp;rsquo;re supposed to put this inside the &lt;code>.matplotlib&lt;/code> folder in your home directory, but for some reason that didn&amp;rsquo;t work out for me, so I put it inside the root of this blog folder and refer to it with a full path.&lt;/p>
+&lt;p>Now, if I want to make a simple plot, I can just do this:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#f92672">import&lt;/span> matplotlib.pyplot &lt;span style="color:#f92672">as&lt;/span> plt
+&lt;span style="color:#f92672">import&lt;/span> numpy &lt;span style="color:#f92672">as&lt;/span> np
+&lt;span style="color:#f92672">from&lt;/span> dotenv &lt;span style="color:#f92672">import&lt;/span> find_dotenv
+&lt;span style="color:#f92672">import&lt;/span> os
+ROOT &lt;span style="color:#f92672">=&lt;/span> os&lt;span style="color:#f92672">.&lt;/span>path&lt;span style="color:#f92672">.&lt;/span>dirname(find_dotenv())
+plt&lt;span style="color:#f92672">.&lt;/span>style&lt;span style="color:#f92672">.&lt;/span>use(f&lt;span style="color:#e6db74">&amp;#39;{ROOT}/orange_dark.mplstyle&amp;#39;&lt;/span>)
+x &lt;span style="color:#f92672">=&lt;/span> np&lt;span style="color:#f92672">.&lt;/span>linspace(&lt;span style="color:#ae81ff">0&lt;/span>, &lt;span style="color:#ae81ff">10&lt;/span>, &lt;span style="color:#ae81ff">100&lt;/span>)
+y &lt;span style="color:#f92672">=&lt;/span> np&lt;span style="color:#f92672">.&lt;/span>sin(x)
+plt&lt;span style="color:#f92672">.&lt;/span>plot(x, y)
+plt&lt;span style="color:#f92672">.&lt;/span>show()
+&lt;/code>&lt;/pre>&lt;/div>
+&lt;figure class="center"
+>
+&lt;img src="hello.svg"
+/>
+&lt;/figure>
+&lt;p>The contents of the &lt;code>orange_dark.mplstyle&lt;/code> file are:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#75715e"># Using dark background as base&lt;/span>
+&lt;span style="color:#66d9ef">axes.facecolor&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;#222129&amp;#34;&lt;/span>
+&lt;span style="color:#66d9ef">figure.facecolor&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;#222129&amp;#34;&lt;/span>
+&lt;span style="color:#66d9ef">savefig.facecolor&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;#222129&amp;#34;&lt;/span>
+&lt;span style="color:#75715e"># Main orange color scheme&lt;/span>
+&lt;span style="color:#66d9ef">axes.prop_cycle&lt;/span>: cycler(&lt;span style="color:#e6db74">&amp;#39;color&amp;#39;&lt;/span>, [&lt;span style="color:#e6db74">&amp;#39;&amp;#34;#ffa86a&amp;#34;&amp;#39;&lt;/span>])
+&lt;span style="color:#66d9ef">text.color&lt;/span>: white
+&lt;span style="color:#66d9ef">axes.labelcolor&lt;/span>: white
+&lt;span style="color:#66d9ef">xtick.color&lt;/span>: white
+&lt;span style="color:#66d9ef">ytick.color&lt;/span>: white
+&lt;span style="color:#66d9ef">grid.color&lt;/span>: white
+&lt;span style="color:#66d9ef">grid.alpha&lt;/span>: &lt;span style="color:#ae81ff">0.3&lt;/span>
+&lt;span style="color:#66d9ef">axes.edgecolor&lt;/span>: white
+&lt;span style="color:#75715e"># Legend&lt;/span>
+&lt;span style="color:#66d9ef">legend.facecolor&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;#222129&amp;#34;&lt;/span>
+&lt;span style="color:#66d9ef">legend.edgecolor&lt;/span>: white
+&lt;span style="color:#66d9ef">legend.labelcolor&lt;/span>: white
+&lt;span style="color:#75715e"># Font&lt;/span>
+&lt;span style="color:#66d9ef">font.family&lt;/span>: FiraCode Nerd Font
+&lt;span style="color:#66d9ef">font.size&lt;/span>: &lt;span style="color:#ae81ff">10&lt;/span>
+&lt;span style="color:#66d9ef">axes.titlesize&lt;/span>: &lt;span style="color:#ae81ff">12&lt;/span>
+&lt;span style="color:#66d9ef">axes.labelsize&lt;/span>: &lt;span style="color:#ae81ff">10&lt;/span>
+&lt;span style="color:#66d9ef">xtick.labelsize&lt;/span>: &lt;span style="color:#ae81ff">10&lt;/span>
+&lt;span style="color:#66d9ef">ytick.labelsize&lt;/span>: &lt;span style="color:#ae81ff">10&lt;/span>
+&lt;span style="color:#66d9ef">legend.fontsize&lt;/span>: &lt;span style="color:#ae81ff">10&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Finding and registering the font was a bit of a hassle. I basically had to find the font on my laptop, and run&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#f92672">import&lt;/span> matplotlib.font_manager &lt;span style="color:#f92672">as&lt;/span> fm
+fm&lt;span style="color:#f92672">.&lt;/span>fontManager&lt;span style="color:#f92672">.&lt;/span>addfont(
+&lt;span style="color:#e6db74">&amp;#34;/Users/rsoko/Library/Fonts/FiraCodeNerdFont-Regular.ttf&amp;#34;&lt;/span>
+)
+fm&lt;span style="color:#f92672">.&lt;/span>_load_fontmanager(try_read_cache&lt;span style="color:#f92672">=&lt;/span>False)
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>to register it. Then to find the font family name, I ran&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#f92672">import&lt;/span> matplotlib.font_manager &lt;span style="color:#f92672">as&lt;/span> fm
+available_fonts &lt;span style="color:#f92672">=&lt;/span> [font&lt;span style="color:#f92672">.&lt;/span>name &lt;span style="color:#66d9ef">for&lt;/span> font &lt;span style="color:#f92672">in&lt;/span> fm&lt;span style="color:#f92672">.&lt;/span>fontManager&lt;span style="color:#f92672">.&lt;/span>ttflist]
+[name &lt;span style="color:#66d9ef">for&lt;/span> name &lt;span style="color:#f92672">in&lt;/span> available_fonts &lt;span style="color:#66d9ef">if&lt;/span> &lt;span style="color:#e6db74">&amp;#34;fira&amp;#34;&lt;/span> &lt;span style="color:#f92672">in&lt;/span> name&lt;span style="color:#f92672">.&lt;/span>lower()]
+&lt;/code>&lt;/pre>&lt;/div></content></item><item><title>Is hype all you need?</title><link>https://www.robert-sokolewicz.nl/posts/25_hype_all_you_need/</link><pubDate>Sat, 25 Jan 2025 00:00:00 +0000</pubDate><guid>https://www.robert-sokolewicz.nl/posts/25_hype_all_you_need/</guid><description>The last decade saw a few AI scientific breakthroughs that enabled the whole AI development to boom. For example, realizing that AI thrives on large amounts of data and GPUs (see e.g. (Citation: Vaswani,&amp;#32;2017Vaswani,&amp;#32; A. &amp;#32; (2017). &amp;#32;Attention is all you need. Advances in Neural Information Processing Systems. )). Large language models had the problem for a long time that they were difficult to train, because (1) they couldn&amp;rsquo;t be trained properly on GPUs, and they suffered from something called catastrophic forgetting.</description><content>&lt;p>The last decade saw a few AI scientific breakthroughs that enabled the whole AI development to boom. For example, realizing that AI thrives on large amounts of data and GPUs (see e.g.
+&lt;span class="hugo-cite-intext"
+itemprop="citation">(&lt;span class="hugo-cite-group">
+&lt;a href="#vaswani2017attention">&lt;span class="visually-hidden">Citation: &lt;/span>&lt;span itemprop="author" itemscope itemtype="https://schema.org/Person">&lt;meta itemprop="givenName" content="A">&lt;span itemprop="familyName">Vaswani&lt;/span>&lt;/span>,&amp;#32;&lt;span itemprop="datePublished">2017&lt;/span>&lt;/a>&lt;span class="hugo-cite-citation">
+&lt;span itemscope
+itemtype="https://schema.org/Article"
+data-type="article">&lt;span itemprop="author" itemscope itemtype="https://schema.org/Person">&lt;span itemprop="familyName">Vaswani&lt;/span>,&amp;#32;
+&lt;meta itemprop="givenName" content="A" />
+A.&lt;/span>
+&amp;#32;
+(&lt;span itemprop="datePublished">2017&lt;/span>).
+&amp;#32;&lt;span itemprop="name">Attention is all you need&lt;/span>.&lt;i>
+&lt;span itemprop="about">Advances in Neural Information Processing Systems&lt;/span>&lt;/i>.&lt;/span>
+&lt;/span>&lt;/span>)&lt;/span>). Large language models had the problem for a long time that they were difficult to train, because (1) they couldn&amp;rsquo;t be trained properly on GPUs, and they suffered from something called catastrophic forgetting. But then in 2017, the &lt;em>Attention is All you Need&lt;/em> paper
+&lt;span class="hugo-cite-intext"
+itemprop="citation">(&lt;span class="hugo-cite-group">
+&lt;a href="#vaswani2017attention">&lt;span class="visually-hidden">Citation: &lt;/span>&lt;span itemprop="author" itemscope itemtype="https://schema.org/Person">&lt;meta itemprop="givenName" content="A">&lt;span itemprop="familyName">Vaswani&lt;/span>&lt;/span>,&amp;#32;&lt;span itemprop="datePublished">2017&lt;/span>&lt;/a>&lt;span class="hugo-cite-citation">
+&lt;span itemscope
+itemtype="https://schema.org/Article"
+data-type="article">&lt;span itemprop="author" itemscope itemtype="https://schema.org/Person">&lt;span itemprop="familyName">Vaswani&lt;/span>,&amp;#32;
+&lt;meta itemprop="givenName" content="A" />
+A.&lt;/span>
+&amp;#32;
+(&lt;span itemprop="datePublished">2017&lt;/span>).
+&amp;#32;&lt;span itemprop="name">Attention is all you need&lt;/span>.&lt;i>
+&lt;span itemprop="about">Advances in Neural Information Processing Systems&lt;/span>&lt;/i>.&lt;/span>
+&lt;/span>&lt;/span>)&lt;/span> solved these two problems and within a few years we saw the development of chatGPT and similar large language models.&lt;/p>
+&lt;p>The &lt;em>Attention is all you need&lt;/em> paper sits with over 100,000 citations which is a lot&lt;span class="hugo-footnote-intext">&lt;sup class="footnote-ref" onclick="showFootnote(event, 1 )">(1)&lt;/sup>&lt;span class="footnote" id="footnote-1">back in 2014, Nature released a &lt;a href="https://www.nature.com/news/the-top-100-papers-1.16224">top 100 cited papers of all time list&lt;/a>, with only three papers with more than 100k citations&lt;a href="#" class="footnote-close" onclick="hideFootnote( 1 )" aria-label="Close footnote">×&lt;/a>&lt;/span>&lt;/span>
+&lt;style>
+.hugo-footnote-intext {
+white-space: normal;
+}
+.footnote-ref {
+color: var(--accent);
+cursor: pointer;
+}
+.footnote {
+display: none;
+position: absolute;
+max-width: 300px;
+padding: 1em;
+border-radius: 4px;
+box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+font-size: 0.9em;
+color: #707070;
+z-index: 1000;
+white-space: normal;
+line-height: 1.4;
+word-wrap: break-word;
+right: -350px;
+}
+.footnote.active {
+display: block;
+}
+.footnote-close {
+position: absolute;
+top: 5px;
+right: 5px;
+text-decoration: none;
+color: #666;
+}
+.footnote-close:hover {
+color: #333;
+}
+.post {
+position: relative;
+}
+&lt;/style>
+&lt;script>
+function showFootnote(event, id) {
+event.preventDefault();
+document.querySelectorAll('.footnote.active').forEach(note => {
+note.classList.remove('active');
+});
+const footnote = document.getElementById(`footnote-${id}`);
+const link = event.target;
+const linkRect = link.getBoundingClientRect();
+footnote.style.top = `${linkRect.top - link.closest('.post').getBoundingClientRect().top}px`;
+footnote.classList.add('active');
+document.addEventListener('click', function closeFootnote(e) {
+if (!footnote.contains(e.target) &amp;&amp; !link.contains(e.target)) {
+footnote.classList.remove('active');
+document.removeEventListener('click', closeFootnote);
+}
+});
+}
+function hideFootnote(id) {
+const footnote = document.getElementById(`footnote-${id}`);
+footnote.classList.remove('active');
+}
+&lt;/script>.&lt;/p>
+&lt;p>I noticed recently that more and more computer science papers have similar titles, while the ones that I opened were not particularly groundbreaking. It&amp;rsquo;s even worse on LinkedIn, where some of these articles are shared as if they are the next big thing, while they are really not. The titles are crafted to grab attention and make us readers feel like we are missing out on the &amp;ldquo;next wave&amp;rdquo; in AI research. That made me wonder, if there&amp;rsquo;s really a trend going on and whether it is more hype than anything else.&lt;/p>
+&lt;p>So I wanted to do some statistical analysis on recent research papers to see if there really is a trend of using the phrase &amp;ldquo;is all you need&amp;rdquo; in the title, and if it makes the paper more likely to be cited.&lt;/p>
+&lt;p>My first approach was to go to Google Scholar and search for &amp;ldquo;is all you need&amp;rdquo;, but that gave me over 100,000 results, without the ability to download all the results. A quick search led me to the &lt;a href="https://www.semanticscholar.org/">Semantic Scholar&lt;/a> website, which is a database of over 200 million research papers that is constantly being updated. They also have a simple API that allows you to get all the data you need.&lt;/p>
+&lt;p>Before showing the code, let&amp;rsquo;s show the results first:&lt;/p>
+&lt;figure class="center"
+>
+&lt;img src="image.svg"
+/>
+&lt;/figure>
+&lt;p>In chronological order, we have the first three papers:&lt;/p>
+&lt;ol>
+&lt;li>A little flexibility is all you need: on the asymptotic value of flexible capacity in parallel queuing systems
+&lt;span class="hugo-cite-intext"
+itemprop="citation">(&lt;span class="hugo-cite-group">
+&lt;a href="#bassamboo2012little">&lt;span class="visually-hidden">Citation: &lt;/span>&lt;span itemprop="author" itemscope itemtype="https://schema.org/Person">&lt;meta itemprop="givenName" content="Achal">&lt;span itemprop="familyName">Bassamboo&lt;/span>&lt;/span>&amp;#32;
+&lt;em>&amp;amp; al.&lt;/em>,&amp;#32;&lt;span itemprop="datePublished">2012&lt;/span>&lt;/a>&lt;span class="hugo-cite-citation">
+&lt;span itemscope
+itemtype="https://schema.org/Article"
+data-type="article">&lt;span itemprop="author" itemscope itemtype="https://schema.org/Person">&lt;span itemprop="familyName">Bassamboo&lt;/span>,&amp;#32;
+&lt;meta itemprop="givenName" content="Achal" />
+A.&lt;/span>,&amp;#32;
+&lt;span itemprop="author" itemscope itemtype="https://schema.org/Person">&lt;span itemprop="familyName">Randhawa&lt;/span>,&amp;#32;
+&lt;meta itemprop="givenName" content="Ramandeep S" />
+R.&lt;/span>&amp;#32;&amp;amp;&amp;#32;&lt;span itemprop="author" itemscope itemtype="https://schema.org/Person">&lt;span itemprop="familyName">Mieghem&lt;/span>,&amp;#32;
+&lt;meta itemprop="givenName" content="Jan A Van" />
+J.&lt;/span>
+&amp;#32;
+(&lt;span itemprop="datePublished">2012&lt;/span>).
+&amp;#32;&lt;span itemprop="name">A little flexibility is all you need: On the asymptotic value of flexible capacity in parallel queuing systems&lt;/span>.&lt;i>
+&lt;span itemprop="about">Operations Research&lt;/span>,&amp;#32;60(6)&lt;/i>.&amp;#32;&lt;span itemprop="pagination">1423–1435&lt;/span>.&lt;/span>
+&lt;/span>&lt;/span>)&lt;/span>&lt;/li>
+&lt;li>When virtual contact is all you need: Subtle reminders of Facebook preempt social-contact restoration after exclusion
+&lt;span class="hugo-cite-intext"
+itemprop="citation">(&lt;span class="hugo-cite-group">
+&lt;a href="#https%2f%2fdoi.org%2f10.1002%2fejsp.2035">&lt;span class="visually-hidden">Citation: &lt;/span>&lt;span itemprop="author" itemscope itemtype="https://schema.org/Person">&lt;meta itemprop="givenName" content="Judith">&lt;span itemprop="familyName">Knausenberger&lt;/span>&lt;/span>&amp;#32;
+&lt;em>&amp;amp; al.&lt;/em>,&amp;#32;&lt;span itemprop="datePublished">2015&lt;/span>&lt;/a>&lt;span class="hugo-cite-citation">
+&lt;span itemscope
+itemtype="https://schema.org/Article"
+data-type="article">&lt;span itemprop="author" itemscope itemtype="https://schema.org/Person">&lt;span itemprop="familyName">Knausenberger&lt;/span>,&amp;#32;
+&lt;meta itemprop="givenName" content="Judith" />
+J.&lt;/span>,&amp;#32;
+&lt;span itemprop="author" itemscope itemtype="https://schema.org/Person">&lt;span itemprop="familyName">Hellmann&lt;/span>,&amp;#32;
+&lt;meta itemprop="givenName" content="Jens H." />
+J.&lt;/span>&amp;#32;&amp;amp;&amp;#32;&lt;span itemprop="author" itemscope itemtype="https://schema.org/Person">&lt;span itemprop="familyName">Echterhoff&lt;/span>,&amp;#32;
+&lt;meta itemprop="givenName" content="Gerald" />
+G.&lt;/span>
+&amp;#32;
+(&lt;span itemprop="datePublished">2015&lt;/span>).
+&amp;#32;&lt;span itemprop="name">When virtual contact is all you need: Subtle reminders of facebook preempt social-contact restoration after exclusion&lt;/span>.&lt;i>
+&lt;span itemprop="about">European Journal of Social Psychology&lt;/span>,&amp;#32;45(3)&lt;/i>.&amp;#32;&lt;span itemprop="pagination">279–284&lt;/span>.
+&lt;a href="https://doi.org/https://doi.org/10.1002/ejsp.2035"
+itemprop="identifier"
+itemtype="https://schema.org/URL">https://doi.org/https://doi.org/10.1002/ejsp.2035&lt;/a>&lt;/span>
+&lt;/span>&lt;/span>)&lt;/span>&lt;/li>
+&lt;li>Attention is all you need
+&lt;span class="hugo-cite-intext"
+itemprop="citation">(&lt;span class="hugo-cite-group">
+&lt;a href="#vaswani2017attention">&lt;span class="visually-hidden">Citation: &lt;/span>&lt;span itemprop="author" itemscope itemtype="https://schema.org/Person">&lt;meta itemprop="givenName" content="A">&lt;span itemprop="familyName">Vaswani&lt;/span>&lt;/span>,&amp;#32;&lt;span itemprop="datePublished">2017&lt;/span>&lt;/a>&lt;span class="hugo-cite-citation">
+&lt;span itemscope
+itemtype="https://schema.org/Article"
+data-type="article">&lt;span itemprop="author" itemscope itemtype="https://schema.org/Person">&lt;span itemprop="familyName">Vaswani&lt;/span>,&amp;#32;
+&lt;meta itemprop="givenName" content="A" />
+A.&lt;/span>
+&amp;#32;
+(&lt;span itemprop="datePublished">2017&lt;/span>).
+&amp;#32;&lt;span itemprop="name">Attention is all you need&lt;/span>.&lt;i>
+&lt;span itemprop="about">Advances in Neural Information Processing Systems&lt;/span>&lt;/i>.&lt;/span>
+&lt;/span>&lt;/span>)&lt;/span>&lt;/li>
+&lt;/ol>
+&lt;p>after which the trend skyrockets. The &lt;em>Attention is all you need&lt;/em> paper has over 100,000 citations, which is significantly higher than the other papers.&lt;/p>
+&lt;p>Next I was interested in the number of citations for each paper. Unfortunately, the distribution is very skewed, so it&amp;rsquo;s a bit difficult to visualize. Combining a simple jitter plot together with a quantile plot, we have&lt;/p>
+&lt;figure class="center"
+>
+&lt;img src="image4.svg"
+/>
+&lt;/figure>
+&lt;p>so we see for example that about 75% of the papers have at least 1 citation, and 25% have at least 10 citations.&lt;/p>
+&lt;p>Maybe a bar chart is a bit clearer:&lt;/p>
+&lt;figure class="center"
+>
+&lt;img src="image2.svg"
+/>
+&lt;/figure>
+&lt;p>So only a third of the papers have 5 or more citations, which is not a great start for being &amp;ldquo;all you need&amp;rdquo;. We should realize however that:&lt;/p>
+&lt;ol>
+&lt;li>It takes time to get noticed and the majority of papers were published less than a year ago.&lt;/li>
+&lt;li>The number of citations is not always a good indicator of the quality of the paper.&lt;/li>
+&lt;/ol>
+&lt;p>What I wanted to try next is compare the number of citations to the &amp;ldquo;average&amp;rdquo; number of citations for an arbitrary paper in the same year. But unfortunately, with the public API I can only perform query searches and the returned results are ranked by relevance. This will introduce a strong bias towards higher cited papers, so that the analysis will fail.&lt;/p>
+&lt;p>I could request an API key that will allow me to download the metadata of the entire 200 million paper database, so maybe I will do that another time :)&lt;/p>
+&lt;hr>
+&lt;p>This article was co-written with Lan Chu and a version was also published on &lt;a href="https://ai-stories.io/blog/hype-in-ai-research/">the AI stories website&lt;/a>.&lt;/p>
+&lt;h1 id="code">Code&lt;/h1>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#f92672">import&lt;/span> requests
+&lt;span style="color:#f92672">from&lt;/span> tqdm &lt;span style="color:#f92672">import&lt;/span> tqdm
+&lt;span style="color:#f92672">import&lt;/span> time
+&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">search_semantic_scholar&lt;/span>(query: str, year: int, field_of_study: str) &lt;span style="color:#f92672">-&amp;gt;&lt;/span> list:
+&lt;span style="color:#e6db74">&amp;#34;&amp;#34;&amp;#34;
+&lt;/span>&lt;span style="color:#e6db74"> Search Semantic Scholar API for papers in a specific year and field
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#34;&amp;#34;&amp;#34;&lt;/span>
+base_url &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;https://api.semanticscholar.org/graph/v1/paper/search&amp;#34;&lt;/span>
+all_papers &lt;span style="color:#f92672">=&lt;/span> []
+offset &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span>
+limit &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">100&lt;/span>
+&lt;span style="color:#66d9ef">with&lt;/span> tqdm(desc&lt;span style="color:#f92672">=&lt;/span>f&lt;span style="color:#e6db74">&amp;#34;Fetching papers for {year}&amp;#34;&lt;/span>, unit&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;batch&amp;#34;&lt;/span>) &lt;span style="color:#66d9ef">as&lt;/span> pbar:
+&lt;span style="color:#66d9ef">while&lt;/span> True:
+params &lt;span style="color:#f92672">=&lt;/span> {
+&lt;span style="color:#e6db74">&amp;#34;query&amp;#34;&lt;/span>: query,
+&lt;span style="color:#e6db74">&amp;#34;fields&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;title,publicationDate,citationCount,url,year&amp;#34;&lt;/span>,
+&lt;span style="color:#e6db74">&amp;#34;limit&amp;#34;&lt;/span>: limit,
+&lt;span style="color:#e6db74">&amp;#34;offset&amp;#34;&lt;/span>: offset,
+&lt;span style="color:#e6db74">&amp;#34;year&amp;#34;&lt;/span>: str(year),
+&lt;span style="color:#e6db74">&amp;#34;fieldsOfStudy&amp;#34;&lt;/span>: field_of_study,
+}
+&lt;span style="color:#66d9ef">while&lt;/span> True:
+response &lt;span style="color:#f92672">=&lt;/span> requests&lt;span style="color:#f92672">.&lt;/span>get(base_url, params&lt;span style="color:#f92672">=&lt;/span>params)
+&lt;span style="color:#66d9ef">if&lt;/span> response&lt;span style="color:#f92672">.&lt;/span>status_code &lt;span style="color:#f92672">==&lt;/span> &lt;span style="color:#ae81ff">429&lt;/span>:
+time&lt;span style="color:#f92672">.&lt;/span>sleep(&lt;span style="color:#ae81ff">10&lt;/span>)
+&lt;span style="color:#66d9ef">continue&lt;/span>
+&lt;span style="color:#66d9ef">if&lt;/span> response&lt;span style="color:#f92672">.&lt;/span>status_code &lt;span style="color:#f92672">!=&lt;/span> &lt;span style="color:#ae81ff">200&lt;/span>:
+&lt;span style="color:#66d9ef">break&lt;/span>
+&lt;span style="color:#66d9ef">break&lt;/span>
+&lt;span style="color:#66d9ef">if&lt;/span> response&lt;span style="color:#f92672">.&lt;/span>status_code &lt;span style="color:#f92672">!=&lt;/span> &lt;span style="color:#ae81ff">200&lt;/span>:
+&lt;span style="color:#66d9ef">break&lt;/span>
+data &lt;span style="color:#f92672">=&lt;/span> response&lt;span style="color:#f92672">.&lt;/span>json()
+batch_papers &lt;span style="color:#f92672">=&lt;/span> data&lt;span style="color:#f92672">.&lt;/span>get(&lt;span style="color:#e6db74">&amp;#34;data&amp;#34;&lt;/span>, [])
+all_papers&lt;span style="color:#f92672">.&lt;/span>extend(batch_papers)
+pbar&lt;span style="color:#f92672">.&lt;/span>update(len(batch_papers))
+pbar&lt;span style="color:#f92672">.&lt;/span>set_description(f&lt;span style="color:#e6db74">&amp;#34;Year {year}: {len(all_papers)} papers&amp;#34;&lt;/span>)
+&lt;span style="color:#66d9ef">if&lt;/span> len(batch_papers) &lt;span style="color:#f92672">&amp;lt;&lt;/span> limit:
+&lt;span style="color:#66d9ef">break&lt;/span>
+offset &lt;span style="color:#f92672">+=&lt;/span> limit
+&lt;span style="color:#66d9ef">return&lt;/span> all_papers
+query &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;&amp;#34;is all you need&amp;#34;&amp;#39;&lt;/span>
+field_of_study &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;Computer Science&amp;#34;&lt;/span>
+years &lt;span style="color:#f92672">=&lt;/span> range(&lt;span style="color:#ae81ff">2010&lt;/span>, &lt;span style="color:#ae81ff">2026&lt;/span>)
+papers &lt;span style="color:#f92672">=&lt;/span> [
+search_semantic_scholar(query, year, field_of_study) &lt;span style="color:#66d9ef">for&lt;/span> year &lt;span style="color:#f92672">in&lt;/span> years
+]
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>There are a few limitations that we needed to work around:&lt;/p>
+&lt;ol>
+&lt;li>Each request returns at most 100 papers, but we can pass the &amp;ldquo;offset&amp;rdquo; parameter, to get the next batch of papers.&lt;/li>
+&lt;li>A maximum of 1000 papers can be returned from a unique query. So I searched per year for a specific field of study (computer science), and then combined the results.&lt;/li>
+&lt;li>The public API has a rate limit of 1000 requests per second (shared globally with other users), so occasionally you&amp;rsquo;ll be hit with the 429 HTTP error code (&amp;ldquo;Too Many Requests&amp;rdquo;). So I added a 10 second wait together with a while loop to keep retrying until success.&lt;/li>
+&lt;li>Some of results had missing publication dates (about 100), so I removed them.&lt;/li>
+&lt;/ol>
+&lt;p>The whole thing runs for about a minute.&lt;/p>
+&lt;h1 id="bibliography">Bibliography&lt;/h1>
+&lt;section class="hugo-cite-bibliography">
+&lt;dl>
+&lt;div id="bassamboo2012little">
+&lt;dt>
+Bassamboo,&amp;#32;
+Randhawa&amp;#32;&amp;amp;&amp;#32;Mieghem
+(2012)&lt;/dt>
+&lt;dd>
+&lt;span itemscope
+itemtype="https://schema.org/Article"
+data-type="article">&lt;span itemprop="author" itemscope itemtype="https://schema.org/Person">&lt;span itemprop="familyName">Bassamboo&lt;/span>,&amp;#32;
+&lt;meta itemprop="givenName" content="Achal" />
+A.&lt;/span>,&amp;#32;
+&lt;span itemprop="author" itemscope itemtype="https://schema.org/Person">&lt;span itemprop="familyName">Randhawa&lt;/span>,&amp;#32;
+&lt;meta itemprop="givenName" content="Ramandeep S" />
+R.&lt;/span>&amp;#32;&amp;amp;&amp;#32;&lt;span itemprop="author" itemscope itemtype="https://schema.org/Person">&lt;span itemprop="familyName">Mieghem&lt;/span>,&amp;#32;
+&lt;meta itemprop="givenName" content="Jan A Van" />
+J.&lt;/span>
+&amp;#32;
+(&lt;span itemprop="datePublished">2012&lt;/span>).
+&amp;#32;&lt;span itemprop="name">A little flexibility is all you need: On the asymptotic value of flexible capacity in parallel queuing systems&lt;/span>.&lt;i>
+&lt;span itemprop="about">Operations Research&lt;/span>,&amp;#32;60(6)&lt;/i>.&amp;#32;&lt;span itemprop="pagination">1423–1435&lt;/span>.&lt;/span>
+&lt;/dd>
+&lt;/div>
+&lt;div id="https//doi.org/10.1002/ejsp.2035">
+&lt;dt>
+Knausenberger,&amp;#32;
+Hellmann&amp;#32;&amp;amp;&amp;#32;Echterhoff
+(2015)&lt;/dt>
+&lt;dd>
+&lt;span itemscope
+itemtype="https://schema.org/Article"
+data-type="article">&lt;span itemprop="author" itemscope itemtype="https://schema.org/Person">&lt;span itemprop="familyName">Knausenberger&lt;/span>,&amp;#32;
+&lt;meta itemprop="givenName" content="Judith" />
+J.&lt;/span>,&amp;#32;
+&lt;span itemprop="author" itemscope itemtype="https://schema.org/Person">&lt;span itemprop="familyName">Hellmann&lt;/span>,&amp;#32;
+&lt;meta itemprop="givenName" content="Jens H." />
+J.&lt;/span>&amp;#32;&amp;amp;&amp;#32;&lt;span itemprop="author" itemscope itemtype="https://schema.org/Person">&lt;span itemprop="familyName">Echterhoff&lt;/span>,&amp;#32;
+&lt;meta itemprop="givenName" content="Gerald" />
+G.&lt;/span>
+&amp;#32;
+(&lt;span itemprop="datePublished">2015&lt;/span>).
+&amp;#32;&lt;span itemprop="name">When virtual contact is all you need: Subtle reminders of facebook preempt social-contact restoration after exclusion&lt;/span>.&lt;i>
+&lt;span itemprop="about">European Journal of Social Psychology&lt;/span>,&amp;#32;45(3)&lt;/i>.&amp;#32;&lt;span itemprop="pagination">279–284&lt;/span>.
+&lt;a href="https://doi.org/https://doi.org/10.1002/ejsp.2035"
+itemprop="identifier"
+itemtype="https://schema.org/URL">https://doi.org/https://doi.org/10.1002/ejsp.2035&lt;/a>&lt;/span>
+&lt;/dd>
+&lt;/div>
+&lt;div id="vaswani2017attention">
+&lt;dt>
+Vaswani
+(2017)&lt;/dt>
+&lt;dd>
+&lt;span itemscope
+itemtype="https://schema.org/Article"
+data-type="article">&lt;span itemprop="author" itemscope itemtype="https://schema.org/Person">&lt;span itemprop="familyName">Vaswani&lt;/span>,&amp;#32;
+&lt;meta itemprop="givenName" content="A" />
+A.&lt;/span>
+&amp;#32;
+(&lt;span itemprop="datePublished">2017&lt;/span>).
+&amp;#32;&lt;span itemprop="name">Attention is all you need&lt;/span>.&lt;i>
+&lt;span itemprop="about">Advances in Neural Information Processing Systems&lt;/span>&lt;/i>.&lt;/span>
+&lt;/dd>
+&lt;/div>
+&lt;div id="krizhevsky2017imagenet">
+&lt;dt>
+Krizhevsky,&amp;#32;
+Sutskever&amp;#32;&amp;amp;&amp;#32;Hinton
+(2017)&lt;/dt>
+&lt;dd>
+&lt;span itemscope
+itemtype="https://schema.org/Article"
+data-type="article">&lt;span itemprop="author" itemscope itemtype="https://schema.org/Person">&lt;span itemprop="familyName">Krizhevsky&lt;/span>,&amp;#32;
+&lt;meta itemprop="givenName" content="Alex" />
+A.&lt;/span>,&amp;#32;
+&lt;span itemprop="author" itemscope itemtype="https://schema.org/Person">&lt;span itemprop="familyName">Sutskever&lt;/span>,&amp;#32;
+&lt;meta itemprop="givenName" content="Ilya" />
+I.&lt;/span>&amp;#32;&amp;amp;&amp;#32;&lt;span itemprop="author" itemscope itemtype="https://schema.org/Person">&lt;span itemprop="familyName">Hinton&lt;/span>,&amp;#32;
+&lt;meta itemprop="givenName" content="Geoffrey E" />
+G.&lt;/span>
+&amp;#32;
+(&lt;span itemprop="datePublished">2017&lt;/span>).
+&amp;#32;&lt;span itemprop="name">ImageNet classification with deep convolutional neural networks&lt;/span>.&lt;i>
+&lt;span itemprop="about">Communications of the ACM&lt;/span>,&amp;#32;60(6)&lt;/i>.&amp;#32;&lt;span itemprop="pagination">84–90&lt;/span>.&lt;/span>
+&lt;/dd>
+&lt;/div>
+&lt;/dl>
+&lt;/section></content></item><item><title>profiling time and memory using pytest</title><link>https://www.robert-sokolewicz.nl/posts/24_pytest_benchmark/</link><pubDate>Fri, 24 Jan 2025 00:00:00 +0000</pubDate><guid>https://www.robert-sokolewicz.nl/posts/24_pytest_benchmark/</guid><description>I was reading about a new benchmarking framework for quantum control software called Benchpress. Looking through the code, it seems to be built upon the benchmark plugin for pytest. If you want to quickly benchmark your code, it&amp;rsquo;s quite easy to do with pytest-benchmark.
 Running benchmark If you know a bit about pytest, it&amp;rsquo;s actually very easy to add some benchmarking to your tests by just using the benchmark fixture. Suppose we have these two functions:</description><content>&lt;p>I was reading about a new benchmarking framework for quantum control software called &lt;a href="https://github.com/qiskit/benchpress">Benchpress&lt;/a>. Looking through the code, it seems to be built upon the &lt;code>benchmark&lt;/code> plugin for &lt;code>pytest&lt;/code>. If you want to quickly benchmark your code, it&amp;rsquo;s quite easy to do with &lt;code>pytest-benchmark&lt;/code>.&lt;/p>
 &lt;h2 id="running-benchmark">Running benchmark&lt;/h2>
 &lt;p>If you know a bit about pytest, it&amp;rsquo;s actually very easy to add some benchmarking to your tests by just using the &lt;code>benchmark&lt;/code> fixture. Suppose we have these two functions:&lt;/p>
@@ -679,7 +1061,7 @@ secret &lt;span style="color:#f92672">=&lt;/span> os&lt;span style="color:#f9267
 &lt;span style="color:#66d9ef">return&lt;/span> list(object&lt;span style="color:#f92672">.&lt;/span>__getattribute__(self, &lt;span style="color:#e6db74">&amp;#34;_env_vars&amp;#34;&lt;/span>)&lt;span style="color:#f92672">.&lt;/span>keys())
 secrets &lt;span style="color:#f92672">=&lt;/span> Secrets()
 &lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="preventing-commiting-secrets-to-git-using-git-guardian">Preventing commiting secrets to git using git guardian&lt;/h2>
-&lt;p>There are a few tools out there that you can install with a git-commit hook to prevent secrets from being committed to git. The last one I tried was &lt;a href="https://github.com/jesseduffield/git-guardian">git-guardian&lt;/a>, which also allows you to scan your git history for secrets. Pretty cool! There&amp;rsquo;s also a web interface and when connecting your github account they will even send you an email if you accidentally push a secret :')&lt;/p>
+&lt;p>There are a few tools out there that you can install with a git-commit hook to prevent secrets from being committed to git. The last one I tried was &lt;a href="https://www.gitguardian.com/">git-guardian&lt;/a>, which also allows you to scan your git history for secrets. Pretty cool! There&amp;rsquo;s also a web interface and when connecting your github account they will even send you an email if you accidentally push a secret :')&lt;/p>
 &lt;figure class="center"
 >
 &lt;img src="image-1.png"

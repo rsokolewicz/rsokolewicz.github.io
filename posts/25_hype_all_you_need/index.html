@@ -1,0 +1,149 @@
+<!doctype html><html lang=en><head><title>Is hype all you need? :: Roberts blog</title><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="The last decade saw a few AI scientific breakthroughs that enabled the whole AI development to boom. For example, realizing that AI thrives on large amounts of data and GPUs (see e.g. (Citation: Vaswani,&amp;#32;2017Vaswani,&amp;#32; A. &amp;#32; (2017). &amp;#32;Attention is all you need. Advances in Neural Information Processing Systems. )). Large language models had the problem for a long time that they were difficult to train, because (1) they couldn&amp;rsquo;t be trained properly on GPUs, and they suffered from something called catastrophic forgetting."><meta name=keywords content><meta name=robots content="noodp"><link rel=canonical href=https://www.robert-sokolewicz.nl/posts/25_hype_all_you_need/><link rel=stylesheet href=https://www.robert-sokolewicz.nl/assets/style.css><link rel=stylesheet href=https://www.robert-sokolewicz.nl/assets/css/hugo-cite.css><link rel=apple-touch-icon href=https://www.robert-sokolewicz.nl/img/favicon/apple-touch.png><link rel="shortcut icon" href=https://www.robert-sokolewicz.nl/img/favicon/orange.png><meta name=twitter:card content="summary"><meta property="og:locale" content="en"><meta property="og:type" content="article"><meta property="og:title" content="Is hype all you need?"><meta property="og:description" content="The last decade saw a few AI scientific breakthroughs that enabled the whole AI development to boom. For example, realizing that AI thrives on large amounts of data and GPUs (see e.g. (Citation: Vaswani,&amp;#32;2017Vaswani,&amp;#32; A. &amp;#32; (2017). &amp;#32;Attention is all you need. Advances in Neural Information Processing Systems. )). Large language models had the problem for a long time that they were difficult to train, because (1) they couldn&amp;rsquo;t be trained properly on GPUs, and they suffered from something called catastrophic forgetting."><meta property="og:url" content="https://www.robert-sokolewicz.nl/posts/25_hype_all_you_need/"><meta property="og:site_name" content="Roberts blog"><meta property="og:image" content="https://www.robert-sokolewicz.nl"><meta property="og:image:width" content="2048"><meta property="og:image:height" content="1024"><meta property="article:published_time" content="2025-01-25 00:00:00 +0000 UTC"><script>MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],displayMath:[['$$','$$'],['\\[','\\]']],macros:{bb:["{\\boldsymbol{#1}}",1],tr:"{\\DeclareMathOperator{\\tr}{Tr}}",im:"{\\DeclareMathOperator{\\im}{Im}}",re:"{\\DeclareMathOperator{\\re}{Re}}",},processEscapes:true,processEnvironments:true,tags:"ams"},options:{skipHtmlTags:['script','noscript','style','textarea','pre']}};window.addEventListener('load',(event)=>{document.querySelectorAll("mjx-container").forEach(function(x){x.parentElement.classList+='has-jax'})});</script><script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script><script type=text/javascript id=MathJax-script async src=https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js></script><script type=text/x-mathjax-config>
+    MathJax.Hub.Queue(function() {
+        // Fix <code> tags after MathJax finishes running. This is a
+        // hack to overcome a shortcoming of Markdown. Discussion at
+        // https://github.com/mojombo/jekyll/issues/199
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i = 0; i &lt; all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+    </script></head><body class=orange><div class="container center headings--one-size"><header class=header><div class=header__inner><div class=header__logo><a href=/><div class=logo>Home</div></a></div><div class=menu-trigger>menu</div></div><nav class=menu><ul class="menu__inner menu__inner--desktop"><li><a href=/about>About</a></li><li><a href=/books>Book Reviews</a></li><li><a href=/cv>CV</a></li><li><a href=/physics>Physics</a></li><li><a href=/reading_papers>Reading Papers</a></li></ul><ul class="menu__inner menu__inner--mobile"><li><a href=/about>About</a></li><li><a href=/books>Book Reviews</a></li><li><a href=/cv>CV</a></li><li><a href=/physics>Physics</a></li><li><a href=/reading_papers>Reading Papers</a></li></ul></nav></header><div class=content><div class=post><h1 class=post-title><a href=https://www.robert-sokolewicz.nl/posts/25_hype_all_you_need/>Is hype all you need?</a></h1><div class=post-meta><span class=post-date>2025-01-25</span>
+<span class=post-author>:: Robert</span></div><div class=post-content><div><p>The last decade saw a few AI scientific breakthroughs that enabled the whole AI development to boom. For example, realizing that AI thrives on large amounts of data and GPUs (see e.g.
+<span class=hugo-cite-intext itemprop=citation>(<span class=hugo-cite-group>
+<a href=#vaswani2017attention><span class=visually-hidden>Citation: </span><span itemprop=author itemscope itemtype=https://schema.org/Person><meta itemprop=givenName content="A"><span itemprop=familyName>Vaswani</span></span>, <span itemprop=datePublished>2017</span></a><span class=hugo-cite-citation>
+<span itemscope itemtype=https://schema.org/Article data-type=article><span itemprop=author itemscope itemtype=https://schema.org/Person><span itemprop=familyName>Vaswani</span>, <meta itemprop=givenName content="A">A.</span>
+ 
+(<span itemprop=datePublished>2017</span>).
+ <span itemprop=name>Attention is all you need</span>.<i>
+<span itemprop=about>Advances in Neural Information Processing Systems</span></i>.</span>
+</span></span>)</span>). Large language models had the problem for a long time that they were difficult to train, because (1) they couldn&rsquo;t be trained properly on GPUs, and they suffered from something called catastrophic forgetting. But then in 2017, the <em>Attention is All you Need</em> paper
+<span class=hugo-cite-intext itemprop=citation>(<span class=hugo-cite-group>
+<a href=#vaswani2017attention><span class=visually-hidden>Citation: </span><span itemprop=author itemscope itemtype=https://schema.org/Person><meta itemprop=givenName content="A"><span itemprop=familyName>Vaswani</span></span>, <span itemprop=datePublished>2017</span></a><span class=hugo-cite-citation>
+<span itemscope itemtype=https://schema.org/Article data-type=article><span itemprop=author itemscope itemtype=https://schema.org/Person><span itemprop=familyName>Vaswani</span>, <meta itemprop=givenName content="A">A.</span>
+ 
+(<span itemprop=datePublished>2017</span>).
+ <span itemprop=name>Attention is all you need</span>.<i>
+<span itemprop=about>Advances in Neural Information Processing Systems</span></i>.</span>
+</span></span>)</span> solved these two problems and within a few years we saw the development of chatGPT and similar large language models.</p><p>The <em>Attention is all you need</em> paper sits with over 100,000 citations which is a lot<span class=hugo-footnote-intext><sup class=footnote-ref onclick=showFootnote(event,1)>(1)</sup><span class=footnote id=footnote-1>back in 2014, Nature released a <a href=https://www.nature.com/news/the-top-100-papers-1.16224>top 100 cited papers of all time list</a>, with only three papers with more than 100k citations<a href=# class=footnote-close onclick=hideFootnote(1) aria-label="Close footnote">×</a></span></span><style>.hugo-footnote-intext{white-space:normal}.footnote-ref{color:var(--accent);cursor:pointer}.footnote{display:none;position:absolute;max-width:300px;padding:1em;border-radius:4px;box-shadow:0 2px 10px rgba(0,0,0,.1);font-size:.9em;color:#707070;z-index:1000;white-space:normal;line-height:1.4;word-wrap:break-word;right:-350px}.footnote.active{display:block}.footnote-close{position:absolute;top:5px;right:5px;text-decoration:none;color:#666}.footnote-close:hover{color:#333}.post{position:relative}</style><script>function showFootnote(event,id){event.preventDefault();document.querySelectorAll('.footnote.active').forEach(note=>{note.classList.remove('active');});const footnote=document.getElementById(`footnote-${id}`);const link=event.target;const linkRect=link.getBoundingClientRect();footnote.style.top=`${linkRect.top-link.closest('.post').getBoundingClientRect().top}px`;footnote.classList.add('active');document.addEventListener('click',function closeFootnote(e){if(!footnote.contains(e.target)&&!link.contains(e.target)){footnote.classList.remove('active');document.removeEventListener('click',closeFootnote);}});}
+function hideFootnote(id){const footnote=document.getElementById(`footnote-${id}`);footnote.classList.remove('active');}</script>.</p><p>I noticed recently that more and more computer science papers have similar titles, while the ones that I opened were not particularly groundbreaking. It&rsquo;s even worse on LinkedIn, where some of these articles are shared as if they are the next big thing, while they are really not. The titles are crafted to grab attention and make us readers feel like we are missing out on the &ldquo;next wave&rdquo; in AI research. That made me wonder, if there&rsquo;s really a trend going on and whether it is more hype than anything else.</p><p>So I wanted to do some statistical analysis on recent research papers to see if there really is a trend of using the phrase &ldquo;is all you need&rdquo; in the title, and if it makes the paper more likely to be cited.</p><p>My first approach was to go to Google Scholar and search for &ldquo;is all you need&rdquo;, but that gave me over 100,000 results, without the ability to download all the results. A quick search led me to the <a href=https://www.semanticscholar.org/>Semantic Scholar</a> website, which is a database of over 200 million research papers that is constantly being updated. They also have a simple API that allows you to get all the data you need.</p><p>Before showing the code, let&rsquo;s show the results first:</p><figure class=center><img src=image.svg></figure><p>In chronological order, we have the first three papers:</p><ol><li>A little flexibility is all you need: on the asymptotic value of flexible capacity in parallel queuing systems
+<span class=hugo-cite-intext itemprop=citation>(<span class=hugo-cite-group>
+<a href=#bassamboo2012little><span class=visually-hidden>Citation: </span><span itemprop=author itemscope itemtype=https://schema.org/Person><meta itemprop=givenName content="Achal"><span itemprop=familyName>Bassamboo</span></span> 
+<em>& al.</em>, <span itemprop=datePublished>2012</span></a><span class=hugo-cite-citation>
+<span itemscope itemtype=https://schema.org/Article data-type=article><span itemprop=author itemscope itemtype=https://schema.org/Person><span itemprop=familyName>Bassamboo</span>, <meta itemprop=givenName content="Achal">A.</span>, 
+<span itemprop=author itemscope itemtype=https://schema.org/Person><span itemprop=familyName>Randhawa</span>, <meta itemprop=givenName content="Ramandeep S">R.</span> & <span itemprop=author itemscope itemtype=https://schema.org/Person><span itemprop=familyName>Mieghem</span>, <meta itemprop=givenName content="Jan A Van">J.</span>
+ 
+(<span itemprop=datePublished>2012</span>).
+ <span itemprop=name>A little flexibility is all you need: On the asymptotic value of flexible capacity in parallel queuing systems</span>.<i>
+<span itemprop=about>Operations Research</span>, 60(6)</i>. <span itemprop=pagination>1423–1435</span>.</span>
+</span></span>)</span></li><li>When virtual contact is all you need: Subtle reminders of Facebook preempt social-contact restoration after exclusion
+<span class=hugo-cite-intext itemprop=citation>(<span class=hugo-cite-group>
+<a href=#https%2f%2fdoi.org%2f10.1002%2fejsp.2035><span class=visually-hidden>Citation: </span><span itemprop=author itemscope itemtype=https://schema.org/Person><meta itemprop=givenName content="Judith"><span itemprop=familyName>Knausenberger</span></span> 
+<em>& al.</em>, <span itemprop=datePublished>2015</span></a><span class=hugo-cite-citation>
+<span itemscope itemtype=https://schema.org/Article data-type=article><span itemprop=author itemscope itemtype=https://schema.org/Person><span itemprop=familyName>Knausenberger</span>, <meta itemprop=givenName content="Judith">J.</span>, 
+<span itemprop=author itemscope itemtype=https://schema.org/Person><span itemprop=familyName>Hellmann</span>, <meta itemprop=givenName content="Jens H.">J.</span> & <span itemprop=author itemscope itemtype=https://schema.org/Person><span itemprop=familyName>Echterhoff</span>, <meta itemprop=givenName content="Gerald">G.</span>
+ 
+(<span itemprop=datePublished>2015</span>).
+ <span itemprop=name>When virtual contact is all you need: Subtle reminders of facebook preempt social-contact restoration after exclusion</span>.<i>
+<span itemprop=about>European Journal of Social Psychology</span>, 45(3)</i>. <span itemprop=pagination>279–284</span>.
+<a href=https://doi.org/https://doi.org/10.1002/ejsp.2035 itemprop=identifier itemtype=https://schema.org/URL>https://doi.org/https://doi.org/10.1002/ejsp.2035</a></span>
+</span></span>)</span></li><li>Attention is all you need
+<span class=hugo-cite-intext itemprop=citation>(<span class=hugo-cite-group>
+<a href=#vaswani2017attention><span class=visually-hidden>Citation: </span><span itemprop=author itemscope itemtype=https://schema.org/Person><meta itemprop=givenName content="A"><span itemprop=familyName>Vaswani</span></span>, <span itemprop=datePublished>2017</span></a><span class=hugo-cite-citation>
+<span itemscope itemtype=https://schema.org/Article data-type=article><span itemprop=author itemscope itemtype=https://schema.org/Person><span itemprop=familyName>Vaswani</span>, <meta itemprop=givenName content="A">A.</span>
+ 
+(<span itemprop=datePublished>2017</span>).
+ <span itemprop=name>Attention is all you need</span>.<i>
+<span itemprop=about>Advances in Neural Information Processing Systems</span></i>.</span>
+</span></span>)</span></li></ol><p>after which the trend skyrockets. The <em>Attention is all you need</em> paper has over 100,000 citations, which is significantly higher than the other papers.</p><p>Next I was interested in the number of citations for each paper. Unfortunately, the distribution is very skewed, so it&rsquo;s a bit difficult to visualize. Combining a simple jitter plot together with a quantile plot, we have</p><figure class=center><img src=image4.svg></figure><p>so we see for example that about 75% of the papers have at least 1 citation, and 25% have at least 10 citations.</p><p>Maybe a bar chart is a bit clearer:</p><figure class=center><img src=image2.svg></figure><p>So only a third of the papers have 5 or more citations, which is not a great start for being &ldquo;all you need&rdquo;. We should realize however that:</p><ol><li>It takes time to get noticed and the majority of papers were published less than a year ago.</li><li>The number of citations is not always a good indicator of the quality of the paper.</li></ol><p>What I wanted to try next is compare the number of citations to the &ldquo;average&rdquo; number of citations for an arbitrary paper in the same year. But unfortunately, with the public API I can only perform query searches and the returned results are ranked by relevance. This will introduce a strong bias towards higher cited papers, so that the analysis will fail.</p><p>I could request an API key that will allow me to download the metadata of the entire 200 million paper database, so maybe I will do that another time :)</p><hr><p>This article was co-written with Lan Chu and a version was also published on <a href=https://ai-stories.io/blog/hype-in-ai-research/>the AI stories website</a>.</p><h1 id=code>Code<a href=#code class=hanchor arialabel=Anchor>&#8983;</a></h1><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#f92672>import</span> requests
+<span style=color:#f92672>from</span> tqdm <span style=color:#f92672>import</span> tqdm
+<span style=color:#f92672>import</span> time
+
+
+<span style=color:#66d9ef>def</span> <span style=color:#a6e22e>search_semantic_scholar</span>(query: str, year: int, field_of_study: str) <span style=color:#f92672>-&gt;</span> list:
+    <span style=color:#e6db74>&#34;&#34;&#34;
+</span><span style=color:#e6db74>    Search Semantic Scholar API for papers in a specific year and field
+</span><span style=color:#e6db74>    &#34;&#34;&#34;</span>
+    base_url <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;https://api.semanticscholar.org/graph/v1/paper/search&#34;</span>
+    all_papers <span style=color:#f92672>=</span> []
+    offset <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>
+    limit <span style=color:#f92672>=</span> <span style=color:#ae81ff>100</span>
+
+    <span style=color:#66d9ef>with</span> tqdm(desc<span style=color:#f92672>=</span>f<span style=color:#e6db74>&#34;Fetching papers for {year}&#34;</span>, unit<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;batch&#34;</span>) <span style=color:#66d9ef>as</span> pbar:
+        <span style=color:#66d9ef>while</span> True:
+            params <span style=color:#f92672>=</span> {
+                <span style=color:#e6db74>&#34;query&#34;</span>: query,
+                <span style=color:#e6db74>&#34;fields&#34;</span>: <span style=color:#e6db74>&#34;title,publicationDate,citationCount,url,year&#34;</span>,
+                <span style=color:#e6db74>&#34;limit&#34;</span>: limit,
+                <span style=color:#e6db74>&#34;offset&#34;</span>: offset,
+                <span style=color:#e6db74>&#34;year&#34;</span>: str(year),
+                <span style=color:#e6db74>&#34;fieldsOfStudy&#34;</span>: field_of_study,
+            }
+            <span style=color:#66d9ef>while</span> True:
+                response <span style=color:#f92672>=</span> requests<span style=color:#f92672>.</span>get(base_url, params<span style=color:#f92672>=</span>params)
+
+                <span style=color:#66d9ef>if</span> response<span style=color:#f92672>.</span>status_code <span style=color:#f92672>==</span> <span style=color:#ae81ff>429</span>:
+                    time<span style=color:#f92672>.</span>sleep(<span style=color:#ae81ff>10</span>)
+                    <span style=color:#66d9ef>continue</span>
+
+                <span style=color:#66d9ef>if</span> response<span style=color:#f92672>.</span>status_code <span style=color:#f92672>!=</span> <span style=color:#ae81ff>200</span>:
+                    <span style=color:#66d9ef>break</span>
+
+                <span style=color:#66d9ef>break</span>
+
+            <span style=color:#66d9ef>if</span> response<span style=color:#f92672>.</span>status_code <span style=color:#f92672>!=</span> <span style=color:#ae81ff>200</span>:
+                <span style=color:#66d9ef>break</span>
+
+            data <span style=color:#f92672>=</span> response<span style=color:#f92672>.</span>json()
+            batch_papers <span style=color:#f92672>=</span> data<span style=color:#f92672>.</span>get(<span style=color:#e6db74>&#34;data&#34;</span>, [])
+
+            all_papers<span style=color:#f92672>.</span>extend(batch_papers)
+            pbar<span style=color:#f92672>.</span>update(len(batch_papers))
+            pbar<span style=color:#f92672>.</span>set_description(f<span style=color:#e6db74>&#34;Year {year}: {len(all_papers)} papers&#34;</span>)
+
+            <span style=color:#66d9ef>if</span> len(batch_papers) <span style=color:#f92672>&lt;</span> limit:
+                <span style=color:#66d9ef>break</span>
+
+            offset <span style=color:#f92672>+=</span> limit
+    <span style=color:#66d9ef>return</span> all_papers
+
+
+query <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;&#34;is all you need&#34;&#39;</span>
+field_of_study <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;Computer Science&#34;</span>
+
+years <span style=color:#f92672>=</span> range(<span style=color:#ae81ff>2010</span>, <span style=color:#ae81ff>2026</span>)
+papers <span style=color:#f92672>=</span> [
+    search_semantic_scholar(query, year, field_of_study) <span style=color:#66d9ef>for</span> year <span style=color:#f92672>in</span> years
+]
+</code></pre></div><p>There are a few limitations that we needed to work around:</p><ol><li>Each request returns at most 100 papers, but we can pass the &ldquo;offset&rdquo; parameter, to get the next batch of papers.</li><li>A maximum of 1000 papers can be returned from a unique query. So I searched per year for a specific field of study (computer science), and then combined the results.</li><li>The public API has a rate limit of 1000 requests per second (shared globally with other users), so occasionally you&rsquo;ll be hit with the 429 HTTP error code (&ldquo;Too Many Requests&rdquo;). So I added a 10 second wait together with a while loop to keep retrying until success.</li><li>Some of results had missing publication dates (about 100), so I removed them.</li></ol><p>The whole thing runs for about a minute.</p><h1 id=bibliography>Bibliography<a href=#bibliography class=hanchor arialabel=Anchor>&#8983;</a></h1><section class=hugo-cite-bibliography><dl><div id=bassamboo2012little><dt>Bassamboo, 
+Randhawa & Mieghem
+(2012)</dt><dd><span itemscope itemtype=https://schema.org/Article data-type=article><span itemprop=author itemscope itemtype=https://schema.org/Person><span itemprop=familyName>Bassamboo</span>, <meta itemprop=givenName content="Achal">A.</span>, 
+<span itemprop=author itemscope itemtype=https://schema.org/Person><span itemprop=familyName>Randhawa</span>, <meta itemprop=givenName content="Ramandeep S">R.</span> & <span itemprop=author itemscope itemtype=https://schema.org/Person><span itemprop=familyName>Mieghem</span>, <meta itemprop=givenName content="Jan A Van">J.</span>
+ 
+(<span itemprop=datePublished>2012</span>).
+ <span itemprop=name>A little flexibility is all you need: On the asymptotic value of flexible capacity in parallel queuing systems</span>.<i>
+<span itemprop=about>Operations Research</span>, 60(6)</i>. <span itemprop=pagination>1423–1435</span>.</span></dd></div><div id=https//doi.org/10.1002/ejsp.2035><dt>Knausenberger, 
+Hellmann & Echterhoff
+(2015)</dt><dd><span itemscope itemtype=https://schema.org/Article data-type=article><span itemprop=author itemscope itemtype=https://schema.org/Person><span itemprop=familyName>Knausenberger</span>, <meta itemprop=givenName content="Judith">J.</span>, 
+<span itemprop=author itemscope itemtype=https://schema.org/Person><span itemprop=familyName>Hellmann</span>, <meta itemprop=givenName content="Jens H.">J.</span> & <span itemprop=author itemscope itemtype=https://schema.org/Person><span itemprop=familyName>Echterhoff</span>, <meta itemprop=givenName content="Gerald">G.</span>
+ 
+(<span itemprop=datePublished>2015</span>).
+ <span itemprop=name>When virtual contact is all you need: Subtle reminders of facebook preempt social-contact restoration after exclusion</span>.<i>
+<span itemprop=about>European Journal of Social Psychology</span>, 45(3)</i>. <span itemprop=pagination>279–284</span>.
+<a href=https://doi.org/https://doi.org/10.1002/ejsp.2035 itemprop=identifier itemtype=https://schema.org/URL>https://doi.org/https://doi.org/10.1002/ejsp.2035</a></span></dd></div><div id=vaswani2017attention><dt>Vaswani
+(2017)</dt><dd><span itemscope itemtype=https://schema.org/Article data-type=article><span itemprop=author itemscope itemtype=https://schema.org/Person><span itemprop=familyName>Vaswani</span>, <meta itemprop=givenName content="A">A.</span>
+ 
+(<span itemprop=datePublished>2017</span>).
+ <span itemprop=name>Attention is all you need</span>.<i>
+<span itemprop=about>Advances in Neural Information Processing Systems</span></i>.</span></dd></div><div id=krizhevsky2017imagenet><dt>Krizhevsky, 
+Sutskever & Hinton
+(2017)</dt><dd><span itemscope itemtype=https://schema.org/Article data-type=article><span itemprop=author itemscope itemtype=https://schema.org/Person><span itemprop=familyName>Krizhevsky</span>, <meta itemprop=givenName content="Alex">A.</span>, 
+<span itemprop=author itemscope itemtype=https://schema.org/Person><span itemprop=familyName>Sutskever</span>, <meta itemprop=givenName content="Ilya">I.</span> & <span itemprop=author itemscope itemtype=https://schema.org/Person><span itemprop=familyName>Hinton</span>, <meta itemprop=givenName content="Geoffrey E">G.</span>
+ 
+(<span itemprop=datePublished>2017</span>).
+ <span itemprop=name>ImageNet classification with deep convolutional neural networks</span>.<i>
+<span itemprop=about>Communications of the ACM</span>, 60(6)</i>. <span itemprop=pagination>84–90</span>.</span></dd></div></dl></section></div></div><div class=pagination><div class=pagination__title><span class=pagination__title-h>Read other posts</span><hr></div><div class=pagination__buttons><span class="button previous"><a href=https://www.robert-sokolewicz.nl/posts/26_matplotlib_styles/><span class=button__icon>←</span>
+<span class=button__text>Custom matplotlib styles</span></a></span>
+<span class="button next"><a href=https://www.robert-sokolewicz.nl/posts/24_pytest_benchmark/><span class=button__text>profiling time and memory using pytest</span>
+<span class=button__icon>→</span></a></span></div></div></div></div><footer class=footer><div class=footer__inner><div class=copyright><span>© 2025 Powered by <a href=http://gohugo.io>Hugo</a></span>
+<span>:: Theme made by <a href=https://twitter.com/panr>panr</a></span></div></div></footer><script src=https://www.robert-sokolewicz.nl/assets/main.js></script><script src=https://www.robert-sokolewicz.nl/assets/prism.js></script></div></body></html>
