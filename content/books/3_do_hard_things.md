@@ -5,7 +5,7 @@ cover_image = "hardthings.jpg"
 date = "2023-07-10"
 author = "Robert"
 description = "“Do Hard Things” explores the misconceptions surrounding toughness. Using anecdotes from his experience in running together with the latest scientific results, Steve Magness teaches us how to “cultivate real toughness”. Right away Steve dismisses the conventional wisdom that harsh coaching and tough parenting characterized by verbal and physical abuse, produces real toughness. More often than not, such approaches act as filters rather than effective training methods."
-bibfile = "data/biblio_hard_things.json"
+bibfile = "/data/biblio_hard_things.json"
 +++
 
 ## summary

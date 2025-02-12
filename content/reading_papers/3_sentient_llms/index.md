@@ -6,7 +6,6 @@ cover = ""
 description = "Can AI feel pain and pleasure? A study on the sentience of large language models."
 mathjax = true
 draft = false
-bibFile= "content/reading_papers/3_sentient_llms/bib.json"
 +++
 
 A cool paper {{< cite keeling2024llmsmaketradeoffsinvolving >}} about testing if large language models can experience sensations. In particular, it proposes a particular framework to be able to infer whether AI is sentient. Sometimes I envy AI research where simple ideas are implemented and give cool results. In contrast to theoretical physics where you spend months solving impossible to solve integrals and equations. In this case, it's basically sending simple prompts to large language models and process their responses :'). 

@@ -6,7 +6,6 @@ cover = ""
 description = "Around the same time as Einstein's paper on relativity, Poincaré a similar paper..."
 mathjax = true
 draft = false
-bibFile= "content/reading_papers/1_sur_la_dynamique/bib.json"
 +++
 
 The history of relativity is quite interesting as a few people had similar ideas around the same time. While Einstein without a doubt is responsible for the theory and interpretation of relativity, Lorentz and Poincaré had similar ideas. 

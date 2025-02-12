@@ -110,7 +110,7 @@ So seemingly, I made the iterative version slower. oops.
 I don't recommend this, but there's a `--benchmark-histogram` flag to create a very simple histogram of the results and save that as an svg:
 
 
-{{< figure src="/posts/24_pytest_benchmark/hist.svg.svg" width="90%" opacity="0.8">}}
+{{< figure src="hist.svg.svg" width="90%" opacity="0.8">}}
 
 which is nice for a quick look at the results, but frankly: it's ugly :D 
 
@@ -166,7 +166,7 @@ fig, ax = compare_benchmarks(
 
 plt.show()
 ```
-{{< figure src="/posts/24_pytest_benchmark/image-1.png" width="90%" >}}
+{{< figure src="image-1.png" width="90%" >}}
 
 because the results are saved in a json file inside the .benchmarks folder. 
 

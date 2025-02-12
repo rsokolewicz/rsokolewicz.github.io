@@ -13,11 +13,11 @@ Here's a quick step-by-step guide on how to do so.
 Open your web browser and navigate to the website from which you want to download data. For this example, I use [weather data](https://daggegevens.knmi.nl/klimatologie/daggegevens) from the Dutch Royal Weather Institute (KNMI). 
 Right-click on the web page and select "Inspect" or "Inspect Element" from the context menu. This will open the browser's developer tools.
 
-![image-4](images/image-4.png)
+{{< figure src="images/image-4.png" position="center">}}
 
 In the developer tools, go to the "Network" tab. This tab allows you to monitor the network activity of the web page, including the REST API requests and responses. 
 
-![image-5](images/image-5.png)
+{{< figure src="images/image-5.png" position="center">}}
 
 ## Step 2: Identify the REST API Endpoint
 
@@ -31,14 +31,14 @@ and press "Bestand downloaden". Most webpages should have either a similar downl
 
 In the "Network" tab, you should see a list of network requests made by the web page. Look for the REST API request that corresponds to the data you want to download. The REST API request will usually have a URL, method (e.g., GET, POST), and request/response headers. In this example, we look at "daggegevens".
 
-![image-6](images/image-6.png)
+{{< figure src="images/image-6.png" position="center">}}
 
 
 ## Step 3: Download the REST API Request as cURL
 
 Right-click the REST API request that you want to download and select "Copy" > "Copy all as cURL" from the context menu. This will copy the cURL command that represents the REST API request to your clipboard.
 
-![image-7](images/image-7.png)
+{{< figure src="images/image-7.png" position="center">}}
 
 Open a text editor or a terminal window, and paste the copied cURL command.
 Modify the cURL command as needed, such as replacing placeholders with actual values. For example, you may need to update query parameters, request headers, or authentication tokens.
@@ -50,7 +50,7 @@ Instead of manually modifying the cURL command and running it from the terminal,
 
 We first convert the cURL request that is sitting in our clipboard, to a Python script that will use the requests package. A convenient webpage is [curlconverter.com/python/](https://curlconverter.com/python/). 
 
-![image-8](images/image-8.png)
+{{< figure src="images/image-8.png" position="center">}}
 
 You should have a script that is similar to
 

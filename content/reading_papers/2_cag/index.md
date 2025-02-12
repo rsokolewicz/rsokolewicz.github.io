@@ -6,7 +6,6 @@ cover = ""
 description = "A better way of doing RAG? I don't think so..."
 mathjax = true
 draft = false
-bibFile= "content/reading_papers/2_cag/bib.json"
 +++
 
 The paper {{< cite chan2024dontragcacheaugmentedgeneration >}} presents a "novel" way of augmenting large language model prompts with relevant information. One way of improving a language model's accuracy and reducing hallucinations is to augment each prompt with relevant information. Because language models have a finite context length, we cannot simply pass all information (e.g. all of Wikipedia) to the model. Instead, often we would implement some sort of retrieval system to fetch relevant pieces of information and passing them to the model. 
