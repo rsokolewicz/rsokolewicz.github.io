@@ -1,4 +1,225 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Reading_papers on Roberts blog</title><link>https://www.robert-sokolewicz.nl/reading_papers/</link><description>Recent content in Reading_papers on Roberts blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sun, 19 Jan 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://www.robert-sokolewicz.nl/reading_papers/index.xml" rel="self" type="application/rss+xml"/><item><title>Can LLMs make trade-offs involving stipulated pain and pleasure states? - Keeling et al.</title><link>https://www.robert-sokolewicz.nl/reading_papers/3_sentient_llms/</link><pubDate>Sun, 19 Jan 2025 00:00:00 +0000</pubDate><guid>https://www.robert-sokolewicz.nl/reading_papers/3_sentient_llms/</guid><description>A cool paper (Citation: Keeling&amp;#32; &amp;amp; al.,&amp;#32;2024Keeling,&amp;#32; G.,&amp;#32; Street,&amp;#32; W.,&amp;#32; Stachaczyk,&amp;#32; M.,&amp;#32; Zakharova,&amp;#32; D.,&amp;#32; Comsa,&amp;#32; I.,&amp;#32; Sakovych,&amp;#32; A.,&amp;#32; Logothetis,&amp;#32; I.,&amp;#32; Zhang,&amp;#32; Z.,&amp;#32; Arcas,&amp;#32; B.&amp;#32;&amp;amp;&amp;#32;Birch,&amp;#32; J. &amp;#32; (2024). &amp;#32;Can LLMs make trade-offs involving stipulated pain and pleasure states?. &amp;#32;Retrieved from&amp;#32; https://arxiv.org/abs/2411.02432 ) about testing if large language models can experience sensations. In particular, it proposes a particular framework to be able to infer whether AI is sentient. Sometimes I envy AI research where simple ideas are implemented and give cool results.</description><content>&lt;p>A cool paper
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Reading_papers on Roberts blog</title><link>https://www.robert-sokolewicz.nl/reading_papers/</link><description>Recent content in Reading_papers on Roberts blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sat, 01 Feb 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://www.robert-sokolewicz.nl/reading_papers/index.xml" rel="self" type="application/rss+xml"/><item><title>Can hallucinations made by large language models help in discovering new drugs?</title><link>https://www.robert-sokolewicz.nl/reading_papers/4_hallucinations_drug_discovery/</link><pubDate>Sat, 01 Feb 2025 00:00:00 +0000</pubDate><guid>https://www.robert-sokolewicz.nl/reading_papers/4_hallucinations_drug_discovery/</guid><description>Recently a paper (Citation: Yuan &amp;amp; al.,&amp;#32;2025Yuan,&amp;#32; S.&amp;#32;&amp;amp;&amp;#32;Färber,&amp;#32; M. &amp;#32; (2025). &amp;#32;Hallucinations can improve large language models in drug discovery. &amp;#32;Retrieved from&amp;#32; https://arxiv.org/abs/2501.13824 ) was put on arXiv, with an interesting claim:
+Thus, we propose the hypothesis that hallucinations can improve LLMs in drug discovery.
+The authors performed a simple experiment related to drug discovery. The end goal is to build a classifier that can predict from the chemical structure of a molecule whether it could be a useful drug or not.</description><content>&lt;p>Recently a paper
+&lt;span class="hugo-cite-intext"
+itemprop="citation">(&lt;span class="hugo-cite-group">
+&lt;a href="#yuan2025hallucinationsimprovelargelanguage">&lt;span class="visually-hidden">Citation: &lt;/span>&lt;span itemprop="author" itemscope itemtype="https://schema.org/Person">&lt;meta itemprop="givenName" content="Shuzhou">&lt;span itemprop="familyName">Yuan&lt;/span>&lt;/span>
+&lt;em>&amp;amp; al.&lt;/em>,&amp;#32;&lt;span itemprop="datePublished">2025&lt;/span>&lt;/a>&lt;span class="hugo-cite-citation">
+&lt;span itemscope
+itemtype="https://schema.org/CreativeWork"
+data-type="default">&lt;span itemprop="author" itemscope itemtype="https://schema.org/Person">&lt;span itemprop="familyName">Yuan&lt;/span>,&amp;#32;
+&lt;meta itemprop="givenName" content="Shuzhou" />
+S.&lt;/span>&amp;#32;&amp;amp;&amp;#32;&lt;span itemprop="author" itemscope itemtype="https://schema.org/Person">&lt;span itemprop="familyName">Färber&lt;/span>,&amp;#32;
+&lt;meta itemprop="givenName" content="Michael" />
+M.&lt;/span>
+&amp;#32;
+(&lt;span itemprop="datePublished">2025&lt;/span>).
+&amp;#32;&lt;span itemprop="name">
+&lt;i>Hallucinations can improve large language models in drug discovery&lt;/i>&lt;/span>.
+&amp;#32;Retrieved from&amp;#32;
+&lt;a href="https://arxiv.org/abs/2501.13824"
+itemprop="identifier"
+itemtype="https://schema.org/URL">https://arxiv.org/abs/2501.13824&lt;/a>&lt;/span>
+&lt;/span>&lt;/span>)&lt;/span> was put on arXiv, with an
+interesting claim:&lt;/p>
+&lt;blockquote>
+&lt;p>Thus, we propose the hypothesis that hallucinations can improve LLMs in drug
+discovery.&lt;/p>
+&lt;/blockquote>
+&lt;p>The authors performed a simple experiment related to drug discovery. The end
+goal is to build a classifier that can predict from the chemical structure of a
+molecule whether it could be a useful drug or not. What if we use a large
+language model to do this?&lt;/p>
+&lt;p>The classifier performs two steps&lt;/p>
+&lt;ol>
+&lt;li>Generate a textual description of the molecule&lt;/li>
+&lt;li>Use the textual description to predict if the molecule is a useful drug or
+not&lt;/li>
+&lt;/ol>
+&lt;p>The classifier is then compared to a &amp;ldquo;baseline&amp;rdquo; classifier, in which case step 1
+is performed by a fine-tuned model (MolT5).&lt;/p>
+&lt;p>By using the textual description from the baseline model as a ground truth, it
+is shown that of all the language models that were tested, all performed very
+badly. Five out of seven models had a factual consistency score of less than 10%,
+meaning that step 2 of the classification process uses mostly hallucinated
+information.&lt;/p>
+&lt;p>Surprisingly, rather than performing worse, the models performed better when
+using hallucinated descriptions, compared to the ground truth descriptions.&lt;/p>
+&lt;p>To add more weight to the claim, a few more experiments were performed to
+confirm the original results:&lt;/p>
+&lt;ul>
+&lt;li>Rerun the experiment with slightly different prompts&lt;/li>
+&lt;li>Rerun the experiment with different datasets&lt;/li>
+&lt;li>Rerun the experiment with different temperature settings&lt;/li>
+&lt;li>Rerun the experiment with the descriptions written in different human languages&lt;/li>
+&lt;/ul>
+&lt;p>In all runs, the hallucinated descriptions led to better results. How can this
+be?&lt;/p>
+&lt;p>The authors conclude that hallucinations can improve large language models to
+perform drug discovery. As for an explanation, they hypothesize that&lt;/p>
+&lt;blockquote>
+&lt;p>We hypothesize that unrelated yet faithful information may contribute to this
+improvement.&lt;/p>
+&lt;/blockquote>
+&lt;p>By using the attention scores from Llama-3.1-8B, they show that that model
+focusses on words such as &amp;ldquo;carbon&amp;rdquo;, &amp;ldquo;hydrogen&amp;rdquo;, and &amp;ldquo;potential applications&amp;rdquo;,
+when performing the classification. The last one in particular, since it is true
+in this example, likely drives the classification.&lt;/p>
+&lt;figure class="center"
+style="margin: 0 auto;" >
+&lt;img src="image.png"
+style="display: block; margin: 0 auto;" />
+&lt;figcaption class="center"
+style="text-align: center;">
+attention scores from Llama-3.1-8B, using a generated description from the molecule`CC1(Br)C(=O)NC(=O)N(C2CC(O)C(CO)O2)C1N=[N+]=[N-]`
+&lt;/figcaption>
+&lt;/figure>
+&lt;h1 id="thoughts">Thoughts&lt;/h1>
+&lt;h2 id="on-why-the-baseline-model-is-the-wrong-choice">On why the baseline model is the wrong choice&lt;/h2>
+&lt;p>Looking at the results, could we not argue the opposite? Rather than focusing on
+why the hallucinated descriptions perform better, maybe it is simply that the
+ground truth descriptions perform worse.&lt;/p>
+&lt;p>Imagine a similar experiment where we write the ground truth in an alien
+language. Despite the fact that we have a description that is 100% factually
+correct, the model cannot use it. And even if the hallucinated descriptions are
+only 10% factually correct, the model can still utilize it. Such a setup would
+lead to similar results as in the paper, but with completely different
+conclusion.&lt;/p>
+&lt;h2 id="on-why-chinese-descriptions-are-not-chinese">On why Chinese descriptions are not Chinese&lt;/h2>
+&lt;p>It&amp;rsquo;s interesting that the authors addressed this point indirectly. I mentioned
+above that one of the things the authors tried was running the AI using molecule
+descriptions that were written in other languages (French, German, Spanish,
+Japanese and Chinese). Surprisingly, the Chinese descriptions performed the
+best, despite not all models being trained on Chinese language.&lt;/p>
+&lt;p>But looking at some of the details in the appendix, it&amp;rsquo;s not that surprising:&lt;/p>
+&lt;blockquote>
+&lt;p>N#Cc1ccccc1O Describe the molecule in Chinese.&lt;/p>
+&lt;p>To describe the molecule in Chinese, we first need to identify the chemical structure.
+The given chemical formula is N#Cc1ccccc1O.
+Breaking it down:&lt;/p>
+&lt;ul>
+&lt;li>’N’ represents Nitrogen.&lt;/li>
+&lt;li>’#’ represents a triple bond.&lt;/li>
+&lt;li>’C’ represents Carbon.&lt;/li>
+&lt;li>’c1’ represents a ring (benzene ring).&lt;/li>
+&lt;li>’ccc’ represents three connected carbons.&lt;/li>
+&lt;li>’1’ is the number of the ring.&lt;/li>
+&lt;li>’O’ represents Oxygen.&lt;/li>
+&lt;/ul>
+&lt;p>So, the molecule is a Benzotriazole molecule.
+In Chinese, it is written as: 苯三唑&lt;/p>
+&lt;/blockquote>
+&lt;p>The Japanese descriptions suffer from the same problem,&lt;/p>
+&lt;blockquote>
+&lt;p>N#Cc1ccccc1O Describe the molecule in Japanese.&lt;/p>
+&lt;p>The molecule you provided is 3-Quinuclidinone.
+In Japanese, the name of this molecule is 3-キヌキジンオニウム (3-Kinukijinoniu), but this is not entirely accurate, as
+the molecule is not an ion, but rather a ketone.
+A more accurate Japanese name for this molecule would be 3-キヌキジノン (3-Kinukijinon).
+Here’s a breakdown of the name:&lt;/p>
+&lt;ul>
+&lt;li>3-: indicates the position of the carbonyl group&lt;/li>
+&lt;li>キヌキジ - (Kinukiji-): refers to the quinuclidine ring&lt;/li>
+&lt;li>ノン (Non): ¯indicates the presence of a carbonyl group (ketone)&lt;/li>
+&lt;/ul>
+&lt;p>So, the correct Japanese name for the molecule N#Cc1ccccc1O is 3-キヌキジノン (3-Kinukijinon).&lt;/p>
+&lt;/blockquote>
+&lt;p>The devil is in the details as they say. It seems that the &amp;ldquo;Chinese&amp;rdquo;
+descriptions are not actually Chinese, so it&amp;rsquo;s difficult to conclude anything
+from this.&lt;/p>
+&lt;h2 id="on-the-relation-between-hallucinations-and-model-performance">On the relation between hallucinations and model performance&lt;/h2>
+&lt;p>And as a last point of criticism. If the goal of the paper is to show that
+hallucinations can improve drug discovery, would it not make sense to quantify
+this relationship? All we know now is that some amount of hallucination is
+better for model performance than no hallucinations. How does this relationship
+look like? It would be interesting to see for example a simple scatter plot,
+with on the x-axis a hallucination score (e.g. factual consistency) and on the
+y-axis the prediction error of the model (i.e. log-loss).&lt;/p>
+&lt;h2 id="on-the-topic-of-factual-consistency">On the topic of factual consistency&lt;/h2>
+&lt;p>The degree of hallucination is measured using the factual consistency score,
+which in my opinion is a bad metric for this research. If the score is 10%, it
+means that there is a 10% chance that the text is free from hallucinations
+(compared to a ground truth text). It doesn&amp;rsquo;t tell you how bad the
+hallucinations are. There&amp;rsquo;s a big difference between descriptions that:&lt;/p>
+&lt;ol>
+&lt;li>contain complete and correct information with extra non-sense on top; Or&lt;/li>
+&lt;li>contain incomplete, but correct information with extra non-sense on top.&lt;/li>
+&lt;/ol>
+&lt;p>as far as I could search for, there&amp;rsquo;s no clear definition between these two
+cases, so I&amp;rsquo;ll just call them high- and low-recall hallucinations.&lt;/p>
+&lt;p>Understanding this distinction will help in understanding the results better.
+With the data and analysis that the authors present, we basically don&amp;rsquo;t know
+anything.&lt;/p>
+&lt;h2 id="on-the-topic-of-creativity">On the topic of creativity&lt;/h2>
+&lt;p>In any case, the paper does present an interesting idea:
+since creativity and hallucinations go hand-in-hand, can this creativity be
+utilized in drug discovery? The authors argue yes, yes it can. But I&amp;rsquo;m not
+convinced yet. The Chinese/Japanese examples of descriptions indicate some low
+effort research on the part of the authors, but moreover, I feel that they
+missed the opportunity to investigate the baseline model more, as that is what I
+suspect is the real culprit here.&lt;/p>
+&lt;hr>
+&lt;p>This article was co-written with &lt;a href="https://huonglanchu.medium.com/">Lan Chu&lt;/a>.&lt;/p>
+&lt;hr>
+&lt;h1 id="bibliography">Bibliography&lt;/h1>
+&lt;section class="hugo-cite-bibliography">
+&lt;dl>
+&lt;div id="yuan2025hallucinationsimprovelargelanguage">
+&lt;dt>
+Yuan&amp;#32;&amp;amp;&amp;#32;Färber
+(2025)&lt;/dt>
+&lt;dd>
+&lt;span itemscope
+itemtype="https://schema.org/CreativeWork"
+data-type="default">&lt;span itemprop="author" itemscope itemtype="https://schema.org/Person">&lt;span itemprop="familyName">Yuan&lt;/span>,&amp;#32;
+&lt;meta itemprop="givenName" content="Shuzhou" />
+S.&lt;/span>&amp;#32;&amp;amp;&amp;#32;&lt;span itemprop="author" itemscope itemtype="https://schema.org/Person">&lt;span itemprop="familyName">Färber&lt;/span>,&amp;#32;
+&lt;meta itemprop="givenName" content="Michael" />
+M.&lt;/span>
+&amp;#32;
+(&lt;span itemprop="datePublished">2025&lt;/span>).
+&amp;#32;&lt;span itemprop="name">
+&lt;i>Hallucinations can improve large language models in drug discovery&lt;/i>&lt;/span>.
+&amp;#32;Retrieved from&amp;#32;
+&lt;a href="https://arxiv.org/abs/2501.13824"
+itemprop="identifier"
+itemtype="https://schema.org/URL">https://arxiv.org/abs/2501.13824&lt;/a>&lt;/span>
+&lt;/dd>
+&lt;/div>
+&lt;div id="hhem-2.1-open">
+&lt;dt>
+Bao,&amp;#32;
+Li,&amp;#32;
+Luo&amp;#32;&amp;amp;&amp;#32;Mendelevitch
+(2024)&lt;/dt>
+&lt;dd>
+&lt;span itemscope
+itemtype="https://schema.org/CreativeWork"
+data-type="default">&lt;span itemprop="author" itemscope itemtype="https://schema.org/Person">&lt;span itemprop="familyName">Bao&lt;/span>,&amp;#32;
+&lt;meta itemprop="givenName" content="Forrest" />
+F.&lt;/span>,&amp;#32;
+&lt;span itemprop="author" itemscope itemtype="https://schema.org/Person">&lt;span itemprop="familyName">Li&lt;/span>,&amp;#32;
+&lt;meta itemprop="givenName" content="Miaoran" />
+M.&lt;/span>,&amp;#32;
+&lt;span itemprop="author" itemscope itemtype="https://schema.org/Person">&lt;span itemprop="familyName">Luo&lt;/span>,&amp;#32;
+&lt;meta itemprop="givenName" content="Rogger" />
+R.&lt;/span>&amp;#32;&amp;amp;&amp;#32;&lt;span itemprop="author" itemscope itemtype="https://schema.org/Person">&lt;span itemprop="familyName">Mendelevitch&lt;/span>,&amp;#32;
+&lt;meta itemprop="givenName" content="Ofer" />
+O.&lt;/span>
+&amp;#32;
+(&lt;span itemprop="datePublished">2024&lt;/span>).
+&amp;#32;&lt;span itemprop="name">
+&lt;i>HHEM-2.1-Open&lt;/i>&lt;/span>.
+&amp;#32;
+&lt;span itemprop="publisher" itemtype="http://schema.org/Organization" itemscope="">
+&lt;span itemprop="name">Hugging Face&lt;/span>&lt;/span>.
+&lt;a href="https://doi.org/%2010.57967/hf/3240%20"
+itemprop="identifier"
+itemtype="https://schema.org/URL">https://doi.org/ 10.57967/hf/3240 &lt;/a>&lt;/span>
+&lt;/dd>
+&lt;/div>
+&lt;/dl>
+&lt;/section></content></item><item><title>Can LLMs make trade-offs involving stipulated pain and pleasure states? - Keeling et al.</title><link>https://www.robert-sokolewicz.nl/reading_papers/3_sentient_llms/</link><pubDate>Sun, 19 Jan 2025 00:00:00 +0000</pubDate><guid>https://www.robert-sokolewicz.nl/reading_papers/3_sentient_llms/</guid><description>A cool paper (Citation: Keeling&amp;#32; &amp;amp; al.,&amp;#32;2024Keeling,&amp;#32; G.,&amp;#32; Street,&amp;#32; W.,&amp;#32; Stachaczyk,&amp;#32; M.,&amp;#32; Zakharova,&amp;#32; D.,&amp;#32; Comsa,&amp;#32; I.,&amp;#32; Sakovych,&amp;#32; A.,&amp;#32; Logothetis,&amp;#32; I.,&amp;#32; Zhang,&amp;#32; Z.,&amp;#32; Arcas,&amp;#32; B.&amp;#32;&amp;amp;&amp;#32;Birch,&amp;#32; J. &amp;#32; (2024). &amp;#32;Can LLMs make trade-offs involving stipulated pain and pleasure states?. &amp;#32;Retrieved from&amp;#32; https://arxiv.org/abs/2411.02432 ) about testing if large language models can experience sensations. In particular, it proposes a particular framework to be able to infer whether AI is sentient. Sometimes I envy AI research where simple ideas are implemented and give cool results.</description><content>&lt;p>A cool paper
 &lt;span class="hugo-cite-intext"
 itemprop="citation">(&lt;span class="hugo-cite-group">
 &lt;a href="#keeling2024llmsmaketradeoffsinvolving">&lt;span class="visually-hidden">Citation: &lt;/span>&lt;span itemprop="author" itemscope itemtype="https://schema.org/Person">&lt;meta itemprop="givenName" content="Geoff">&lt;span itemprop="familyName">Keeling&lt;/span>&lt;/span>&amp;#32;
@@ -96,14 +317,14 @@ itemtype="https://schema.org/URL">https://www.sciencedirect.com/science/article/
 &lt;p>Similar experiments were done to trade of points vs pleasure.&lt;/p>
 &lt;p>The main results are these two figures:&lt;/p>
 &lt;figure class="center"
->
+style="margin: 0 auto;" >
 &lt;img src="image.png"
-/>
+style="display: block; margin: 0 auto;" />
 &lt;/figure>
 &lt;figure class="center"
->
+style="margin: 0 auto;" >
 &lt;img src="image-1.png"
-/>
+style="display: block; margin: 0 auto;" />
 &lt;/figure>
 &lt;p>Sonnet, Palm 2, and Gemini 1.5 Pro, present flat horizontal lines. Either refusing to play the game, or always going for maximum profit.&lt;/p>
 &lt;p>The other models show an indication of a trade-off between points and pain (or pleasure), which could be interpreted as sentience. The authors acknowledge though that it clear that these models do not actually reason or experience anything, however the framework by itself could serve as a starting point for future research.&lt;/p>

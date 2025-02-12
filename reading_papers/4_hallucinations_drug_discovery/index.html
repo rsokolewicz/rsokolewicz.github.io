@@ -1,0 +1,98 @@
+<!doctype html><html lang=en><head><title>Can hallucinations made by large language models help in discovering new drugs? :: Roberts blog</title><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="A review of the paper: *Hallucinations Can Improve Large Language Models in Drug Discovery* by Yuan et al."><meta name=keywords content><meta name=robots content="noodp"><link rel=canonical href=https://www.robert-sokolewicz.nl/reading_papers/4_hallucinations_drug_discovery/><link rel=stylesheet href=https://www.robert-sokolewicz.nl/assets/style.css><link rel=stylesheet href=https://www.robert-sokolewicz.nl/assets/css/hugo-cite.css><link rel=apple-touch-icon href=https://www.robert-sokolewicz.nl/img/favicon/apple-touch.png><link rel="shortcut icon" href=https://www.robert-sokolewicz.nl/img/favicon/orange.png><meta name=twitter:card content="summary"><meta property="og:locale" content="en"><meta property="og:type" content="article"><meta property="og:title" content="Can hallucinations made by large language models help in discovering new drugs?"><meta property="og:description" content="A review of the paper: *Hallucinations Can Improve Large Language Models in Drug Discovery* by Yuan et al."><meta property="og:url" content="https://www.robert-sokolewicz.nl/reading_papers/4_hallucinations_drug_discovery/"><meta property="og:site_name" content="Roberts blog"><meta property="og:image" content="https://www.robert-sokolewicz.nl"><meta property="og:image:width" content="2048"><meta property="og:image:height" content="1024"><meta property="article:published_time" content="2025-02-01 00:00:00 +0000 UTC"><script>MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],displayMath:[['$$','$$'],['\\[','\\]']],macros:{bb:["{\\boldsymbol{#1}}",1],tr:"{\\DeclareMathOperator{\\tr}{Tr}}",im:"{\\DeclareMathOperator{\\im}{Im}}",re:"{\\DeclareMathOperator{\\re}{Re}}",},processEscapes:true,processEnvironments:true,tags:"ams"},options:{skipHtmlTags:['script','noscript','style','textarea','pre']}};window.addEventListener('load',(event)=>{document.querySelectorAll("mjx-container").forEach(function(x){x.parentElement.classList+='has-jax'})});</script><script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script><script type=text/javascript id=MathJax-script async src=https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js></script><script type=text/x-mathjax-config>
+    MathJax.Hub.Queue(function() {
+        // Fix <code> tags after MathJax finishes running. This is a
+        // hack to overcome a shortcoming of Markdown. Discussion at
+        // https://github.com/mojombo/jekyll/issues/199
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i = 0; i &lt; all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+    </script></head><body class=orange><div class="container center headings--one-size"><header class=header><div class=header__inner><div class=header__logo><a href=/><div class=logo>Home</div></a></div><div class=menu-trigger>menu</div></div><nav class=menu><ul class="menu__inner menu__inner--desktop"><li><a href=/about>About</a></li><li><a href=/books>Book Reviews</a></li><li><a href=/cv>CV</a></li><li><a href=/physics>Physics</a></li><li><a href=/reading_papers>Reading Papers</a></li></ul><ul class="menu__inner menu__inner--mobile"><li><a href=/about>About</a></li><li><a href=/books>Book Reviews</a></li><li><a href=/cv>CV</a></li><li><a href=/physics>Physics</a></li><li><a href=/reading_papers>Reading Papers</a></li></ul></nav></header><div class=content><div class=post><h1 class=post-title><a href=https://www.robert-sokolewicz.nl/reading_papers/4_hallucinations_drug_discovery/>Can hallucinations made by large language models help in discovering new drugs?</a></h1><div class=post-meta><span class=post-date>2025-02-01</span>
+<span class=post-author>:: Robert</span></div><div class=post-content><div><p>Recently a paper
+<span class=hugo-cite-intext itemprop=citation>(<span class=hugo-cite-group>
+<a href=#yuan2025hallucinationsimprovelargelanguage><span class=visually-hidden>Citation: </span><span itemprop=author itemscope itemtype=https://schema.org/Person><meta itemprop=givenName content="Shuzhou"><span itemprop=familyName>Yuan</span></span>
+<em>& al.</em>, <span itemprop=datePublished>2025</span></a><span class=hugo-cite-citation>
+<span itemscope itemtype=https://schema.org/CreativeWork data-type=default><span itemprop=author itemscope itemtype=https://schema.org/Person><span itemprop=familyName>Yuan</span>, <meta itemprop=givenName content="Shuzhou">S.</span> & <span itemprop=author itemscope itemtype=https://schema.org/Person><span itemprop=familyName>Färber</span>, <meta itemprop=givenName content="Michael">M.</span>
+ 
+(<span itemprop=datePublished>2025</span>).
+ <span itemprop=name><i>Hallucinations can improve large language models in drug discovery</i></span>.
+ Retrieved from 
+<a href=https://arxiv.org/abs/2501.13824 itemprop=identifier itemtype=https://schema.org/URL>https://arxiv.org/abs/2501.13824</a></span>
+</span></span>)</span> was put on arXiv, with an
+interesting claim:</p><blockquote><p>Thus, we propose the hypothesis that hallucinations can improve LLMs in drug
+discovery.</p></blockquote><p>The authors performed a simple experiment related to drug discovery. The end
+goal is to build a classifier that can predict from the chemical structure of a
+molecule whether it could be a useful drug or not. What if we use a large
+language model to do this?</p><p>The classifier performs two steps</p><ol><li>Generate a textual description of the molecule</li><li>Use the textual description to predict if the molecule is a useful drug or
+not</li></ol><p>The classifier is then compared to a &ldquo;baseline&rdquo; classifier, in which case step 1
+is performed by a fine-tuned model (MolT5).</p><p>By using the textual description from the baseline model as a ground truth, it
+is shown that of all the language models that were tested, all performed very
+badly. Five out of seven models had a factual consistency score of less than 10%,
+meaning that step 2 of the classification process uses mostly hallucinated
+information.</p><p>Surprisingly, rather than performing worse, the models performed better when
+using hallucinated descriptions, compared to the ground truth descriptions.</p><p>To add more weight to the claim, a few more experiments were performed to
+confirm the original results:</p><ul><li>Rerun the experiment with slightly different prompts</li><li>Rerun the experiment with different datasets</li><li>Rerun the experiment with different temperature settings</li><li>Rerun the experiment with the descriptions written in different human languages</li></ul><p>In all runs, the hallucinated descriptions led to better results. How can this
+be?</p><p>The authors conclude that hallucinations can improve large language models to
+perform drug discovery. As for an explanation, they hypothesize that</p><blockquote><p>We hypothesize that unrelated yet faithful information may contribute to this
+improvement.</p></blockquote><p>By using the attention scores from Llama-3.1-8B, they show that that model
+focusses on words such as &ldquo;carbon&rdquo;, &ldquo;hydrogen&rdquo;, and &ldquo;potential applications&rdquo;,
+when performing the classification. The last one in particular, since it is true
+in this example, likely drives the classification.</p><figure class=center style="margin:0 auto"><img src=image.png style="display:block;margin:0 auto"><figcaption class=center style=text-align:center>attention scores from Llama-3.1-8B, using a generated description from the molecule`CC1(Br)C(=O)NC(=O)N(C2CC(O)C(CO)O2)C1N=[N+]=[N-]`</figcaption></figure><h1 id=thoughts>Thoughts<a href=#thoughts class=hanchor arialabel=Anchor>&#8983;</a></h1><h2 id=on-why-the-baseline-model-is-the-wrong-choice>On why the baseline model is the wrong choice<a href=#on-why-the-baseline-model-is-the-wrong-choice class=hanchor arialabel=Anchor>&#8983;</a></h2><p>Looking at the results, could we not argue the opposite? Rather than focusing on
+why the hallucinated descriptions perform better, maybe it is simply that the
+ground truth descriptions perform worse.</p><p>Imagine a similar experiment where we write the ground truth in an alien
+language. Despite the fact that we have a description that is 100% factually
+correct, the model cannot use it. And even if the hallucinated descriptions are
+only 10% factually correct, the model can still utilize it. Such a setup would
+lead to similar results as in the paper, but with completely different
+conclusion.</p><h2 id=on-why-chinese-descriptions-are-not-chinese>On why Chinese descriptions are not Chinese<a href=#on-why-chinese-descriptions-are-not-chinese class=hanchor arialabel=Anchor>&#8983;</a></h2><p>It&rsquo;s interesting that the authors addressed this point indirectly. I mentioned
+above that one of the things the authors tried was running the AI using molecule
+descriptions that were written in other languages (French, German, Spanish,
+Japanese and Chinese). Surprisingly, the Chinese descriptions performed the
+best, despite not all models being trained on Chinese language.</p><p>But looking at some of the details in the appendix, it&rsquo;s not that surprising:</p><blockquote><p>N#Cc1ccccc1O Describe the molecule in Chinese.</p><p>To describe the molecule in Chinese, we first need to identify the chemical structure.
+The given chemical formula is N#Cc1ccccc1O.
+Breaking it down:</p><ul><li>’N’ represents Nitrogen.</li><li>’#’ represents a triple bond.</li><li>’C’ represents Carbon.</li><li>’c1’ represents a ring (benzene ring).</li><li>’ccc’ represents three connected carbons.</li><li>’1’ is the number of the ring.</li><li>’O’ represents Oxygen.</li></ul><p>So, the molecule is a Benzotriazole molecule.
+In Chinese, it is written as: 苯三唑</p></blockquote><p>The Japanese descriptions suffer from the same problem,</p><blockquote><p>N#Cc1ccccc1O Describe the molecule in Japanese.</p><p>The molecule you provided is 3-Quinuclidinone.
+In Japanese, the name of this molecule is 3-キヌキジンオニウム (3-Kinukijinoniu), but this is not entirely accurate, as
+the molecule is not an ion, but rather a ketone.
+A more accurate Japanese name for this molecule would be 3-キヌキジノン (3-Kinukijinon).
+Here’s a breakdown of the name:</p><ul><li>3-: indicates the position of the carbonyl group</li><li>キヌキジ - (Kinukiji-): refers to the quinuclidine ring</li><li>ノン (Non): ¯indicates the presence of a carbonyl group (ketone)</li></ul><p>So, the correct Japanese name for the molecule N#Cc1ccccc1O is 3-キヌキジノン (3-Kinukijinon).</p></blockquote><p>The devil is in the details as they say. It seems that the &ldquo;Chinese&rdquo;
+descriptions are not actually Chinese, so it&rsquo;s difficult to conclude anything
+from this.</p><h2 id=on-the-relation-between-hallucinations-and-model-performance>On the relation between hallucinations and model performance<a href=#on-the-relation-between-hallucinations-and-model-performance class=hanchor arialabel=Anchor>&#8983;</a></h2><p>And as a last point of criticism. If the goal of the paper is to show that
+hallucinations can improve drug discovery, would it not make sense to quantify
+this relationship? All we know now is that some amount of hallucination is
+better for model performance than no hallucinations. How does this relationship
+look like? It would be interesting to see for example a simple scatter plot,
+with on the x-axis a hallucination score (e.g. factual consistency) and on the
+y-axis the prediction error of the model (i.e. log-loss).</p><h2 id=on-the-topic-of-factual-consistency>On the topic of factual consistency<a href=#on-the-topic-of-factual-consistency class=hanchor arialabel=Anchor>&#8983;</a></h2><p>The degree of hallucination is measured using the factual consistency score,
+which in my opinion is a bad metric for this research. If the score is 10%, it
+means that there is a 10% chance that the text is free from hallucinations
+(compared to a ground truth text). It doesn&rsquo;t tell you how bad the
+hallucinations are. There&rsquo;s a big difference between descriptions that:</p><ol><li>contain complete and correct information with extra non-sense on top; Or</li><li>contain incomplete, but correct information with extra non-sense on top.</li></ol><p>as far as I could search for, there&rsquo;s no clear definition between these two
+cases, so I&rsquo;ll just call them high- and low-recall hallucinations.</p><p>Understanding this distinction will help in understanding the results better.
+With the data and analysis that the authors present, we basically don&rsquo;t know
+anything.</p><h2 id=on-the-topic-of-creativity>On the topic of creativity<a href=#on-the-topic-of-creativity class=hanchor arialabel=Anchor>&#8983;</a></h2><p>In any case, the paper does present an interesting idea:
+since creativity and hallucinations go hand-in-hand, can this creativity be
+utilized in drug discovery? The authors argue yes, yes it can. But I&rsquo;m not
+convinced yet. The Chinese/Japanese examples of descriptions indicate some low
+effort research on the part of the authors, but moreover, I feel that they
+missed the opportunity to investigate the baseline model more, as that is what I
+suspect is the real culprit here.</p><hr><p>This article was co-written with <a href=https://huonglanchu.medium.com/>Lan Chu</a>.</p><hr><h1 id=bibliography>Bibliography<a href=#bibliography class=hanchor arialabel=Anchor>&#8983;</a></h1><section class=hugo-cite-bibliography><dl><div id=yuan2025hallucinationsimprovelargelanguage><dt>Yuan & Färber
+(2025)</dt><dd><span itemscope itemtype=https://schema.org/CreativeWork data-type=default><span itemprop=author itemscope itemtype=https://schema.org/Person><span itemprop=familyName>Yuan</span>, <meta itemprop=givenName content="Shuzhou">S.</span> & <span itemprop=author itemscope itemtype=https://schema.org/Person><span itemprop=familyName>Färber</span>, <meta itemprop=givenName content="Michael">M.</span>
+ 
+(<span itemprop=datePublished>2025</span>).
+ <span itemprop=name><i>Hallucinations can improve large language models in drug discovery</i></span>.
+ Retrieved from 
+<a href=https://arxiv.org/abs/2501.13824 itemprop=identifier itemtype=https://schema.org/URL>https://arxiv.org/abs/2501.13824</a></span></dd></div><div id=hhem-2.1-open><dt>Bao, 
+Li, 
+Luo & Mendelevitch
+(2024)</dt><dd><span itemscope itemtype=https://schema.org/CreativeWork data-type=default><span itemprop=author itemscope itemtype=https://schema.org/Person><span itemprop=familyName>Bao</span>, <meta itemprop=givenName content="Forrest">F.</span>, 
+<span itemprop=author itemscope itemtype=https://schema.org/Person><span itemprop=familyName>Li</span>, <meta itemprop=givenName content="Miaoran">M.</span>, 
+<span itemprop=author itemscope itemtype=https://schema.org/Person><span itemprop=familyName>Luo</span>, <meta itemprop=givenName content="Rogger">R.</span> & <span itemprop=author itemscope itemtype=https://schema.org/Person><span itemprop=familyName>Mendelevitch</span>, <meta itemprop=givenName content="Ofer">O.</span>
+ 
+(<span itemprop=datePublished>2024</span>).
+ <span itemprop=name><i>HHEM-2.1-Open</i></span>.
+ 
+<span itemprop=publisher itemtype=http://schema.org/Organization itemscope><span itemprop=name>Hugging Face</span></span>.
+<a href=https://doi.org/%2010.57967/hf/3240%20 itemprop=identifier itemtype=https://schema.org/URL>https://doi.org/ 10.57967/hf/3240</a></span></dd></div></dl></section></div></div></div></div><footer class=footer><div class=footer__inner><div class=copyright><span>© 2025 Powered by <a href=http://gohugo.io>Hugo</a></span>
+<span>:: Theme made by <a href=https://twitter.com/panr>panr</a></span></div></div></footer><script src=https://www.robert-sokolewicz.nl/assets/main.js></script><script src=https://www.robert-sokolewicz.nl/assets/prism.js></script></div></body></html>

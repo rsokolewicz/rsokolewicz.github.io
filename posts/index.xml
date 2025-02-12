@@ -1,4 +1,102 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Roberts blog</title><link>https://www.robert-sokolewicz.nl/posts/</link><description>Recent content in Posts on Roberts blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sun, 26 Jan 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://www.robert-sokolewicz.nl/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Custom matplotlib styles</title><link>https://www.robert-sokolewicz.nl/posts/26_matplotlib_styles/</link><pubDate>Sun, 26 Jan 2025 00:00:00 +0000</pubDate><guid>https://www.robert-sokolewicz.nl/posts/26_matplotlib_styles/</guid><description>Creating custom matplotlib styles is apparently super easy! For this blog I gathered all the matplotlib parameters and added them to a file called orange_dark.mplstyle. You&amp;rsquo;re supposed to put this inside the .matplotlib folder in your home directory, but for some reason that didn&amp;rsquo;t work out for me, so I put it inside the root of this blog folder and refer to it with a full path.
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Roberts blog</title><link>https://www.robert-sokolewicz.nl/posts/</link><description>Recent content in Posts on Roberts blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Tue, 04 Feb 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://www.robert-sokolewicz.nl/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Creating custom VSCode tasks</title><link>https://www.robert-sokolewicz.nl/posts/27_vscode_tasks/</link><pubDate>Tue, 04 Feb 2025 00:00:00 +0000</pubDate><guid>https://www.robert-sokolewicz.nl/posts/27_vscode_tasks/</guid><description>For this blog I&amp;rsquo;m using a plugin to display citations called hugo-cite (Citation: Brassard,&amp;#32;2020Brassard,&amp;#32; L. &amp;#32; (2020). &amp;#32;Hugo-cite. &amp;#32;Retrieved from&amp;#32; https://github.com/loup-brun/hugo-cite ). Unfortunately, this requires the citations to be stored in a CSL-JSON format, while most of the time I only have bibtex files. Converting one into the other is not so difficult (I have a script for that), but it gets boring to do this manually often. Just like all editors/IDE&amp;rsquo;s, VSCode has a way to simplify this process using tasks.</description><content>&lt;p>For this blog I&amp;rsquo;m using a plugin to display citations called hugo-cite
+&lt;span class="hugo-cite-intext"
+itemprop="citation">(&lt;span class="hugo-cite-group">
+&lt;a href="#hugo-cite">&lt;span class="visually-hidden">Citation: &lt;/span>&lt;span itemprop="author" itemscope itemtype="https://schema.org/Person">&lt;meta itemprop="givenName" content="Louis-Olivier">&lt;span itemprop="familyName">Brassard&lt;/span>&lt;/span>,&amp;#32;&lt;span itemprop="datePublished">2020&lt;/span>&lt;/a>&lt;span class="hugo-cite-citation">
+&lt;span itemscope
+itemtype="https://schema.org/CreativeWork"
+data-type="default">&lt;span itemprop="author" itemscope itemtype="https://schema.org/Person">&lt;span itemprop="familyName">Brassard&lt;/span>,&amp;#32;
+&lt;meta itemprop="givenName" content="Louis-Olivier" />
+L.&lt;/span>
+&amp;#32;
+(&lt;span itemprop="datePublished">2020&lt;/span>).
+&amp;#32;&lt;span itemprop="name">
+&lt;i>Hugo-cite&lt;/i>&lt;/span>.
+&amp;#32;Retrieved from&amp;#32;
+&lt;a href="https://github.com/loup-brun/hugo-cite"
+itemprop="identifier"
+itemtype="https://schema.org/URL">https://github.com/loup-brun/hugo-cite&lt;/a>&lt;/span>
+&lt;/span>&lt;/span>)&lt;/span>. Unfortunately, this requires the citations to be stored in a CSL-JSON format, while most of the time I only have bibtex files. Converting one into the other is not so difficult (I have a script for that), but it gets boring to do this manually often. Just like all editors/IDE&amp;rsquo;s, VSCode has a way to simplify this process using tasks.&lt;/p>
+&lt;p>From the command palette (Ctrl+Shift+P), I can now select &amp;ldquo;Tasks: Run Task&amp;rdquo; and then &amp;ldquo;Convert BibTeX to JSON&amp;rdquo;, to convert the bibtex file that I have open into a JSON file. To setup it is quite easy.&lt;/p>
+&lt;h1 id="setup">setup&lt;/h1>
+&lt;ol>
+&lt;li>Open the command palette (Ctrl+Shift+P)&lt;/li>
+&lt;li>Select &amp;ldquo;Tasks: Configure Task&amp;rdquo;&lt;/li>
+&lt;li>Select &amp;ldquo;Create task.json file&amp;rdquo;&lt;/li>
+&lt;li>Select &amp;ldquo;Others&amp;rdquo;&lt;/li>
+&lt;li>Create the file&lt;/li>
+&lt;/ol>
+&lt;p>the file:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-json" data-lang="json">{
+&lt;span style="color:#f92672">&amp;#34;version&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;2.0.0&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;tasks&amp;#34;&lt;/span>: [
+{
+&lt;span style="color:#f92672">&amp;#34;label&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;Convert BibTeX to JSON&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;type&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;shell&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;command&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;./bib2json.sh&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;args&amp;#34;&lt;/span>: [&lt;span style="color:#e6db74">&amp;#34;${input:bibFile}&amp;#34;&lt;/span>],
+&lt;span style="color:#f92672">&amp;#34;group&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;build&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;problemMatcher&amp;#34;&lt;/span>: []
+}
+],
+&lt;span style="color:#f92672">&amp;#34;inputs&amp;#34;&lt;/span>: [
+{
+&lt;span style="color:#f92672">&amp;#34;id&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;bibFile&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;description&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;BibTeX file to convert:&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;default&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;${file}&amp;#34;&lt;/span>,
+&lt;span style="color:#f92672">&amp;#34;type&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;promptString&amp;#34;&lt;/span>
+}
+]
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>and in case anyone is interested in the script:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">&lt;span style="color:#75715e">#!/bin/bash
+&lt;/span>&lt;span style="color:#75715e">&lt;/span>
+&lt;span style="color:#66d9ef">if&lt;/span> &lt;span style="color:#f92672">[&lt;/span> &lt;span style="color:#e6db74">&amp;#34;&lt;/span>$#&lt;span style="color:#e6db74">&amp;#34;&lt;/span> -ne &lt;span style="color:#ae81ff">1&lt;/span> &lt;span style="color:#f92672">]&lt;/span>; &lt;span style="color:#66d9ef">then&lt;/span>
+echo &lt;span style="color:#e6db74">&amp;#34;Usage: ./bib2json.sh &amp;lt;path-to-bib-file&amp;gt;&amp;#34;&lt;/span>
+exit &lt;span style="color:#ae81ff">1&lt;/span>
+&lt;span style="color:#66d9ef">fi&lt;/span>
+BIB_FILE&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;&lt;/span>$1&lt;span style="color:#e6db74">&amp;#34;&lt;/span>
+&lt;span style="color:#66d9ef">if&lt;/span> &lt;span style="color:#f92672">[&lt;/span> ! -f &lt;span style="color:#e6db74">&amp;#34;&lt;/span>$BIB_FILE&lt;span style="color:#e6db74">&amp;#34;&lt;/span> &lt;span style="color:#f92672">]&lt;/span>; &lt;span style="color:#66d9ef">then&lt;/span>
+echo &lt;span style="color:#e6db74">&amp;#34;Error: File not found - &lt;/span>$BIB_FILE&lt;span style="color:#e6db74">&amp;#34;&lt;/span>
+exit &lt;span style="color:#ae81ff">1&lt;/span>
+&lt;span style="color:#66d9ef">fi&lt;/span>
+&lt;span style="color:#66d9ef">if&lt;/span> ! command -v pandoc &amp;amp;&amp;gt; /dev/null; &lt;span style="color:#66d9ef">then&lt;/span>
+echo &lt;span style="color:#e6db74">&amp;#34;Error: pandoc is not installed. Please install it first.&amp;#34;&lt;/span>
+exit &lt;span style="color:#ae81ff">1&lt;/span>
+&lt;span style="color:#66d9ef">fi&lt;/span>
+OUTPUT_FILE&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;&lt;/span>&lt;span style="color:#e6db74">${&lt;/span>BIB_FILE%.*&lt;span style="color:#e6db74">}&lt;/span>&lt;span style="color:#e6db74">.json&amp;#34;&lt;/span>
+pandoc --from&lt;span style="color:#f92672">=&lt;/span>bibtex --to&lt;span style="color:#f92672">=&lt;/span>csljson -o &lt;span style="color:#e6db74">&amp;#34;&lt;/span>$OUTPUT_FILE&lt;span style="color:#e6db74">&amp;#34;&lt;/span> &lt;span style="color:#e6db74">&amp;#34;&lt;/span>$BIB_FILE&lt;span style="color:#e6db74">&amp;#34;&lt;/span>
+&lt;span style="color:#66d9ef">if&lt;/span> &lt;span style="color:#f92672">[&lt;/span> $? -eq &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#f92672">]&lt;/span>; &lt;span style="color:#66d9ef">then&lt;/span>
+echo &lt;span style="color:#e6db74">&amp;#34;Conversion successful! JSON file saved at: &lt;/span>$OUTPUT_FILE&lt;span style="color:#e6db74">&amp;#34;&lt;/span>
+&lt;span style="color:#66d9ef">else&lt;/span>
+echo &lt;span style="color:#e6db74">&amp;#34;Error: Conversion failed.&amp;#34;&lt;/span>
+exit &lt;span style="color:#ae81ff">1&lt;/span>
+&lt;span style="color:#66d9ef">fi&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>which requires the &lt;code>pandoc&lt;/code> package to be installed. (on Mac: &lt;code>brew install pandoc&lt;/code>).&lt;/p>
+&lt;h1 id="bibliography">bibliography&lt;/h1>
+&lt;section class="hugo-cite-bibliography">
+&lt;dl>
+&lt;div id="hugo-cite">
+&lt;dt>
+Brassard
+(2020)&lt;/dt>
+&lt;dd>
+&lt;span itemscope
+itemtype="https://schema.org/CreativeWork"
+data-type="default">&lt;span itemprop="author" itemscope itemtype="https://schema.org/Person">&lt;span itemprop="familyName">Brassard&lt;/span>,&amp;#32;
+&lt;meta itemprop="givenName" content="Louis-Olivier" />
+L.&lt;/span>
+&amp;#32;
+(&lt;span itemprop="datePublished">2020&lt;/span>).
+&amp;#32;&lt;span itemprop="name">
+&lt;i>Hugo-cite&lt;/i>&lt;/span>.
+&amp;#32;Retrieved from&amp;#32;
+&lt;a href="https://github.com/loup-brun/hugo-cite"
+itemprop="identifier"
+itemtype="https://schema.org/URL">https://github.com/loup-brun/hugo-cite&lt;/a>&lt;/span>
+&lt;/dd>
+&lt;/div>
+&lt;/dl>
+&lt;/section></content></item><item><title>Custom matplotlib styles</title><link>https://www.robert-sokolewicz.nl/posts/26_matplotlib_styles/</link><pubDate>Sun, 26 Jan 2025 00:00:00 +0000</pubDate><guid>https://www.robert-sokolewicz.nl/posts/26_matplotlib_styles/</guid><description>Creating custom matplotlib styles is apparently super easy! For this blog I gathered all the matplotlib parameters and added them to a file called orange_dark.mplstyle. You&amp;rsquo;re supposed to put this inside the .matplotlib folder in your home directory, but for some reason that didn&amp;rsquo;t work out for me, so I put it inside the root of this blog folder and refer to it with a full path.
 Now, if I want to make a simple plot, I can just do this:</description><content>&lt;p>Creating custom matplotlib styles is apparently super easy! For this blog I gathered all the matplotlib parameters and added them to a file called &lt;code>orange_dark.mplstyle&lt;/code>. You&amp;rsquo;re supposed to put this inside the &lt;code>.matplotlib&lt;/code> folder in your home directory, but for some reason that didn&amp;rsquo;t work out for me, so I put it inside the root of this blog folder and refer to it with a full path.&lt;/p>
 &lt;p>Now, if I want to make a simple plot, I can just do this:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#f92672">import&lt;/span> matplotlib.pyplot &lt;span style="color:#f92672">as&lt;/span> plt
@@ -13,9 +111,9 @@ plt&lt;span style="color:#f92672">.&lt;/span>plot(x, y)
 plt&lt;span style="color:#f92672">.&lt;/span>show()
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;figure class="center"
->
+style="margin: 0 auto;" >
 &lt;img src="hello.svg"
-/>
+style="display: block; margin: 0 auto;" />
 &lt;/figure>
 &lt;p>The contents of the &lt;code>orange_dark.mplstyle&lt;/code> file are:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#75715e"># Using dark background as base&lt;/span>
@@ -149,9 +247,9 @@ footnote.classList.remove('active');
 &lt;p>My first approach was to go to Google Scholar and search for &amp;ldquo;is all you need&amp;rdquo;, but that gave me over 100,000 results, without the ability to download all the results. A quick search led me to the &lt;a href="https://www.semanticscholar.org/">Semantic Scholar&lt;/a> website, which is a database of over 200 million research papers that is constantly being updated. They also have a simple API that allows you to get all the data you need.&lt;/p>
 &lt;p>Before showing the code, let&amp;rsquo;s show the results first:&lt;/p>
 &lt;figure class="center"
->
+style="margin: 0 auto;" >
 &lt;img src="image.svg"
-/>
+style="display: block; margin: 0 auto;" />
 &lt;/figure>
 &lt;p>In chronological order, we have the first three papers:&lt;/p>
 &lt;ol>
@@ -216,16 +314,16 @@ A.&lt;/span>
 &lt;p>after which the trend skyrockets. The &lt;em>Attention is all you need&lt;/em> paper has over 100,000 citations, which is significantly higher than the other papers.&lt;/p>
 &lt;p>Next I was interested in the number of citations for each paper. Unfortunately, the distribution is very skewed, so it&amp;rsquo;s a bit difficult to visualize. Combining a simple jitter plot together with a quantile plot, we have&lt;/p>
 &lt;figure class="center"
->
+style="margin: 0 auto;" >
 &lt;img src="image4.svg"
-/>
+style="display: block; margin: 0 auto;" />
 &lt;/figure>
 &lt;p>so we see for example that about 75% of the papers have at least 1 citation, and 25% have at least 10 citations.&lt;/p>
 &lt;p>Maybe a bar chart is a bit clearer:&lt;/p>
 &lt;figure class="center"
->
+style="margin: 0 auto;" >
 &lt;img src="image2.svg"
-/>
+style="display: block; margin: 0 auto;" />
 &lt;/figure>
 &lt;p>So only a third of the papers have 5 or more citations, which is not a great start for being &amp;ldquo;all you need&amp;rdquo;. We should realize however that:&lt;/p>
 &lt;ol>
@@ -442,10 +540,11 @@ OPS: Operations Per Second, computed as 1 / Mean
 &lt;h2 id="visualizing-results">Visualizing results&lt;/h2>
 &lt;p>I don&amp;rsquo;t recommend this, but there&amp;rsquo;s a &lt;code>--benchmark-histogram&lt;/code> flag to create a very simple histogram of the results and save that as an svg:&lt;/p>
 &lt;figure class="center"
-style="width: 90%;" >
-&lt;img src="https://www.robert-sokolewicz.nl/posts/24_pytest_benchmark/hist.svg.svg"
+style="width: 90%; margin: 0 auto;" >
+&lt;img src="hist.svg.svg"
 width="90%"
-style="opacity: 0.8;" />
+style="opacity: 0.8;"
+style="display: block; margin: 0 auto;" />
 &lt;/figure>
 &lt;p>which is nice for a quick look at the results, but frankly: it&amp;rsquo;s ugly :D&lt;/p>
 &lt;p>Alternatively, you can use matplotlib to make a much nicer plot:&lt;/p>
@@ -484,10 +583,10 @@ fig, ax &lt;span style="color:#f92672">=&lt;/span> compare_benchmarks(
 plt&lt;span style="color:#f92672">.&lt;/span>show()
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;figure class="center"
-style="width: 90%;" >
-&lt;img src="https://www.robert-sokolewicz.nl/posts/24_pytest_benchmark/image-1.png"
+style="width: 90%; margin: 0 auto;" >
+&lt;img src="image-1.png"
 width="90%"
-/>
+style="display: block; margin: 0 auto;" />
 &lt;/figure>
 &lt;p>because the results are saved in a json file inside the .benchmarks folder.&lt;/p>
 &lt;h3 id="memory-profiling">memory profiling&lt;/h3>
@@ -617,10 +716,10 @@ secrets &lt;span style="color:#f92672">=&lt;/span> Secrets()
 &lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="preventing-commiting-secrets-to-git-using-git-guardian">Preventing commiting secrets to git using git guardian&lt;/h2>
 &lt;p>There are a few tools out there that you can install with a git-commit hook to prevent secrets from being committed to git. The last one I tried was &lt;a href="https://www.gitguardian.com/">git-guardian&lt;/a>, which also allows you to scan your git history for secrets. Pretty cool! There&amp;rsquo;s also a web interface and when connecting your github account they will even send you an email if you accidentally push a secret :')&lt;/p>
 &lt;figure class="center"
->
+style="margin: 0 auto;" >
 &lt;img src="image-1.png"
 style="opacity: 0.7;"
-/>
+style="display: block; margin: 0 auto;" />
 &lt;/figure>
 &lt;p>You can install it globally either with &lt;code>brew&lt;/code> or &lt;code>pipx&lt;/code> (which is like pip, but it will install it so that it&amp;rsquo;s always available (practically speaking)).&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-sh" data-lang="sh">pipx install ggshield
@@ -1487,10 +1586,13 @@ initial_response_name&lt;span style="color:#f92672">=&lt;/span>&lt;span style="c
 )
 &lt;/code>&lt;/pre>&lt;/div></content></item><item><title>Google Scripts to label GitLab related emails</title><link>https://www.robert-sokolewicz.nl/posts/15_gmail_labels/</link><pubDate>Wed, 27 Sep 2023 00:00:00 +0000</pubDate><guid>https://www.robert-sokolewicz.nl/posts/15_gmail_labels/</guid><description>Preview of how my inbox looks like now :) If you are subscribed to many GitLab notifications, you might receive a lot of emails from GitLab for every merge request, issue, mention, review requested, and so on. Automatically labeling them in Gmail can be done by creating filters, but can be a bit difficult because you can only filter on titles and text body. A lot of useful information is actually present inside the email-headers, and for each notification GitLab adds GitLab-specific headers.</description><content>
 &lt;figure class="center"
->
+style="margin: 0 auto;" >
 &lt;img src="image-9.png"
-/>
-&lt;figcaption class="center" >Preview of how my inbox looks like now :)&lt;/figcaption>
+style="display: block; margin: 0 auto;" />
+&lt;figcaption class="center"
+style="text-align: center;">
+Preview of how my inbox looks like now :)
+&lt;/figcaption>
 &lt;/figure>
 &lt;p>If you are subscribed to many GitLab notifications, you might receive a lot of emails from GitLab for every merge request, issue, mention, review requested, and so on. Automatically labeling them in Gmail can be done by creating filters, but can be a bit difficult because you can only filter on titles and text body. A lot of useful information is actually present inside the email-headers, and for each notification GitLab adds GitLab-specific headers. For example which project it belongs to or if it&amp;rsquo;s related to an issue or merge-request.&lt;/p>
 &lt;p>What is nice about this is that it is straightforward to create a script that assigns a label to an email based on which GitLab-specific header it has.&lt;/p>
@@ -1604,10 +1706,13 @@ initial_response_name&lt;span style="color:#f92672">=&lt;/span>&lt;span style="c
 &lt;p>There are a few more headers and options that might be useful for you as listed in &lt;a href="https://docs.gitlab.com/ee/user/profile/notifications.html#email-headers-you-can-use-to-filter-email">https://docs.gitlab.com/ee/user/profile/notifications.html#email-headers-you-can-use-to-filter-email&lt;/a>.&lt;/p></content></item><item><title>Unit testing - Classical vs. London Approaches</title><link>https://www.robert-sokolewicz.nl/posts/14_unit_testing/</link><pubDate>Sun, 24 Sep 2023 00:00:00 +0000</pubDate><guid>https://www.robert-sokolewicz.nl/posts/14_unit_testing/</guid><description>Most, if not all, software projects suffer from the same problem. When starting the project it&amp;rsquo;s very easy to include new features. One feature might take one day to implement, but as the code base grows, implementing something new will take a week, a month, or half a year until it&amp;rsquo;s impossible to implement something without breaking something else. Different parts of the code depend on each other and this can create a cascading effect where a small change propagates throughout the entire codebase breaking a lot of stuff.</description><content>&lt;p>Most, if not all, software projects suffer from the same problem. When starting the project it&amp;rsquo;s very easy to include new features. One feature might take one day to implement, but as the code base grows, implementing something new will take a week, a month, or half a year until it&amp;rsquo;s impossible to implement something without breaking something else. Different parts of the code depend on each other and this can create a cascading effect where a small change propagates throughout the entire codebase breaking a lot of stuff.&lt;/p>
 &lt;p>Unit tests are safeguards that help the developer in writing code that does not break the existing code, making it easier to make progress when working on the codebase.&lt;/p>
 &lt;figure class="center"
->
+style="margin: 0 auto;" >
 &lt;img src="images/1.svg"
-/>
-&lt;figcaption class="center" >Figure 1. The time that we spend on developing and expanding the code base grows exponentially with the amount of progress already made.&lt;/figcaption>
+style="display: block; margin: 0 auto;" />
+&lt;figcaption class="center"
+style="text-align: center;">
+Figure 1. The time that we spend on developing and expanding the code base grows exponentially with the amount of progress already made.
+&lt;/figcaption>
 &lt;/figure>
 &lt;p>In the early stages of a project, it is probably easier and faster to implement new features than it is to write unit tests for them. For smaller projects implementing unit tests might even hinder the progress of the project, but in the long run, it is worthwhile.&lt;/p>
 &lt;h2 id="what-is-a-unit-test">What is a unit test?&lt;/h2>
@@ -1714,18 +1819,18 @@ A container is merely an instance that is running a docker image, and so all we 
 &lt;ol>
 &lt;li>in your GitLab repository, navigate in the menu on the left, to Deploy &amp;gt; Container Registry
 &lt;figure class="center"
->
+style="margin: 0 auto;" >
 &lt;img src="images/image.png"
-/>
+style="display: block; margin: 0 auto;" />
 &lt;/figure>
 &lt;/li>
 &lt;li>search for the branch name&lt;/li>
 &lt;li>click the copy-to-clipboard button&lt;/li>
 &lt;/ol>
 &lt;figure class="center"
->
+style="margin: 0 auto;" >
 &lt;img src="images/image-2.png"
-/>
+style="display: block; margin: 0 auto;" />
 &lt;/figure>
 &lt;p>Sometimes you have a pipeline that creates another docker image, in which case you can often find the image name in the log of your pipeline. In each case, the reference will look similar to:&lt;/p>
 &lt;pre>&lt;code>registry.gitlab.com/&amp;lt;repo&amp;gt;/&amp;lt;pipeline name&amp;gt;/python3.8@sha256:ce3f78d603803740615069e7680715d3707998671db4ee32fbec3e98f4dc2d53
@@ -1989,9 +2094,17 @@ Here&amp;rsquo;s a quick step-by-step guide on how to do so.</description><conte
 &lt;h2 id="step-1-inspect-the-web-page">Step 1: Inspect the Web Page&lt;/h2>
 &lt;p>Open your web browser and navigate to the website from which you want to download data. For this example, I use &lt;a href="https://daggegevens.knmi.nl/klimatologie/daggegevens">weather data&lt;/a> from the Dutch Royal Weather Institute (KNMI).
 Right-click on the web page and select &amp;ldquo;Inspect&amp;rdquo; or &amp;ldquo;Inspect Element&amp;rdquo; from the context menu. This will open the browser&amp;rsquo;s developer tools.&lt;/p>
-&lt;p>&lt;img src="images/image-4.png" alt="image-4">&lt;/p>
+&lt;figure class="center"
+style="margin: 0 auto;" >
+&lt;img src="images/image-4.png"
+style="display: block; margin: 0 auto;" />
+&lt;/figure>
 &lt;p>In the developer tools, go to the &amp;ldquo;Network&amp;rdquo; tab. This tab allows you to monitor the network activity of the web page, including the REST API requests and responses.&lt;/p>
-&lt;p>&lt;img src="images/image-5.png" alt="image-5">&lt;/p>
+&lt;figure class="center"
+style="margin: 0 auto;" >
+&lt;img src="images/image-5.png"
+style="display: block; margin: 0 auto;" />
+&lt;/figure>
 &lt;h2 id="step-2-identify-the-rest-api-endpoint">Step 2: Identify the REST API Endpoint&lt;/h2>
 &lt;p>Interact with the web page to trigger the REST API request that fetches the data you want to download. In the KNMI data example, we can enter:&lt;/p>
 &lt;ul>
@@ -2001,17 +2114,29 @@ Right-click on the web page and select &amp;ldquo;Inspect&amp;rdquo; or &amp;ldq
 &lt;/ul>
 &lt;p>and press &amp;ldquo;Bestand downloaden&amp;rdquo;. Most webpages should have either a similar download button or a search query.&lt;/p>
 &lt;p>In the &amp;ldquo;Network&amp;rdquo; tab, you should see a list of network requests made by the web page. Look for the REST API request that corresponds to the data you want to download. The REST API request will usually have a URL, method (e.g., GET, POST), and request/response headers. In this example, we look at &amp;ldquo;daggegevens&amp;rdquo;.&lt;/p>
-&lt;p>&lt;img src="images/image-6.png" alt="image-6">&lt;/p>
+&lt;figure class="center"
+style="margin: 0 auto;" >
+&lt;img src="images/image-6.png"
+style="display: block; margin: 0 auto;" />
+&lt;/figure>
 &lt;h2 id="step-3-download-the-rest-api-request-as-curl">Step 3: Download the REST API Request as cURL&lt;/h2>
 &lt;p>Right-click the REST API request that you want to download and select &amp;ldquo;Copy&amp;rdquo; &amp;gt; &amp;ldquo;Copy all as cURL&amp;rdquo; from the context menu. This will copy the cURL command that represents the REST API request to your clipboard.&lt;/p>
-&lt;p>&lt;img src="images/image-7.png" alt="image-7">&lt;/p>
+&lt;figure class="center"
+style="margin: 0 auto;" >
+&lt;img src="images/image-7.png"
+style="display: block; margin: 0 auto;" />
+&lt;/figure>
 &lt;p>Open a text editor or a terminal window, and paste the copied cURL command.
 Modify the cURL command as needed, such as replacing placeholders with actual values. For example, you may need to update query parameters, request headers, or authentication tokens.
 Once you have configured the cURL command, you can execute it in your terminal to download the data from the REST API endpoint. The downloaded data will typically be saved as a response body in the format specified by the REST API (e.g., JSON, XML, CSV).&lt;/p>
 &lt;h2 id="step-4-write-a-python-script-for-automated-download">Step 4: Write a Python script for automated download&lt;/h2>
 &lt;p>Instead of manually modifying the cURL command and running it from the terminal, it is convenient to do this in Python. This will allow us to automatically sweep through parameters and download everything that we need.&lt;/p>
 &lt;p>We first convert the cURL request that is sitting in our clipboard, to a Python script that will use the requests package. A convenient webpage is &lt;a href="https://curlconverter.com/python/">curlconverter.com/python/&lt;/a>.&lt;/p>
-&lt;p>&lt;img src="images/image-8.png" alt="image-8">&lt;/p>
+&lt;figure class="center"
+style="margin: 0 auto;" >
+&lt;img src="images/image-8.png"
+style="display: block; margin: 0 auto;" />
+&lt;/figure>
 &lt;p>You should have a script that is similar to&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#f92672">import&lt;/span> requests
 cookies &lt;span style="color:#f92672">=&lt;/span> {
