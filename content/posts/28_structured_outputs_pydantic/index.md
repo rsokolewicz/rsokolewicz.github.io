@@ -3,7 +3,7 @@ title = "Structured outputs with OpenAI and Pydantic"
 date = "2025-04-06"
 author = "Robert"
 cover = ""
-description = ""
+description = "Forcing OpenAI to output a Pydantic model, and how to pass field specific instructions to the model"
 draft = false
 +++
 
