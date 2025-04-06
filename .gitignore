@@ -6,3 +6,4 @@ public
 playground
 .cache_ggshield
 .DS_Store
+.env
