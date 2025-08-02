@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>Departure Times</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+</head>
+
+<body>
+    <div class="main-container">
+        <div class="map-container">
+            <div id="map"></div>
+        </div>
+    </div>
+
+    <div id="filter-container" class="filter-container">
+        <div id="filter-buttons" class="filter-buttons">
+        </div>
+    </div>
+
+    <div id="results" class="loading">Getting your location and searching for departures...</div>
+
+    <footer class="footer">
+        <p>Powered by <a href="https://www.vertrektijd.info/" target="_blank" rel="noopener">vertrektijd.info</a></p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
