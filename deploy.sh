@@ -19,5 +19,6 @@ fi
 cd ../..
 
 git add themes/hugo-theme-terminal/
-git commit -m "$msg"
+git commit -m "$msg" --allow-empty
+
 git push origin main
