@@ -1,0 +1,473 @@
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+    background: #f8f9fa;
+    color: #333;
+}
+
+.main-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.map-container {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+#map {
+    height: 400px;
+    width: 100%;
+    border-radius: 8px;
+    border: 2px solid #e9ecef;
+}
+
+.loading {
+    color: #666;
+    text-align: center;
+    padding: 40px;
+    font-size: 18px;
+}
+
+.error {
+    color: #dc3545;
+    background: #f8d7da;
+    padding: 15px;
+    border-radius: 8px;
+    border-left: 4px solid #dc3545;
+}
+
+.success {
+    color: #155724;
+}
+
+.departures-container {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.station-header {
+    background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+    color: white;
+    padding: 20px;
+    margin: 0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+}
+
+.station-header:hover {
+    background: linear-gradient(135deg, #45a049 0%, #3d8b40 100%);
+}
+
+.station-header::after {
+    content: '▼';
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: transform 0.3s ease;
+    font-size: 14px;
+}
+
+.station-header.collapsed::after {
+    transform: translateY(-50%) rotate(-90deg);
+}
+
+.station-content {
+    max-height: 2000px;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+
+.station-content.collapsed {
+    max-height: 0;
+}
+
+.departures-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0;
+}
+
+.departures-table th {
+    background: #f8f9fa;
+    padding: 15px 10px;
+    text-align: left;
+    font-weight: 600;
+    color: #495057;
+    border-bottom: 2px solid #dee2e6;
+}
+
+.departures-table td {
+    padding: 12px 10px;
+    border-bottom: 1px solid #dee2e6;
+    vertical-align: middle;
+}
+
+.departures-table tr:hover {
+    background: #f8f9fa;
+}
+
+.transport-badge {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: white;
+}
+
+.transport-tram {
+    background: #ff9800;
+}
+
+.transport-bus {
+    background: #2196f3;
+}
+
+.transport-train {
+    background: #9c27b0;
+}
+
+.transport-metro {
+    background: #f44336;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.status-driving {
+    background: #e8f5e8;
+    color: #2e7d32;
+}
+
+.status-arriving {
+    background: #fff3e0;
+    color: #f57c00;
+}
+
+.status-delayed {
+    background: #ffebee;
+    color: #c62828;
+}
+
+.status-early {
+    background: #ffebee;
+    color: #c62828;
+}
+
+.time-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.expected-time {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+}
+
+.planned-time {
+    font-size: 14px;
+    color: #666;
+    margin-right: 8px;
+}
+
+.strikethrough {
+    text-decoration: line-through;
+    opacity: 0.7;
+}
+
+.delayed {
+    color: #dc3545;
+}
+
+.early {
+    color: #dc3545;
+}
+
+.platform {
+    background: #e9ecef;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-family: monospace;
+    font-weight: 600;
+}
+
+.no-departures {
+    text-align: center;
+    padding: 40px;
+    color: #666;
+    font-style: italic;
+}
+
+.radius-control-container {
+    background: white;
+    border: 2px solid rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    padding: 8px;
+    margin-top: 5px;
+    min-width: 120px;
+}
+
+.radius-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+.radius-slider {
+    width: 100%;
+    height: 4px;
+    border-radius: 2px;
+    background: #ddd;
+    outline: none;
+    cursor: pointer;
+}
+
+.filter-container {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    display: none;
+}
+
+.filter-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 0;
+    padding: 0;
+}
+
+.filter-button {
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    min-height: 36px;
+    min-width: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+}
+
+.filter-button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.filter-button.filtered {
+    opacity: 0.6;
+}
+
+.filter-button.filtered:hover {
+    opacity: 0.8;
+}
+
+.filter-button.tram {
+    background: #ff9800;
+}
+
+.filter-button.bus {
+    background: #2196f3;
+}
+
+.filter-button.train {
+    background: #9c27b0;
+}
+
+.filter-button.metro {
+    background: #f44336;
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+        margin: 0;
+    }
+
+    .main-container {
+        grid-template-columns: 1fr;
+        gap: 10px;
+        margin-bottom: 10px;
+    }
+
+    .map-container {
+        padding: 10px;
+    }
+
+    #map {
+        height: 300px;
+    }
+
+    .departures-table {
+        font-size: 12px;
+    }
+
+    .departures-table th,
+    .departures-table td {
+        padding: 6px 4px;
+    }
+
+    .station-header {
+        padding: 15px;
+        font-size: 16px;
+        min-height: auto;
+    }
+
+    .filter-container {
+        padding: 15px;
+        margin-bottom: 15px;
+    }
+
+    .filter-buttons {
+        gap: 4px;
+        margin: 0;
+        padding: 0;
+    }
+
+    .filter-button {
+        padding: 6px 10px;
+        font-size: 11px;
+    }
+
+    .transport-badge {
+        padding: 3px 6px;
+        font-size: 10px;
+    }
+
+    .status-badge {
+        padding: 3px 6px;
+        font-size: 10px;
+    }
+
+    .departures-container {
+        margin-bottom: 10px;
+    }
+
+    .time-info {
+        gap: 1px;
+    }
+
+    .planned-time {
+        font-size: 11px;
+    }
+
+    .expected-time {
+        font-size: 13px;
+    }
+
+    .platform {
+        padding: 2px 6px;
+        font-size: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 5px;
+    }
+
+    .main-container {
+        gap: 5px;
+    }
+
+    .map-container {
+        padding: 5px;
+    }
+
+    #map {
+        height: 250px;
+    }
+
+    .departures-table {
+        font-size: 11px;
+    }
+
+    .departures-table th,
+    .departures-table td {
+        padding: 4px 2px;
+    }
+
+    .station-header {
+        padding: 12px;
+        font-size: 14px;
+        min-height: auto;
+    }
+
+    .filter-container {
+        padding: 12px;
+    }
+
+    .filter-buttons {
+        gap: 3px;
+        margin: 0;
+        padding: 0;
+    }
+
+    .filter-button {
+        padding: 5px 8px;
+        font-size: 10px;
+    }
+
+    .transport-badge {
+        padding: 2px 5px;
+        font-size: 9px;
+    }
+
+    .status-badge {
+        padding: 2px 5px;
+        font-size: 9px;
+    }
+}
+
+.footer {
+    text-align: center;
+    padding: 20px;
+    margin-top: 30px;
+    color: #666;
+    font-size: 14px;
+    border-top: 1px solid #e9ecef;
+}
+
+.footer a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.footer a:hover {
+    color: #0056b3;
+    text-decoration: underline;
+} 
