@@ -9,9 +9,13 @@
         }
     });
     </script></head><body class=orange><div class="container center headings--one-size"><header class=header><div class=header__inner><div class=header__logo><a href=/><div class=logo>Home</div></a></div><div class=menu-trigger>menu</div></div><nav class=menu><ul class="menu__inner menu__inner--desktop"><li><a href=/about>About</a></li><li><a href=/books>Book Reviews</a></li><li><a href=/cv>CV</a></li><li><a href=/physics>Physics</a></li><li><a href=/reading_papers>Reading Papers</a></li></ul><ul class="menu__inner menu__inner--mobile"><li><a href=/about>About</a></li><li><a href=/books>Book Reviews</a></li><li><a href=/cv>CV</a></li><li><a href=/physics>Physics</a></li><li><a href=/reading_papers>Reading Papers</a></li></ul></nav></header><div class=content><div class=post><h1 class=post-title><a href=https://www.robert-sokolewicz.nl/posts/4_git_ssh/>Managing git ssh-keys for multiple accounts on GitLab and GitHub</a></h1><div class=post-meta><span class=post-date>2022-12-04</span>
-<span class=post-author>:: Robert</span></div><div class=post-content><div><h1 id=heading><a href=#heading class=hanchor arialabel=Anchor>&#8983;</a></h1><p>If you only have one account for every git repository provider, for example, one
-for <code>www.github.com</code> and one for <code>www.gitlab.com</code>, you will need to add the
-following to your ssh-config file, <code>~/.ssh/config</code></p><pre><code>host github.com
+<span class=post-author>:: Robert</span></div><div class=post-content><div><h1 id=table-of-contents>Table of Contents<a href=#table-of-contents class=hanchor arialabel=Anchor>&#8983;</a></h1><ol><li><a href=#single-ssh-key-setup-for-github>Single SSH Key Setup for GitHub</a></li><li><a href=#multiple-accounts-per-provider>Multiple Accounts per Provider</a></li><li><a href=#ssh-configuration-file-overview>SSH Configuration File Overview</a></li></ol><hr><h1 id=single-ssh-key-setup-for-github>Single SSH Key Setup for GitHub<a href=#single-ssh-key-setup-for-github class=hanchor arialabel=Anchor>&#8983;</a></h1><h2 id=step-1-generate-ssh-key>Step 1: Generate SSH Key<a href=#step-1-generate-ssh-key class=hanchor arialabel=Anchor>&#8983;</a></h2><p>First, generate a new SSH key pair:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>ssh-keygen -t ed25519
+</code></pre></div><p>When prompted, you can:</p><ul><li>Press Enter to accept the default file location (<code>~/.ssh/id_ed25519</code>)</li><li>Enter a passphrase (recommended for security) or leave empty for no passphrase</li></ul><h2 id=step-2-add-ssh-key-to-ssh-agent>Step 2: Add SSH Key to SSH Agent<a href=#step-2-add-ssh-key-to-ssh-agent class=hanchor arialabel=Anchor>&#8983;</a></h2><p>Add your private key to the SSH agent:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>ssh-add ~/.ssh/id_ed25519
+</code></pre></div><h2 id=step-3-add-public-key-to-git-provider>Step 3: Add Public Key to Git Provider<a href=#step-3-add-public-key-to-git-provider class=hanchor arialabel=Anchor>&#8983;</a></h2><p>Copy your public key:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>cat ~/.ssh/id_ed25519.pub
+</code></pre></div><p>Then copy the public key and add it to the corresponding git provider.</p><p>e.g. for GitHub:</p><ol><li>Go to GitHub.com → Settings → SSH and GPG keys</li><li>Click &ldquo;New SSH key&rdquo;</li><li>Paste your public key and give it a descriptive title</li><li>Click &ldquo;Add SSH key&rdquo;</li></ol><h2 id=step-4-test-your-connection>Step 4: Test Your Connection<a href=#step-4-test-your-connection class=hanchor arialabel=Anchor>&#8983;</a></h2><p>Verify everything works:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>ssh -T git@github.com
+</code></pre></div><p>You should see: <code>Hi username! You've successfully authenticated...</code></p><h2 id=step-5-configure-git-optional>Step 5: Configure Git (Optional)<a href=#step-5-configure-git-optional class=hanchor arialabel=Anchor>&#8983;</a></h2><p>If you haven&rsquo;t already, configure your Git identity:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>git config --global user.name <span style=color:#e6db74>&#34;Your Name&#34;</span>
+git config --global user.email <span style=color:#e6db74>&#34;your_email@example.com&#34;</span>
+</code></pre></div><hr><h1 id=multiple-git-accounts>Multiple git accounts<a href=#multiple-git-accounts class=hanchor arialabel=Anchor>&#8983;</a></h1><p>Create an SSH config file at <code>~/.ssh/config</code>:</p><pre><code>host github.com
   HostName github.com
   IdentityFile ~/.ssh/github
   User git
@@ -20,20 +24,7 @@ host gitlab.com
   HostName gitlab.com
   IdentityFile ~/.ssh/gitlab
   User git
-</code></pre><p>where the identity files contain your private key for each account. These can be
-generated by running</p><pre><code>ssh-keygen
-</code></pre><p>which will prompt you to specify a location and a passphrase:</p><pre><code>Generating public/private rsa key pair.
-Enter file in which to save the key (/home/rsoko/.ssh/id_rsa): 
-Enter passphrase (empty for no passphrase): 
-Enter same passphrase again: 
-</code></pre><p>these are all optional, but to work with the above config we need to generate
-two keys, one located at <code>~/.ssh/gitlab</code> and one at <code>~/.ssh/github</code>. As for the
-passphrase, this can be left empty if you don&rsquo;t want to enter a password every
-time you create an ssh connection (for example when pushing code to the remote
-repository).</p><p>check if everything works:</p><pre><code>ssh -T git@gitlab.com
-</code></pre><p>which gives me</p><pre><code>Welcome to GitLab, @rsokolewicz!
-</code></pre><h1 id=multiple-accounts-per-provider>multiple accounts per provider<a href=#multiple-accounts-per-provider class=hanchor arialabel=Anchor>&#8983;</a></h1><p>If you have multiple accounts on for example gitlab.com (e.g. one personal and one work),
-you can configure the ssh-config as follows</p><pre><code>host gitlab-private
+</code></pre><p>where the <code>IdentityFile</code> is the path to the private key, generated earlier. The path is what you entered when prompted by <code>ssh-keygen</code>.</p><p>This configuration tells SSH which key to use for each service automatically.</p><hr><h1 id=multiple-accounts-per-provider>Multiple Accounts per Provider<a href=#multiple-accounts-per-provider class=hanchor arialabel=Anchor>&#8983;</a></h1><p>If you have multiple accounts on the same provider (e.g., one personal and one work account on GitLab), you need:</p><pre><code>host gitlab-private
   HostName gitlab.com
   IdentityFile ~/.ssh/gitlab_private
   User git
@@ -42,12 +33,10 @@ host gitlab-work
   HostName gitlab.com
   IdentityFile ~/.ssh/gitlab_work
   User git
-</code></pre><p>and follow the steps as before to generate <code>gitlab_private</code> and <code>gitlab_work</code>.
-The crucial step now is when setting up the <code>remote-url</code> of a git repository to
-map it to the correct entry in the above ssh configuration:</p><pre><code>git remote set-url origin git@gitlab-private:repo.git
-</code></pre><p><code>git@gitlab-private:repo.git</code> has two important parts: <code>git@...:</code> and
-<code>:....git</code>. The first part that&rsquo;s between <code>git@...:</code> corresponds to the name of
-the host that is specified in the ssh configuration. In the above case <code>host gitlab-private</code>. The name can be anything and is there just to map the correct ssh key to the corresponding repo. The second part <code>:...git</code> is the git-url to the repo.</p></div></div><div class=pagination><div class=pagination__title><span class=pagination__title-h>Read other posts</span><hr></div><div class=pagination__buttons><span class="button previous"><a href=https://www.robert-sokolewicz.nl/posts/3_vs_code_tips/><span class=button__icon>←</span>
+</code></pre><h2 id=generate-separate-keys>Generate Separate Keys<a href=#generate-separate-keys class=hanchor arialabel=Anchor>&#8983;</a></h2><p>Generate different keys for each account:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>ssh-keygen -t ed25519 -C <span style=color:#e6db74>&#34;personal@example.com&#34;</span> -f ~/.ssh/gitlab_private
+ssh-keygen -t ed25519 -C <span style=color:#e6db74>&#34;work@example.com&#34;</span> -f ~/.ssh/gitlab_work
+</code></pre></div><h2 id=configure-repository-remotes>Configure Repository Remotes<a href=#configure-repository-remotes class=hanchor arialabel=Anchor>&#8983;</a></h2><p>When setting up repositories, use the host alias in the remote URL:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>git remote set-url origin git@gitlab-private:username/repo.git
+</code></pre></div><p>The key part is <code>git@gitlab-private:</code> - this maps to the <code>host gitlab-private</code> entry in your SSH config, ensuring the correct key is used for authentication.</p><h2 id=key-points>Key Points<a href=#key-points class=hanchor arialabel=Anchor>&#8983;</a></h2><ul><li>The host alias (e.g., <code>gitlab-private</code>) can be any name you choose</li><li>The format is always <code>git@host-alias:username/repo.git</code></li><li>Each account needs its own SSH key pair</li><li>Add each public key to the corresponding account on the git provider</li></ul></div></div><div class=pagination><div class=pagination__title><span class=pagination__title-h>Read other posts</span><hr></div><div class=pagination__buttons><span class="button previous"><a href=https://www.robert-sokolewicz.nl/posts/3_vs_code_tips/><span class=button__icon>←</span>
 <span class=button__text>Some tips for using VS code for python development</span></a></span>
 <span class="button next"><a href=https://www.robert-sokolewicz.nl/posts/2_query_likelihood/><span class=button__text>The Query Likelihood Model</span>
 <span class=button__icon>→</span></a></span></div></div></div></div><footer class=footer><div class=footer__inner><div class=copyright><span>© 2025 Powered by <a href=http://gohugo.io>Hugo</a></span>
