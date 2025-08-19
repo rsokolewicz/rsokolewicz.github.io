@@ -1,2 +1,2 @@
 #!/bin/bash
-/opt/homebrew/Cellar/hugo/0.68.3/bin/hugo "$@"
+~/.local/bin/hugo-0.68.3 "$@"
