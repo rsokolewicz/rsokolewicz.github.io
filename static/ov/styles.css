@@ -452,6 +452,186 @@ body {
     }
 }
 
+/* Permanent endpoint stop labels on the map */
+.stop-endpoint-label {
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-size: 11px;
+    font-weight: 600;
+    color: #333;
+    white-space: nowrap;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+}
+
+.stop-endpoint-label::before {
+    display: none;
+}
+
+/* Stop marker highlight flash */
+@keyframes stop-flash {
+    0%   { box-shadow: 0 0 0 0 rgba(33, 150, 243, 0.6); }
+    70%  { box-shadow: 0 0 0 12px rgba(33, 150, 243, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(33, 150, 243, 0); }
+}
+
+.stop-highlight {
+    animation: stop-flash 1.5s ease-out;
+    border-radius: 10px;
+}
+
+/* Train-specific styles */
+.train-row {
+    cursor: default;
+}
+
+.via-stops {
+    color: #888;
+    font-style: italic;
+}
+
+.train-tips {
+    margin-top: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.train-tips small {
+    color: #e65100;
+    font-size: 11px;
+}
+
+.platform-change {
+    display: inline-block;
+    background: #ff5722;
+    color: white;
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
+    text-align: center;
+    font-size: 11px;
+    font-weight: 700;
+    margin-left: 4px;
+    cursor: help;
+}
+
+/* Expandable departure rows */
+.departure-row {
+    cursor: pointer;
+}
+
+.departure-row:hover {
+    background: #f0f4ff !important;
+}
+
+.departure-row.expanded {
+    background: #e8f0fe !important;
+}
+
+.expand-arrow {
+    display: inline-block;
+    margin-left: 6px;
+    font-size: 10px;
+    color: #aaa;
+    transition: transform 0.2s ease;
+    vertical-align: middle;
+}
+
+.departure-row.expanded .expand-arrow {
+    transform: rotate(90deg);
+    color: #555;
+}
+
+/* Stops sub-row */
+.stops-cell {
+    padding: 0 !important;
+    background: #f7f9ff;
+    border-bottom: 2px solid #dee2e6;
+}
+
+.stops-panel {
+    padding: 12px 16px 12px 24px;
+    overflow-x: auto;
+}
+
+.stops-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    position: relative;
+}
+
+.stops-list::before {
+    content: '';
+    position: absolute;
+    left: 7px;
+    top: 10px;
+    bottom: 10px;
+    width: 2px;
+    background: #c8d6ea;
+}
+
+.stop-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 5px 0;
+    position: relative;
+}
+
+.stop-dot {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: white;
+    border: 2px solid #5b8dee;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+}
+
+.stop-item:first-child .stop-dot,
+.stop-item:last-child .stop-dot {
+    background: #5b8dee;
+}
+
+.stop-name {
+    font-size: 13px;
+    color: #333;
+}
+
+.stop-item:first-child .stop-name,
+.stop-item:last-child .stop-name {
+    font-weight: 600;
+    color: #1a3a6e;
+}
+
+.stops-loading {
+    padding: 12px 16px;
+    font-size: 13px;
+    color: #888;
+    font-style: italic;
+}
+
+.stops-error {
+    padding: 12px 16px;
+    font-size: 13px;
+    color: #c62828;
+}
+
+@media (max-width: 768px) {
+    .stops-panel {
+        padding: 8px 10px 8px 16px;
+    }
+
+    .stop-name {
+        font-size: 12px;
+    }
+}
+
 .footer {
     text-align: center;
     padding: 20px;
