@@ -684,13 +684,12 @@ function formatDeparturesData(data) {
                         `;
                     } else {
                         const timeStatus = getTimeStatus(departure.PlannedDeparture, departure.ExpectedDeparture);
-                        const lineNr = (departure.LineNumber || '').replace(/'/g, "\\'");
-                        const agencyCode = (departure.AgencyCode || '').replace(/'/g, "\\'");
+                        const journeyKeyEsc = (departure.JourneyKey || '').replace(/'/g, "\\'");
                         const destination = (departure.Destination || '').replace(/'/g, "\\'");
                         const transportType = (departure.TransportType || '').replace(/'/g, "\\'");
 
                         html += `
-                            <tr id="${rowId}" class="departure-row" onclick="toggleStops('${rowId}', '${stopsRowId}', '${lineNr}', '${agencyCode}', '${destination}')">
+                            <tr id="${rowId}" class="departure-row" onclick="toggleStops('${rowId}', '${stopsRowId}', '${journeyKeyEsc}', '${destination}')">
                                 <td>
                                     <span class="transport-badge ${getTransportClass(departure.TransportType)}">
                                         ${departure.LineNumber}
@@ -808,7 +807,7 @@ function renderStopsPanel(stops, destination, error) {
     return `<div class="stops-panel"><div class="stops-list">${items}</div></div>`;
 }
 
-async function toggleStops(rowId, stopsRowId, linenr, agency, destination) {
+async function toggleStops(rowId, stopsRowId, journeyKey, destination) {
     const row = document.getElementById(rowId);
     const stopsRow = document.getElementById(stopsRowId);
     if (!stopsRow) return;
@@ -828,18 +827,17 @@ async function toggleStops(rowId, stopsRowId, linenr, agency, destination) {
 
     cell.innerHTML = '<div class="stops-loading">Loading stops…</div>';
 
-    const cacheKey = `${linenr}|${agency}`;
     try {
         let stopsData;
-        if (lineDataCache.has(cacheKey)) {
-            stopsData = lineDataCache.get(cacheKey);
+        if (lineDataCache.has(journeyKey)) {
+            stopsData = lineDataCache.get(journeyKey);
         } else {
-            const url = `${API_BASE_URL}/linestops?linenr=${encodeURIComponent(linenr)}&agency=${encodeURIComponent(agency)}`;
+            const url = `${API_BASE_URL}/linestops?journey=${encodeURIComponent(journeyKey)}`;
             const resp = await fetch(url);
             const json = await resp.json();
             if (!resp.ok) throw new Error(json.error || resp.statusText);
             stopsData = json.stops;
-            lineDataCache.set(cacheKey, stopsData);
+            lineDataCache.set(journeyKey, stopsData);
         }
         cell.innerHTML = renderStopsPanel(stopsData, destination, null);
         cell.dataset.loaded = 'true';
@@ -912,13 +910,13 @@ async function loadAllLineShapes(data) {
     lineLayersMap.forEach(layer => map.removeLayer(layer));
     lineLayersMap.clear();
 
-    // Collect unique BTMF lines
+    // Collect unique BTMF lines (one representative journey key per line)
     const lines = new Map();
     Object.entries(data).forEach(([type, stations]) => {
         if (type.startsWith('_')) return;
         processStationArray(stations).forEach(station => {
             (station.Departures || []).forEach(dep => {
-                if (!isTrainDeparture(dep) && dep.LineNumber && dep.AgencyCode) {
+                if (!isTrainDeparture(dep) && dep.LineNumber && dep.AgencyCode && dep.JourneyKey) {
                     const key = `${dep.LineNumber}|${dep.AgencyCode}`;
                     if (!lines.has(key)) {
                         lines.set(key, {
@@ -926,6 +924,7 @@ async function loadAllLineShapes(data) {
                             agency: dep.AgencyCode,
                             transportType: dep.TransportType,
                             lineName: dep.LineName || '',
+                            journeyKey: dep.JourneyKey,
                         });
                     }
                 }
@@ -939,7 +938,7 @@ async function loadAllLineShapes(data) {
             if (lineDataCache.has(key)) {
                 stopsData = lineDataCache.get(key);
             } else {
-                const url = `${API_BASE_URL}/linestops?linenr=${encodeURIComponent(info.lineNr)}&agency=${encodeURIComponent(info.agency)}`;
+                const url = `${API_BASE_URL}/linestops?journey=${encodeURIComponent(info.journeyKey)}`;
                 const resp = await fetch(url);
                 const json = await resp.json();
                 if (!resp.ok || json.error) return;
