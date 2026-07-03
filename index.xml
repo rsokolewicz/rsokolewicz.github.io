@@ -1,4 +1,64 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Your Name on Roberts blog</title><link>https://www.robert-sokolewicz.nl/</link><description>Recent content in Your Name on Roberts blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Fri, 22 Apr 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://www.robert-sokolewicz.nl/index.xml" rel="self" type="application/rss+xml"/><item><title>[7/10] Baek Sehee's I Want to Die but I Want to Eat Tteokbokki</title><link>https://www.robert-sokolewicz.nl/books/14_i_want_to_die/</link><pubDate>Tue, 09 Dec 2025 00:00:00 +0000</pubDate><guid>https://www.robert-sokolewicz.nl/books/14_i_want_to_die/</guid><description>A short book by Baek Sehee, based on her conversations with her therapist.
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Your Name on Roberts blog</title><link>https://www.robert-sokolewicz.nl/</link><description>Recent content in Your Name on Roberts blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Fri, 22 Apr 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://www.robert-sokolewicz.nl/index.xml" rel="self" type="application/rss+xml"/><item><title>Writing a book for Manning - part 1</title><link>https://www.robert-sokolewicz.nl/posts/29_manning_part1/</link><pubDate>Fri, 15 May 2026 00:00:00 +0000</pubDate><guid>https://www.robert-sokolewicz.nl/posts/29_manning_part1/</guid><description>At the start of the year my partner and I set a goal: we will write a book together. We both have extensive experience in data science which narrowed down the possible areas we could contribute to. After a few weeks of brainstorming we narrowed it down even further to three potential topics:
+small language models post-training document extraction We then searched recently published data science books in the catalogs of O&amp;rsquo;Reilly, Manning and Packt to see what is up and coming.</description><content>&lt;p>At the start of the year my partner and I set a goal: we will write a book together. We both have extensive experience in data science
+which narrowed down the possible areas we could contribute to. After a few weeks of brainstorming we narrowed it down even further to
+three potential topics:&lt;/p>
+&lt;ol>
+&lt;li>small language models&lt;/li>
+&lt;li>post-training&lt;/li>
+&lt;li>document extraction&lt;/li>
+&lt;/ol>
+&lt;p>We then searched recently published data science books in the catalogs of O&amp;rsquo;Reilly, Manning and Packt to see what is up and coming.&lt;/p>
+&lt;p>The first topic was already written about a couple of times. On post-training people have written a bit about reinforcement-learning-with-human-feedback, but not much more. This was surprising because Deepseek invented GRPO which really enabled post-training to be accessible
+to pretty much everyone. If you go to the tutorials of unsloth, you&amp;rsquo;ll find plenty of tutorials on how to post-train smaller language models (my favorite
+is &lt;a href="https://unsloth.ai/docs/models/nemotron-3#reinforcement-learning--nemo-gym">teaching-ai-to-solve-Sudoku-puzzles&lt;/a>).
+The third topic also seemed available, but Lan and I didn&amp;rsquo;t have enough experience on the topic that we felt comfortable writing an entire
+book about. At AI-stories we had a handful of post-training small language model projects, so we picked that one.&lt;/p>
+&lt;p>Next step was choosing a publisher. Do we self-publish, or choose a publisher?&lt;/p>
+&lt;p>The biggest difference between the two is that with self-publishing you keep most of the earnings for each sold book, but that you don&amp;rsquo;t get
+any help with editing, marketing, selling, etc. More importantly, you won&amp;rsquo;t have an editor bothering you every week for updates. We don&amp;rsquo;t expect
+to get rich with writing the book, and we also don&amp;rsquo;t know much about the whole editing process so the choice was quickly made: let&amp;rsquo;s go find a publisher.&lt;/p>
+&lt;p>The three big publishers, O&amp;rsquo;Reilly, Manning and Packt all publish many technical books every year. So how do we choose which one is best? After reading
+many reviews, we saw many similarities: they all offer editorial guidance, strict deadlines, 10% commission, etc. The major difference that we felt was
+that Packt seemingly publishes everything and has a print-on-demand service. O&amp;rsquo;Reilly, while the most famous one, often feels a bit more theoretical than
+hands on. While Manning has a strong focus on publishing books that are all accompanied by code examples, and github repos.&lt;/p>
+&lt;p>To publish a book with Manning, you first have to write an extensive proposal. Here we had to&lt;/p>
+&lt;ul>
+&lt;li>outline a detailed description of the book,&lt;/li>
+&lt;li>provide author bios&lt;/li>
+&lt;li>the target audience,&lt;/li>
+&lt;li>what we expect the reader to get out of the book,&lt;/li>
+&lt;li>market research&lt;/li>
+&lt;li>literature review of (potentially) competing books&lt;/li>
+&lt;li>a detailed table-of-contents
+&lt;ul>
+&lt;li>chapter summaries, headings and subheadings&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>estimated page count, number of figures and code snippets&lt;/li>
+&lt;li>proposed schedule (when we do expect to finish 1/3, 2/3, 3/3 of the book)&lt;/li>
+&lt;/ul>
+&lt;p>We submitted our proposal for a book of 450 pages to Manning, and two days later we got our first response from one of the acquisition editors:
+the topic sounds super interesting and relevant and that we will get a more detailed review within a week.&lt;/p>
+&lt;p>The first review had only one major concern: Manning books typically span 300-350 pages. We tightened the page count, removed a few concepts (e.g. decided
+not to talk too much about Mixture of Experts). We also made the TOC a bit more &amp;ldquo;Manning&amp;rdquo; specific, by targeting the &amp;ldquo;in action&amp;rdquo; series. The proposal was
+sent to about 20 volunteers. Each had two weeks to review and leave comments.&lt;/p>
+&lt;p>The response was overwhelmingly positive. Out of the 20 volunteers, about 15 wrote a review of which 14 very positive and 1 critical. The critical reviewer
+admitted to being an AI-sceptic, but still provided valuable feedback.&lt;/p>
+&lt;p>We took a week to address all the comments, edit our proposal (everyone was asking to talk more about agents) and submit again.&lt;/p>
+&lt;p>Our proposal was then sent to the big boss for approval, and merely one day later we received the good news: our proposal got accepted!&lt;/p>
+&lt;p>Two days later we received a contract. The contract tightens the writing and editing process:&lt;/p>
+&lt;ol>
+&lt;li>we are not to deviate from our proposed page count, unless agreed by the editor&lt;/li>
+&lt;li>strict deadlines for each third of the manuscript&lt;/li>
+&lt;li>financial compensation
+a. 2.000E for the meeting the first deadline (1/3 of the book available on MEAP)
+b. 2.000E for finishing the book
+c. 10% commision for each sold book (with the 4k that we already got as an advance)
+d. 25 free copies&lt;/li>
+&lt;/ol>
+&lt;p>We later heard that you can renegotiate the compensation.. oops.&lt;/p>
+&lt;p>In the next part I&amp;rsquo;ll share more on the editing process, the tools and resources that we use and our interactions with the
+developmental editor.&lt;/p></content></item><item><title>[7/10] Baek Sehee's I Want to Die but I Want to Eat Tteokbokki</title><link>https://www.robert-sokolewicz.nl/books/14_i_want_to_die/</link><pubDate>Tue, 09 Dec 2025 00:00:00 +0000</pubDate><guid>https://www.robert-sokolewicz.nl/books/14_i_want_to_die/</guid><description>A short book by Baek Sehee, based on her conversations with her therapist.
 The author is diagnosed with a form of persistent depression disorder, a milder form of depression.</description><content>&lt;p>A short book by Baek Sehee, based on her conversations with her therapist.&lt;/p>
 &lt;p>The author is diagnosed with a form of persistent depression disorder, a milder form of depression.&lt;/p></content></item><item><title>[7/10] Jonathan Haidt's The Anxious Generation</title><link>https://www.robert-sokolewicz.nl/books/15_the_anxious_generation/</link><pubDate>Tue, 09 Dec 2025 00:00:00 +0000</pubDate><guid>https://www.robert-sokolewicz.nl/books/15_the_anxious_generation/</guid><description/><content/></item><item><title>[7/10] Karen Hao's Empire of AI</title><link>https://www.robert-sokolewicz.nl/books/16_empire_of_ai/</link><pubDate>Tue, 09 Dec 2025 00:00:00 +0000</pubDate><guid>https://www.robert-sokolewicz.nl/books/16_empire_of_ai/</guid><description/><content/></item><item><title>[7/10] Steven Johnson's Where Good Ideas Come From</title><link>https://www.robert-sokolewicz.nl/books/13_where_good_ideas_come_from/</link><pubDate>Tue, 09 Dec 2025 00:00:00 +0000</pubDate><guid>https://www.robert-sokolewicz.nl/books/13_where_good_ideas_come_from/</guid><description/><content/></item><item><title>[9/10] David Graeber &amp; David Wengrow's Dawn of Everything</title><link>https://www.robert-sokolewicz.nl/books/17_dawn_of_everything/</link><pubDate>Tue, 07 Oct 2025 00:00:00 +0000</pubDate><guid>https://www.robert-sokolewicz.nl/books/17_dawn_of_everything/</guid><description/><content/></item><item><title>Structured outputs with OpenAI and Pydantic</title><link>https://www.robert-sokolewicz.nl/posts/28_structured_outputs_pydantic/</link><pubDate>Sun, 06 Apr 2025 00:00:00 +0000</pubDate><guid>https://www.robert-sokolewicz.nl/posts/28_structured_outputs_pydantic/</guid><description>The tutorials over at openAI are quite clear on how to use structured outputs. e.g. if we want a helper to perform an integral step by step, we can either use a &amp;ldquo;thinking model&amp;rdquo;, or use a regular model, but force the output be a list of steps:
 from pydantic import BaseModel from textwrap import dedent from openai import OpenAI client = OpenAI() MODEL = &amp;#34;gpt-4o-mini&amp;#34; integral_solver_prompt = &amp;#34;&amp;#34;&amp;#34; You are a calculus expert capable of solving indefinite integrals step-by-step.</description><content>&lt;p>The tutorials over at openAI are quite clear on how to use structured outputs. e.g. if we want a helper to perform an integral step by step, we can either use a &amp;ldquo;thinking model&amp;rdquo;, or use a regular model, but force the output be a list of steps:&lt;/p>
