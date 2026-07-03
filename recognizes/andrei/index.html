@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>☭ ROBERT SOKOLEWICZ RECOGNIZES ANDREI ☭</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #a00000;
+            background-image:
+                repeating-linear-gradient(45deg, rgba(255, 215, 0, 0.08) 0, rgba(255, 215, 0, 0.08) 2px, transparent 2px, transparent 40px),
+                repeating-linear-gradient(-45deg, rgba(0, 0, 0, 0.15) 0, rgba(0, 0, 0, 0.15) 2px, transparent 2px, transparent 40px);
+            font-family: 'Times New Roman', Times, serif;
+            color: #ffd700;
+            overflow-x: hidden;
+            min-height: 100vh;
+            cursor: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="24" height="24"%3E%3Ctext x="0" y="18" font-size="20"%3E%E2%98%AD%3C/text%3E%3C/svg%3E'), auto;
+        }
+
+        .container {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        table.old-border {
+            width: 100%;
+            border: 6px ridge #ffd700;
+            background: #700000;
+            margin: 20px 0;
+        }
+
+        table.old-border td {
+            padding: 15px;
+        }
+
+        .banner {
+            text-align: center;
+            border: 4px dashed #ffd700;
+            background: #000;
+            padding: 6px;
+            margin-bottom: 15px;
+        }
+
+        .blink {
+            animation: blinkText 1s steps(1) infinite;
+            color: #ffcc00;
+            font-weight: bold;
+            font-size: 20px;
+            font-family: 'Courier New', monospace;
+        }
+
+        @keyframes blinkText {
+            50% {
+                opacity: 0;
+            }
+        }
+
+        .title {
+            font-size: 40px;
+            font-weight: bold;
+            font-family: 'Arial Black', Arial, sans-serif;
+            text-transform: uppercase;
+            color: #ffd700;
+            text-shadow: 3px 3px 0 #000, -1px -1px 0 #ff0000;
+            text-align: center;
+            margin: 15px 0;
+            letter-spacing: 2px;
+            animation: titlePulse 2.5s ease-in-out infinite;
+        }
+
+        @keyframes titlePulse {
+
+            0%,
+            100% {
+                text-shadow: 3px 3px 0 #000, -1px -1px 0 #ff0000;
+            }
+
+            50% {
+                text-shadow: 3px 3px 0 #000, -1px -1px 0 #ff0000, 0 0 25px #ffd700, 0 0 45px #ff0000;
+            }
+        }
+
+        .star {
+            font-size: 60px;
+            color: #ffd700;
+            text-align: center;
+            animation: spinStar 6s linear infinite;
+            text-shadow: 0 0 20px #ff0000;
+        }
+
+        @keyframes spinStar {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .marquee {
+            background: #000;
+            border: 3px solid #ffd700;
+            padding: 8px;
+            margin: 15px 0;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .marquee-text {
+            display: inline-block;
+            padding-left: 100%;
+            animation: scroll-left 16s linear infinite;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            color: #ff3b3b;
+            font-size: 16px;
+        }
+
+        @keyframes scroll-left {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+
+        .recognition-text {
+            font-size: 18px;
+            text-align: center;
+            line-height: 1.7;
+            color: #ffe8b0;
+        }
+
+        .name {
+            font-size: 30px;
+            font-family: 'Arial Black', Arial, sans-serif;
+            color: #ff3b3b;
+            text-shadow: 2px 2px 0 #000;
+        }
+
+        .comrade {
+            font-size: 24px;
+            font-family: 'Arial Black', Arial, sans-serif;
+            color: #ffd700;
+            text-shadow: 2px 2px 0 #000;
+        }
+
+        .hit-counter {
+            display: inline-flex;
+            gap: 3px;
+            background: #000;
+            border: 2px inset #888;
+            padding: 6px 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 22px;
+            color: #ff0000;
+            letter-spacing: 2px;
+        }
+
+        .under-construction {
+            text-align: center;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            color: #000;
+            background: repeating-linear-gradient(45deg, #ffd700, #ffd700 12px, #000 12px, #000 24px);
+            padding: 6px;
+            margin: 15px 0;
+            border: 3px solid #ff0000;
+        }
+
+        .under-construction span {
+            background: #ffd700;
+            padding: 2px 8px;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding: 15px;
+            background: #000;
+            color: #ffd700;
+            font-family: 'Courier New', monospace;
+            border: 3px dashed #ffd700;
+            font-size: 12px;
+            line-height: 1.6;
+        }
+
+        .webring {
+            color: #ff3b3b;
+        }
+
+        .sickle-rain {
+            position: fixed;
+            top: -50px;
+            font-size: 24px;
+            color: #ffd700;
+            text-shadow: 0 0 6px #ff0000;
+            user-select: none;
+            pointer-events: none;
+            z-index: 1;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-10vh) rotate(0deg);
+            }
+
+            100% {
+                transform: translateY(110vh) rotate(360deg);
+            }
+        }
+
+        hr.old {
+            border: none;
+            height: 4px;
+            background: repeating-linear-gradient(90deg, #ffd700, #ffd700 10px, #ff0000 10px, #ff0000 20px);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="banner">
+            <span class="blink">*** ВНИМАНИЕ *** ATTENTION COMRADES *** ВНИМАНИЕ ***</span>
+        </div>
+
+        <div class="star">☭</div>
+        <div class="title">Official Recognition Decree</div>
+
+        <div class="marquee">
+            <div class="marquee-text">
+                ☭ СЛАВА АНДРЕЮ! ☭ GLORY TO ANDREI, SOFTWARE ENGINEER AT QBLOX! ☭ THE PEOPLE'S CODEBASE THANKS YOU! ☭
+                FIVE-YEAR SPRINT COMPLETED IN ONE STANDUP! ☭
+            </div>
+        </div>
+
+        <table class="old-border" cellspacing="0" cellpadding="0">
+            <tr>
+                <td>
+                    <div class="recognition-text">
+                        BY ORDER OF THE CENTRAL COMMITTEE OF RECOGNITION, it is hereby declared that<br><br>
+                        <span class="name">ANDREI</span><br>
+                        <span style="font-size:16px;color:#ffe8b0;">Software Engineer, People's Republic of Qblox</span>
+                        <br><br>
+                        has been decorated by<br><br>
+                        <span class="comrade">COMRADE ROBERT SOKOLEWICZ</span><br><br>
+                        for outstanding productivity, unwavering commitment to the codebase, and
+                        contributions worthy of the highest order of the Soviet Software Union.<br><br>
+                        <hr class="old">
+                        🏆 ORDER OF LENIN (ENGINEERING DIVISION) 🏆<br>
+                        "For Services to the Sprint"
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+        <div class="under-construction">
+            <span>☭ PAGE UNDER CONSTRUCTION BY THE MINISTRY OF WEB AFFAIRS ☭</span>
+        </div>
+
+        <table class="old-border" cellspacing="0" cellpadding="0">
+            <tr>
+                <td style="text-align:center;">
+                    VISITORS TO THIS SHRINE:<br><br>
+                    <span class="hit-counter" id="counter">0000001</span>
+                </td>
+            </tr>
+        </table>
+
+        <div class="footer">
+            ☭ BEST VIEWED IN NETSCAPE NAVIGATOR ON A 800x600 CRT, COMRADE ☭<br>
+            <span class="webring">[ &lt;&lt; PREVIOUS COMRADE ]</span> —
+            SOVIET WEBRING —
+            <span class="webring">[ NEXT COMRADE &gt;&gt; ]</span><br>
+            © MCMXVII–PRESENT, PEOPLE'S REPUBLIC OF ROBERT SOKOLEWICZ. ALL RIGHTS COLLECTIVIZED.
+        </div>
+    </div>
+
+    <script>
+        const symbols = ['☭'];
+
+        function createSickle() {
+            const el = document.createElement('div');
+            el.className = 'sickle-rain';
+            el.textContent = symbols[0];
+            el.style.left = Math.random() * 100 + 'vw';
+            el.style.fontSize = (Math.random() * 18 + 16) + 'px';
+            const duration = Math.random() * 4 + 4;
+            el.style.animationDuration = duration + 's';
+            el.style.opacity = Math.random() * 0.5 + 0.5;
+            document.body.appendChild(el);
+
+            setTimeout(() => el.remove(), duration * 1000);
+        }
+
+        setInterval(createSickle, 150);
+        for (let i = 0; i < 20; i++) {
+            setTimeout(createSickle, i * 80);
+        }
+
+        let hits = 1;
+        const counterEl = document.getElementById('counter');
+        setInterval(() => {
+            hits += Math.floor(Math.random() * 3) + 1;
+            counterEl.textContent = String(hits).padStart(7, '0');
+        }, 1200);
+    </script>
+</body>
+
+</html>

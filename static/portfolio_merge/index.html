@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Merge — Yahoo Finance</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: monospace;
+            background: #1a1a1a;
+            color: #ccc;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem 1rem;
+        }
+
+        h1 {
+            color: #fff;
+            font-size: 1.4rem;
+            margin-bottom: 0.4rem;
+            letter-spacing: 0.05em;
+        }
+
+        p.subtitle {
+            color: #888;
+            font-size: 0.85rem;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            background: #252525;
+            border: 1px solid #333;
+            border-radius: 6px;
+            padding: 1.5rem;
+            width: 100%;
+            max-width: 600px;
+            margin-bottom: 1rem;
+        }
+
+        .card h2 {
+            font-size: 0.9rem;
+            color: #aaa;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 1rem;
+        }
+
+        .drop-zone {
+            border: 2px dashed #444;
+            border-radius: 4px;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: border-color 0.2s, background 0.2s;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .drop-zone.dragover {
+            border-color: #f90;
+            background: #2a2500;
+            color: #f90;
+        }
+
+        .drop-zone input[type="file"] {
+            display: none;
+        }
+
+        .file-list {
+            margin-top: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+
+        .file-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #1e1e1e;
+            border: 1px solid #333;
+            border-radius: 4px;
+            padding: 0.4rem 0.7rem;
+            font-size: 0.82rem;
+        }
+
+        .file-item span { color: #bbb; }
+        .file-item .remove {
+            cursor: pointer;
+            color: #666;
+            font-size: 1rem;
+            line-height: 1;
+            border: none;
+            background: none;
+            color: #555;
+            transition: color 0.15s;
+        }
+        .file-item .remove:hover { color: #e55; }
+
+        button.run {
+            width: 100%;
+            padding: 0.75rem;
+            background: #f90;
+            color: #111;
+            font-family: monospace;
+            font-size: 0.95rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.15s;
+            letter-spacing: 0.04em;
+        }
+        button.run:hover { background: #ffaa22; }
+        button.run:disabled { background: #555; color: #888; cursor: not-allowed; }
+
+        #log {
+            font-size: 0.82rem;
+            line-height: 1.7;
+            white-space: pre-wrap;
+            color: #888;
+        }
+
+        #log .ok   { color: #4c4; }
+        #log .err  { color: #e55; }
+        #log .info { color: #aaa; }
+        #log .head { color: #fff; font-weight: bold; }
+
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+
+<h1>Portfolio Merge</h1>
+<p class="subtitle">Merges DEGIRO transaction CSVs → Yahoo Finance format</p>
+
+<div class="card">
+    <h2>Input files</h2>
+    <div class="drop-zone" id="dropZone">
+        <input type="file" id="fileInput" accept=".csv" multiple>
+        Click to select CSV files — or drag &amp; drop them here
+    </div>
+    <div class="file-list" id="fileList"></div>
+</div>
+
+<div class="card">
+    <button class="run" id="runBtn" disabled>Convert &amp; Download</button>
+</div>
+
+<div class="card" id="logCard" class="hidden">
+    <h2>Log</h2>
+    <div id="log"></div>
+</div>
+
+<script>
+// ── ISIN → Yahoo Finance symbol map ──────────────────────────────────────────
+const SYMBOL_MAP = {
+    "IE00B3XXRP09": "VUSA.L",
+    "NL0010273215": "ASML.AS",
+    "IE00BMC38736": "SMH.L",
+    "US4592001014": "IBM",
+    "US88160R1014": "TSLA",
+    "US67066G1040": "NVDA",
+    "US5949181045": "MSFT",
+    "US46120E6023": "ISRG",
+    "US0231351067": "AMZN",
+    "US0079031078": "AMD",
+    "NL0009272749": "TDT.AS",
+    "US75734B1008": "RDDT",
+    "IE00BGV5VN51": "XAIX.L",
+    "US74766W1080": "QUBT",
+    "US26740W1099": "QBTS",
+    "US76655K1034": "RGTI",
+    "US46222L1089": "IONQ",
+};
+
+// ── Dutch → English header map ────────────────────────────────────────────────
+const DUTCH_MAP = {
+    "Datum": "Date",
+    "Tijd": "Time",
+    "Product": "Product",
+    "ISIN": "ISIN",
+    "Beurs": "Reference",
+    "Uitvoeringsplaa": "Venue",
+    "Aantal": "Quantity",
+    "Koers": "Price",
+    "Lokale waarde": "Local value",
+    "Waarde": "Value",
+    "Wisselkoers": "Exchange rate",
+    "Transactiekosten en/of": "Transaction and/or third",
+    "Totaal": "Total",
+    "Order ID": "Order ID",
+};
+
+// ── Helpers ───────────────────────────────────────────────────────────────────
+function cleanNumeric(val) {
+    if (val === undefined || val === null || val === "") return 0.0;
+    return parseFloat(String(val).replace(",", ".")) || 0.0;
+}
+
+function convertDate(dateStr) {
+    if (!dateStr) return "";
+    const m = String(dateStr).match(/^(\d{2})-(\d{2})-(\d{4})$/);
+    if (!m) return "";
+    return `${m[3]}/${m[2]}/${m[1]}`;
+}
+
+function getSymbol(isin) {
+    return SYMBOL_MAP[isin] || isin;
+}
+
+function txType(qty) {
+    if (qty > 0) return "BUY";
+    if (qty < 0) return "SELL";
+    return "";
+}
+
+// ── CSV parser (handles quoted fields) ───────────────────────────────────────
+function parseCSV(text) {
+    const lines = text.replace(/\r\n/g, "\n").replace(/\r/g, "\n").split("\n");
+    const rows = [];
+    for (const line of lines) {
+        if (line.trim() === "") continue;
+        const fields = [];
+        let cur = "", inQuote = false;
+        for (let i = 0; i < line.length; i++) {
+            const ch = line[i];
+            if (ch === '"') {
+                if (inQuote && line[i + 1] === '"') { cur += '"'; i++; }
+                else inQuote = !inQuote;
+            } else if (ch === "," && !inQuote) {
+                fields.push(cur.trim()); cur = "";
+            } else {
+                cur += ch;
+            }
+        }
+        fields.push(cur.trim());
+        rows.push(fields);
+    }
+    if (rows.length === 0) return [];
+    const headers = rows[0];
+    return rows.slice(1).map(r => {
+        const obj = {};
+        headers.forEach((h, i) => { obj[h] = r[i] ?? ""; });
+        return obj;
+    });
+}
+
+function standardizeHeaders(rows) {
+    if (rows.length === 0) return rows;
+    const hasDutch = Object.keys(rows[0]).some(k => DUTCH_MAP[k]);
+    if (!hasDutch) return rows;
+    return rows.map(row => {
+        const out = {};
+        for (const [k, v] of Object.entries(row)) {
+            out[DUTCH_MAP[k] ?? k] = v;
+        }
+        return out;
+    });
+}
+
+// ── CSV serialiser ────────────────────────────────────────────────────────────
+function toCSV(headers, rows) {
+    const escape = v => {
+        const s = String(v ?? "");
+        return s.includes(",") || s.includes('"') || s.includes("\n")
+            ? `"${s.replace(/"/g, '""')}"` : s;
+    };
+    const lines = [headers.map(escape).join(",")];
+    for (const row of rows) lines.push(headers.map(h => escape(row[h] ?? "")).join(","));
+    return lines.join("\n");
+}
+
+// ── Log helper ────────────────────────────────────────────────────────────────
+const logEl = document.getElementById("log");
+const logCard = document.getElementById("logCard");
+
+function log(msg, cls = "info") {
+    logCard.classList.remove("hidden");
+    const span = document.createElement("span");
+    span.className = cls;
+    span.textContent = msg + "\n";
+    logEl.appendChild(span);
+}
+
+// ── File management ───────────────────────────────────────────────────────────
+let files = [];
+
+function refreshFileList() {
+    const list = document.getElementById("fileList");
+    list.innerHTML = "";
+    files.forEach((f, i) => {
+        const item = document.createElement("div");
+        item.className = "file-item";
+        item.innerHTML = `<span>${f.name} <small style="color:#555">(${(f.size/1024).toFixed(1)} KB)</small></span>`;
+        const btn = document.createElement("button");
+        btn.className = "remove";
+        btn.textContent = "✕";
+        btn.onclick = () => { files.splice(i, 1); refreshFileList(); };
+        item.appendChild(btn);
+        list.appendChild(item);
+    });
+    document.getElementById("runBtn").disabled = files.length < 2;
+}
+
+function addFiles(newFiles) {
+    for (const f of newFiles) {
+        if (!files.find(x => x.name === f.name)) files.push(f);
+    }
+    refreshFileList();
+}
+
+const dropZone = document.getElementById("dropZone");
+const fileInput = document.getElementById("fileInput");
+
+dropZone.addEventListener("click", () => fileInput.click());
+fileInput.addEventListener("change", () => { addFiles(fileInput.files); fileInput.value = ""; });
+dropZone.addEventListener("dragover", e => { e.preventDefault(); dropZone.classList.add("dragover"); });
+dropZone.addEventListener("dragleave", () => dropZone.classList.remove("dragover"));
+dropZone.addEventListener("drop", e => {
+    e.preventDefault();
+    dropZone.classList.remove("dragover");
+    addFiles(e.dataTransfer.files);
+});
+
+// ── Main conversion ───────────────────────────────────────────────────────────
+document.getElementById("runBtn").addEventListener("click", async () => {
+    logEl.innerHTML = "";
+    log("=== Transaction Merge and Convert ===\n", "head");
+
+    const allRows = [];
+
+    for (let i = 0; i < files.length; i++) {
+        const f = files[i];
+        log(`Reading file ${i + 1}: ${f.name}`);
+        const text = await f.text();
+        let rows = parseCSV(text);
+        const isDutch = Object.keys(rows[0] || {}).some(k => DUTCH_MAP[k]);
+        log(`  → ${rows.length} records — ${isDutch ? "Dutch headers, standardising" : "English headers"}`);
+        rows = standardizeHeaders(rows);
+        allRows.push(...rows);
+    }
+
+    log(`\nMerging ${files.length} files — ${allRows.length} total records`);
+    log("Converting to Yahoo Finance format...\n");
+
+    const OUTPUT_HEADERS = [
+        "Symbol", "Current Price", "Date", "Time", "Change", "Open",
+        "High", "Low", "Volume", "Trade Date", "Purchase Price",
+        "Quantity", "Commission", "High Limit", "Low Limit", "Comment",
+        "Transaction Type",
+    ];
+
+    let converted = allRows.map(row => {
+        const qty = cleanNumeric(row["Quantity"]);
+        const price = cleanNumeric(row["Price"]);
+        const commission = cleanNumeric(row["Transaction and/or third"]);
+        const date = convertDate(row["Date"]);
+        const tradeDate = date.replace(/\//g, "");
+
+        return {
+            "Symbol": getSymbol(row["ISIN"] ?? ""),
+            "Current Price": price.toFixed(4),
+            "Date": date,
+            "Time": row["Time"] ?? "",
+            "Change": "",
+            "Open": "",
+            "High": "",
+            "Low": "",
+            "Volume": "",
+            "Trade Date": tradeDate,
+            "Purchase Price": price.toFixed(4),
+            "Quantity": qty.toFixed(1),
+            "Commission": Math.abs(commission).toFixed(2),
+            "High Limit": "",
+            "Low Limit": "",
+            "Comment": row["Product"] ?? "",
+            "Transaction Type": txType(qty),
+        };
+    });
+
+    // Filter out zero-quantity rows and empty symbols
+    converted = converted.filter(r => r["Quantity"] !== "0.0" && r["Symbol"] !== "");
+
+    // Sort by date descending
+    converted.sort((a, b) => b["Date"].localeCompare(a["Date"]));
+
+    if (converted.length === 0) {
+        log("✕ No valid transactions found after filtering.", "err");
+        return;
+    }
+
+    const minDate = converted[converted.length - 1]["Date"];
+    const maxDate = converted[0]["Date"];
+
+    log(`✓ Conversion complete!`, "ok");
+    log(`  Transactions: ${converted.length}`, "ok");
+    log(`  Date range:   ${minDate} → ${maxDate}`, "ok");
+    log("\nDownloading CSV...", "info");
+
+    const csv = toCSV(OUTPUT_HEADERS, converted);
+    const blob = new Blob([csv], { type: "text/csv" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "Transactions_merged_yahoo_finance.csv";
+    a.click();
+    URL.revokeObjectURL(url);
+});
+</script>
+</body>
+</html>

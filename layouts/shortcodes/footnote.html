@@ -1,0 +1,93 @@
+{{- /* Initialize counter */ -}}
+{{- $scratch := newScratch -}}
+{{- if not (.Page.Scratch.Get "footnoteCounter") -}}
+    {{- .Page.Scratch.Set "footnoteCounter" 0 -}}
+{{- end -}}
+{{- .Page.Scratch.Add "footnoteCounter" 1 -}}
+{{- $index := .Page.Scratch.Get "footnoteCounter" -}}
+
+<span class="hugo-footnote-intext">{{- "" -}}<sup class="footnote-ref" onclick="showFootnote(event, {{ $index }})">({{ $index }})</sup>{{- "" -}}<span class="footnote" id="footnote-{{ $index }}">{{ .Get 0 | markdownify}}<a href="#" class="footnote-close" onclick="hideFootnote({{ $index }})" aria-label="Close footnote">×</a></span></span>
+
+<style>
+    .hugo-footnote-intext {
+        white-space: normal;
+    }
+
+    .footnote-ref {
+        color: var(--accent);
+        cursor: pointer;
+    }
+
+    .footnote {
+        display: none;
+        position: absolute;
+        max-width: 300px;
+        /* background: white; */
+        padding: 1em;
+        border-radius: 4px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        font-size: 0.9em;
+        color: #707070;
+        /* border-left: 3px solid #ddd; */
+        z-index: 1000;
+        white-space: normal;
+        line-height: 1.4;
+        word-wrap: break-word;
+        right: -350px; /* Position it outside the post div */
+    }
+
+    .footnote.active {
+        display: block;
+    }
+
+    .footnote-close {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        text-decoration: none;
+        color: #666;
+    }
+
+    .footnote-close:hover {
+        color: #333;
+    }
+
+    /* Ensure the post div has a relative position */
+    .post {
+        position: relative;
+    }
+</style>
+
+<script>
+function showFootnote(event, id) {
+    event.preventDefault();
+    
+    // Hide any other active footnotes
+    document.querySelectorAll('.footnote.active').forEach(note => {
+        note.classList.remove('active');
+    });
+    
+    const footnote = document.getElementById(`footnote-${id}`);
+    const link = event.target;
+    const linkRect = link.getBoundingClientRect();
+    
+    // Position the footnote at the same height as the reference
+    footnote.style.top = `${linkRect.top - link.closest('.post').getBoundingClientRect().top}px`;
+    
+    // Show the footnote
+    footnote.classList.add('active');
+    
+    // Close footnote when clicking outside
+    document.addEventListener('click', function closeFootnote(e) {
+        if (!footnote.contains(e.target) && !link.contains(e.target)) {
+            footnote.classList.remove('active');
+            document.removeEventListener('click', closeFootnote);
+        }
+    });
+}
+
+function hideFootnote(id) {
+    const footnote = document.getElementById(`footnote-${id}`);
+    footnote.classList.remove('active');
+}
+</script>

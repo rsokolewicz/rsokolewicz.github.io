@@ -1,5 +1,9 @@
 .vscode
 resources/_gen
+resources
 .hugo_build.lock
 public
 playground
+.cache_ggshield
+.DS_Store
+.env

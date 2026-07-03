@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>🎮 ROBERT SOKOLEWICZ RECOGNIZES FABIO GRIGOLO 🎮</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background:
+                radial-gradient(circle at 20% 80%, rgba(255, 0, 0, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(0, 255, 0, 0.3) 0%, transparent 50%),
+                linear-gradient(45deg, #0a0a0a 0%, #1a1a2e 25%, #16213e 50%, #0f0f23 75%, #000000 100%);
+            background-size: 400% 400%, 400% 400%, 100% 100%;
+            animation: darkPulse 4s ease-in-out infinite;
+            font-family: 'Orbitron', 'Courier New', monospace;
+            color: #00ff00;
+            overflow-x: hidden;
+            min-height: 100vh;
+            cursor: crosshair;
+        }
+
+        @keyframes darkPulse {
+
+            0%,
+            100% {
+                background-position: 0% 50%, 100% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%, 0% 50%;
+            }
+        }
+
+        .scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom,
+                    transparent 0%,
+                    rgba(0, 255, 0, 0.03) 50%,
+                    transparent 100%);
+            background-size: 100% 4px;
+            pointer-events: none;
+            z-index: 1000;
+            animation: scanlineMove 0.1s linear infinite;
+        }
+
+        @keyframes scanlineMove {
+            0% {
+                transform: translateY(0);
+            }
+
+            100% {
+                transform: translateY(4px);
+            }
+        }
+
+        .container {
+            max-width: 100%;
+            margin: 0;
+            padding: 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            animation: glitchEffect 3s infinite;
+        }
+
+        @keyframes glitchEffect {
+
+            0%,
+            90%,
+            100% {
+                transform: translate(0);
+            }
+
+            10% {
+                transform: translate(-2px, 2px);
+            }
+
+            20% {
+                transform: translate(2px, -2px);
+            }
+
+            30% {
+                transform: translate(-2px, -2px);
+            }
+
+            40% {
+                transform: translate(2px, 2px);
+            }
+
+            50% {
+                transform: translate(-2px, 2px);
+            }
+
+            60% {
+                transform: translate(2px, -2px);
+            }
+
+            70% {
+                transform: translate(-2px, -2px);
+            }
+
+            80% {
+                transform: translate(2px, 2px);
+            }
+        }
+
+        .game-title {
+            font-size: 52px;
+            font-weight: 900;
+            color: #ff0000;
+            text-shadow:
+                3px 3px 0px #ffff00,
+                6px 6px 0px #ff8000,
+                9px 9px 0px #000;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin: 20px 0;
+            animation: titleGlow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes titleGlow {
+            0% {
+                text-shadow:
+                    3px 3px 0px #ffff00,
+                    6px 6px 0px #ff8000,
+                    9px 9px 0px #000,
+                    0 0 20px #ff0000;
+            }
+
+            100% {
+                text-shadow:
+                    3px 3px 0px #ffff00,
+                    6px 6px 0px #ff8000,
+                    9px 9px 0px #000,
+                    0 0 40px #ff0000,
+                    0 0 60px #ff0000;
+            }
+        }
+
+        .subtitle {
+            font-size: 18px;
+            color: #00ffff;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            animation: flicker 1s infinite;
+        }
+
+        @keyframes flicker {
+
+            0%,
+            50%,
+            100% {
+                opacity: 1;
+            }
+
+            25%,
+            75% {
+                opacity: 0.5;
+            }
+        }
+
+        .terminal-box {
+            background: rgba(0, 0, 0, 0.9);
+            border: 3px solid #00ff00;
+            border-radius: 10px;
+            margin: 20px 0;
+            padding: 20px;
+            box-shadow:
+                0 0 20px rgba(0, 255, 0, 0.5),
+                inset 0 0 20px rgba(0, 255, 0, 0.1);
+            animation: terminalPulse 3s infinite;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .terminal-box::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #ff0000, #ffff00, #00ff00, #00ffff, #0080ff, #ff00ff);
+            background-size: 400% 400%;
+            animation: borderRainbow 3s linear infinite;
+            z-index: -1;
+            border-radius: 12px;
+        }
+
+        @keyframes borderRainbow {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            100% {
+                background-position: 100% 50%;
+            }
+        }
+
+        @keyframes terminalPulse {
+
+            0%,
+            100% {
+                box-shadow: 0 0 20px rgba(0, 255, 0, 0.5), inset 0 0 20px rgba(0, 255, 0, 0.1);
+            }
+
+            50% {
+                box-shadow: 0 0 40px rgba(0, 255, 0, 0.8), inset 0 0 30px rgba(0, 255, 0, 0.2);
+            }
+        }
+
+        .recognition-text {
+            font-size: 18px;
+            color: #00ff00;
+            text-align: center;
+            line-height: 1.8;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .player-name {
+            font-size: 32px;
+            color: #ff0000;
+            font-weight: 900;
+            text-shadow: 2px 2px 0px #ffff00, 4px 4px 0px #000;
+            animation: nameShake 0.5s infinite;
+        }
+
+        @keyframes nameShake {
+
+            0%,
+            100% {
+                transform: rotate(0deg);
+            }
+
+            25% {
+                transform: rotate(1deg);
+            }
+
+            75% {
+                transform: rotate(-1deg);
+            }
+        }
+
+        .achievement {
+            background: linear-gradient(45deg, #1a1a2e, #16213e);
+            border: 2px solid #ffff00;
+            border-radius: 15px;
+            padding: 15px;
+            margin: 15px 0;
+            text-align: center;
+            animation: achievementBounce 2s infinite;
+            box-shadow: 0 0 15px rgba(255, 255, 0, 0.5);
+        }
+
+        @keyframes achievementBounce {
+
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
+                transform: translateY(0);
+            }
+
+            40% {
+                transform: translateY(-10px);
+            }
+
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+
+        .score-display {
+            font-size: 24px;
+            color: #ffff00;
+            font-weight: 700;
+            text-shadow: 2px 2px 0px #ff0000;
+        }
+
+        .health-bar {
+            width: 100%;
+            height: 20px;
+            background: #660000;
+            border: 2px solid #ff0000;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 10px 0;
+            position: relative;
+        }
+
+        .health-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ff0000, #ff4400, #ff8800, #ffaa00);
+            animation: healthPulse 1.5s infinite;
+            width: 100%;
+        }
+
+        @keyframes healthPulse {
+
+            0%,
+            100% {
+                width: 100%;
+            }
+
+            50% {
+                width: 95%;
+            }
+        }
+
+        .ammo-counter {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid #00ff00;
+            padding: 10px;
+            border-radius: 5px;
+            color: #00ff00;
+            font-size: 16px;
+            font-weight: 700;
+            z-index: 100;
+        }
+
+        .crosshair {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 30px;
+            height: 30px;
+            pointer-events: none;
+            z-index: 1001;
+        }
+
+        .crosshair::before,
+        .crosshair::after {
+            content: '';
+            position: absolute;
+            background: #ff0000;
+            box-shadow: 0 0 5px #ff0000;
+        }
+
+        .crosshair::before {
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            transform: translateY(-50%);
+        }
+
+        .crosshair::after {
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            transform: translateX(-50%);
+        }
+
+        .gibs {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: #ff0000;
+            border-radius: 50%;
+            animation: gibsFly 2s linear forwards;
+        }
+
+        @keyframes gibsFly {
+            0% {
+                transform: scale(1) rotate(0deg);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(0) rotate(720deg) translate(200px, -200px);
+                opacity: 0;
+            }
+        }
+
+        .power-up {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: radial-gradient(circle, #ffff00, #ff8800);
+            border-radius: 50%;
+            animation: powerUpFloat 3s ease-in-out infinite;
+            box-shadow: 0 0 10px #ffff00;
+        }
+
+        @keyframes powerUpFloat {
+
+            0%,
+            100% {
+                transform: translateY(0) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-20px) rotate(180deg);
+            }
+        }
+
+        .frag-counter {
+            position: fixed;
+            top: 70px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid #ff0000;
+            padding: 10px;
+            border-radius: 5px;
+            color: #ff0000;
+            font-size: 18px;
+            font-weight: 700;
+            z-index: 100;
+        }
+
+        .console-text {
+            font-family: 'Courier New', monospace;
+            color: #ffffff;
+            background: rgba(0, 0, 0, 0.9);
+            padding: 10px;
+            margin: 10px 0;
+            border-left: 4px solid #00ff00;
+            font-size: 14px;
+        }
+
+        .typing-effect {
+            overflow: hidden;
+            border-right: 3px solid #00ff00;
+            white-space: nowrap;
+            animation: typing 3s steps(40, end), blink-caret 0.75s step-end infinite;
+            display: inline-block;
+        }
+
+        @keyframes typing {
+            from {
+                width: 0;
+            }
+
+            to {
+                width: 100%;
+            }
+        }
+
+        @keyframes blink-caret {
+
+            from,
+            to {
+                border-color: transparent;
+            }
+
+            50% {
+                border-color: #00ff00;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="scanlines"></div>
+    <div class="crosshair"></div>
+
+    <div class="ammo-counter">
+        AMMO: ∞<br>
+        ARMOR: 100%
+    </div>
+
+    <div class="frag-counter">
+        FRAGS: 1337<br>
+        KILLS: ∞
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <div class="game-title">RECOGNITION PROTOCOL</div>
+            <div class="subtitle">*** PLAYER ACHIEVEMENT UNLOCKED ***</div>
+        </div>
+
+        <div class="terminal-box">
+            <div class="console-text">
+                > SYSTEM INITIALIZING...<br>
+                > LOADING RECOGNITION.EXE<br>
+                > SCANNING FOR WORTHY PLAYERS...<br>
+                > <span class="typing-effect">PLAYER FOUND: FABIO GRIGOLO</span>
+            </div>
+        </div>
+
+        <div class="terminal-box">
+            <div class="recognition-text">
+                *** OFFICIAL PLAYER RECOGNITION ***<br><br>
+                PLAYER TAG: <span class="player-name">FABIO GRIGOLO</span><br><br>
+                CLASS: MALE GIGOLO<br>
+                GUILD: QBLOX CORPORATION<br><br>
+                RECOGNIZED BY: <span style="color: #00ffff; font-weight: 700;">ROBERT SOKOLEWICZ</span><br><br>
+                STATUS: LEGENDARY PLAYER<br>
+                SKILL LEVEL: GODLIKE
+            </div>
+        </div>
+
+        <div class="achievement">
+            <div class="score-display">🏆 ACHIEVEMENT UNLOCKED 🏆</div>
+            <div style="color: #ffff00; font-size: 20px; margin: 10px 0;">
+                "TURBO CLUSTER MASTER"
+            </div>
+            <div class="health-bar">
+                <div class="health-fill"></div>
+            </div>
+            <div style="color: #00ff00; font-size: 14px;">
+                REPUTATION: MAXIMUM LEVEL
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function createGibs() {
+            for (let i = 0; i < 8; i++) {
+                const gib = document.createElement('div');
+                gib.className = 'gibs';
+                gib.style.left = Math.random() * 100 + '%';
+                gib.style.top = Math.random() * 100 + '%';
+                gib.style.animationDelay = Math.random() * 2 + 's';
+                gib.style.background = Math.random() > 0.5 ? '#ff0000' : '#ff4400';
+                document.body.appendChild(gib);
+
+                setTimeout(() => {
+                    gib.remove();
+                }, 2000);
+            }
+        }
+
+        function createPowerUp() {
+            const powerUp = document.createElement('div');
+            powerUp.className = 'power-up';
+            powerUp.style.left = Math.random() * 90 + '%';
+            powerUp.style.top = Math.random() * 90 + '%';
+            powerUp.innerHTML = '⚡';
+            powerUp.style.fontSize = '16px';
+            powerUp.style.color = '#ffff00';
+            powerUp.style.textAlign = 'center';
+            powerUp.style.lineHeight = '20px';
+            document.body.appendChild(powerUp);
+
+            setTimeout(() => {
+                powerUp.remove();
+            }, 3000);
+        }
+
+        function createMuzzleFlash(x, y) {
+            const flash = document.createElement('div');
+            flash.style.position = 'absolute';
+            flash.style.left = x + 'px';
+            flash.style.top = y + 'px';
+            flash.style.width = '20px';
+            flash.style.height = '20px';
+            flash.style.background = 'radial-gradient(circle, #ffff00, #ff4400, transparent)';
+            flash.style.borderRadius = '50%';
+            flash.style.pointerEvents = 'none';
+            flash.style.animation = 'flash 0.1s ease-out';
+            document.body.appendChild(flash);
+
+            setTimeout(() => {
+                flash.remove();
+            }, 100);
+        }
+
+        function playSound() {
+            // Simulate retro game sound with visual feedback
+            document.body.style.filter = 'brightness(1.5)';
+            setTimeout(() => {
+                document.body.style.filter = 'brightness(1)';
+            }, 50);
+        }
+
+        // Random effects
+        setInterval(createGibs, 3000);
+        setInterval(createPowerUp, 4000);
+
+        // Click effects
+        document.addEventListener('click', function (e) {
+            createMuzzleFlash(e.pageX, e.pageY);
+            playSound();
+
+            // Screen shake effect
+            document.body.style.transform = 'translate(' + (Math.random() * 4 - 2) + 'px, ' + (Math.random() * 4 - 2) + 'px)';
+            setTimeout(() => {
+                document.body.style.transform = 'translate(0, 0)';
+            }, 100);
+        });
+
+        // Konami code easter egg
+        let konamiCode = [];
+        const konami = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65]; // ↑↑↓↓←→←→BA
+
+        document.addEventListener('keydown', function (e) {
+            konamiCode.push(e.keyCode);
+            if (konamiCode.length > 10) konamiCode.shift();
+
+            if (konamiCode.join(',') === konami.join(',')) {
+                document.body.style.animation = 'glitchEffect 0.1s infinite';
+                setTimeout(() => {
+                    document.body.style.animation = '';
+                    alert('CHEAT ACTIVATED: INFINITE RECOGNITION POWER!');
+                }, 2000);
+            }
+        });
+
+        // Add CSS for flash animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes flash {
+                0% { transform: scale(1); opacity: 1; }
+                100% { transform: scale(3); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+
+</html>

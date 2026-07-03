@@ -1,0 +1,643 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="460.8pt" height="345.6pt" viewBox="0 0 460.8 345.6" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2025-01-26T14:28:18.450220</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.0, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 345.6 
+L 460.8 345.6 
+L 460.8 0 
+L 0 0 
+z
+" style="fill: #222129"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 57.6 307.584 
+L 414.72 307.584 
+L 414.72 41.472 
+L 57.6 41.472 
+z
+" style="fill: #222129"/>
+   </g>
+   <g id="matplotlib.axis_1">
+    <g id="xtick_1">
+     <g id="line2d_1">
+      <defs>
+       <path id="m9dc94bfb1f" d="M 0 0 
+L 0 3.5 
+" style="stroke: #ffffff; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#m9dc94bfb1f" x="73.832727" y="307.584" style="fill: #ffffff; stroke: #ffffff; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_1">
+      <!-- 0 -->
+      <g style="fill: #ffffff" transform="translate(70.755384 322.159) scale(0.1 -0.1)">
+       <defs>
+        <path id="FiraCodeNF-Reg-30" d="M 1969 4592 
+Q 2698 4592 3073 3988 
+Q 3449 3384 3449 2261 
+Q 3449 1136 3073 530 
+Q 2698 -75 1969 -75 
+Q 1241 -75 865 530 
+Q 489 1136 489 2261 
+Q 489 3384 865 3988 
+Q 1241 4592 1969 4592 
+z
+M 1969 4149 
+Q 1552 4149 1312 3707 
+Q 1073 3266 1073 2261 
+Q 1073 1510 1188 1080 
+L 2570 3856 
+Q 2363 4149 1969 4149 
+z
+M 2869 2261 
+Q 2869 3019 2750 3446 
+L 1375 660 
+Q 1582 371 1969 371 
+Q 2389 371 2629 814 
+Q 2869 1257 2869 2261 
+z
+" transform="scale(0.015625)"/>
+       </defs>
+       <use xlink:href="#FiraCodeNF-Reg-30"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_2">
+     <g id="line2d_2">
+      <g>
+       <use xlink:href="#m9dc94bfb1f" x="138.763636" y="307.584" style="fill: #ffffff; stroke: #ffffff; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_2">
+      <!-- 2 -->
+      <g style="fill: #ffffff" transform="translate(135.686293 322.159) scale(0.1 -0.1)">
+       <defs>
+        <path id="FiraCodeNF-Reg-32" d="M 1769 4592 
+Q 2196 4592 2501 4426 
+Q 2806 4260 2968 3974 
+Q 3131 3689 3131 3331 
+Q 3131 3019 3023 2722 
+Q 2915 2425 2677 2098 
+Q 2439 1772 2051 1375 
+Q 1664 978 1106 469 
+L 3236 469 
+L 3167 0 
+L 479 0 
+L 479 450 
+Q 1119 1063 1524 1486 
+Q 1930 1910 2153 2217 
+Q 2376 2524 2463 2780 
+Q 2550 3036 2550 3312 
+Q 2550 3692 2337 3912 
+Q 2124 4132 1743 4132 
+Q 1408 4132 1194 4017 
+Q 981 3902 768 3650 
+L 387 3945 
+Q 656 4273 983 4432 
+Q 1310 4592 1769 4592 
+z
+" transform="scale(0.015625)"/>
+       </defs>
+       <use xlink:href="#FiraCodeNF-Reg-32"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_3">
+     <g id="line2d_3">
+      <g>
+       <use xlink:href="#m9dc94bfb1f" x="203.694545" y="307.584" style="fill: #ffffff; stroke: #ffffff; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_3">
+      <!-- 4 -->
+      <g style="fill: #ffffff" transform="translate(200.617202 322.159) scale(0.1 -0.1)">
+       <defs>
+        <path id="FiraCodeNF-Reg-34" d="M 2885 2823 
+L 2885 1539 
+L 3469 1539 
+L 3469 1099 
+L 2885 1099 
+L 2885 0 
+L 2353 0 
+L 2350 1099 
+L 473 1099 
+L 473 1500 
+L 1799 4592 
+L 2258 4398 
+L 1057 1539 
+L 2353 1539 
+L 2425 2823 
+L 2885 2823 
+z
+" transform="scale(0.015625)"/>
+       </defs>
+       <use xlink:href="#FiraCodeNF-Reg-34"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_4">
+     <g id="line2d_4">
+      <g>
+       <use xlink:href="#m9dc94bfb1f" x="268.625455" y="307.584" style="fill: #ffffff; stroke: #ffffff; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_4">
+      <!-- 6 -->
+      <g style="fill: #ffffff" transform="translate(265.548111 322.159) scale(0.1 -0.1)">
+       <defs>
+        <path id="FiraCodeNF-Reg-36" d="M 2202 4592 
+Q 2462 4592 2683 4524 
+Q 2905 4457 3095 4329 
+L 2878 3955 
+Q 2563 4145 2192 4145 
+Q 1671 4145 1382 3653 
+Q 1093 3161 1073 2334 
+Q 1290 2655 1560 2799 
+Q 1831 2944 2163 2944 
+Q 2511 2944 2803 2788 
+Q 3095 2632 3269 2317 
+Q 3443 2002 3443 1520 
+Q 3443 1021 3251 663 
+Q 3059 305 2735 115 
+Q 2412 -75 2022 -75 
+Q 1474 -75 1144 197 
+Q 814 469 668 966 
+Q 522 1464 522 2137 
+Q 522 2885 720 3436 
+Q 919 3988 1296 4290 
+Q 1674 4592 2202 4592 
+z
+M 2078 2491 
+Q 1753 2491 1500 2314 
+Q 1247 2137 1080 1851 
+Q 1096 1086 1317 728 
+Q 1539 371 2019 371 
+Q 2448 371 2663 674 
+Q 2878 978 2878 1506 
+Q 2878 2061 2658 2276 
+Q 2439 2491 2078 2491 
+z
+" transform="scale(0.015625)"/>
+       </defs>
+       <use xlink:href="#FiraCodeNF-Reg-36"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_5">
+     <g id="line2d_5">
+      <g>
+       <use xlink:href="#m9dc94bfb1f" x="333.556364" y="307.584" style="fill: #ffffff; stroke: #ffffff; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_5">
+      <!-- 8 -->
+      <g style="fill: #ffffff" transform="translate(330.47902 322.159) scale(0.1 -0.1)">
+       <defs>
+        <path id="FiraCodeNF-Reg-38" d="M 3325 3443 
+Q 3325 3111 3121 2871 
+Q 2918 2632 2540 2425 
+Q 2983 2242 3246 1935 
+Q 3509 1628 3509 1211 
+Q 3509 843 3318 551 
+Q 3128 259 2780 92 
+Q 2432 -75 1956 -75 
+Q 1474 -75 1132 94 
+Q 791 263 610 551 
+Q 430 840 430 1201 
+Q 430 1618 678 1903 
+Q 926 2189 1336 2379 
+Q 978 2550 796 2793 
+Q 614 3036 614 3413 
+Q 614 3725 740 3948 
+Q 867 4171 1068 4314 
+Q 1270 4457 1508 4524 
+Q 1746 4592 1969 4592 
+Q 2297 4592 2609 4472 
+Q 2921 4352 3123 4097 
+Q 3325 3843 3325 3443 
+z
+M 1159 3407 
+Q 1159 3147 1278 2998 
+Q 1398 2849 1621 2755 
+Q 1845 2662 2150 2563 
+Q 2465 2741 2622 2928 
+Q 2780 3115 2780 3423 
+Q 2780 3765 2568 3965 
+Q 2357 4165 1969 4165 
+Q 1585 4165 1372 3965 
+Q 1159 3765 1159 3407 
+z
+M 2928 1205 
+Q 2928 1510 2773 1687 
+Q 2619 1864 2346 1982 
+Q 2074 2101 1717 2222 
+Q 1438 2094 1224 1859 
+Q 1011 1625 1011 1198 
+Q 1011 814 1247 592 
+Q 1484 371 1953 371 
+Q 2425 371 2676 609 
+Q 2928 847 2928 1205 
+z
+" transform="scale(0.015625)"/>
+       </defs>
+       <use xlink:href="#FiraCodeNF-Reg-38"/>
+      </g>
+     </g>
+    </g>
+    <g id="xtick_6">
+     <g id="line2d_6">
+      <g>
+       <use xlink:href="#m9dc94bfb1f" x="398.487273" y="307.584" style="fill: #ffffff; stroke: #ffffff; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_6">
+      <!-- 10 -->
+      <g style="fill: #ffffff" transform="translate(392.332585 322.159) scale(0.1 -0.1)">
+       <defs>
+        <path id="FiraCodeNF-Reg-31" d="M 3397 450 
+L 3397 0 
+L 788 0 
+L 788 450 
+L 1900 450 
+L 1900 3922 
+L 863 3292 
+L 624 3686 
+L 1969 4519 
+L 2452 4519 
+L 2452 450 
+L 3397 450 
+z
+" transform="scale(0.015625)"/>
+       </defs>
+       <use xlink:href="#FiraCodeNF-Reg-31"/>
+       <use xlink:href="#FiraCodeNF-Reg-30" transform="translate(61.538452 0)"/>
+      </g>
+     </g>
+    </g>
+   </g>
+   <g id="matplotlib.axis_2">
+    <g id="ytick_1">
+     <g id="line2d_7">
+      <defs>
+       <path id="md65f38a649" d="M 0 0 
+L -3.5 0 
+" style="stroke: #ffffff; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#md65f38a649" x="57.6" y="295.562478" style="fill: #ffffff; stroke: #ffffff; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_7">
+      <!-- −1.00 -->
+      <g style="fill: #ffffff" transform="translate(19.826563 299.349978) scale(0.1 -0.1)">
+       <defs>
+        <path id="FiraCodeNF-Reg-2212" d="M 3180 2301 
+L 3180 1802 
+L 758 1802 
+L 758 2301 
+L 3180 2301 
+z
+" transform="scale(0.015625)"/>
+        <path id="FiraCodeNF-Reg-2e" d="M 1388 505 
+Q 1388 745 1552 912 
+Q 1717 1080 1963 1080 
+Q 2212 1080 2378 912 
+Q 2544 745 2544 505 
+Q 2544 263 2378 94 
+Q 2212 -75 1963 -75 
+Q 1717 -75 1552 94 
+Q 1388 263 1388 505 
+z
+" transform="scale(0.015625)"/>
+       </defs>
+       <use xlink:href="#FiraCodeNF-Reg-2212"/>
+       <use xlink:href="#FiraCodeNF-Reg-31" transform="translate(61.538452 0)"/>
+       <use xlink:href="#FiraCodeNF-Reg-2e" transform="translate(123.076904 0)"/>
+       <use xlink:href="#FiraCodeNF-Reg-30" transform="translate(184.615356 0)"/>
+       <use xlink:href="#FiraCodeNF-Reg-30" transform="translate(246.153809 0)"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_2">
+     <g id="line2d_8">
+      <g>
+       <use xlink:href="#md65f38a649" x="57.6" y="265.308515" style="fill: #ffffff; stroke: #ffffff; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_8">
+      <!-- −0.75 -->
+      <g style="fill: #ffffff" transform="translate(19.826563 269.096015) scale(0.1 -0.1)">
+       <defs>
+        <path id="FiraCodeNF-Reg-37" d="M 1513 -62 
+L 998 95 
+L 2760 4060 
+L 640 4060 
+L 640 4519 
+L 3315 4519 
+L 3315 4096 
+L 1513 -62 
+z
+" transform="scale(0.015625)"/>
+        <path id="FiraCodeNF-Reg-35" d="M 3197 4519 
+L 3115 4080 
+L 1329 4080 
+L 1329 2655 
+Q 1536 2763 1721 2806 
+Q 1907 2849 2110 2849 
+Q 2662 2849 3003 2478 
+Q 3344 2107 3344 1431 
+Q 3344 978 3155 640 
+Q 2967 302 2624 113 
+Q 2281 -75 1815 -75 
+Q 1408 -75 1088 69 
+Q 768 213 505 469 
+L 847 798 
+Q 1251 381 1822 381 
+Q 2268 381 2517 651 
+Q 2767 922 2767 1447 
+Q 2767 1812 2658 2022 
+Q 2550 2232 2364 2322 
+Q 2179 2412 1953 2412 
+Q 1753 2412 1598 2373 
+Q 1444 2334 1247 2261 
+L 804 2261 
+L 804 4519 
+L 3197 4519 
+z
+" transform="scale(0.015625)"/>
+       </defs>
+       <use xlink:href="#FiraCodeNF-Reg-2212"/>
+       <use xlink:href="#FiraCodeNF-Reg-30" transform="translate(61.538452 0)"/>
+       <use xlink:href="#FiraCodeNF-Reg-2e" transform="translate(123.076904 0)"/>
+       <use xlink:href="#FiraCodeNF-Reg-37" transform="translate(184.615356 0)"/>
+       <use xlink:href="#FiraCodeNF-Reg-35" transform="translate(246.153809 0)"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_3">
+     <g id="line2d_9">
+      <g>
+       <use xlink:href="#md65f38a649" x="57.6" y="235.054551" style="fill: #ffffff; stroke: #ffffff; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_9">
+      <!-- −0.50 -->
+      <g style="fill: #ffffff" transform="translate(19.826563 238.842051) scale(0.1 -0.1)">
+       <use xlink:href="#FiraCodeNF-Reg-2212"/>
+       <use xlink:href="#FiraCodeNF-Reg-30" transform="translate(61.538452 0)"/>
+       <use xlink:href="#FiraCodeNF-Reg-2e" transform="translate(123.076904 0)"/>
+       <use xlink:href="#FiraCodeNF-Reg-35" transform="translate(184.615356 0)"/>
+       <use xlink:href="#FiraCodeNF-Reg-30" transform="translate(246.153809 0)"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_4">
+     <g id="line2d_10">
+      <g>
+       <use xlink:href="#md65f38a649" x="57.6" y="204.800587" style="fill: #ffffff; stroke: #ffffff; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_10">
+      <!-- −0.25 -->
+      <g style="fill: #ffffff" transform="translate(19.826563 208.588087) scale(0.1 -0.1)">
+       <use xlink:href="#FiraCodeNF-Reg-2212"/>
+       <use xlink:href="#FiraCodeNF-Reg-30" transform="translate(61.538452 0)"/>
+       <use xlink:href="#FiraCodeNF-Reg-2e" transform="translate(123.076904 0)"/>
+       <use xlink:href="#FiraCodeNF-Reg-32" transform="translate(184.615356 0)"/>
+       <use xlink:href="#FiraCodeNF-Reg-35" transform="translate(246.153809 0)"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_5">
+     <g id="line2d_11">
+      <g>
+       <use xlink:href="#md65f38a649" x="57.6" y="174.546623" style="fill: #ffffff; stroke: #ffffff; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_11">
+      <!-- 0.00 -->
+      <g style="fill: #ffffff" transform="translate(25.98125 178.334123) scale(0.1 -0.1)">
+       <use xlink:href="#FiraCodeNF-Reg-30"/>
+       <use xlink:href="#FiraCodeNF-Reg-2e" transform="translate(61.538452 0)"/>
+       <use xlink:href="#FiraCodeNF-Reg-30" transform="translate(123.076904 0)"/>
+       <use xlink:href="#FiraCodeNF-Reg-30" transform="translate(184.615356 0)"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_6">
+     <g id="line2d_12">
+      <g>
+       <use xlink:href="#md65f38a649" x="57.6" y="144.29266" style="fill: #ffffff; stroke: #ffffff; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_12">
+      <!-- 0.25 -->
+      <g style="fill: #ffffff" transform="translate(25.98125 148.08016) scale(0.1 -0.1)">
+       <use xlink:href="#FiraCodeNF-Reg-30"/>
+       <use xlink:href="#FiraCodeNF-Reg-2e" transform="translate(61.538452 0)"/>
+       <use xlink:href="#FiraCodeNF-Reg-32" transform="translate(123.076904 0)"/>
+       <use xlink:href="#FiraCodeNF-Reg-35" transform="translate(184.615356 0)"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_7">
+     <g id="line2d_13">
+      <g>
+       <use xlink:href="#md65f38a649" x="57.6" y="114.038696" style="fill: #ffffff; stroke: #ffffff; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_13">
+      <!-- 0.50 -->
+      <g style="fill: #ffffff" transform="translate(25.98125 117.826196) scale(0.1 -0.1)">
+       <use xlink:href="#FiraCodeNF-Reg-30"/>
+       <use xlink:href="#FiraCodeNF-Reg-2e" transform="translate(61.538452 0)"/>
+       <use xlink:href="#FiraCodeNF-Reg-35" transform="translate(123.076904 0)"/>
+       <use xlink:href="#FiraCodeNF-Reg-30" transform="translate(184.615356 0)"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_8">
+     <g id="line2d_14">
+      <g>
+       <use xlink:href="#md65f38a649" x="57.6" y="83.784732" style="fill: #ffffff; stroke: #ffffff; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_14">
+      <!-- 0.75 -->
+      <g style="fill: #ffffff" transform="translate(25.98125 87.572232) scale(0.1 -0.1)">
+       <use xlink:href="#FiraCodeNF-Reg-30"/>
+       <use xlink:href="#FiraCodeNF-Reg-2e" transform="translate(61.538452 0)"/>
+       <use xlink:href="#FiraCodeNF-Reg-37" transform="translate(123.076904 0)"/>
+       <use xlink:href="#FiraCodeNF-Reg-35" transform="translate(184.615356 0)"/>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_9">
+     <g id="line2d_15">
+      <g>
+       <use xlink:href="#md65f38a649" x="57.6" y="53.530768" style="fill: #ffffff; stroke: #ffffff; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_15">
+      <!-- 1.00 -->
+      <g style="fill: #ffffff" transform="translate(25.98125 57.318268) scale(0.1 -0.1)">
+       <use xlink:href="#FiraCodeNF-Reg-31"/>
+       <use xlink:href="#FiraCodeNF-Reg-2e" transform="translate(61.538452 0)"/>
+       <use xlink:href="#FiraCodeNF-Reg-30" transform="translate(123.076904 0)"/>
+       <use xlink:href="#FiraCodeNF-Reg-30" transform="translate(184.615356 0)"/>
+      </g>
+     </g>
+    </g>
+   </g>
+   <g id="line2d_16">
+    <path d="M 73.832727 174.546623 
+L 77.112066 162.343576 
+L 80.391405 150.26493 
+L 83.670744 138.433822 
+L 86.950083 126.97086 
+L 90.229421 115.992903 
+L 93.50876 105.611865 
+L 96.788099 95.933573 
+L 100.067438 87.056691 
+L 103.346777 79.071714 
+L 106.626116 72.060043 
+L 109.905455 66.093158 
+L 113.184793 61.231888 
+L 116.464132 57.525789 
+L 119.743471 55.012645 
+L 123.02281 53.718073 
+L 126.302149 53.655273 
+L 129.581488 54.824883 
+L 132.860826 57.214981 
+L 136.140165 60.801201 
+L 139.419504 65.546984 
+L 142.698843 71.403949 
+L 145.978182 78.312388 
+L 149.257521 86.201875 
+L 152.53686 94.991981 
+L 155.816198 104.593096 
+L 159.095537 114.907343 
+L 162.374876 125.829574 
+L 165.654215 137.248446 
+L 168.933554 149.047548 
+L 172.212893 161.106598 
+L 175.492231 173.30266 
+L 178.77157 185.511404 
+L 182.050909 197.608368 
+L 185.330248 209.470233 
+L 188.609587 220.976074 
+L 191.888926 232.008595 
+L 195.168264 242.455328 
+L 198.447603 252.209775 
+L 201.726942 261.172495 
+L 205.006281 269.252119 
+L 208.28562 276.36628 
+L 211.564959 282.442454 
+L 214.844298 287.418699 
+L 218.123636 291.244284 
+L 221.402975 293.88021 
+L 224.682314 295.299605 
+L 227.961653 295.488 
+L 231.240992 294.443474 
+L 234.520331 292.176676 
+L 237.799669 288.710713 
+L 241.079008 284.080919 
+L 244.358347 278.334493 
+L 247.637686 271.530015 
+L 250.917025 263.736852 
+L 254.196364 255.034452 
+L 257.475702 245.511529 
+L 260.755041 235.265163 
+L 264.03438 224.39981 
+L 267.313719 213.026236 
+L 270.593058 201.260386 
+L 273.872397 189.222206 
+L 277.151736 177.034418 
+L 280.431074 164.821269 
+L 283.710413 152.707263 
+L 286.989752 140.815896 
+L 290.269091 129.268392 
+L 293.54843 118.182471 
+L 296.827769 107.671148 
+L 300.107107 97.841577 
+L 303.386446 88.793966 
+L 306.665785 80.620549 
+L 309.945124 73.404649 
+L 313.224463 67.219828 
+L 316.503802 62.129135 
+L 319.78314 58.184468 
+L 323.062479 55.426039 
+L 326.341818 53.88197 
+L 329.621157 53.568 
+L 332.900496 54.487331 
+L 336.179835 56.630591 
+L 339.459174 59.97593 
+L 342.738512 64.489245 
+L 346.017851 70.124525 
+L 349.29719 76.824323 
+L 352.576529 84.520338 
+L 355.855868 93.134114 
+L 359.135207 102.577839 
+L 362.414545 112.755241 
+L 365.693884 123.562566 
+L 368.973223 134.889642 
+L 372.252562 146.620996 
+L 375.531901 158.637033 
+L 378.81124 170.815259 
+L 382.090579 183.031524 
+L 385.369917 195.161291 
+L 388.649256 207.080904 
+L 391.928595 218.668851 
+L 395.207934 229.806999 
+L 398.487273 240.381803 
+" clip-path="url(#pd2e1f45140)" style="fill: none; stroke: #ffa86a; stroke-width: 1.5; stroke-linecap: square"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 57.6 307.584 
+L 57.6 41.472 
+" style="fill: none; stroke: #ffffff; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 414.72 307.584 
+L 414.72 41.472 
+" style="fill: none; stroke: #ffffff; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 57.6 307.584 
+L 414.72 307.584 
+" style="fill: none; stroke: #ffffff; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 57.6 41.472 
+L 414.72 41.472 
+" style="fill: none; stroke: #ffffff; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="pd2e1f45140">
+   <rect x="57.6" y="41.472" width="357.12" height="266.112"/>
+  </clipPath>
+ </defs>
+</svg>

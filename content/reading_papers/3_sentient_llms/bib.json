@@ -1,0 +1,113 @@
+[
+  {
+    "URL": "https://arxiv.org/abs/2411.02432",
+    "author": [
+      {
+        "family": "Keeling",
+        "given": "Geoff"
+      },
+      {
+        "family": "Street",
+        "given": "Winnie"
+      },
+      {
+        "family": "Stachaczyk",
+        "given": "Martyna"
+      },
+      {
+        "family": "Zakharova",
+        "given": "Daria"
+      },
+      {
+        "family": "Comsa",
+        "given": "Iulia M."
+      },
+      {
+        "family": "Sakovych",
+        "given": "Anastasiya"
+      },
+      {
+        "family": "Logothetis",
+        "given": "Isabella"
+      },
+      {
+        "family": "Zhang",
+        "given": "Zejia"
+      },
+      {
+        "dropping-particle": "y",
+        "family": "Arcas",
+        "given": "Blaise Agüera"
+      },
+      {
+        "family": "Birch",
+        "given": "Jonathan"
+      }
+    ],
+    "id": "keeling2024llmsmaketradeoffsinvolving",
+    "issued": {
+      "date-parts": [
+        [
+          2024
+        ]
+      ]
+    },
+    "title": "Can LLMs make trade-offs involving stipulated pain and pleasure states?",
+    "type": ""
+  },
+  {
+    "URL": "https://www.sciencedirect.com/science/article/pii/S0003347209004138",
+    "author": [
+      {
+        "family": "Appel",
+        "given": "Mirjam"
+      },
+      {
+        "family": "Elwood",
+        "given": "Robert W"
+      }
+    ],
+    "container-title": "Animal Behaviour",
+    "id": "appel2009gender",
+    "issue": "6",
+    "issued": {
+      "date-parts": [
+        [
+          2009
+        ]
+      ]
+    },
+    "page": "1373-1379",
+    "publisher": "Elsevier",
+    "title": "Gender differences, responsiveness and memory of a potentially painful event in hermit crabs",
+    "type": "article-journal",
+    "volume": "78"
+  },
+  {
+    "URL": "https://www.sciencedirect.com/science/article/pii/S037663571630153X",
+    "author": [
+      {
+        "family": "Magee",
+        "given": "Barry"
+      },
+      {
+        "family": "Elwood",
+        "given": "Robert W"
+      }
+    ],
+    "container-title": "Behavioural processes",
+    "id": "magee2016trade",
+    "issued": {
+      "date-parts": [
+        [
+          2016
+        ]
+      ]
+    },
+    "page": "31-35",
+    "publisher": "Elsevier",
+    "title": "Trade-offs between predator avoidance and electric shock avoidance in hermit crabs demonstrate a non-reflexive response to noxious stimuli consistent with prediction of pain",
+    "type": "article-journal",
+    "volume": "130"
+  }
+]

@@ -1,0 +1,113 @@
+{
+    "machine_info": {
+        "node": "Roberts-MacBook-Air.local",
+        "processor": "arm",
+        "machine": "arm64",
+        "python_compiler": "Clang 18.1.8 ",
+        "python_implementation": "CPython",
+        "python_implementation_version": "3.11.11",
+        "python_version": "3.11.11",
+        "python_build": [
+            "main",
+            "Dec  5 2024 14:21:42"
+        ],
+        "release": "24.2.0",
+        "system": "Darwin",
+        "cpu": {
+            "python_version": "3.11.11.final.0 (64 bit)",
+            "cpuinfo_version": [
+                9,
+                0,
+                0
+            ],
+            "cpuinfo_version_string": "9.0.0",
+            "arch": "ARM_8",
+            "bits": 64,
+            "count": 8,
+            "arch_string_raw": "arm64",
+            "brand_raw": "Apple M3"
+        }
+    },
+    "commit_info": {
+        "id": "a90e3ec4b0c7b21be40b17e2b95d3865aa9f67fb",
+        "time": "2025-01-20T00:50:57+01:00",
+        "author_time": "2025-01-20T00:50:57+01:00",
+        "dirty": false,
+        "project": "hub.io",
+        "branch": "main"
+    },
+    "benchmarks": [
+        {
+            "group": null,
+            "name": "test_fibonacci_recursive",
+            "fullname": "rsokolewicz.github.io/content/posts/24_pytest_benchmark/benchpress.py::test_fibonacci_recursive",
+            "params": null,
+            "param": null,
+            "extra_info": {},
+            "options": {
+                "disable_gc": false,
+                "timer": "perf_counter",
+                "min_rounds": 5,
+                "max_time": 1.0,
+                "min_time": 5e-06,
+                "warmup": false
+            },
+            "stats": {
+                "min": 0.0640973339905031,
+                "max": 0.0670596249983646,
+                "mean": 0.0659730261140794,
+                "stddev": 0.0008911721201048921,
+                "rounds": 16,
+                "median": 0.06621362501755357,
+                "iqr": 0.0011217079882044345,
+                "q1": 0.06550427098409273,
+                "q3": 0.06662597897229716,
+                "iqr_outliers": 0,
+                "stddev_outliers": 5,
+                "outliers": "5;0",
+                "ld15iqr": 0.0640973339905031,
+                "hd15iqr": 0.0670596249983646,
+                "ops": 15.15771003547446,
+                "total": 1.0555684178252704,
+                "iterations": 1
+            }
+        },
+        {
+            "group": null,
+            "name": "test_fibonacci_iterative",
+            "fullname": "rsokolewicz.github.io/content/posts/24_pytest_benchmark/benchpress.py::test_fibonacci_iterative",
+            "params": null,
+            "param": null,
+            "extra_info": {},
+            "options": {
+                "disable_gc": false,
+                "timer": "perf_counter",
+                "min_rounds": 5,
+                "max_time": 1.0,
+                "min_time": 5e-06,
+                "warmup": false
+            },
+            "stats": {
+                "min": 3.9232933583358925e-07,
+                "max": 4.267329738164942e-06,
+                "mean": 4.409133059351078e-07,
+                "stddev": 2.919655943784678e-08,
+                "rounds": 198373,
+                "median": 4.410006416340669e-07,
+                "iqr": 6.999471224844456e-09,
+                "q1": 4.3749848070243996e-07,
+                "q3": 4.444979519272844e-07,
+                "iqr_outliers": 24191,
+                "stddev_outliers": 9524,
+                "outliers": "9524;24191",
+                "ld15iqr": 4.270793093989293e-07,
+                "hd15iqr": 4.583319726710518e-07,
+                "ops": 2268019.5551800244,
+                "total": 0.08746529523827413,
+                "iterations": 12
+            }
+        }
+    ],
+    "datetime": "2025-01-24T17:40:48.560729+00:00",
+    "version": "5.1.0"
+}

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Plotly Chart</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+
+<div id="myDiv"><!-- Plotly chart will be drawn inside this DIV --></div>
+
+<script type="text/javascript" src="plotly_figure.js"></script>
+<script type="text/javascript">
+    console.log(mainjson)
+    // Assuming the JSON is saved in a variable named `data`
+    Plotly.newPlot('myDiv', mainjson.data);
+</script>
+
+</body>
+</html>

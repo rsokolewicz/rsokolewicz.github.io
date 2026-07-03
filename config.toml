@@ -1,8 +1,8 @@
-baseURL = "https://rsokolewicz.github.io"
+baseURL = "https://www.robert-sokolewicz.nl"
 
 languageCode = "en-us"
 theme = "hugo-theme-terminal"
-paginate = 5
+paginate = 50
 
 [params]
   # dir name of your blog content (default is `content/posts`)
@@ -10,7 +10,7 @@ paginate = 5
   # ["orange", "blue", "red", "green", "pink"]
   themeColor = "orange"
   # if you set this to 0, only submenu trigger will be visible
-  showMenuItems = 4
+  showMenuItems = 5
   # set theme to full screen width
   fullWidthTheme = false
   # center theme with default width
@@ -49,6 +49,10 @@ paginate = 5
         identifier = "Books"
         name = "Book Reviews"
         url = "/books"
+      [[languages.en.menu.main]]
+        identifier = "reading papers"
+        name = "Reading Papers"
+        url = "/reading_papers"
 
 [markup]
   [markup.goldmark]

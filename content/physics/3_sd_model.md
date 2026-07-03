@@ -112,10 +112,10 @@ Distinguishing between field-like and damping-like torques helps us understand m
 In an antiferromagnet we are more interested in the dynamics of the staggered magnetization `$\bb{n}$`. A phenomenological equation such as Eq.(\ref{eq:sd:ferro}) can quickly contain ten terms for a antiferromagnet and the dynamics therefore is far more complicated. However, few points can still be made. As can be seen in Eq.(\ref{eq:sd:neel}), in the absence of conducting electrons and external field, a finite magnetization `$\bb{m}$` is enough to induce a precession of `$\bb{n}$`, typically already in the THz regime (as opposed to the much slower GHz dynamics found in ferromagnets), as the dynamics is driven by the exchange interaction `$J_\text{ex}$`. In order to produce a switching of the Néel vector direction one can use both a field-like torque produced by a staggered spin-polarization and an anti-damping torque produced by a staggered spin-polarization {{< cite "fjaerbu_electrically_2017;cheng_terahertz_2016;khymyn_antiferromagnetic_2017" >}}.
 
 ### {#fig1}
-{{< figure src="../images/llg.svg" position="center" caption="Figure 1. Precession of magnetization due to field-like torques (a) and relaxation due to damping-like torques (b).">}}
+{{< figure src="/images/llg.svg" position="center" caption="Figure 1. Precession of magnetization due to field-like torques (a) and relaxation due to damping-like torques (b).">}}
 
 ### {#fig2}
-{{< figure src="../images/switch_ferro (2).svg" position="center" caption="Figure 2. Switching behavior for a Rashba ferromagnet, subject to alternating current pulses. Gray areas correspond to a constant current flowing in the direction of `$\pm\hat{x}$`, where the sign alternates between each successive box. In the white area the current is switched off. The graph corresponds to numerically solving Eq.(\ref{eq:sd:ferro}) with values `$c_1=0.2$`, `$j=|\bb{j}|=1$` and `$\alpha=0.1$`. In the top panel we choose a value of `$c_2=0.25$` corresponding to a current overcoming the Gilbert damping making switching possible. In the bottom panel we choose a value of `$c_2=0.05$` which corresponds to the opposite case: an insufficiently strong current and therefore no switching. A magneto-crystalline anisotropy term `$-K \bb{n}\times\bb{n_y}$` with `$K=1$` was included in Eq.(\ref{eq:sd:ferro}).">}}
+{{< figure src="/images/switch_ferro (2).svg" caption="Figure 2. Switching behavior for a Rashba ferromagnet, subject to alternating current pulses. Gray areas correspond to a constant current flowing in the direction of `$\pm\hat{x}$`, where the sign alternates between each successive box. In the white area the current is switched off. The graph corresponds to numerically solving Eq.(\ref{eq:sd:ferro}) with values `$c_1=0.2$`, `$j=|\bb{j}|=1$` and `$\alpha=0.1$`. In the top panel we choose a value of `$c_2=0.25$` corresponding to a current overcoming the Gilbert damping making switching possible. In the bottom panel we choose a value of `$c_2=0.05$` which corresponds to the opposite case: an insufficiently strong current and therefore no switching. A magneto-crystalline anisotropy term `$-K \bb{n}\times\bb{n_y}$` with `$K=1$` was included in Eq.(\ref{eq:sd:ferro}).">}}
 <!-- \begin{figure}
     \centering
     \includegraphics[width=0.95\textwidth]{gfx/switch_ferro}
@@ -283,7 +283,7 @@ where `$\hat{s}^{(i)}$` is given by:
 \end{align}$$</div>
 
 ### {#fig3}
-{{< figure src="../images/bubble1.svg" position="center" caption="Figure 3. Diagrammatic illustration. a) Disorder-averaged polarization bubble. b) Ladder-approximation." >}}
+{{< figure src="/images/bubble1.svg" position="center" caption="Figure 3. Diagrammatic illustration. a) Disorder-averaged polarization bubble. b) Ladder-approximation." >}}
 <!-- \begin{figure}
     \centering
     \includegraphics{gfx/bubble1.pdf}

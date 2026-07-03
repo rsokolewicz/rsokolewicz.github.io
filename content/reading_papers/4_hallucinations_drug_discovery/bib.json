@@ -1,0 +1,58 @@
+[
+  {
+    "URL": "https://arxiv.org/abs/2501.13824",
+    "author": [
+      {
+        "family": "Yuan",
+        "given": "Shuzhou"
+      },
+      {
+        "family": "Färber",
+        "given": "Michael"
+      }
+    ],
+    "id": "yuan2025hallucinationsimprovelargelanguage",
+    "issued": {
+      "date-parts": [
+        [
+          2025
+        ]
+      ]
+    },
+    "title": "Hallucinations can improve large language models in drug discovery",
+    "type": ""
+  },
+  {
+    "DOI": " 10.57967/hf/3240 ",
+    "URL": " https://huggingface.co/vectara/hallucination_evaluation_model ",
+    "author": [
+      {
+        "family": "Bao",
+        "given": "Forrest"
+      },
+      {
+        "family": "Li",
+        "given": "Miaoran"
+      },
+      {
+        "family": "Luo",
+        "given": "Rogger"
+      },
+      {
+        "family": "Mendelevitch",
+        "given": "Ofer"
+      }
+    ],
+    "id": "hhem-2.1-open",
+    "issued": {
+      "date-parts": [
+        [
+          2024
+        ]
+      ]
+    },
+    "publisher": "Hugging Face",
+    "title": "HHEM-2.1-Open",
+    "type": ""
+  }
+]

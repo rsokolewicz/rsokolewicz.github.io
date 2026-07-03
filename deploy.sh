@@ -7,30 +7,18 @@ fi
 git pull
 git add .
 git reset -- public/*
-git commit -m "$msg"
-git push origin main
+git submodule update --remote --merge themes/hugo-theme-terminal/
 
-printf "\033[0;32mDeploying updates to GitHub...\033[0m\n"
-
-# Build the project.
-hugo -t hugo-theme-terminal # if using a theme, replace with `hugo -t <YOURTHEME>`
-
-# Go To Public folder
-cd public
-
-git pull
-
-# Add changes to git.
-git add .
-
-# Commit changes.
-msg="rebuilding site $(date)"
-if [ -n "$*" ]; then
-	msg="$*"
+# Check if there are changes in the submodule
+cd themes/hugo-theme-terminal/
+if [ -n "$(git status --porcelain)" ]; then
+    git add .
+    git commit -m "Update submodule: $msg"
+    git push
 fi
-git commit -m "$msg"
+cd ../..
 
-# Push source and build repos.
+git add themes/hugo-theme-terminal/
+git commit -m "$msg" --allow-empty
+
 git push origin main
-
-cd ..
