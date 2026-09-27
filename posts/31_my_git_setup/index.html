@@ -1,0 +1,69 @@
+<!doctype html><html lang=en><head><title>My git setup: fish abbreviations, delta and mergiraf :: Roberts blog</title><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="A quick guide of everything I've added to git: fish abbreviations via fisher and plugin-git, a few custom ones, delta as a pager, mergiraf as a merge driver, and the handful of config defaults."><meta name=keywords content><meta name=robots content="noodp"><link rel=canonical href=https://www.robert-sokolewicz.nl/posts/31_my_git_setup/><link rel=stylesheet href=https://www.robert-sokolewicz.nl/assets/style.css><link rel=stylesheet href=https://www.robert-sokolewicz.nl/assets/css/hugo-cite.css><link rel=apple-touch-icon href=https://www.robert-sokolewicz.nl/img/favicon/apple-touch.png><link rel="shortcut icon" href=https://www.robert-sokolewicz.nl/img/favicon/orange.png><meta name=twitter:card content="summary"><meta property="og:locale" content="en"><meta property="og:type" content="article"><meta property="og:title" content="My git setup: fish abbreviations, delta and mergiraf"><meta property="og:description" content="A quick guide of everything I've added to git: fish abbreviations via fisher and plugin-git, a few custom ones, delta as a pager, mergiraf as a merge driver, and the handful of config defaults."><meta property="og:url" content="https://www.robert-sokolewicz.nl/posts/31_my_git_setup/"><meta property="og:site_name" content="Roberts blog"><meta property="og:image" content="https://www.robert-sokolewicz.nl"><meta property="og:image:width" content="2048"><meta property="og:image:height" content="1024"><meta property="article:published_time" content="2026-09-27 00:00:00 +0000 UTC"><script>MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],displayMath:[['$$','$$'],['\\[','\\]']],macros:{bb:["{\\boldsymbol{#1}}",1],tr:"{\\DeclareMathOperator{\\tr}{Tr}}",im:"{\\DeclareMathOperator{\\im}{Im}}",re:"{\\DeclareMathOperator{\\re}{Re}}",},processEscapes:true,processEnvironments:true,tags:"ams"},options:{skipHtmlTags:['script','noscript','style','textarea','pre']}};window.addEventListener('load',(event)=>{document.querySelectorAll("mjx-container").forEach(function(x){x.parentElement.classList+='has-jax'})});</script><script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script><script type=text/javascript id=MathJax-script async src=https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js></script><script type=text/x-mathjax-config>
+    MathJax.Hub.Queue(function() {
+        // Fix <code> tags after MathJax finishes running. This is a
+        // hack to overcome a shortcoming of Markdown. Discussion at
+        // https://github.com/mojombo/jekyll/issues/199
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i = 0; i &lt; all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+    </script></head><body class=orange><div class="container center headings--one-size"><header class=header><div class=header__inner><div class=header__logo><a href=/><div class=logo>Home</div></a></div><div class=menu-trigger>menu</div></div><nav class=menu><ul class="menu__inner menu__inner--desktop"><li><a href=/about>About</a></li><li><a href=/books>Book Reviews</a></li><li><a href=/cv>CV</a></li><li><a href=/physics>Physics</a></li><li><a href=/reading_papers>Reading Papers</a></li></ul><ul class="menu__inner menu__inner--mobile"><li><a href=/about>About</a></li><li><a href=/books>Book Reviews</a></li><li><a href=/cv>CV</a></li><li><a href=/physics>Physics</a></li><li><a href=/reading_papers>Reading Papers</a></li></ul></nav></header><div class=content><div class=post><h1 class=post-title><a href=https://www.robert-sokolewicz.nl/posts/31_my_git_setup/>My git setup: fish abbreviations, delta and mergiraf</a></h1><div class=post-meta><span class=post-date>2026-09-27</span>
+<span class=post-author>:: Robert</span></div><div class=post-content><div><p>I type <code>git</code> more than anything else in my terminal, so over time I&rsquo;ve
+configured and added a few things which may be worth sharing.</p><h1 id=fish-abbreviations-with-plugin-git>Fish abbreviations with plugin-git<a href=#fish-abbreviations-with-plugin-git class=hanchor arialabel=Anchor>&#8983;</a></h1><p>I use <a href=https://fishshell.com/>fish</a> shell with
+<a href=https://github.com/jorgebucaran/fisher>fisher</a> as the plugin manager. The only
+git-related plugin is
+<a href=https://github.com/jhillyerd/plugin-git>jhillyerd/plugin-git</a>, which ports the
+oh-my-zsh git aliases to fish:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>fisher install jhillyerd/plugin-git
+</code></pre></div><p>It adds about 180 abbreviations. Unlike aliases, abbreviations expand in place
+when you hit space, so you still see (and can edit) the full command before
+running it, and your history contains the real command. A few of them:</p><table><thead><tr><th>abbr</th><th>expands to</th></tr></thead><tbody><tr><td><code>gst</code></td><td><code>git status</code></td></tr><tr><td><code>gss</code></td><td><code>git status -s</code></td></tr><tr><td><code>gcm</code></td><td><code>git commit -m</code></td></tr><tr><td><code>gcb</code></td><td><code>git checkout -b</code></td></tr><tr><td><code>gd</code></td><td><code>git diff</code></td></tr><tr><td><code>gp</code></td><td><code>git push</code></td></tr><tr><td><code>gpra</code></td><td><code>git pull --rebase --autostash</code></td></tr><tr><td><code>gcan!</code></td><td><code>git commit -v -a --no-edit --amend</code></td></tr></tbody></table><p>It also ships some functions: <code>gwip</code>/<code>gunwip</code> to park your work in a throwaway
+WIP commit and undo it later, <code>gbda</code> to delete all merged branches, and <code>grt</code> to
+<code>cd</code> to the repo root.</p><h2 id=my-own-abbreviations>My own abbreviations<a href=#my-own-abbreviations class=hanchor arialabel=Anchor>&#8983;</a></h2><p>On top of that I have three of my own in <code>~/.config/fish/config.fish</code>:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=color:#75715e># pretty one-line graph log</span>
+abbr -a glog <span style=color:#e6db74>&#39;git log --graph --decorate --color --format=&#34;%C(auto)%C(#8bd5ca)%h%d %C(#a5adcb)%cr %C(#f0c6c6)[%aN]%C(reset) %C(#cad3f5)%s&#34;&#39;</span>
+
+<span style=color:#75715e># pull the latest version of the branch I&#39;m on</span>
+abbr -a gsync <span style=color:#e6db74>&#39;git fetch origin; and git pull --rebase --autostash origin (git branch --show-current)&#39;</span>
+
+<span style=color:#75715e># rebase my branch onto the latest main</span>
+abbr -a grom <span style=color:#e6db74>&#39;git fetch origin; and git rebase origin/main&#39;</span>
+</code></pre></div><p><code>glog</code> overrides the one from the git plugin, but made it more pretty:</p><p><img src=image.png alt="alt text"></p><p><code>grom</code> is handy right before opening a merge request, so the branch sits on top
+of a fresh <code>main</code>. It&rsquo;s also good to this on the main branch.</p><p>and <code>gsync</code> is handy when you apply suggestions on github/github and need to
+rebase locally.</p><h1 id=delta-as-the-pager>delta as the pager<a href=#delta-as-the-pager class=hanchor arialabel=Anchor>&#8983;</a></h1><p><a href=https://github.com/dandavison/delta>delta</a> replaces the default diff output
+with syntax highlighting and line numbers. It&rsquo;s used for <code>git diff</code>, <code>git show</code>,
+<code>git log -p</code> and also the interactive <code>git add -p</code>:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-ini data-lang=ini><span style=color:#66d9ef>[core]</span>
+    <span style=color:#a6e22e>pager</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>delta</span>
+<span style=color:#66d9ef>[interactive]</span>
+    <span style=color:#a6e22e>diffFilter</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>delta --color-only</span>
+<span style=color:#66d9ef>[delta]</span>
+    <span style=color:#a6e22e>pager</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>less --mouse -RF
+</span><span style=color:#e6db74>    navigate = true
+</span><span style=color:#e6db74>    dark = true
+</span><span style=color:#e6db74>    line-numbers = true
+</span><span style=color:#e6db74>    syntax-theme = Dracula</span>
+</code></pre></div><p><code>navigate = true</code> lets you jump between files in a diff with <code>n</code> and <code>N</code>, and
+<code>--mouse</code> makes scrolling work in the pager.</p><h1 id=mergiraf-for-merge-conflicts>mergiraf for merge conflicts<a href=#mergiraf-for-merge-conflicts class=hanchor arialabel=Anchor>&#8983;</a></h1><p><a href=https://mergiraf.org/>mergiraf</a> is a syntax-aware merge driver. Instead of
+comparing lines, it parses the file and merges the syntax trees, so two people
+adding different functions at the end of the same file, or different imports, no
+longer produces a conflict. Setup is two parts. First, register it as a merge
+driver in <code>~/.gitconfig</code>:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-ini data-lang=ini><span style=color:#66d9ef>[merge &#34;mergiraf&#34;]</span>
+    <span style=color:#a6e22e>name</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>mergiraf
+</span><span style=color:#e6db74>    driver = mergiraf merge --git %O %A %B -s %S -x %X -y %Y -p %P -l %L</span>
+</code></pre></div><p>Then tell git to use it for every file in <code>~/.config/git/attributes</code>:</p><pre><code>* merge=mergiraf
+</code></pre><p>For languages it doesn&rsquo;t understand it falls back to the normal line-based
+merge, so there&rsquo;s no downside to enabling it globally.</p><h1 id=config-defaults>Config defaults<a href=#config-defaults class=hanchor arialabel=Anchor>&#8983;</a></h1><p>The rest of <code>~/.gitconfig</code> is a few defaults that remove friction:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-ini data-lang=ini><span style=color:#66d9ef>[pull]</span>
+    <span style=color:#a6e22e>rebase</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>true        # never create merge commits on pull</span>
+<span style=color:#66d9ef>[rebase]</span>
+    <span style=color:#a6e22e>autoStash</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>true     # stash uncommitted changes before a rebase, pop them after</span>
+<span style=color:#66d9ef>[push]</span>
+    <span style=color:#a6e22e>default</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>current    # push to a branch with the same name, no --set-upstream needed</span>
+<span style=color:#66d9ef>[diff]</span>
+    <span style=color:#a6e22e>tool</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>code</span>
+<span style=color:#66d9ef>[difftool &#34;code&#34;]</span>
+    <span style=color:#a6e22e>cmd</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>code --wait --diff \&#34;$LOCAL\&#34; \&#34;$REMOTE\&#34;</span>
+<span style=color:#66d9ef>[alias]</span>
+</code></pre></div><h1 id=everything-else>Everything else<a href=#everything-else class=hanchor arialabel=Anchor>&#8983;</a></h1><ul><li><a href=https://cli.github.com/>gh</a> and <a href=https://gitlab.com/gitlab-org/cli>glab</a>
+for GitHub and GitLab from the terminal.</li><li><code>ll</code> is aliased to <code>eza -la --git --git-repos ...</code>, which shows the git status
+of every file in a directory listing.</li></ul></div></div><div class=pagination><div class=pagination__title><span class=pagination__title-h>Read other posts</span><hr></div><div class=pagination__buttons><span class="button next"><a href=https://www.robert-sokolewicz.nl/posts/32_epson_error_302608/><span class=button__text>Solving Epson printer error code 302608</span>
+<span class=button__icon>→</span></a></span></div></div></div></div><footer class=footer><div class=footer__inner><div class=copyright><span>© 2026 Powered by <a href=http://gohugo.io>Hugo</a></span>
+<span>:: Theme made by <a href=https://twitter.com/panr>panr</a></span></div></div></footer><script src=https://www.robert-sokolewicz.nl/assets/main.js></script><script src=https://www.robert-sokolewicz.nl/assets/prism.js></script></div></body></html>

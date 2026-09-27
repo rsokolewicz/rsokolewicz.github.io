@@ -1,4 +1,155 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Roberts blog</title><link>https://www.robert-sokolewicz.nl/posts/</link><description>Recent content in Posts on Roberts blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Fri, 15 May 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://www.robert-sokolewicz.nl/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Writing a book for Manning - part 1</title><link>https://www.robert-sokolewicz.nl/posts/29_manning_part1/</link><pubDate>Fri, 15 May 2026 00:00:00 +0000</pubDate><guid>https://www.robert-sokolewicz.nl/posts/29_manning_part1/</guid><description>At the start of the year my partner and I set a goal: we will write a book together. We both have extensive experience in data science which narrowed down the possible areas we could contribute to. After a few weeks of brainstorming we narrowed it down even further to three potential topics:
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Roberts blog</title><link>https://www.robert-sokolewicz.nl/posts/</link><description>Recent content in Posts on Roberts blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sun, 27 Sep 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://www.robert-sokolewicz.nl/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>My git setup: fish abbreviations, delta and mergiraf</title><link>https://www.robert-sokolewicz.nl/posts/31_my_git_setup/</link><pubDate>Sun, 27 Sep 2026 00:00:00 +0000</pubDate><guid>https://www.robert-sokolewicz.nl/posts/31_my_git_setup/</guid><description>I type git more than anything else in my terminal, so over time I&amp;rsquo;ve configured and added a few things which may be worth sharing.
+Fish abbreviations with plugin-git I use fish shell with fisher as the plugin manager. The only git-related plugin is jhillyerd/plugin-git, which ports the oh-my-zsh git aliases to fish:
+fisher install jhillyerd/plugin-git It adds about 180 abbreviations. Unlike aliases, abbreviations expand in place when you hit space, so you still see (and can edit) the full command before running it, and your history contains the real command.</description><content>&lt;p>I type &lt;code>git&lt;/code> more than anything else in my terminal, so over time I&amp;rsquo;ve
+configured and added a few things which may be worth sharing.&lt;/p>
+&lt;h1 id="fish-abbreviations-with-plugin-git">Fish abbreviations with plugin-git&lt;/h1>
+&lt;p>I use &lt;a href="https://fishshell.com/">fish&lt;/a> shell with
+&lt;a href="https://github.com/jorgebucaran/fisher">fisher&lt;/a> as the plugin manager. The only
+git-related plugin is
+&lt;a href="https://github.com/jhillyerd/plugin-git">jhillyerd/plugin-git&lt;/a>, which ports the
+oh-my-zsh git aliases to fish:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">fisher install jhillyerd/plugin-git
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>It adds about 180 abbreviations. Unlike aliases, abbreviations expand in place
+when you hit space, so you still see (and can edit) the full command before
+running it, and your history contains the real command. A few of them:&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>abbr&lt;/th>
+&lt;th>expands to&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;code>gst&lt;/code>&lt;/td>
+&lt;td>&lt;code>git status&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>gss&lt;/code>&lt;/td>
+&lt;td>&lt;code>git status -s&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>gcm&lt;/code>&lt;/td>
+&lt;td>&lt;code>git commit -m&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>gcb&lt;/code>&lt;/td>
+&lt;td>&lt;code>git checkout -b&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>gd&lt;/code>&lt;/td>
+&lt;td>&lt;code>git diff&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>gp&lt;/code>&lt;/td>
+&lt;td>&lt;code>git push&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>gpra&lt;/code>&lt;/td>
+&lt;td>&lt;code>git pull --rebase --autostash&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>gcan!&lt;/code>&lt;/td>
+&lt;td>&lt;code>git commit -v -a --no-edit --amend&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>It also ships some functions: &lt;code>gwip&lt;/code>/&lt;code>gunwip&lt;/code> to park your work in a throwaway
+WIP commit and undo it later, &lt;code>gbda&lt;/code> to delete all merged branches, and &lt;code>grt&lt;/code> to
+&lt;code>cd&lt;/code> to the repo root.&lt;/p>
+&lt;h2 id="my-own-abbreviations">My own abbreviations&lt;/h2>
+&lt;p>On top of that I have three of my own in &lt;code>~/.config/fish/config.fish&lt;/code>:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-shell" data-lang="shell">&lt;span style="color:#75715e"># pretty one-line graph log&lt;/span>
+abbr -a glog &lt;span style="color:#e6db74">&amp;#39;git log --graph --decorate --color --format=&amp;#34;%C(auto)%C(#8bd5ca)%h%d %C(#a5adcb)%cr %C(#f0c6c6)[%aN]%C(reset) %C(#cad3f5)%s&amp;#34;&amp;#39;&lt;/span>
+&lt;span style="color:#75715e"># pull the latest version of the branch I&amp;#39;m on&lt;/span>
+abbr -a gsync &lt;span style="color:#e6db74">&amp;#39;git fetch origin; and git pull --rebase --autostash origin (git branch --show-current)&amp;#39;&lt;/span>
+&lt;span style="color:#75715e"># rebase my branch onto the latest main&lt;/span>
+abbr -a grom &lt;span style="color:#e6db74">&amp;#39;git fetch origin; and git rebase origin/main&amp;#39;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>glog&lt;/code> overrides the one from the git plugin, but made it more pretty:&lt;/p>
+&lt;p>&lt;img src="image.png" alt="alt text">&lt;/p>
+&lt;p>&lt;code>grom&lt;/code> is handy right before opening a merge request, so the branch sits on top
+of a fresh &lt;code>main&lt;/code>. It&amp;rsquo;s also good to this on the main branch.&lt;/p>
+&lt;p>and &lt;code>gsync&lt;/code> is handy when you apply suggestions on github/github and need to
+rebase locally.&lt;/p>
+&lt;h1 id="delta-as-the-pager">delta as the pager&lt;/h1>
+&lt;p>&lt;a href="https://github.com/dandavison/delta">delta&lt;/a> replaces the default diff output
+with syntax highlighting and line numbers. It&amp;rsquo;s used for &lt;code>git diff&lt;/code>, &lt;code>git show&lt;/code>,
+&lt;code>git log -p&lt;/code> and also the interactive &lt;code>git add -p&lt;/code>:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-ini" data-lang="ini">&lt;span style="color:#66d9ef">[core]&lt;/span>
+&lt;span style="color:#a6e22e">pager&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">delta&lt;/span>
+&lt;span style="color:#66d9ef">[interactive]&lt;/span>
+&lt;span style="color:#a6e22e">diffFilter&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">delta --color-only&lt;/span>
+&lt;span style="color:#66d9ef">[delta]&lt;/span>
+&lt;span style="color:#a6e22e">pager&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">less --mouse -RF
+&lt;/span>&lt;span style="color:#e6db74"> navigate = true
+&lt;/span>&lt;span style="color:#e6db74"> dark = true
+&lt;/span>&lt;span style="color:#e6db74"> line-numbers = true
+&lt;/span>&lt;span style="color:#e6db74"> syntax-theme = Dracula&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>navigate = true&lt;/code> lets you jump between files in a diff with &lt;code>n&lt;/code> and &lt;code>N&lt;/code>, and
+&lt;code>--mouse&lt;/code> makes scrolling work in the pager.&lt;/p>
+&lt;h1 id="mergiraf-for-merge-conflicts">mergiraf for merge conflicts&lt;/h1>
+&lt;p>&lt;a href="https://mergiraf.org/">mergiraf&lt;/a> is a syntax-aware merge driver. Instead of
+comparing lines, it parses the file and merges the syntax trees, so two people
+adding different functions at the end of the same file, or different imports, no
+longer produces a conflict. Setup is two parts. First, register it as a merge
+driver in &lt;code>~/.gitconfig&lt;/code>:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-ini" data-lang="ini">&lt;span style="color:#66d9ef">[merge &amp;#34;mergiraf&amp;#34;]&lt;/span>
+&lt;span style="color:#a6e22e">name&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">mergiraf
+&lt;/span>&lt;span style="color:#e6db74"> driver = mergiraf merge --git %O %A %B -s %S -x %X -y %Y -p %P -l %L&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Then tell git to use it for every file in &lt;code>~/.config/git/attributes&lt;/code>:&lt;/p>
+&lt;pre>&lt;code>* merge=mergiraf
+&lt;/code>&lt;/pre>&lt;p>For languages it doesn&amp;rsquo;t understand it falls back to the normal line-based
+merge, so there&amp;rsquo;s no downside to enabling it globally.&lt;/p>
+&lt;h1 id="config-defaults">Config defaults&lt;/h1>
+&lt;p>The rest of &lt;code>~/.gitconfig&lt;/code> is a few defaults that remove friction:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-ini" data-lang="ini">&lt;span style="color:#66d9ef">[pull]&lt;/span>
+&lt;span style="color:#a6e22e">rebase&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">true # never create merge commits on pull&lt;/span>
+&lt;span style="color:#66d9ef">[rebase]&lt;/span>
+&lt;span style="color:#a6e22e">autoStash&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">true # stash uncommitted changes before a rebase, pop them after&lt;/span>
+&lt;span style="color:#66d9ef">[push]&lt;/span>
+&lt;span style="color:#a6e22e">default&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">current # push to a branch with the same name, no --set-upstream needed&lt;/span>
+&lt;span style="color:#66d9ef">[diff]&lt;/span>
+&lt;span style="color:#a6e22e">tool&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">code&lt;/span>
+&lt;span style="color:#66d9ef">[difftool &amp;#34;code&amp;#34;]&lt;/span>
+&lt;span style="color:#a6e22e">cmd&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">code --wait --diff \&amp;#34;$LOCAL\&amp;#34; \&amp;#34;$REMOTE\&amp;#34;&lt;/span>
+&lt;span style="color:#66d9ef">[alias]&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="everything-else">Everything else&lt;/h1>
+&lt;ul>
+&lt;li>&lt;a href="https://cli.github.com/">gh&lt;/a> and &lt;a href="https://gitlab.com/gitlab-org/cli">glab&lt;/a>
+for GitHub and GitLab from the terminal.&lt;/li>
+&lt;li>&lt;code>ll&lt;/code> is aliased to &lt;code>eza -la --git --git-repos ...&lt;/code>, which shows the git status
+of every file in a directory listing.&lt;/li>
+&lt;/ul></content></item><item><title>Solving Epson printer error code 302608</title><link>https://www.robert-sokolewicz.nl/posts/32_epson_error_302608/</link><pubDate>Sun, 27 Sep 2026 00:00:00 +0000</pubDate><guid>https://www.robert-sokolewicz.nl/posts/32_epson_error_302608/</guid><description>I have a Epson XP-970 printer that broke the other day. Ten-twenty seconds after booting the printer stops whatever it was doing and the display shows a
+system error &amp;ldquo;302608&amp;rdquo;
+Customer support wasn&amp;rsquo;t very helpful, and a Google search showed me exactly one hit of someone who also had this problem, but on solution.
+With the help of Gemini, we cracked the case. I installed the firmware updater from Epson&amp;rsquo;s website, connected my laptop to the printer using a usb-c to usb-b cable.</description><content>&lt;p>I have a Epson XP-970 printer that broke the other day. Ten-twenty seconds after
+booting the printer stops whatever it was doing and the display shows a&lt;/p>
+&lt;blockquote>
+&lt;p>system error &amp;ldquo;302608&amp;rdquo;&lt;/p>
+&lt;/blockquote>
+&lt;p>Customer support wasn&amp;rsquo;t very helpful, and a Google search showed me exactly one
+hit of someone who also had this problem, but on solution.&lt;/p>
+&lt;p>With the help of Gemini, we cracked the case. I installed the firmware updater
+from Epson&amp;rsquo;s website, connected my laptop to the printer using a usb-c to usb-b
+cable. I then booted the printer in &amp;ldquo;recovery mode&amp;rdquo;, by putting my fingers in
+the top right corner of the touch screen and holding the power button for about
+15 seconds. Right after the power button starts to flash I let go of screen and
+button. Some white text appeared (if you don&amp;rsquo;t let go fast enough red text
+appears and you have to try again). I then updated the firmware using the
+updater. The updater said &amp;ldquo;upload complete&amp;rdquo;, but apparently this doesn&amp;rsquo;t mean
+that the update is complete. You have to wait for about 2-3 minutes for the
+firmware to install (no indication from printer that something is happening). If
+you reboot before it finishes, you are cooked because the printer wil be in a
+non-recoverable state. When the update is complete white text appears on the
+touch screen saying something like&lt;/p>
+&lt;blockquote>
+&lt;p>update mode FINISHED ROM VERSION 02.77.PI 2205 ROM1 FIXSUM E9C4 ROM2 FIXSUM
+CDEF&lt;/p>
+&lt;/blockquote>
+&lt;p>and the power button starts flashing. To reboot, instead of pressing the power
+button you have to touch the touch screen, and only then can you use the button
+the reboot the printer.&lt;/p>
+&lt;p>Not very friendly, but it made my printer work again.&lt;/p></content></item><item><title>Writing a book for Manning - part 1</title><link>https://www.robert-sokolewicz.nl/posts/29_manning_part1/</link><pubDate>Fri, 15 May 2026 00:00:00 +0000</pubDate><guid>https://www.robert-sokolewicz.nl/posts/29_manning_part1/</guid><description>At the start of the year my partner and I set a goal: we will write a book together. We both have extensive experience in data science which narrowed down the possible areas we could contribute to. After a few weeks of brainstorming we narrowed it down even further to three potential topics:
 small language models post-training document extraction We then searched recently published data science books in the catalogs of O&amp;rsquo;Reilly, Manning and Packt to see what is up and coming.</description><content>&lt;p>At the start of the year my partner and I set a goal: we will write a book together. We both have extensive experience in data science
 which narrowed down the possible areas we could contribute to. After a few weeks of brainstorming we narrowed it down even further to
 three potential topics:&lt;/p>
