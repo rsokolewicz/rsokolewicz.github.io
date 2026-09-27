@@ -214,8 +214,13 @@ function getSymbol(isin) {
 }
 
 function txType(qty) {
-    if (qty > 0) return "BUY";
-    if (qty < 0) return "SELL";
+    // Yahoo's current Portfolio no longer accepts negative Quantity values
+    // (confirmed via help.yahoo.com/kb/finance-app-for-ios/understand-negative-lots...):
+    // sells must be positive Quantity + Transaction Type "Sell", and Yahoo's
+    // docs consistently use title case ("Sell", "Sell Short") — all-caps
+    // "SELL" was silently ignored and imported as an extra Buy.
+    if (qty > 0) return "Buy";
+    if (qty < 0) return "Sell";
     return "";
 }
 
@@ -243,9 +248,22 @@ function parseCSV(text) {
     }
     if (rows.length === 0) return [];
     const headers = rows[0];
+    const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
     return rows.slice(1).map(r => {
         const obj = {};
         headers.forEach((h, i) => { obj[h] = r[i] ?? ""; });
+
+        // Some DEGIRO exports have jagged rows: an extra blank field is
+        // sometimes inserted right before Order ID, shifting the real UUID
+        // into an unlabeled trailing column instead of lining up with the
+        // "Order ID" header. Detect this per-row (it isn't consistent across
+        // rows in the same file) by shape, not position.
+        if (!UUID_RE.test(obj["Order ID"])) {
+            const shifted = r[headers.length];
+            if (shifted && UUID_RE.test(shifted)) obj["Order ID"] = shifted;
+        }
+
         return obj;
     });
 }
@@ -304,7 +322,7 @@ function refreshFileList() {
         item.appendChild(btn);
         list.appendChild(item);
     });
-    document.getElementById("runBtn").disabled = files.length < 2;
+    document.getElementById("runBtn").disabled = files.length < 1;
 }
 
 function addFiles(newFiles) {
@@ -332,7 +350,7 @@ document.getElementById("runBtn").addEventListener("click", async () => {
     logEl.innerHTML = "";
     log("=== Transaction Merge and Convert ===\n", "head");
 
-    const allRows = [];
+    let allRows = [];
 
     for (let i = 0; i < files.length; i++) {
         const f = files[i];
@@ -345,7 +363,60 @@ document.getElementById("runBtn").addEventListener("click", async () => {
         allRows.push(...rows);
     }
 
-    log(`\nMerging ${files.length} files — ${allRows.length} total records`);
+    log(files.length === 1
+        ? `\nConverting ${allRows.length} total records`
+        : `\nMerging ${files.length} files — ${allRows.length} total records`);
+
+    // De-duplicate rows that represent the same trade appearing in more than
+    // one uploaded file (e.g. an older export and a newer, overlapping export
+    // of the same DEGIRO account both being dropped in together).
+    //
+    // DEGIRO doesn't always have an Order ID assigned yet for very recent
+    // trades — an older export can show a trade with a blank Order ID that a
+    // later export of the *same* account shows with a real one. Those are
+    // still safe to match by Date+Time+ISIN+Venue+Quantity+Price, since two
+    // real trades colliding on that exact fingerprint is effectively
+    // impossible.
+    //
+    // The one case that fingerprint alone gets wrong is DEGIRO's automatic
+    // corporate-action rows (stock splits, venue reclassifications), which
+    // are generic: blank Order ID, Time "00:00", blank Venue. Two *different*
+    // accounts can each undergo the same split on the same day and produce
+    // an identical-looking row — those are genuinely separate transactions,
+    // not duplicates, so this shape is deliberately excluded from dedup.
+    const isAdjustmentRow = r =>
+        !(r["Order ID"] ?? "").trim() &&
+        (r["Time"] ?? "").trim() === "00:00" &&
+        !(r["Venue"] ?? "").trim();
+
+    const seenKeys = new Set();
+    const beforeDedup = allRows.length;
+    allRows = allRows.filter(r => {
+        if (isAdjustmentRow(r)) return true;
+        // "Total EUR" is included so that two distinct fills of the same
+        // order at the same date/time/price (one with a fee, one without —
+        // a real DEGIRO pattern, not an export artifact) aren't collapsed
+        // into one, while a true re-exported duplicate — which always
+        // carries an identical total — still matches and gets removed.
+        const key = ["Date", "Time", "ISIN", "Venue", "Quantity", "Price", "Total EUR"]
+            .map(f => (r[f] ?? "").trim()).join("|");
+        if (seenKeys.has(key)) return false;
+        seenKeys.add(key);
+        return true;
+    });
+    const dupCount = beforeDedup - allRows.length;
+    if (dupCount > 0) {
+        log(`Removed ${dupCount} duplicate row(s) found in more than one uploaded file`, "info");
+    }
+
+    const noOrderIdRows = allRows.filter(r => !(r["Order ID"] ?? "").trim() && (r["Date"] ?? "").trim());
+    if (noOrderIdRows.length > 0) {
+        log(`${noOrderIdRows.length} row(s) with no Order ID (DEGIRO automatic adjustments — venue reclassifications, stock splits) will be kept as BUY/SELL rows:`, "info");
+        for (const r of noOrderIdRows) {
+            log(`  - ${r["Date"]} ${r["Product"] || ""} qty=${r["Quantity"] || ""}`, "info");
+        }
+    }
+
     log("Converting to Yahoo Finance format...\n");
 
     const OUTPUT_HEADERS = [
@@ -374,7 +445,13 @@ document.getElementById("runBtn").addEventListener("click", async () => {
             "Volume": "",
             "Trade Date": tradeDate,
             "Purchase Price": price.toFixed(4),
-            "Quantity": qty.toFixed(1),
+            // Yahoo's current Portfolio rejects negative Quantity outright
+            // (its own import review flagged every such row as needing
+            // correction) — its docs say sells must use a positive Quantity
+            // together with Transaction Type "Sell". The earlier all-caps
+            // "SELL" value was accepted by the upload but silently treated
+            // as a Buy; see txType() for the case-sensitivity fix.
+            "Quantity": Math.abs(qty).toFixed(1),
             "Commission": Math.abs(commission).toFixed(2),
             "High Limit": "",
             "Low Limit": "",
@@ -386,8 +463,9 @@ document.getElementById("runBtn").addEventListener("click", async () => {
     // Filter out zero-quantity rows and empty symbols
     converted = converted.filter(r => r["Quantity"] !== "0.0" && r["Symbol"] !== "");
 
-    // Sort by date descending
-    converted.sort((a, b) => b["Date"].localeCompare(a["Date"]));
+    // Sort by date ascending (oldest first), so Yahoo sees each BUY before any
+    // later SELL that depends on it when validating running share position
+    converted.sort((a, b) => a["Date"].localeCompare(b["Date"]));
 
     if (converted.length === 0) {
         log("✕ No valid transactions found after filtering.", "err");
